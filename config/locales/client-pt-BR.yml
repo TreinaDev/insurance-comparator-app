@@ -1,0 +1,15 @@
+pt-BR:
+  activerecord:
+    models:
+      client: Cliente
+    attributes:
+      client:
+        name: 'Nome'
+        cpf: 'CPF'
+        address: 'Endereço'
+        city: 'Cidade'
+        state: 'Estado'
+        birth_date: 'Data de nascimento'
+        email: 'E-mail'
+        password: 'Senha'
+
