@@ -1,0 +1,6 @@
+<%= link_to 'Meus Dispositivos', new_equipment_path%>
+
+<%= form_with(model: @equipment) do |f| %>
+  <%= f.label :name, 'Nome' %>
+  <%= f.text_field :name %>
+<% end %>
