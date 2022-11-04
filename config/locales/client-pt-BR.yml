@@ -4,7 +4,7 @@ pt-BR:
       client: Cliente
     attributes:
       client:
-        name: 'Nome'
+        name: 'Nome completo'
         cpf: 'CPF'
         address: 'Endereço'
         city: 'Cidade'
@@ -12,4 +12,5 @@ pt-BR:
         birth_date: 'Data de nascimento'
         email: 'E-mail'
         password: 'Senha'
+        password_confirmation: 'Confirme sua senha'
 

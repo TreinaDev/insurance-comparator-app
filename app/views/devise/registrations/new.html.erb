@@ -1,4 +1,4 @@
-<h2>"#{t :sign_up}"</h2>
+<h2><%= "#{t :sign_up}" %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -30,7 +30,7 @@
 
   <div class="field">
     <%= f.label :birth_date %><br />
-    <%= f.date_field :birth_date %>
+    <%= f.date_field :birth_date, max: Date.today %>
   </div>
 
   <div class="field">
@@ -41,7 +41,7 @@
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em>(mínimo de <%= @minimum_password_length %> caracteres)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>

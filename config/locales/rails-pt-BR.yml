@@ -104,7 +104,7 @@ pt-BR:
         we_need_your_current_password_to_confirm_your_changes: precisamos da sua senha atual para confirmar suas mudanças
       new:
         sign_up: Criar uma conta
-      signed_up: Bem vindo! Você realizou seu registro com sucesso.
+      signed_up: Cadastro realizado com sucesso.
       signed_up_but_inactive: Você se inscreveu com sucesso, porém nós não podemos autenticá-lo porque sua conta ainda não foi ativada.
       signed_up_but_locked: Você se inscreveu com sucesso. Porém nós não podemos autenticá-lo porque sua conta está bloqueada.
       signed_up_but_unconfirmed: Uma mensagem com um link de confirmação foi enviada para o seu e-mail. Por favor, acesse o link para ativar sua conta.
@@ -115,8 +115,8 @@ pt-BR:
       already_signed_out: Logout efetuado com sucesso.
       new:
         sign_in: Login
-      signed_in: Login efetuado com sucesso.
-      signed_out: Logout efetuado com sucesso.
+        signed_in: Login efetuado com sucesso.
+    signed_out: Logout efetuado com sucesso.
     shared:
       links:
         back: Voltar
@@ -136,12 +136,24 @@ pt-BR:
       send_paranoid_instructions: Se sua conta existir em nosso banco de dados, você receberá em breve um e-mail com instruções para desbloquear ela.
       unlocked: A sua conta foi desbloqueada com sucesso. Efetue login para continuar.
   errors:
+    format: "%{attribute} %{message}"
     messages:
       already_confirmed: já foi confirmado
       confirmation_period_expired: É necessário ser confirmado dentro do período %{period}, por favor requisite um novo usuário.
       expired: expirou, por favor solicite uma nova
       not_found: não encontrado
       not_locked: não foi bloqueado
+      invalid: deve estar no formato email@email.com
+      blank: não pode ficar em branco
+      too_long:
+        one: 'é muito longo (máximo: 1 caracter)'
+        other: 'é muito longo (máximo: %{count} caracteres)'
+      too_short:
+        one: 'é muito curto (mínimo: 1 caracter)'
+        other: 'é muito curto (mínimo: %{count} caracteres)'
+      wrong_length:
+        one: não possui o tamanho esperado (1 caracter)
+        other: não possui o tamanho esperado (%{count} caracteres)
       not_saved:
-        one: 'Não foi possível salvar %{resource}: 1 erro'
-        other: 'Não foi possível salvar %{resource}: %{count} erros.'
+        one: 'Não foi possível realizar o cadastro. Por favor, verifique o erro abaixo:'
+        other: 'Não foi possível realizar o cadastro. Por favor, verifique os erros abaixo:'
