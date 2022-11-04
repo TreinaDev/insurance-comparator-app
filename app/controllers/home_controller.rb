@@ -3,6 +3,6 @@ class HomeController < ApplicationController
 
   def search
     @query = params[:query]
-    @insurances = Insurance.search
+    @insurances = Insurance.search(@query)
   end
 end
