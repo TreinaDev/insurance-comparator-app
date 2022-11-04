@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      equipment:
+        one: 'Dispositivo'
+        other: 'Dispositivos'
+    attributes:
+      equipment: 
+        name: 'Nome'
+        brand: 'Marca'
+        purchase_date: 'Data da compra'

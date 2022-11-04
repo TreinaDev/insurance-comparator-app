@@ -1,0 +1,11 @@
+<h1>Cadastro de Dispositivo</h1>
+
+<%= form_with(model:@equipment) do |f| %>
+  <p><%= f.label :name %>
+  <%= f.text_field :name %></p>
+  <p><%= f.label :brand %>
+  <%= f.text_field :brand %></p>
+  <p><%= f.label :purchase_date %>
+  <%= f.date_field :purchase_date %></p>
+  <%= f.submit 'Salvar' %>
+<% end %>
