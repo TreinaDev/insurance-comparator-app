@@ -1,6 +1,6 @@
-<%= link_to 'Meus Dispositivos', new_equipment_path%>
+<h1>Cadastro de Dispositivo</h1>
 
-<%= form_with(model: @equipment) do |f| %>
-  <%= f.label :name, 'Nome' %>
-  <%= f.text_field :name %>
+<%= form_with(model:@equipment) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, 'Nome' %>
 <% end %>

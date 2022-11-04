@@ -18,19 +18,6 @@
           null
         ]
       },
-      "/home/midori/workspace/projetos/projeto_etapa_2/insurance-comparator-app/app/models/equipment.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/home/midori/workspace/projetos/projeto_etapa_2/insurance-comparator-app/app/models/order.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
       "/home/midori/workspace/projetos/projeto_etapa_2/insurance-comparator-app/app/controllers/home_controller.rb": {
         "lines": [
           1,
@@ -57,13 +44,32 @@
       "/home/midori/workspace/projetos/projeto_etapa_2/insurance-comparator-app/app/controllers/equipments_controller.rb": {
         "lines": [
           1,
+          null,
+          1,
+          null,
+          null,
           1,
           1,
           null,
           null
         ]
+      },
+      "/home/midori/workspace/projetos/projeto_etapa_2/insurance-comparator-app/app/models/equipment.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/midori/workspace/projetos/projeto_etapa_2/insurance-comparator-app/app/models/order.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
       }
     },
-    "timestamp": 1667513918
+    "timestamp": 1667595215
   }
 }

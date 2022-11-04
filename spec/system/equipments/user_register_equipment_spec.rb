@@ -8,8 +8,8 @@ describe 'Usuário cadastra dispositivo' do
     #Act
     login_as(user)
     visit(root_path)
-    click_on 'Usuário 1'
     click_on 'Meus Dispositivos'
+    click_on 'Cadastrar Novo'
     
     #Assert
     expect(page).to have_field 'Nome'
