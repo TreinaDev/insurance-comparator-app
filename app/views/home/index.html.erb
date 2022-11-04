@@ -1,7 +1,8 @@
 <h1> Boas Vindas Ao Comparador de Seguros </h1>
+<hr/>
 
 <%= form_with(url: search_path, method: :get) do |f|%>
-  <%= f.label :query, 'Busca' %>
+  <%= f.label :query, 'Produto' %>
   <%= f.text_field :query %>
   <%= f.submit 'Buscar' %>
 <% end %>

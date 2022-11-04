@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "insurance_name": "Seguradora 1",
+    "product_model": " Iphone 11",
+    "packages": "Premium",
+    "price": 50
+  },
+  {
+    "id": 2,
+    "insurance_name": "Seguradora 2",
+    "product_model": " Iphone 11",
+    "packages": "Plus",
+    "price": 20
+  }
+]

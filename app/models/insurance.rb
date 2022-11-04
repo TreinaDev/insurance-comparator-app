@@ -9,13 +9,20 @@ class Insurance
     @price = price
   end
 
-  def self.all
+  def self.search
+    @query = params[:query]
     insurances = []
-    insurances << Insurance.new(id: 1, insurance_name: "Seguradora 1", product_model: "Iphone 11", packages: "Premium", price: 50)
-    insurances << Insurance.new(id: 2, insurance_name: "Seguradora 2", product_model: "Iphone 11", packages: "Plus", price: 20)
-    insurances << Insurance.new(id: 3, insurance_name: "Seguradora 3", product_model: "Iphone 11", packages: "Profissional", price: 35)
-    insurances << Insurance.new(id: 4, insurance_name: "Seguradora 2", product_model: "Moto G 20", packages: "Plus", price: 20)
-    insurances << Insurance.new(id: 5, insurance_name: "Seguradora 3", product_model: "Moto G 20", packages: "Profissional", price: 35)
+    # conecto na API e pego as informações dela
+    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@query}")
+    if response.status == 200
+      # converto em formato JSON
+      data = JSON.parse(response.body)
+      # percorro o array - cada item do array vai ser um hash - tiro as informações do hash e monto o objeto
+      data.each do |d|
+        insurances << Insurance.new(id: d['id'], insurance_name: d['insurance_name'], product_model: d['product_model'],
+                                    packages: d['packages'], price: d['price'])
+      end
+    end
     insurances
   end
 end
