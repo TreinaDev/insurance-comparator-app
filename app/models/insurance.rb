@@ -9,7 +9,7 @@ class Insurance
     @price = price
   end
 
-  def self.search(_query)
+  def self.search(query)
     insurances = []
     # conecto na API e pego as informações dela
     response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@query}")
