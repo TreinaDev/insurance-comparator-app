@@ -1,6 +1,8 @@
 class EquipmentController < ApplicationController
+  def index; end
 
-  def index
+  def show
+    @equipment = Equipment.find(params[:id])
   end
 
   def new
@@ -9,16 +11,12 @@ class EquipmentController < ApplicationController
 
   def create
     @equipment = Equipment.new(equipment_params)
-    if @equipment.save 
+    if @equipment.save
       redirect_to @equipment, notice: 'Seu dispositivo foi cadastro com sucesso!'
     else
       flash.now[:alert] = 'Não foi possível cadastrar seu dispositivo.'
       render 'new'
     end
-  end
-
-  def show
-    @equipment = Equipment.find(params[:id])
   end
 
   private

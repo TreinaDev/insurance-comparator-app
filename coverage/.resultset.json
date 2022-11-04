@@ -50,14 +50,15 @@
           1,
           0,
           null,
-          null,
           null
         ]
       },
       "/home/midori/workspace/projetos/projeto_etapa_2/insurance-comparator-app/app/controllers/equipment_controller.rb": {
         "lines": [
           1,
+          1,
           null,
+          1,
           1,
           null,
           null,
@@ -76,10 +77,6 @@
           null,
           null,
           1,
-          1,
-          null,
-          null,
-          1,
           null,
           1,
           1,
@@ -88,6 +85,6 @@
         ]
       }
     },
-    "timestamp": 1667598695
+    "timestamp": 1667602077
   }
 }
