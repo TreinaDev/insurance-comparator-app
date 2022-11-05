@@ -12,12 +12,14 @@
 
   <body>
     <header>
-      <% if client_signed_in? %>
-        <%= "#{ current_client.name} | #{ current_client.email }" %>
-        <%= button_to t(:sign_out), destroy_client_session_path, method: :post %>
-      <% else %>
-        <%= link_to t(:sign_in), new_client_session_path %>
-      <% end %>
+      <nav>
+        <% if client_signed_in? %>
+          <%= "#{ current_client.name} | #{ current_client.email }" %>
+          <%= button_to t(:sign_out), destroy_client_session_path, method: :post %>
+        <% else %>
+          <%= link_to t(:sign_in), new_client_session_path %>
+       <% end %>
+      </nav>
     </header>
 
     <p class="notice"><%= notice %></p>
