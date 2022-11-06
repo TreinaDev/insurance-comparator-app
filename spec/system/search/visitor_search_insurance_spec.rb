@@ -11,7 +11,7 @@ describe 'Visitante realiza uma busca por seguradoras' do
   end
 
   it 'a partir do nome do seu produto' do
-    json_data = File.read(Rails.root.join('spec/support/json/insurances.json'))
+    json_data = Rails.root.join('spec/support/json/insurances.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/insurance/#{@query}").and_return(fake_response)
 
