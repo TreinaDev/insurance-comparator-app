@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário faz autenticação' do
+describe 'Usuário se autentica' do
   it 'com sucesso a partir da tela inicial' do
     Client.create!(name: 'Thalis', email: 'thalis@gmail.com', password: '12345678', cpf: '02938477569',
                    address: 'Rua das Rosas, 350', city: 'Salvador', state: 'BA', birth_date: '09-02-1998')
@@ -42,5 +42,16 @@ describe 'Usuário faz autenticação' do
       expect(page).to have_link 'Entrar'
       expect(page).not_to have_button 'Sair'
     end
+  end
+
+  it 'e faz logout' do
+    client = Client.create!(name: 'Thalis', email: 'thalis@gmail.com', password: '12345678', cpf: '02938477569',
+                            address: 'Rua das Rosas, 350', city: 'Salvador', state: 'BA', birth_date: '09-02-1998')
+
+    login_as(client)
+    visit root_path
+    click_button 'Sair'
+
+    expect(page).to have_content 'Logout efetuado com sucesso.'
   end
 end
