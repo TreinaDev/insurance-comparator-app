@@ -9,3 +9,5 @@ pt-BR:
         name: 'Nome'
         brand: 'Marca'
         purchase_date: 'Data da compra'
+        invoice: 'Nota Fiscal'
+        photos: 'Fotos'

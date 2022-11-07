@@ -22,6 +22,6 @@ class EquipmentController < ApplicationController
   private
 
   def equipment_params
-    params.require(:equipment).permit(:name, :brand, :purchase_date)
+    params.require(:equipment).permit(:name, :brand, :purchase_date, :invoice, photos:[])
   end
 end

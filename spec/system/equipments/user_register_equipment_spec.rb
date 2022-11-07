@@ -13,6 +13,9 @@ describe 'Usuário cadastra dispositivo' do
     expect(page).to have_field 'Nome'
     expect(page).to have_field 'Marca'
     expect(page).to have_field 'Data da compra'
+    expect(page).to have_field 'Nota Fiscal'
+    expect(page).to have_field 'Fotos'
+
   end
 
   it 'com sucesso' do
@@ -26,6 +29,8 @@ describe 'Usuário cadastra dispositivo' do
     fill_in 'Nome', with: 'Iphone 14 - ProMax'
     fill_in 'Marca', with: 'Apple'
     fill_in 'Data da compra', with: '01/11/2022'
+    attach_file 'Nota Fiscal', Rails.root.join('spec', 'support')
+    attach_file 'Fotos', Rails.root.join('spec', 'support')
     click_on 'Salvar'
 
     expect(page).to have_content 'Seu dispositivo foi cadastro com sucesso!'

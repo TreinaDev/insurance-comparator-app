@@ -7,5 +7,9 @@
   <%= f.text_field :brand %></p>
   <p><%= f.label :purchase_date %>
   <%= f.date_field :purchase_date %></p>
+  <p><%= f.label :invoice %>
+  <%= f.file_field :invoice %></p>
+  <p><%= f.label :photos %>
+  <%= f.file_field :photos, multiple: true %></p>
   <%= f.submit 'Salvar' %>
 <% end %>
