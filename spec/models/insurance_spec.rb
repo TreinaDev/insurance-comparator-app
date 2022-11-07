@@ -12,12 +12,12 @@ describe Insurance do
       expect(result.length).to eq 2
       expect(result[0].id).to eq 1
       expect(result[0].insurance_name).to eq 'Seguradora 1'
-      expect(result[0].product_model).to eq 'Iphone 11'
+      expect(result[0].product_model).to eq 'iPhone 11'
       expect(result[0].packages).to eq 'Premium'
       expect(result[0].price).to eq 50
       expect(result[1].id).to eq 2
       expect(result[1].insurance_name).to eq 'Seguradora 2'
-      expect(result[1].product_model).to eq 'Iphone 11'
+      expect(result[1].product_model).to eq 'iPhone 11'
       expect(result[1].packages).to eq 'Plus'
       expect(result[1].price).to eq 20
     end
