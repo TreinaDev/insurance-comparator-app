@@ -17,7 +17,7 @@ describe 'Usuário cria uma conta' do
       fill_in 'E-mail', with: 'thalis@gmail.com'
       fill_in 'Senha', with: '12345678'
       fill_in 'Confirme sua senha', with: '12345678'
-      click_button 'Criar conta'
+      click_button 'Cadastre-se'
     end
 
     expect(page).to have_content 'Cadastro realizado com sucesso.'
@@ -40,7 +40,7 @@ describe 'Usuário cria uma conta' do
       fill_in 'E-mail', with: ''
       fill_in 'Senha', with: ''
       fill_in 'Confirme sua senha', with: ''
-      click_button 'Criar conta'
+      click_button 'Cadastre-se'
     end
 
     expect(page).to have_content 'Não foi possível realizar o cadastro. Por favor, verifique os erros abaixo:'
@@ -67,7 +67,7 @@ describe 'Usuário cria uma conta' do
       fill_in 'E-mail', with: 'thalis.'
       fill_in 'Senha', with: '123'
       fill_in 'Confirme sua senha', with: '123'
-      click_button 'Criar conta'
+      click_button 'Cadastre-se'
     end
 
     expect(page).to have_content 'Estado não possui o tamanho esperado (2 caracteres)'
@@ -89,7 +89,7 @@ describe 'Usuário cria uma conta' do
     within 'form' do
       fill_in 'CPF', with: '21234567890'
       fill_in 'E-mail', with: 'ana@gmail.com'
-      click_button 'Criar conta'
+      click_button 'Cadastre-se'
     end
 
     expect(page).to have_content 'E-mail já está em uso'
