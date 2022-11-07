@@ -17,7 +17,7 @@ describe 'Usuário se autentica' do
 
     within 'nav' do
       expect(page).to have_content 'Thalis | thalis@gmail.com'
-      expect(page).to have_link 'Sair'
+      expect(page).to have_button 'Sair'
       expect(page).not_to have_button 'Entrar'
     end
     expect(page).to have_content 'Login efetuado com sucesso.'
@@ -40,7 +40,7 @@ describe 'Usuário se autentica' do
     expect(page).to have_content 'E-mail ou senha inválidos.'
     within 'nav' do
       expect(page).to have_link 'Entrar'
-      expect(page).not_to have_link 'Sair'
+      expect(page).not_to have_button 'Sair'
     end
   end
 
@@ -50,7 +50,7 @@ describe 'Usuário se autentica' do
 
     login_as(client)
     visit root_path
-    click_link 'Sair'
+    click_button 'Sair'
 
     expect(page).to have_content 'Logout efetuado com sucesso.'
   end

@@ -15,7 +15,7 @@
       <nav>
         <% if client_signed_in? %>
           <%= current_client.formatted_name_and_email %>
-          <%= link_to t(:sign_out), destroy_client_session_path %>
+          <%= button_to t(:sign_out), destroy_client_session_path, method: :delete %>
         <% else %>
           <%= link_to t(:sign_in), new_client_session_path %>
        <% end %>
