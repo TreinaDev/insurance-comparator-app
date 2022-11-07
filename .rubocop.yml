@@ -14,10 +14,12 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - 'db/schema.rb'
+    - 'db/migrate/**'
     - 'vendor/**/*'
     - 'config/**/*'
     - 'script/**/*'
     - 'spec/rails_helper.rb'
+    - 'spec/support/devise_methods.rb'
 
 
 # Trabalhamos bastante com testes como a documentação viva do projeto então

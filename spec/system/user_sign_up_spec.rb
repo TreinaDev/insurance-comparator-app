@@ -23,7 +23,7 @@ describe 'Usuário cria uma conta' do
     expect(page).to have_content 'Cadastro realizado com sucesso.'
     within 'nav' do
       expect(page).to have_content 'Thalis | thalis@gmail.com'
-      expect(page).to have_button 'Sair'
+      expect(page).to have_link 'Sair'
       expect(page).not_to have_link 'Entrar'
     end
   end
@@ -75,7 +75,7 @@ describe 'Usuário cria uma conta' do
     expect(page).to have_content 'Senha é muito curto (mínimo: 6 caracteres)'
     expect(page).to have_content 'E-mail não é válido'
     within 'nav' do
-      expect(page).not_to have_button 'Sair'
+      expect(page).not_to have_link 'Sair'
       expect(page).to have_link 'Entrar'
     end
   end

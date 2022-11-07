@@ -1,6 +1,8 @@
 class Client < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  before_validation :formatted_state
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -11,4 +13,12 @@ class Client < ApplicationRecord
   validates :cpf, numericality: true, allow_blank: true
   validates :cpf, uniqueness: true
   validates :birth_date, comparison: { less_than: Time.zone.today }
+
+  def formatted_name_and_email
+    "#{name} | #{email}"
+  end
+
+  def formatted_state
+    state.upcase! if state.present?
+  end
 end
