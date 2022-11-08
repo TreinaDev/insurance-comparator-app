@@ -7,6 +7,8 @@ gem 'rename'
 
 gem 'faraday'
 
+gem 'bootstrap'
+
 gem 'devise'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
