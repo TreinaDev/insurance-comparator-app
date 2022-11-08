@@ -1,0 +1,21 @@
+<h1>Editar Perfil</h1>
+<%= render 'error'%>
+<%= form_with(model: current_client) do |f| %>
+  <div>
+    <%= f.label :min_distance %>
+    <%= f.number_field :min_distance %>
+  </div><br/>
+  <div>
+    <%= f.label :max_distance %>
+    <%= f.number_field :max_distance %>
+  </div><br/>
+  <div>
+    <%= f.label :delivery_time %>
+    <%= f.number_field :delivery_time %>
+  </div><br/>
+  <%= f.submit 'Salvar' %>
+<% end %>
+
+<%= link_to 'Voltar', shipping_methods_path %>
+<%= link_to 'Sair', destroy_user_session_path %>
+<%= button_tag "Reset", type: :reset %>

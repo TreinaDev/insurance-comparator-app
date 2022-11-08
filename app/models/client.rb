@@ -13,6 +13,9 @@ class Client < ApplicationRecord
   validates :cpf, numericality: true, allow_blank: true
   validates :cpf, uniqueness: true
   validates :birth_date, comparison: { less_than: Time.zone.today }
+  validates :name, :cpf, :address, :city, :state,
+            :birth_date, presence: true
+  validates :name, :city, :state, :address, format: { with: /\p{Alpha}/ }
 
   def formatted_name_and_email
     "#{name} | #{email}"
