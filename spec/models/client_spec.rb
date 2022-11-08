@@ -93,13 +93,13 @@ RSpec.describe Client, type: :model do
 
   context 'format' do
     it 'estado deve ser armazenado em maiúsculo' do
-      client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', 
-                              cpf: '21234567890', address: 'Rua Dr Nogueira Martins, 680', 
+      client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678',
+                              cpf: '21234567890', address: 'Rua Dr Nogueira Martins, 680',
                               city: 'São Paulo', state: 'sp', birth_date: '29/10/1997')
       client.valid?
       expect(client.state).to eq 'SP'
     end
-  
+
     it 'deve formatar nome e email para exibição' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'sp',

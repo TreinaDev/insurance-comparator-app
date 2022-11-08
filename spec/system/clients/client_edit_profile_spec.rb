@@ -2,15 +2,15 @@ require 'rails_helper'
 
 describe 'Cliente edita seu perfil' do
   it 'e deve estar autenticado' do
-    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
-                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
-                            birth_date: '29/10/1997')
+    Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                   address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                   birth_date: '29/10/1997')
 
     visit edit_client_registration_path
 
     expect(current_path).to eq new_client_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
-  end 
+  end
 
   it 'com sucesso' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
@@ -29,7 +29,7 @@ describe 'Cliente edita seu perfil' do
     fill_in 'Endereço', with: 'Endereço: Rua Dr Nogueira Martins, 680 | Salvador - BA'
     click_on 'Salvar'
     click_on 'Ricardo Silva | ricardosilva@gmail.com'
- 
+
     expect(page).to have_content('E-mail: ricardosilva@gmail.com')
     expect(page).to have_content('Data de nascimento: 07/10/1995')
     expect(page).to have_content('CPF: 87956683816')
@@ -55,11 +55,10 @@ describe 'Cliente edita seu perfil' do
     click_on 'Salvar'
 
     expect(page).to have_link 'Maria Souza | mariasouza@hotmail.com', href: client_path(client)
-    expect(page).to have_content 'A sua conta foi atualizada com sucesso.'   
+    expect(page).to have_content 'A sua conta foi atualizada com sucesso.'
   end
 
-
-  it 'e deixa campos obrigatórios em branco' do 
+  it 'e deixa campos obrigatórios em branco' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')
@@ -81,7 +80,7 @@ describe 'Cliente edita seu perfil' do
     expect(page).to have_content('Senha atual não pode ficar em branco')
   end
 
-  it 'com dados inválidos' do 
+  it 'com dados inválidos' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')
