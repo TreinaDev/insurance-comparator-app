@@ -41,4 +41,27 @@ describe 'Usuário cadastra dispositivo' do
     expect(page).to have_css('img[src*="photo_1.png"]')
     expect(page).to have_css('img[src*="photo_2.jpg"]')
   end
+
+  it 'e não é possível cadastrar o dispositivo' do
+    user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
+                          state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
+
+    login_as(user)
+    visit(root_path)
+    click_on 'Meus Dispositivos'
+    click_on 'Cadastrar Novo'
+    fill_in 'Nome', with: nil
+    fill_in 'Marca', with: nil
+    fill_in 'Data da compra', with: nil
+    attach_file 'Nota Fiscal', nil
+    attach_file 'Fotos', nil
+    click_on 'Salvar'
+
+    expect(page).to have_content 'Não foi possível registrar o seu dispositivo.'
+    expect(page).to have_content 'Nome não pode ficar em branco'
+    expect(page).to have_content 'Marca não pode ficar em branco'
+    expect(page).to have_content 'Data da compra não pode ficar em branco'
+    expect(page).to have_content 'Nota Fiscal não pode ficar em branco'
+    expect(page).to have_content 'Fotos não pode ficar em branco'
+  end
 end
