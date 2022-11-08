@@ -103,6 +103,10 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
+    faraday (2.6.0)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.1)
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -142,6 +146,8 @@ GEM
       net-protocol
     nio4r (2.5.8)
     nokogiri (1.13.9-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.9-x64-mingw-ucrt)
       racc (~> 1.4)
     nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
@@ -231,6 +237,7 @@ GEM
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
+    ruby2_keywords (0.0.5)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -245,11 +252,14 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.5.3-arm64-darwin)
+    sqlite3 (1.5.3-x64-mingw-ucrt)
     sqlite3 (1.5.3-x86_64-linux)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2022.6)
+      tzinfo (>= 1.0.0)
     unicode-display_width (2.3.0)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -262,6 +272,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x64-mingw-ucrt
   x86_64-linux
 
 DEPENDENCIES
@@ -271,6 +282,7 @@ DEPENDENCIES
   debug
   devise
   factory_bot_rails
+  faraday
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails

@@ -1,4 +1,5 @@
-# FactoryBot.define do
-#  factory :client do
-#  end
-# end
+FactoryBot.define do
+  factory :client do
+    # comentário
+  end
+end
