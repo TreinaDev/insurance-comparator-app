@@ -19,6 +19,8 @@ AllCops:
     - 'config/**/*'
     - 'script/**/*'
     - 'spec/rails_helper.rb'
+    - 'spec/support/devise_methods.rb'
+
 
 # Trabalhamos bastante com testes como a documentação viva do projeto então
 # desabilitamos a Cop de documentação com comentário
@@ -34,5 +36,5 @@ Style/FrozenStringLiteralComment:
 # Escrevemos mais linhas em arquivos de teste do que em arquivos de 
 # código, então é importante poder ter esses arquivos do tamanho necessário
 Metrics/BlockLength:
-  AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let']
+  AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'it']
 
