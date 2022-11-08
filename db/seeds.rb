@@ -1,4 +1,3 @@
-# Usuário
-
-# user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
-#                       birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
+Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+               birth_date: '29/10/1997')

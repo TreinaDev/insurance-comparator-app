@@ -1,4 +1,6 @@
 pt-BR:
+  Your equipment has been successfully registered!: Seu dispositivo foi cadastrado com sucesso!
+  It is not possible to register your equipment.: Não foi possível registrar o seu dispositivo.
   activerecord:
     models:
       equipment:
