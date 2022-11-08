@@ -7,8 +7,7 @@
   <div>
     <dl>
       <dt>Seguradora:</dt>
-      <dd><%= insurance.insurance_name %></dd>
-      <!--Aqui colocamos o link para ir para os detalhes da seguradora -->
+      <dd><%= link_to insurance.insurance_name, show_path(insurance.id) %></dd>
       <dt>Tipo de Pacote:</dt>
       <dd><%= insurance.packages %></dd>
       <dt>Valor da Contratação por 12 meses:</dt>

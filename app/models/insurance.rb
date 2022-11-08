@@ -11,12 +11,9 @@ class Insurance
 
   def self.search(_query)
     insurances = []
-    # conecto na API e pego as informações dela
     response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@query}")
     if response.status == 200
-      # converto em formato JSON
       data = JSON.parse(response.body)
-      # percorro o array - cada item do array vai ser um hash - tiro as informações do hash e monto o objeto
       data.each do |d|
         insurances << Insurance.new(id: d['id'], insurance_name: d['insurance_name'], product_model: d['product_model'],
                                     packages: d['packages'], price: d['price'])
@@ -24,4 +21,15 @@ class Insurance
     end
     insurances
   end
+
+  # def self.find(isurance)
+  #   @id = insurance
+  #   response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@id}")
+  #   if response.status == 200
+  #     @insurance = JSON.parse(response.body)
+  #   else
+  #     redirect_to search_path, notice: 'Não foi possível carregar as informações do pacote'
+  #   end
+  # end
+  
 end
