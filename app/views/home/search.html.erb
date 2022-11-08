@@ -1,0 +1,18 @@
+<h1> Resultado da Busca:  <%= @query %> </h1>
+<hr/>
+<% if @insurances.empty? %>
+  <p>Nenhuma Seguradora encontrada</p>
+<% end %>
+<% @insurances.each do |insurance| %>
+  <div>
+    <dl>
+      <dt>Seguradora:</dt>
+      <dd><%= insurance.insurance_name %></dd>
+      <!--Aqui colocamos o link para ir para os detalhes da seguradora -->
+      <dt>Tipo de Pacote:</dt>
+      <dd><%= insurance.packages %></dd>
+      <dt>Valor da Contratação por 12 meses:</dt>
+      <dd>R$ <%= insurance.price %>,00</dd>
+    </dl>
+  </div>
+<% end %>
