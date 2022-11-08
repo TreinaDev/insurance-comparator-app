@@ -6,7 +6,9 @@
   <dd><%= l(@equipment.purchase_date) %></dd>
   <dt><%= Equipment.human_attribute_name(:invoice) %>:</dt>
   <dd><%= image_tag @equipment.invoice %></dd>
-  <dt><% @equipment.photos.each do |photo| %>
+  <dt>
+  <% @equipment.photos.each do |photo| %>
     <%= image_tag photo %>
-  <% end %></dt>
+  <% end %>
+  </dt>
 </dl>

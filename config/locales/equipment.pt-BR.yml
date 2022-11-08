@@ -11,3 +11,5 @@ pt-BR:
         purchase_date: 'Data da compra'
         invoice: 'Nota Fiscal'
         photos: 'Fotos'
+        client: 'Cliente'
+        client_id: 'Cliente'

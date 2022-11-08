@@ -1,5 +1,14 @@
 <h1>Cadastro de Dispositivo</h1>
 
+<% if @equipment.errors.any? %>
+    <p> Verifique os erros abaixo: </p>
+    <ul>
+    <% @equipment.errors.full_messages.each do |msg| %>
+        <li><%= msg %> </li>
+    <% end %>
+    </ul>
+<%end%>
+
 <%= form_with(model:@equipment) do |f| %>
   <p><%= f.label :name %>
   <%= f.text_field :name %></p>
