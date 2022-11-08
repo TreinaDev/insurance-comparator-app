@@ -100,4 +100,13 @@ RSpec.describe Client, type: :model do
       expect(client.formatted_name_and_email).to eq 'Ana Lima | ana@gmail.com'
     end
   end
+
+  describe '#formatted_address' do
+    it 'deve formatar o endereço para exibição' do
+      client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                              address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'sp',
+                              birth_date: '29/10/1997')
+      expect(client.formatted_address).to eq 'Rua Dr Nogueira Martins, 680 | São Paulo - SP'
+    end
+  end
 end

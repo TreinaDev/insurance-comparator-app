@@ -1,0 +1,7 @@
+<ul>
+  <li><b><%= Client.human_attribute_name(:name) %>:</b> <%= current_client.name %></li>
+  <li><b><%= Client.human_attribute_name(:email) %>:</b> <%= current_client.email %></li>
+  <li><b><%= Client.human_attribute_name(:cpf) %>:</b> <%= current_client.cpf %></li>
+  <li><b><%= Client.human_attribute_name(:address) %>:</b> <%= current_client.formatted_address %></li>
+  <li><b><%= Client.human_attribute_name(:birth_date) %>:</b> <%= l(current_client.birth_date) %></li>
+</ul>

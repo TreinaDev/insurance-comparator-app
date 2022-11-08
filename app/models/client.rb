@@ -18,6 +18,10 @@ class Client < ApplicationRecord
     "#{name} | #{email}"
   end
 
+  def formatted_address
+    "#{address} | #{city} - #{state}"
+  end
+
   def formatted_state
     state.upcase! if state.present?
   end
