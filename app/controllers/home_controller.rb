@@ -8,7 +8,8 @@ class HomeController < ApplicationController
 
   def show
     @insurance = Insurance.find(params[:id])
-    if @insurance.nil?
+     p @insurance
+     if @insurance.nil?
       redirect_to search_path, notice: 'Não foi possível carregar as informações do pacote'
     end
   end
