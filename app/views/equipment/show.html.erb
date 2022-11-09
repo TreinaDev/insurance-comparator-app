@@ -1,0 +1,14 @@
+<h1><%= @equipment.name %></h1>
+<dl>
+  <dt><%= Equipment.human_attribute_name(:brand) %>:</dt>
+  <dd><%= @equipment.brand %></dd>
+  <dt><%= Equipment.human_attribute_name(:purchase_date) %>:</dt>
+  <dd><%= l(@equipment.purchase_date) %></dd>
+  <dt><%= Equipment.human_attribute_name(:invoice) %>:</dt>
+  <dd><%= image_tag @equipment.invoice %></dd>
+  <dt>
+  <% @equipment.photos.each do |photo| %>
+    <%= image_tag photo %>
+  <% end %>
+  </dt>
+</dl>
