@@ -146,7 +146,7 @@ RSpec.describe Client, type: :model do
   end
 
   describe '#formatted_cpf' do
-    it 'deve formatar o endereço para exibição' do
+    it 'deve formatar o cpf para exibição' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'sp',
                               birth_date: '29/10/1997')
