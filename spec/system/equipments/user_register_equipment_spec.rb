@@ -64,4 +64,29 @@ describe 'Usuário cadastra dispositivo' do
     expect(page).to have_content 'Nota Fiscal não pode ficar em branco'
     expect(page).to have_content 'Fotos não pode ficar em branco'
   end
+
+  it 'e volta para tela inicial' do
+    user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
+                          state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
+
+    login_as(user)
+    visit(root_path)
+    click_on 'Meus Dispositivos'
+    click_on 'Voltar'
+
+    expect(current_path).to eq root_path
+  end
+
+  it 'e volta para tela dos dispositivos' do
+    user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
+                          state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
+
+    login_as(user)
+    visit(root_path)
+    click_on 'Meus Dispositivos'
+    click_on 'Cadastrar Novo'
+    click_on 'Voltar'
+
+    expect(current_path).to eq equipment_index_path
+  end
 end
