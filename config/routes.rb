@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :clients
-  root to: 'home#index'
+  resources :clients, only: [:show]
+  root "home#index"
   get 'search', to: 'home#search'
   
   devise_scope :client do  

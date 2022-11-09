@@ -1,4 +1,6 @@
 pt-BR:
+  edit_profile: 'Editar perfil'
+  we_need_your_current_password_to_confirm_your_changes: 'precisamos de sua senha atual para confirmar suas alterações'
   activerecord:
     models:
       client: Cliente
