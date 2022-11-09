@@ -11,7 +11,7 @@ class Client < ApplicationRecord
   validates :state, length: { is: 2 }, allow_blank: true
   validates :cpf, length: { is: 11 }, allow_blank: true
   validates :cpf, numericality: true, allow_blank: true
-  validates :cpf, :email, uniqueness: true
+  validates :cpf, uniqueness: true
   validates :birth_date, comparison: { less_than: Time.zone.today }
   validates :name, :city, :state, :address, format: { with: /\p{Alpha}/ }
 
