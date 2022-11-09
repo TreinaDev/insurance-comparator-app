@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   def show 
     id = params[:id]
     response = Faraday.get("http://localhost:4000/api/v1/insurance/#{id}")
-    if response.status == 200
+    if response.success?
       @insurance = JSON.parse(response.body)
     else
       redirect_to search_path, notice: 'Não foi possível carregar as informações do pacote'
