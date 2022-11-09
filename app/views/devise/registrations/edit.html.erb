@@ -1,4 +1,4 @@
-<h2>Editar perfil</h2>
+<h2><%= t :edit_profile %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -10,7 +10,7 @@
 
   <div class="field">
     <%= f.label :cpf %><br />
-    <%= f.text_field :cpf %>
+    <%= f.number_field :cpf %>
   </div>
 
   <div class="field">
@@ -43,7 +43,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :current_password %> <i>(<%= t :we_need_your_current_password_to_confirm_your_changes %>)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
@@ -52,7 +52,7 @@
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <em>(mínimo de <%= @minimum_password_length %> caracteres)</em>
     <% end %>
   </div>
 
@@ -62,6 +62,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Salvar" %>
+    <%= f.submit t(:save) %>
   </div>
 <% end %>

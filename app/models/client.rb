@@ -11,7 +11,7 @@ class Client < ApplicationRecord
   validates :state, length: { is: 2 }, allow_blank: true
   validates :cpf, length: { is: 11 }, allow_blank: true
   validates :cpf, numericality: true, allow_blank: true
-  validates :cpf, :email, uniqueness: true
+  validates :cpf, uniqueness: true
   validates :birth_date, comparison: { less_than: Time.zone.today }
   validates :name, :cpf, :address, :city, :state,
             :birth_date, presence: true
@@ -27,5 +27,11 @@ class Client < ApplicationRecord
 
   def formatted_state
     state.upcase! if state.present?
+  end
+
+  def formatted_cpf
+    cpf.insert(3, '.')
+    cpf.insert(7, '.')
+    cpf.insert(11, '-')
   end
 end

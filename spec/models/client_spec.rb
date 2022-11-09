@@ -92,6 +92,32 @@ RSpec.describe Client, type: :model do
   end
 
   context 'format' do
+    it 'nome não pode ser um número' do
+      client = Client.new(name: '1')
+      client.valid?
+      expect(client.errors[:name]).to include 'não é válido'
+    end
+
+    it 'cidade não pode ser um número' do
+      client = Client.new(city: '1')
+      client.valid?
+      expect(client.errors[:city]).to include 'não é válido'
+    end
+
+    it 'estado não pode ser um número' do
+      client = Client.new(state: '2')
+      client.valid?
+      expect(client.errors[:state]).to include 'não é válido'
+    end
+
+    it 'endereço deve conter letras e pode conter números' do
+      client = Client.new(address: '2')
+      client.valid?
+      expect(client.errors[:address]).to include 'não é válido'
+    end
+  end
+
+  describe '#formatted_state' do
     it 'estado deve ser armazenado em maiúsculo' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678',
                               cpf: '21234567890', address: 'Rua Dr Nogueira Martins, 680',
@@ -99,43 +125,32 @@ RSpec.describe Client, type: :model do
       client.valid?
       expect(client.state).to eq 'SP'
     end
+  end
 
+  describe '#formatted_name_and_email' do
     it 'deve formatar nome e email para exibição' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'sp',
                               birth_date: '29/10/1997')
       expect(client.formatted_name_and_email).to eq 'Ana Lima | ana@gmail.com'
     end
+  end
 
+  describe '#formatted_address' do
     it 'deve formatar o endereço para exibição' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'sp',
                               birth_date: '29/10/1997')
       expect(client.formatted_address).to eq 'Rua Dr Nogueira Martins, 680 | São Paulo - SP'
     end
+  end
 
-    it 'nome deve conter somente letras' do
-      client = Client.new(name: 1)
-      client.valid?
-      expect(client.errors[:name]).to include 'não é válido'
-    end
-
-    it 'cidade deve conter somente letras' do
-      client = Client.new(city: 1)
-      client.valid?
-      expect(client.errors[:city]).to include 'não é válido'
-    end
-
-    it 'estado deve conter somente letras' do
-      client = Client.new(state: 2)
-      client.valid?
-      expect(client.errors[:state]).to include 'não é válido'
-    end
-
-    it 'endereço deve conter letras e pode conter números' do
-      client = Client.new(address: 2)
-      client.valid?
-      expect(client.errors[:address]).to include 'não é válido'
+  describe '#formatted_cpf' do
+    it 'deve formatar o endereço para exibição' do
+      client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                              address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'sp',
+                              birth_date: '29/10/1997')
+      expect(client.formatted_cpf).to eq '212.345.678-90'
     end
   end
 end

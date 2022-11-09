@@ -25,7 +25,7 @@ describe 'Cliente vê o seu perfil' do
 
     expect(page).to have_content 'Nome completo: Ana Lima'
     expect(page).to have_content 'E-mail: ana@gmail.com'
-    expect(page).to have_content 'CPF: 21234567890'
+    expect(page).to have_content 'CPF: 212.345.678-90'
     expect(page).to have_content 'Endereço: Rua Dr Nogueira Martins, 680 | São Paulo - SP'
     expect(page).to have_content 'Data de nascimento: 29/10/1997'
   end
