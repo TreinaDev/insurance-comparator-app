@@ -22,14 +22,10 @@ class Insurance
     insurances
   end
 
-  # def self.find(isurance)
-  #   @id = insurance
-  #   response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@id}")
-  #   if response.status == 200
-  #     @insurance = JSON.parse(response.body)
-  #   else
-  #     redirect_to search_path, notice: 'Não foi possível carregar as informações do pacote'
-  #   end
-  # end
-  
+  def self.find(id)
+    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{id}")
+    if response.success?
+      JSON.parse(response.body)
+    end
+  end
 end

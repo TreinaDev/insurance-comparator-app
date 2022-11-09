@@ -6,12 +6,9 @@ class HomeController < ApplicationController
     @insurances = Insurance.search(@query)
   end
 
-  def show 
-    id = params[:id]
-    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{id}")
-    if response.success?
-      @insurance = JSON.parse(response.body)
-    else
+  def show
+    @insurance = Insurance.find(params[:id])
+    if @insurance.nil?
       redirect_to search_path, notice: 'Não foi possível carregar as informações do pacote'
     end
   end
