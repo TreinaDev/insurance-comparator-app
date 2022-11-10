@@ -2,6 +2,6 @@
     --default-color: #4b0082
 }
 
-.bg-defatlt{
+.bg-default{
     background-color: var(--default-color);
 }
