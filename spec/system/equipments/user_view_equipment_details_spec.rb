@@ -28,11 +28,11 @@ describe 'Usuário vê detalhes de dispositivo' do
     click_on 'Meus Dispositivos'
     click_on 'Iphone 14 - ProMax'
 
-    expect(page).to have_content 'Iphone 14 - ProMax'
+    expect(page).to have_content 'IPHONE 14 - PROMAX'
     expect(page).to have_content 'Marca:'
     expect(page).to have_content 'Data da compra:'
     expect(page).to have_content '01/11/2022'
-    expect(page).to have_content 'Nota Fiscal:'
+    expect(page).to have_content 'Nota Fiscal'
     expect(equipment.invoice).to be_attached
     expect(equipment.photos).to be_attached
   end
@@ -49,12 +49,12 @@ describe 'Usuário vê detalhes de dispositivo' do
     visit equipment_index_path
     click_on 'Samsung J7'
 
-    expect(page).to have_content 'Samsung J7'
+    expect(page).to have_content 'SAMSUNG J7'
     expect(page).to have_content 'Marca:'
     expect(page).to have_content 'Samsung'
     expect(page).to have_content 'Data da compra:'
     expect(page).to have_content '01/11/2022'
-    expect(page).to have_content 'Nota Fiscal:'
+    expect(page).to have_content 'Nota Fiscal'
     expect(equipment.invoice).to be_attached
     expect(equipment.photos).to be_attached
   end
