@@ -1,5 +1,9 @@
 class EquipmentController < ApplicationController
-  def index; end
+  before_action :authenticate_client!
+
+  def index
+    @equipment = Equipment.where(client: current_client)
+  end
 
   def show
     @equipment = Equipment.find(params[:id])

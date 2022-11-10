@@ -7,6 +7,7 @@ describe 'Usuário cadastra dispositivo' do
 
     login_as(user)
     visit(root_path)
+    click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
 
@@ -24,6 +25,7 @@ describe 'Usuário cadastra dispositivo' do
 
     login_as(user)
     visit(root_path)
+    click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
     fill_in 'Nome', with: 'Iphone 14 - ProMax'
@@ -48,6 +50,7 @@ describe 'Usuário cadastra dispositivo' do
 
     login_as(user)
     visit(root_path)
+    click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
     fill_in 'Nome', with: nil
@@ -71,6 +74,7 @@ describe 'Usuário cadastra dispositivo' do
 
     login_as(user)
     visit(root_path)
+    click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Voltar'
 
@@ -83,6 +87,7 @@ describe 'Usuário cadastra dispositivo' do
 
     login_as(user)
     visit(root_path)
+    click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
     click_on 'Voltar'

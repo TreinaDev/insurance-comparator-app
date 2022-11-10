@@ -5,4 +5,5 @@
   <li><b><%= Client.human_attribute_name(:address) %>:</b> <%= current_client.formatted_address %></li>
   <li><b><%= Client.human_attribute_name(:birth_date) %>:</b> <%= l(current_client.birth_date) %></li>
   <%= link_to t(:edit_profile), edit_client_registration_path %>
+  <%= link_to 'Meus Dispositivos', equipment_index_path %>
 </ul>

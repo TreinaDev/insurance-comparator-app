@@ -1,3 +1,28 @@
 <%= link_to 'Cadastrar Novo', new_equipment_path %>
 
+<% if @equipment.any? %>
+        <table>
+        <thead>
+            <tr>
+                <th><%=Equipment.human_attribute_name(:name)%></th>
+                <th><%=Equipment.human_attribute_name(:brand)%></th>
+                <th><%=Equipment.human_attribute_name(:purchase_date)%></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @equipment.each do |equipment| %>
+            <tr>
+                <td><%= link_to equipment.name, equipment %></td>
+                <td><%= equipment.brand %></td>
+                <td><%= I18n.l(equipment.purchase_date) %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% else %>
+    <%= 'Nenhum dispositivo encontrado' %>
+<% end %>
+
 <p><%= link_to 'Voltar', root_path %></p>
+
+
