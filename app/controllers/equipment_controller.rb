@@ -2,7 +2,7 @@ class EquipmentController < ApplicationController
   before_action :authenticate_client!
 
   def index
-    @equipment = Equipment.where(client: current_client)
+    @equipment = current_client.equipment
   end
 
   def show

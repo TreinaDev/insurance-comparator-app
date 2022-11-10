@@ -1,29 +1,30 @@
-<h1 class="fs-2">Meus Dispositivos</h1>
-
 <% if @equipment.any? %>
-        <table>
+    <br/><h1 class="display-6">Meus Dispositivos</h1><br/>
+    <table class="table table-bordered border-primary text-center">
         <thead>
             <tr>
-                <th><%=Equipment.human_attribute_name(:name)%></th>
-                <th><%=Equipment.human_attribute_name(:brand)%></th>
-                <th><%=Equipment.human_attribute_name(:purchase_date)%></th>
+                <th scope="col"><%=Equipment.human_attribute_name(:name)%></th>
+                <th scope="col"><%=Equipment.human_attribute_name(:brand)%></th>
+                <th scope="col"><%=Equipment.human_attribute_name(:purchase_date)%></th>
             </tr>
         </thead>
         <tbody>
             <% @equipment.each do |equipment| %>
             <tr>
-                <td><%= link_to equipment.name, equipment %></td>
-                <td><%= equipment.brand %></td>
-                <td><%= I18n.l(equipment.purchase_date) %></td>
+                <td class="align-middle"><%= link_to equipment.name, equipment %></td>
+                <td class="align-middle"><%= equipment.brand %></td>
+                <td class="align-middle"><%= I18n.l(equipment.purchase_date) %></td>
             </tr>
             <% end %>
         </tbody>
     </table>
 <% else %>
-    <%= 'Nenhum dispositivo encontrado' %>
+    <% flash.now[:alert] = 'Nenhum dispositivo encontrado' %>
 <% end %>
 
-<p><%= link_to 'Voltar', root_path %></p>
+<div>
+<%= link_to 'Cadastrar Novo', new_equipment_path, class: "btn btn-dark m-2" %>
+<%= link_to 'Voltar', root_path, class: "btn btn-dark m-2" %>
+</div>
 
-<%= link_to 'Cadastrar Novo', new_equipment_path, class: "btn btn-dark" %>
 
