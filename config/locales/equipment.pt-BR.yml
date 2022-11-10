@@ -1,0 +1,17 @@
+pt-BR:
+  Your equipment has been successfully registered!: Seu dispositivo foi cadastrado com sucesso!
+  It is not possible to register your equipment: Não foi possível registrar o seu dispositivo.
+  activerecord:
+    models:
+      equipment:
+        one: 'Dispositivo'
+        other: 'Dispositivos'
+    attributes:
+      equipment: 
+        name: 'Nome'
+        brand: 'Marca'
+        purchase_date: 'Data da compra'
+        invoice: 'Nota Fiscal'
+        photos: 'Fotos'
+        client: 'Cliente'
+        client_id: 'Cliente'

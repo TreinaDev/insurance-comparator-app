@@ -21,6 +21,7 @@ describe 'Cliente vê o seu perfil' do
     visit root_path
     within 'nav' do
       click_link 'Ana Lima | ana@gmail.com'
+      click_link 'Meu Perfil'
     end
 
     expect(page).to have_content 'Nome completo: Ana Lima'

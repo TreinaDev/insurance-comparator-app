@@ -1,4 +1,5 @@
 class Insurance
+  extend ActiveModel::Translation
   attr_accessor :id, :insurance_name, :product_model, :packages, :price
 
   def initialize(id:, insurance_name:, product_model:, packages:, price:)
@@ -12,7 +13,7 @@ class Insurance
   def self.search(_query)
     insurances = []
     response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@query}")
-    if response.status == 200
+    if response.success?
       data = JSON.parse(response.body)
       data.each do |d|
         insurances << Insurance.new(id: d['id'], insurance_name: d['insurance_name'], product_model: d['product_model'],
@@ -22,10 +23,8 @@ class Insurance
     insurances
   end
 
-  def self.find(id)
-    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{id}")
-    if response.success?
-      JSON.parse(response.body)
-    end
+  def self.find(_id)
+    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@id}")
+    @insurance = JSON.parse(response.body) if response.success?
   end
 end

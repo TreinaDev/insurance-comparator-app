@@ -1,67 +1,77 @@
-<h2><%= t :edit_profile %></h2>
+<h1 class="fs-2"><%= t :edit_profile %></h1>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div clas="container">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
+    <div class="row"> 
+      <div class="mb-3 col-lg-6 col-12">
+      <%= f.label :name, class: 'form-label' %><br />
+      <%= f.text_field :name, autofocus: true, class: 'form-control' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :cpf %><br />
-    <%= f.number_field :cpf %>
-  </div>
+    <div class="row"> 
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :cpf, class: 'form-label' %><br />
+        <%= f.number_field :cpf, class: 'form-control' %>
+      </div>
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :birth_date, class: 'form-label' %><br />
+        <%= f.date_field :birth_date, max: Date.today, class: 'form-control' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address  %>
-  </div>
+    <div class="row"> 
+      <div class="mb-3 col-lg-6 col-12">
+      <%= f.label :address, class: 'form-label' %><br />
+      <%= f.text_field :address, class: 'form-control' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city  %>
-  </div>
+    <div class="row"> 
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :city, class: 'form-label' %><br />
+        <%= f.text_field :city, class: 'form-control' %>
+      </div>
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :state, class: 'form-label' %><br />
+        <%= f.text_field :state, class: 'form-control' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
-  </div>
+    <div class="row"> 
+      <div class="mb-3 col-lg-6 col-12">
+      <%= f.label :email, class: 'form-label' %><br />
+      <%= f.email_field :email, class: 'form-control' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :birth_date %><br />
-    <%= f.date_field :birth_date, max: Date.today %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(<%= t :we_need_your_current_password_to_confirm_your_changes %>)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %> <br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em>(mínimo de <%= @minimum_password_length %> caracteres)</em>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="row"> 
+      <div class="mb-3 col-lg-6 col-12">
+      <%= f.label :current_password, class: 'form-label' %> <i>(<%= t :we_need_your_current_password_to_confirm_your_changes %>)</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password", class: 'form-control' %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit t(:save) %>
-  </div>
-<% end %>
+    <div class="row"> 
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :password, class: 'form-label' %><em><%= "(mínimo de #{@minimum_password_length} caracteres)" if @minimum_password_length %></em><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+
+      </div>
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :password_confirmation, class: 'form-label' %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit t(:save), class: 'btn btn-dark mb-4'%>
+    </div>
+  <% end %>
+</div>

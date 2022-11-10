@@ -1,6 +1,7 @@
 class Client < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_many :equipment, dependent: :destroy
   before_validation :formatted_state
 
   devise :database_authenticatable, :registerable,
@@ -12,10 +13,8 @@ class Client < ApplicationRecord
   validates :cpf, length: { is: 11 }, allow_blank: true
   validates :cpf, numericality: true, allow_blank: true
   validates :cpf, uniqueness: true
-  validates :birth_date, comparison: { less_than: Time.zone.today }
-  validates :name, :cpf, :address, :city, :state,
-            :birth_date, presence: true
-  validates :name, :city, :state, :address, format: { with: /\p{Alpha}/ }
+  validates :birth_date, comparison: { less_than: Time.zone.today }, allow_blank: true
+  validates :name, :city, :state, :address, format: { with: /\p{Alpha}/ }, allow_blank: true
 
   def formatted_name_and_email
     "#{name} | #{email}"
