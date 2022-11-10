@@ -16,7 +16,8 @@ describe 'Cliente edita seu perfil' do
     login_as(client)
     visit root_path
     click_link 'Ana Lima | ana@gmail.com'
-    click_link 'Editar perfil'
+    click_link 'Meu Perfil', href: client_path(client)
+    click_link 'Editar Perfil'
     fill_in 'Nome', with: 'Maria Souza'
     fill_in 'CPF', with: '87956683816'
     fill_in 'E-mail', with: 'mariasouza@hotmail.com'
@@ -27,7 +28,7 @@ describe 'Cliente edita seu perfil' do
     fill_in  'Endereço', with: 'Endereço: Rua das Laranjeiras, 543 | Rio Branco - AC'
     click_button 'Salvar'
 
-    expect(page).to have_link 'Maria Souza | mariasouza@hotmail.com', href: client_path(client)
+    expect(page).to have_link 'Maria Souza | mariasouza@hotmail.com'
     expect(page).to have_content 'A sua conta foi atualizada com sucesso.'
   end
 
@@ -48,6 +49,7 @@ describe 'Cliente edita seu perfil' do
     fill_in 'Endereço', with: 'Endereço: Rua Dr Nogueira Martins, 680 | Salvador - BA'
     click_button 'Salvar'
     click_link 'Ricardo Silva | ricardosilva@gmail.com'
+    click_link 'Meu Perfil'
 
     expect(page).to have_content('E-mail: ricardosilva@gmail.com')
     expect(page).to have_content('Data de nascimento: 07/10/1995')
