@@ -16,7 +16,7 @@ describe 'Cliente edita seu perfil' do
     login_as(client)
     visit root_path
     click_link 'Ana Lima | ana@gmail.com'
-    click_link 'Meu Perfil', href: client_path(client)
+    click_link 'Meu Perfil', href: profile_path
     click_link 'Editar Perfil'
     fill_in 'Nome', with: 'Maria Souza'
     fill_in 'CPF', with: '87956683816'

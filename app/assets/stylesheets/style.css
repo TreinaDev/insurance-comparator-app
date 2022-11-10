@@ -1,0 +1,7 @@
+:root{
+    --default-color: #4b0082
+}
+
+.bg-defatlt{
+    background-color: var(--default-color);
+}
