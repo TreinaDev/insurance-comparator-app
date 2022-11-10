@@ -5,7 +5,8 @@ describe 'Visitante realiza uma busca por seguradoras' do
     visit root_path
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Boas Vindas Ao Comparador de Seguros'
+    expect(page).to have_content 'Boas vindas ao Comparador de Seguros'
+    expect(page).to have_content 'Informe abaixo o nome do seu produto para encontrar os Pacotes de Seguro compatíveis'
     expect(page).to have_field 'Produto'
     expect(page).to have_button 'Buscar'
   end

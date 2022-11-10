@@ -12,4 +12,6 @@ Rails.application.routes.draw do
 
     resources :equipment, only: [:index, :new, :create, :show]
   end
+
+  resources :equipment, only: [:index, :new, :create, :show]
 end
