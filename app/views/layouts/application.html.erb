@@ -17,13 +17,11 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="me-2 d-flex justify-content-end">
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav w-100">
-    
             <% if client_signed_in? %>
               <li class="nav-item dropdown">
-                <a class="me-2 nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <%= current_client.formatted_name_and_email %>
                 </a>
                 <ul class="dropdown-menu">
@@ -32,7 +30,6 @@
                 </ul>
               </li>
             <% end %>
-            </div>
           </ul>
           <ul class="navbar-nav">
             <% if client_signed_in? %>
@@ -46,14 +43,8 @@
     </nav>
     </header>
     <main class="container">
-      <div>
-        <% if !notice.nil? %>
-          <p class="alert alert-success mt-4"><%= notice %></p>
-        <% end %>
-        <% if !alert.nil? %>
-          <p class="alert alert-warning mt-4"><%= alert %></p>
-        <% end %>
-      </div>
+      <div class="text-success m-2" role="alert"><%= notice %></div>
+      <div class="text-danger m-2" role="alert"><%= alert %></div>
       <%= yield %>
     </main>
   </body>

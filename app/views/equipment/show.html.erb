@@ -1,17 +1,15 @@
-
-
-<br/><h1 class="display-6"><%= @equipment.name.upcase %></h1><br/>
+<h1 class="fs-2"><%= @equipment.name %></h1>
 <dl>
   <dt><%= Equipment.human_attribute_name(:brand) %>:</dt>
   <dd><%= @equipment.brand %></dd>
   <dt><%= Equipment.human_attribute_name(:purchase_date) %>:</dt>
   <dd><%= l(@equipment.purchase_date) %></dd>
-  <dt><%= Equipment.human_attribute_name(:invoice) %></dt>
-  <dd><%= image_tag @equipment.invoice %></dd>  
-<dt><%= Equipment.human_attribute_name(:photos) %></dt>
+  <dt><%= Equipment.human_attribute_name(:invoice) %>:</dt>
+  <dd><%= image_tag @equipment.invoice, class: 'img-fluid w-25 m-2' %></dd>
+  <dt><%= Equipment.human_attribute_name(:photos) %>:</dt>
   <dd>
   <% @equipment.photos.each do |photo| %>
-    <%= image_tag photo, class:"img" %>
+    <%= image_tag photo, class:'img-fluid w-25 m-2' %> 
   <% end %>
   </dd>
 </dl>
