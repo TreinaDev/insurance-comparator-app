@@ -86,7 +86,7 @@ describe 'Usuário cadastra dispositivo' do
     visit(root_path)
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
-    click_on 'Voltar'
+    click_on 'Meus Dispositivos'
 
     expect(current_path).to eq equipment_index_path
   end

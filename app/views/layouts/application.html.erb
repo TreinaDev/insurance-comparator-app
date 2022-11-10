@@ -18,12 +18,12 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-          <% if client_signed_in? %>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <%= current_client.formatted_name_and_email %>
-              </a>
+          <ul class="navbar-nav w-100">
+            <% if client_signed_in? %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <%= current_client.formatted_name_and_email %>
+                </a>
                 <ul class="dropdown-menu">
                   <li><%= link_to t(:my_profile), client_path(current_client), class:'dropdown-item' %></li>
                   <li><%= link_to 'Meus Dispositivos', equipment_index_path, class:'dropdown-item' %></li>
@@ -31,18 +31,20 @@
               </li>
             <% end %>
           </ul>
+          <ul class="navbar-nav">
+            <% if client_signed_in? %>
+              <li><%= button_to t(:sign_out), destroy_client_session_path, method: :delete, class:'btn btn-outline-light float-right' %></li>
+            <% else %>
+              <li><%= link_to t(:sign_in), new_client_session_path, class:'btn btn-outline-light' %></li>
+            <% end %>
+          </ul>
         </div>
-          <% if client_signed_in? %>
-            <%= button_to t(:sign_out), destroy_client_session_path, method: :delete, class:'btn btn-outline-light' %>
-          <% else %>
-            <%= link_to t(:sign_in), new_client_session_path, class:'btn btn-outline-light' %>
-          <% end %>
       </div>
     </nav>
     </header>
     <main class="container">
-      <div class="notice"><%= notice %></div>
-      <div class="alert"><%= alert %></div>
+      <div class="text-success m-2" role="alert"><%= notice %></div>
+      <div class="text-danger m-2" role="alert"><%= alert %></div>
       <%= yield %>
     </main>
   </body>
