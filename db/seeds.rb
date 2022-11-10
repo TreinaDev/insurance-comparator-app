@@ -5,4 +5,4 @@ Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', c
 Equipment.new(client:, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: Time.zone.today,
               invoice: fixture_file_upload('spec/support/invoice.png'),
               photos: [fixture_file_upload('spec/support/photo_1.png'),
-              fixture_file_upload('spec/support/photo_2.jpg')])
+                       fixture_file_upload('spec/support/photo_2.jpg')])
