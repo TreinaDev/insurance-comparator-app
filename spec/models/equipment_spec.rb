@@ -13,6 +13,7 @@ RSpec.describe Equipment, type: :model do
       result = equipment.valid?
 
       expect(result).to eq false
+      expect(equipment.errors[:name]).to include 'não pode ficar em branco'
     end
 
     it 'deve ter uma marca' do
@@ -26,6 +27,7 @@ RSpec.describe Equipment, type: :model do
       result = equipment.valid?
 
       expect(result).to eq false
+      expect(equipment.errors[:brand]).to include 'não pode ficar em branco'
     end
 
     it 'deve ter uma data' do
@@ -39,6 +41,7 @@ RSpec.describe Equipment, type: :model do
       result = equipment.valid?
 
       expect(result).to eq false
+      expect(equipment.errors[:purchase_date]).to include 'não pode ficar em branco'
     end
 
     it 'data de compra não deve ser futura' do

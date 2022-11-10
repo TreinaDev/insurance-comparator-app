@@ -16,6 +16,7 @@ class Client < ApplicationRecord
   validates :birth_date, comparison: { less_than: Time.zone.today }, allow_blank: true
   validates :name, :city, :state, :address, format: { with: /\p{Alpha}/ }, allow_blank: true
 
+
   def formatted_name_and_email
     "#{name} | #{email}"
   end
