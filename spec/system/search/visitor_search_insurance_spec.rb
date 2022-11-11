@@ -18,7 +18,7 @@ describe 'Visitante realiza uma busca por seguradoras' do
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(dados_fake)
 
     visit root_path
-    fill_in 'Produto',	with: 'iPhone 11'
+    fill_in 'Produto', with: 'iPhone 11'
     click_on 'Buscar'
 
     expect(current_path).to eq search_path
@@ -33,7 +33,7 @@ describe 'Visitante realiza uma busca por seguradoras' do
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(dados_fake)
 
     visit root_path
-    fill_in 'Produto',	with: 'iPhone 11'
+    fill_in 'Produto', with: 'iPhone 11'
     click_on 'Buscar'
 
     expect(page).to have_content 'Nenhuma Seguradora encontrada'

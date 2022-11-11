@@ -12,7 +12,7 @@ class Insurance
 
   def self.search(_query)
     insurances = []
-    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@query}")
+    response = Faraday.get("http://localhost:4000/api/v1/insurances/#{@query}")
     if response.success?
       data = JSON.parse(response.body)
       data.each do |d|
@@ -25,6 +25,8 @@ class Insurance
 
   def self.find(_id)
     response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@id}")
-    @insurance = JSON.parse(response.body) if response.success?
+    return unless response.success?
+
+    @insurance = JSON.parse(response.body)
   end
 end
