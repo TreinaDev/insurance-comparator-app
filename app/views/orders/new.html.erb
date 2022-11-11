@@ -1,0 +1,8 @@
+<h2>Aquisição do seguro <%= 'Seguradora 1'%></h2>
+
+<%= bootstrap_form_with(model: @order, local: true) do |f| %>
+	<div>
+        <%= f.select :product, [["Apple", 1], ["Grape", 2]], { label: "Choose your favorite fruit:", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
+	</div>
+  <%= f.submit "Prosseguir" %>
+<% end %>
