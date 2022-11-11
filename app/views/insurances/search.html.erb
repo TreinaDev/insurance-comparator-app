@@ -6,11 +6,11 @@
 <% @insurances.each do |insurance| %>
   <div>
     <dl>
-      <dt> Seguradora:</dt>
-      <dd><%= link_to insurance.insurance_name, insurance_path(insurance.id) %></dd>
-      <dt> Tipo de Pacote:</dt>
-      <dd><%= insurance.packages %></dd>
-      <dt> Valor da Contratação por 12 meses: </dt>
+      <dt> <%= t(:insurance_name)%>:</dt>
+      <dd> <%= link_to insurance.insurance_name, insurance_path(insurance.id) %></dd>
+      <dt> <%= t(:packages)%>:</dt>
+      <dd> <%= insurance.packages %></dd>
+      <dt> <%= t(:price)%> por 12 meses: </dt>
       <dd> <%= number_to_currency(insurance.price) %></dd>
     </dl>
   </div>

@@ -15,6 +15,6 @@ describe 'visitante vê detalhes do pacote' do
     expect(page).to have_content 'Nome da Seguradora: Seguradora 1'
     expect(page).to have_content 'Tipo de Pacote: Premium'
     expect(page).to have_content 'Modelo do Produto: iPhone 11'
-    expect(page).to have_content 'Valor de Contratação para 12 meses: R$ 50,00'
+    expect(page).to have_content 'Valor da Contratação por 12 meses: R$ 50,00'
   end
 end
