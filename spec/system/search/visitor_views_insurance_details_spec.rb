@@ -39,7 +39,10 @@ describe 'visitante vê detalhes do pacote' do
     insurance = []
     allow(Insurance).to receive(:find).with('1').and_return(insurance)
 
-    visit insurance_path(1)
+    visit root_path
+    fill_in 'Produto', with: 'iPhone 11'
+    click_on 'Buscar'
+    click_on 'Seguradora 1'
 
     expect(current_path).to eq search_path
     expect(page).to have_content 'Não foi possível carregar as informações do pacote'

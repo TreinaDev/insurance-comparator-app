@@ -1,8 +1,7 @@
 class InsurancesController < ApplicationController
   def search
-    query = params[:query]
-    @query = query
-    @insurances = Insurance.search(query)
+    @query = params[:query]
+    @insurances = Insurance.search(@query)
   end
 
   def show
