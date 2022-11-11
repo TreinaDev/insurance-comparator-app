@@ -9,6 +9,6 @@ class InsurancesController < ApplicationController
     @insurance = Insurance.find(@id)
     return unless @insurance.nil?
 
-    redirect_to search_path, notice: I18n.t('It is not possible to register your equipment.')
+    redirect_to search_path, notice: I18n.t('Unable to load package information')
   end
 end

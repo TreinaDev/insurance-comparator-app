@@ -28,7 +28,7 @@ describe 'Usuário cadastra dispositivo' do
     click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
-    fill_in 'Nome', with: 'Iphone 14 - ProMax'
+    fill_in 'Nome', with: 'IPHONE 14 - PROMAX'
     fill_in 'Marca', with: 'Apple'
     fill_in 'Data da compra', with: '01/11/2022'
     attach_file 'Nota Fiscal', Rails.root.join('spec/support/invoice.png')
@@ -36,7 +36,7 @@ describe 'Usuário cadastra dispositivo' do
     click_on 'Salvar'
 
     expect(page).to have_content 'Seu dispositivo foi cadastrado com sucesso!'
-    expect(page).to have_content 'Iphone 14 - ProMax'
+    expect(page).to have_content 'IPHONE 14 - PROMAX'
     expect(page).to have_content 'Marca: Apple'
     expect(page).to have_content 'Data da compra: 01/11/2022'
     expect(page).to have_css('img[src*="invoice.png"]')
