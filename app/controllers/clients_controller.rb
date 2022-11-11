@@ -1,5 +1,7 @@
 class ClientsController < ApplicationController
   before_action :authenticate_client!
 
-  def show; end
+  def profile
+    @client = current_client
+  end
 end
