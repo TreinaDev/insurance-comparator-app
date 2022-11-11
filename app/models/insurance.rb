@@ -10,9 +10,9 @@ class Insurance
     @price = price
   end
 
-  def self.search(_query)
+  def self.search(query)
     insurances = []
-    response = Faraday.get("http://localhost:4000/api/v1/insurances/#{@query}")
+    response = Faraday.get("http://localhost:4000/api/v1/insurances/#{query}")
     if response.success?
       data = JSON.parse(response.body)
       data.each do |d|
@@ -23,10 +23,12 @@ class Insurance
     insurances
   end
 
-  def self.find(_id)
-    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{@id}")
-    return unless response.success?
-
-    @insurance = JSON.parse(response.body)
+  def self.find(id)
+    insurance = []
+    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{id}")
+    if response.success?
+      insurance = JSON.parse(response.body)
+    end
+    insurance
   end
 end
