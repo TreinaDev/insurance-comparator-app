@@ -1,11 +1,11 @@
-<h1 class="fs-2"><%= t(:my_profile) %></h1>
+<br/><h1 class="display-6"><%= t(:my_profile) %></h1><br/>
 <div class="container">
   <ul class="list-group">
     <div class="row"> 
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
           <b><%= Client.human_attribute_name(:name) %>:</b>
-          <%= current_client.name %>
+          <%= @client.name %>
         </li>
       </div>
     </div>
@@ -13,7 +13,7 @@
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
           <b><%= Client.human_attribute_name(:email) %>:</b> 
-          <%= current_client.email %>
+          <%= @client.email %>
         </li>
       </div>
     </div>
@@ -21,7 +21,7 @@
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
           <b><%= Client.human_attribute_name(:cpf) %>:</b> 
-          <%= current_client.formatted_cpf %>
+          <%= @client.formatted_cpf %>
         </li>
       </div>
     </div>
@@ -29,7 +29,7 @@
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
           <b><%= Client.human_attribute_name(:address) %>:</b> 
-          <%= current_client.formatted_address %>
+          <%= @client.formatted_address %>
         </li>
       </div>
     </div>
@@ -37,10 +37,11 @@
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
           <b><%= Client.human_attribute_name(:birth_date) %>:</b> 
-          <%= l(current_client.birth_date) %>
+          <%= l(@client.birth_date) %>
         </li>
       </div>
     </div>
   </ul>
   <%= link_to t(:edit_profile), edit_client_registration_path, class: 'btn btn-dark mt-3' %>
 </div>
+

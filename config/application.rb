@@ -23,6 +23,9 @@ module InsuranceComparatorApp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    config.active_storage.variant_processor = :mini_magick
+
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -33,9 +36,5 @@ module InsuranceComparatorApp
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.locale = :'pt-BR'
-    config.i18n.default_locale = :'pt-BR'
   end
 end
