@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      order: "Pedido"
+    attributes:
+      order/status:
+        pending: "Aguardando Aprovação da Seguradora"
+        insurance_approved: "Pedido Aprovado"
+        cpf_approved: "CPF Aprovado"
+        charge_pending: "Pagamento Pendente"
+        charge_approved: "Pagamento Aprovado"
