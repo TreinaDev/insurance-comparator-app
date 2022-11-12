@@ -1,0 +1,39 @@
+{
+  "id": 1,
+  "code": "ALOPJ452NB",
+  "status": "active",
+  "order": 
+    { 
+      "equipment": 
+      {
+        "id": 1,
+        "name": "Samsung J7",
+        "purchase_date": "01/11/2022",
+        "brand": "Samsung",
+        "created_at":"2022-11-08T19:42:47.921Z",
+        "updated_at":"2022-11-08T19:42:47.921Z",
+        "client":
+          {
+            "id": 1,
+            "name": "Mario Silva",
+            "cpf": "879.566.838-17",
+            "email": "mario@sistemadeseguros.com",
+            "address": "Rua Dr Nogueira Martins, 555",
+            "city": "São Paulo",
+            "state": "SP",
+            "birth_date": "29/05/1985",
+            "created_at":"2022-05-08T19:42:33.921Z",
+            "updated_at":"2022-05-08T19:42:33.921Z"
+          }
+      }
+    },
+  "insurance": 
+    {
+      "id": 1,
+      "insurance_name": "Seguradora 2",
+      "product_model": "Samsung Android",
+      "packages": "Plus",
+      "price": 20
+    }
+}
+ 
