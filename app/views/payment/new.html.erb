@@ -8,13 +8,16 @@
 </ul>
 <%= bootstrap_form_with(model: @order, local: true) do |f| %>
 	<div>
-    <%= f.select :product, [["Iphone 14 - ProMax", 1], ["Tv LG", 2]], { label: "Selecione o dispositivo", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
+    <%= f.text_field :card_number %>
 	</div>
 	<div>
-    <%= f.select :period, [["6 meses", 1], ["12 meses", 2]], { label: "Selecione o período de contratação", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
+    <%= f.text_field :card_name %>
 	</div>
 	<div>
-    <%= f.select :payment_method, [["Cartão", 1], ["Pix", 2]], { label: "Selecione o meio de pagamento", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
+    <%= f.text_field :expiration_date %>
+	</div>
+	<div>
+    <%= f.text_field :cvv %>
 	</div>
   <%= f.submit "Contratar" %>
 <% end %>
