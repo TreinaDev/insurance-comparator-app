@@ -12,8 +12,6 @@ describe PaymentOption do
       expect(result.length).to eq 3
       expect(result[1].payment_method_id).to eq 3
       expect(result[1].payment_method_name).to eq 'Pix'
-      expect(result[1].tax_percentage).to eq 0
-      expect(result[1].tax_maximum).to eq 7
       expect(result[1].max_installments).to eq 1
       expect(result[1].single_installment_discount).to eq 20
       expect(result[1].payment_method_status).to eq 0
