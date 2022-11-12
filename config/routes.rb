@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   devise_for :clients
   get 'profile', to: 'clients#profile'
   resources :equipment, only: [:index, :new, :create, :show]
-  resources :orders, only: [:new]
+  resources :orders, only: [:new, :create]
+  resources :payment, only: [:new]
 end

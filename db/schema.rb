@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_11_205132) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_12_211430) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -74,8 +74,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_205132) do
     t.datetime "updated_at", null: false
     t.integer "client_id", null: false
     t.integer "status", default: 0
+    t.integer "payment_method"
+    t.integer "contract_period"
+    t.decimal "contract_price"
+    t.string "coverage"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
+  end
+
+  create_table "payment_methods", force: :cascade do |t|
+    t.string "card_number"
+    t.string "card_brand"
+    t.string "boleto_number"
+    t.string "pix_code"
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payment_methods_on_order_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -83,4 +98,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_205132) do
   add_foreign_key "equipment", "clients"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "equipment", column: "product_id"
+  add_foreign_key "payment_methods", "orders"
 end
