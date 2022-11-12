@@ -53,7 +53,7 @@ describe Insurance do
 
       result = Insurance.find(1)
 
-      expect(result).to eq []
+      expect(result).to eq nil
     end
   end
 end

@@ -24,11 +24,8 @@ class Insurance
   end
 
   def self.find(id)
-    insurance = []
     response = Faraday.get("http://localhost:4000/api/v1/insurance/#{id}")
-    if response.success?
-      insurance = JSON.parse(response.body)
-    end
+    insurance = JSON.parse(response.body) if response.success?
     insurance
   end
 end

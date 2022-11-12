@@ -7,8 +7,6 @@ class InsurancesController < ApplicationController
   def show
     id = params[:id]
     @insurance = Insurance.find(id)
-    if @insurance.empty?
-      redirect_to search_path, notice: I18n.t('Unable to load package information')
-    end
+    redirect_to root_path, alert: t(:unable_to_load_package_information) if @insurance.nil?
   end
 end

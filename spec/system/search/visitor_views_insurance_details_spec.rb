@@ -9,9 +9,8 @@ describe 'visitante vê detalhes do pacote' do
                                 price: 20)
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(insurances)
 
-    insurance = []
-    insurance << Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
-                               price: 50)
+    insurance = Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
+                              price: 50)
     allow(Insurance).to receive(:find).with('1').and_return(insurance)
 
     visit root_path
@@ -36,7 +35,7 @@ describe 'visitante vê detalhes do pacote' do
                                 price: 20)
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(insurances)
 
-    insurance = []
+    insurance = nil
     allow(Insurance).to receive(:find).with('1').and_return(insurance)
 
     visit root_path
@@ -44,7 +43,7 @@ describe 'visitante vê detalhes do pacote' do
     click_on 'Buscar'
     click_on 'Seguradora 1'
 
-    expect(current_path).to eq search_path
+    expect(current_path).to eq root_path
     expect(page).to have_content 'Não foi possível carregar as informações do pacote'
   end
 end

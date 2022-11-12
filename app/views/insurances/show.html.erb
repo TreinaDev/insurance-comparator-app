@@ -1,8 +1,6 @@
-<% if @insurance.present? %>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Nome da Seguradora: <%= @insurance[0].insurance_name %></li>
-    <li class="list-group-item">Tipo de Pacote: <%= @insurance[0].packages %></li>
-    <li class="list-group-item">Modelo do Produto: <%= @insurance[0].product_model %></li>
-    <li class="list-group-item">Valor de Contratação para 12 meses: R$ <%= @insurance[0].price %>,00 </li>
-  </ul>
-<% end %>
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">Nome da Seguradora: <%= @insurance.insurance_name %></li>
+  <li class="list-group-item">Tipo de Pacote: <%= @insurance.packages %></li>
+  <li class="list-group-item">Modelo do Produto: <%= @insurance.product_model %></li>
+  <li class="list-group-item">Valor de Contratação para 12 meses: R$ <%= @insurance.price %>,00 </li>
+</ul>
