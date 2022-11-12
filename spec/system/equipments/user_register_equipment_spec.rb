@@ -25,6 +25,7 @@ describe 'Usuário cadastra dispositivo' do
 
     login_as(user)
     visit(root_path)
+    click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
     fill_in 'Nome', with: 'Iphone 14 - ProMax'
@@ -35,7 +36,7 @@ describe 'Usuário cadastra dispositivo' do
     click_on 'Salvar'
 
     expect(page).to have_content 'Seu dispositivo foi cadastrado com sucesso!'
-    expect(page).to have_content 'Iphone 14 - ProMax'
+    expect(page).to have_content 'IPHONE 14 - PROMAX'
     expect(page).to have_content 'Marca: Apple'
     expect(page).to have_content 'Data da compra: 01/11/2022'
     expect(page).to have_css('img[src*="invoice.png"]')
@@ -49,6 +50,7 @@ describe 'Usuário cadastra dispositivo' do
 
     login_as(user)
     visit(root_path)
+    click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
     fill_in 'Nome', with: nil
@@ -72,8 +74,9 @@ describe 'Usuário cadastra dispositivo' do
 
     login_as(user)
     visit(root_path)
+    click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
-    click_on 'AppName'
+    click_on 'Comparador de seguros'
 
     expect(current_path).to eq root_path
   end
@@ -84,6 +87,7 @@ describe 'Usuário cadastra dispositivo' do
 
     login_as(user)
     visit(root_path)
+    click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
     click_on 'Meus Dispositivos'

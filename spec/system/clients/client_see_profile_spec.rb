@@ -2,11 +2,7 @@ require 'rails_helper'
 
 describe 'Cliente vê o seu perfil' do
   it 'se estiver autenticado' do
-    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
-                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
-                            birth_date: '29/10/1997')
-
-    visit client_path(client)
+    visit profile_path
 
     expect(current_path).to eq new_client_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'

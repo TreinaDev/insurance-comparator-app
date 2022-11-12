@@ -9,7 +9,7 @@
     </ul>
 <%end%>
 
-<div clas="container">
+<div class="container">
   <%= form_with(model:@equipment) do |f| %>
     <div class="row"> 
       <div class="mb-3 col-lg-6 col-12">
@@ -38,6 +38,7 @@
         <%= f.label :photos, class: 'form-label' %><br />
         <%= f.file_field :photos, multiple: true, class: 'form-control' %>
       </div>
+      <p class="fw-light">É necessário o cadastro de, pelo menos, 2 (duas) fotos com a frente e o verso do dispositivo.</p>
     </div>
     <%= f.submit 'Salvar', class: 'btn btn-dark mb-4' %>
   <% end %>

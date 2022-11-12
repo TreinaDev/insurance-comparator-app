@@ -1,0 +1,14 @@
+:root{
+    --default-color: #4b0082
+}
+
+.bg-default{
+    background-color: var(--default-color);
+}
+
+img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 200px;
+}
