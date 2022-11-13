@@ -7,5 +7,6 @@ pt-BR:
         pending: "Aguardando Aprovação da Seguradora"
         insurance_approved: "Pedido Aprovado"
         cpf_approved: "CPF Aprovado"
+        cpf_disapproved: "CPF Recusado"
         charge_pending: "Pagamento Pendente"
         charge_approved: "Pagamento Aprovado"

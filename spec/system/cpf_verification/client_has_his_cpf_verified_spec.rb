@@ -14,26 +14,23 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
                                photos: [fixture_file_upload('spec/support/photo_1.png'),
                                fixture_file_upload('spec/support/photo_2.jpg')])
 
-    insurances = []
-    insurances << Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
-                                price: 50)
+    Order.new(client_id: ana, product_id: iphone, status: :cpf_disapproved)
 
-    insurances << Insurance.new(id: 2, insurance_name: 'Seguradora 2', product_model: 'iPhone 11', packages: 'Plus',
-                                price: 20)
+    json_data = File.read(Rails.root.join('spec/support/json/cpfs.json'))
+    fake_response = double("faraday_response", status: 200, body: json_data)
 
-    allow(Insurance).to receive(:search).with('iPhone 11').and_return(insurances)
+    allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/cpf_list').and_return(fake_response)
 
-    insurance = Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
-                              price: 50)
-
-    allow(Insurance).to receive(:find).with('1').and_return(insurance)
-
+    login_as(ana)
     visit root_path
-    fill_in 'Produto', with: 'iPhone 11'
-    click_on 'Buscar'
-    click_on 'Seguradora 1'
-    click_on 'Contratar Seguro'
-
-    expect(page).to have_content 'Status da Compra: CPF bloqueado'
+    click_on 'Meus Pedidos'
+  
+    expect(page).to have_content 'Meus Pedidos'
+    expect(page).to have_css 'table', text: 'Dispositivo'
+    expect(page).to have_css 'table', text: 'Iphone 14 - ProMax'
+    expect(page).to have_css 'table', text: 'Marca'
+    expect(page).to have_css 'table', text: 'Apple'
+    expect(page).to have_css 'table', text: 'Status da Compra'
+    expect(page).to have_css 'table', text: 'CPF Recusado'
   end
 end

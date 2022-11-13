@@ -1,0 +1,20 @@
+<br/><h1 class="display-6">Meus Pedidos</h1><br/>
+
+<table class="table table-bordered border-primary text-center">
+  <thead>
+    <tr>
+      <th scope="col"><%=Equipment.model_name.human(count: 1)%></th>
+      <th scope="col"><%=Equipment.human_attribute_name(:brand)%></th>
+      <th scope="col">Status da Compra</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @client.equipment.each do |e| %>
+      <tr>
+        <td class="align-middle"><%= e["name"] %></td>
+        <td class="align-middle"><%= e["brand"] %></td>
+        <td class="align-middle"><%= %></td>
+      <% end %>
+      </tr>
+  </tbody>
+</table>
