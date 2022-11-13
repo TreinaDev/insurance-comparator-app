@@ -1,8 +1,6 @@
-<% if @insurance.present? %>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"><%= t(:insurance_name)%>: <%= @insurance.insurance_name %></li>
-        <li class="list-group-item"><%= t(:packages)%>: <%= @insurance.packages %></li>
-        <li class="list-group-item"><%= t(:product_model)%>: <%= @insurance.product_model %></li>
-        <li class="list-group-item"><%= t(:price)%> por 12 meses: <%= number_to_currency(@insurance.price) %> </li>
-    </ul>
-<% end %>
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">Nome da Seguradora: <%= @insurance.insurance_name %></li>
+  <li class="list-group-item">Tipo de Pacote: <%= @insurance.packages %></li>
+  <li class="list-group-item">Modelo do Produto: <%= @insurance.product_model %></li>
+  <li class="list-group-item">Valor de Contratação para 12 meses: R$ <%= @insurance.price %>,00 </li>
+</ul>

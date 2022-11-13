@@ -5,8 +5,8 @@ class InsurancesController < ApplicationController
   end
 
   def show
-    @id = params[:id]
-    @insurance = Insurance.find(@id)
-    return redirect_to search_path, notice: I18n.t('It is not possible to register your equipment.') if @insurance.nil?
+    id = params[:id]
+    @insurance = Insurance.find(id)
+    redirect_to root_path, alert: t(:unable_to_load_package_information) if @insurance.nil?
   end
 end

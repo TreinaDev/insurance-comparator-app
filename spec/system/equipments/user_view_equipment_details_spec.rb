@@ -51,7 +51,7 @@ describe 'Usuário vê detalhes de dispositivo' do
 
     expect(page).to have_content 'SAMSUNG J7'
     expect(page).to have_content 'Marca:'
-    expect(page).to have_content 'Samsung'
+    expect(page).to have_content 'SAMSUNG'
     expect(page).to have_content 'Data da compra:'
     expect(page).to have_content '01/11/2022'
     expect(page).to have_content 'Nota Fiscal'
