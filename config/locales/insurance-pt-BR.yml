@@ -1,0 +1,6 @@
+pt-BR:
+  unable_to_load_package_information: 'Não foi possível carregar as informações do pacote'
+  insurance_name: 'Nome da Seguradora'
+  product_model: 'Modelo do Produto'
+  packages: 'Tipo de Pacote'
+  price: 'Valor da Contratação'
