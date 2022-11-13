@@ -14,7 +14,7 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
                                photos: [fixture_file_upload('spec/support/photo_1.png'),
                                fixture_file_upload('spec/support/photo_2.jpg')])
 
-    Order.new(client_id: ana, product_id: iphone, status: :cpf_disapproved)
+    order = Order.create!(client: ana, equipment: iphone, status: :cpf_disapproved)
 
     json_data = File.read(Rails.root.join('spec/support/json/cpfs.json'))
     fake_response = double("faraday_response", status: 200, body: json_data)

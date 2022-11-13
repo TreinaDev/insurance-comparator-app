@@ -5,7 +5,7 @@ class Order < ApplicationRecord
                  charge_approved: 12 }
 
   def validate_cpf
-    response = Faraday.get('http://localhost:4000/api/v1/payment/verifica_cpf')
+    response = Faraday.get('http://localhost:5000/api/v1/payment/verifica_cpf')
     if response.success?
       data = JSON.parse(response.body)
       data.each do |d|

@@ -9,12 +9,15 @@
     </tr>
   </thead>
   <tbody>
-    <% @client.equipment.each do |e| %>
-      <tr>
+    <tr>
+      <% @client.equipment.each do |e| %>
         <td class="align-middle"><%= e["name"] %></td>
         <td class="align-middle"><%= e["brand"] %></td>
-        <td class="align-middle"><%= %></td>
       <% end %>
-      </tr>
+      <% @client.orders.each do |o| %>
+        <td class="align-middle"><%= Order.human_attribute_name("status.#{o["status"]}") %></td>
+      <% end %>
+    </tr>
   </tbody>
 </table>
+
