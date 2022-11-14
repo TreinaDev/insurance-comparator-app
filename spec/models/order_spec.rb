@@ -40,16 +40,10 @@ RSpec.describe Order, type: :model do
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/payment/verifica_cpf').and_return(fake_response)
 
-      puts order.status
-      puts order.client.cpf
-
       order.validate_cpf(order)
 
       result = order.status
-
-      puts result
-
-      expect(result).to eq 'cpf_desapproved'
+      expect(result).to eq 'cpf_disapproved'
     end
   end
 end

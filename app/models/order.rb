@@ -9,8 +9,9 @@ class Order < ApplicationRecord
     if response.success?
       data = JSON.parse(response.body)
       data.each do |d|
-        if d[:cpf] == order.client.cpf
+        if d['cpf'] == order.client.cpf
           order.cpf_disapproved!
+          break
         else
           order.cpf_approved!
         end
