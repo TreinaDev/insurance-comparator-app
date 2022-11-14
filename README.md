@@ -1,5 +1,5 @@
 # insurance-comparator-app
-App que permite a comparação e compra de pacotes de seguros para dispositivos.
+App que permite a comparação e compra de pacotes de seguros para dispositivos. <br>
 Projeto final Campus Code - TreinaDev9 (Delas) 
 
 
@@ -21,7 +21,7 @@ Projeto final Campus Code - TreinaDev9 (Delas)
 - [Factorybot](https://github.com/thoughtbot/factory_bot/tree/master) (População de banco de dados)
 <br>
 
-## Como rodar a aplicação
+## 🚀 Como rodar a aplicação
 No seu terminal, clone o projeto:
 ```sh
 git@github.com:TreinaDev/insurance-comparator-app.git
@@ -42,6 +42,7 @@ Visualize a app no browser:
 rails bin/dev
 ```
 e acesse http://localhost:3000/
+<br>
 
 Execute os testes:
 ```sh
@@ -49,13 +50,13 @@ rspec
 ```
 <br>
 
-### Dados adicionais
+### ❕ Dados adicionais
 Login de cliente para acesso da app:
 - Email: ana@gmail.com
 - Senha: 12345678
 
 
-## Associações com APIs externas
+## 🗃 Associações com APIs externas
 Os dados a serem fornecidos para os usuários desta app serão consumidos via APIs criadas pelas aplicações [Sistema de Seguradoras](https://github.com/TreinaDev/insurance-app) e [Sistema de Pagamento e Antifraude](https://github.com/TreinaDev/payment-antifraud).
 
 ### Insurance-app
@@ -68,7 +69,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 - [ ] Validação de CPF (anti-fraude);
 <br>
 
-## Devs contribuindo no Projeto
+## 👩‍💻 Devs contribuindo no Projeto
 - [Aline Moraes](https://github.com/alisboam)
 - [Anyelly Luvizott](https://github.com/anyluvizott)
 - [Izabelly Brito](https://github.com/Diana-ops)
