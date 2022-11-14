@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_12_211430) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_12_200649) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,8 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_12_211430) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "email", default: "blank", null: false
+    t.string "encrypted_password", default: "blank", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -78,25 +78,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_12_211430) do
     t.integer "contract_period"
     t.decimal "contract_price"
     t.string "coverage"
+    t.integer "equipment_id", null: false
     t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["equipment_id"], name: "index_orders_on_equipment_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
-  end
-
-  create_table "payment_methods", force: :cascade do |t|
-    t.string "card_number"
-    t.string "card_brand"
-    t.string "boleto_number"
-    t.string "pix_code"
-    t.integer "order_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_payment_methods_on_order_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "equipment", "clients"
   add_foreign_key "orders", "clients"
+  add_foreign_key "orders", "equipment"
   add_foreign_key "orders", "equipment", column: "product_id"
-  add_foreign_key "payment_methods", "orders"
 end

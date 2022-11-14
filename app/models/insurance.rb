@@ -24,7 +24,7 @@ class Insurance
   end
 
   def self.find(id)
-    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{id}")
+    response = Faraday.get("https://71d13ee0-1448-4d24-9363-ee6405162190.mock.pstmn.io/api/v1/insurance/#{id}")
     insurance = JSON.parse(response.body) if response.success?
     insurance
   end

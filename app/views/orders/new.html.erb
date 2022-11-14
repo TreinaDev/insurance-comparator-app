@@ -1,20 +1,20 @@
-<h2>Aquisição do seguro <%= 'Seguradora 1'%></h2>
+<h2>Aquisição do seguro <%= @insurance['insurance_name'] %></h2>
+  <h3> Dados do seguro</h3>
 <ul>
-  <li> Dados do seguro</li>
-  <li> Nome da Seguradora: Seguradora 1</li>
-  <li> Tipo de Pacote: Premium</li>
-  <li> Modelo do Produto: Iphone 14 - ProMax</li>
-  <li> Valor de Contratação para 12 meses: R$ 50,00</li>
+  <li> Nome da Seguradora: <%= @insurance['insurance_name'] %></li>
+  <li> Tipo de Pacote: <%= @insurance['packages'] %></li>
+  <li> Modelo do Produto: <%= @insurance['product_model'] %></li>
+  <li> Valor de Contratação para 12 meses: <%= number_to_currency(@insurance['price'], unit: "R$", separator: ",", delimiter: "", format: "%u %n") %></li>
 </ul>
 <%= bootstrap_form_with(model: @order, local: true) do |f| %>
 	<div>
-    <%= f.select :product, [["Iphone 14 - ProMax", 1], ["Tv LG", 2]], { label: "Selecione o dispositivo", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
+    <%= f.collection_select(:equipment_id, @devices, :id, :name, { label: "Selecione o dispositivo", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } ) %>
 	</div>
 	<div>
-    <%= f.select :period, [["6 meses", 1], ["12 meses", 2]], { label: "Selecione o período de contratação", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
+    <%= f.select :period, @period, { label: "Período de contratação em meses", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
 	</div>
 	<div>
-    <%= f.select :payment_method, [["Cartão", 1], ["Pix", 2]], { label: "Selecione o meio de pagamento", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
+    <%= f.collection_select(:payment_method_id, @payment_methods, :payment_method_id, :payment_method_name, { label: "Selecione o meio de pagamento", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } ) %>
 	</div>
-  <%= f.submit "Contratar" %>
+  <%= f.submit "Enviar" %>
 <% end %>

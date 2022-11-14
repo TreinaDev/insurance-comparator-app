@@ -1,0 +1,5 @@
+development:
+get_payment_method: https://636c2fafad62451f9fc53b2e.mockapi.io/api/v1
+
+test:
+get_payment_method: https://636c2fafad62451f9fc53b2e.mockapi.io/api/v1

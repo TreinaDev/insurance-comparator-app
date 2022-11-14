@@ -18,8 +18,9 @@ class PaymentOption
 
   def self.all
     payment_options = []
-    response = Faraday.get('https://mocki.io/v1/f914b988-2ce9-4263-bca2-dd40fd3a20ba')
-    if response.success? data = JSON.parse(response.body)
+    response = Faraday.get('https://64eae736-af28-4f96-a564-c1c397f6afcb.mock.pstmn.io/api/v1/company_payment_options')
+    if response.success? 
+      data = JSON.parse(response.body)
       data.each do |d|
         payment_options << PaymentOption.new(payment_method_id: d['payment_method_id'], payment_method_name: d['payment_method_name'],
                                              max_installments: d['max_installments'], tax_percentage: d['tax_percentage'],
