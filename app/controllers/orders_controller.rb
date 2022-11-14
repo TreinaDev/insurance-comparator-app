@@ -1,19 +1,14 @@
 class OrdersController < ApplicationController
   def index
-    #response = Faraday.get('http://localhost:5000/api/v1/cpf_list')
+    # response = Faraday.get('http://localhost:5000/api/v1/cpf_list')
     @client = current_client
   end
-  def show
-    # código da aline e thalis
 
-    # @client = cliente da compra / usuário current_user?
-
-    # issue API - Verifica CPF
-
-    
-    if @order.insurance_approved? # -> perguntamos se o status da compra é aprovada pela seguradora
-      @order.validate_cpf # -> chamamos o método que valida o CPF -> esse método fica dentro do MODEL
-      # -> esse método altera o status da compra para cpf.approved ou cpf.disapproved
+  def index
+    @order = Order.find(params[:id])
+   
+    if @order.insurance_approved?
+      @order.validate_cpf(@order)
     end
 
     # issue API - Disponibiliza emissão de cobrança
@@ -31,5 +26,13 @@ class OrdersController < ApplicationController
 
     if @order.charge_approved?
     end
+  end
+
+  def cpf_approved
+    @order.cpf_approved!
+  end
+
+  def cpf_disapproved
+    @order.cpf_disapproved!
   end
 end
