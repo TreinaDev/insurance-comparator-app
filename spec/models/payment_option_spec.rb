@@ -5,7 +5,7 @@ describe PaymentOption do
     it 'retorna os metodos de pagamento disponíveis pela seguradora' do
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
-      allow(Faraday).to receive(:get).with('https://636c2fafad62451f9fc53b2e.mockapi.io/api/v1/insurance_companies').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('https://mocki.io/v1/9d19ff49-4194-4884-a25c-d7939f3fc1ed').and_return(fake_response)
 
       result = PaymentOption.all
 
@@ -19,7 +19,7 @@ describe PaymentOption do
 
     it 'retorna vazio se API está suspensa/indisponível' do
       fake_response = double('faraday_response', success?: false, body: '{}')
-      allow(Faraday).to receive(:get).with('https://636c2fafad62451f9fc53b2e.mockapi.io/api/v1/insurance_companies').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('https://mocki.io/v1/9d19ff49-4194-4884-a25c-d7939f3fc1ed').and_return(fake_response)
 
       result = PaymentOption.all
 

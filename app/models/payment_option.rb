@@ -18,7 +18,7 @@ class PaymentOption
 
   def self.all
     payment_options = []
-    response = Faraday.get('https://636c2fafad62451f9fc53b2e.mockapi.io/api/v1/insurance_companies')
+    response = Faraday.get('https://mocki.io/v1/9d19ff49-4194-4884-a25c-d7939f3fc1ed')
     if response.success? data = JSON.parse(response.body)
       data.each do |d|
         payment_options << PaymentOption.new(payment_method_id: d['payment_method_id'], payment_method_name: d['payment_method_name'],
