@@ -24,8 +24,12 @@ class Insurance
   end
 
   def self.find(id)
-    response = Faraday.get("http://localhost:4000/api/v1/insurance/#{id}")
-    insurance = JSON.parse(response.body) if response.success?
+    response = Faraday.get("https://636ea488bb9cf402c806e80f.mockapi.io/api/v1/insurances/#{id}")
+    if response.success?
+      data = JSON.parse(response.body) 
+      insurance = Insurance.new(id: data['id'], insurance_name: data['insurance_name'], product_model: data['product_model'],
+                                packages: data['packages'], price: data['price'])
+    end
     insurance
   end
 end
