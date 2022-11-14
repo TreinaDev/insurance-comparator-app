@@ -36,7 +36,7 @@ describe Insurance do
     it 'retorna a seguradora escolhida' do
       json_data = Rails.root.join('spec/support/json/insurance.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/insurance/1').and_return(fake_response)
+      allow(Faraday).to receive(:get).with("https://71d13ee0-1448-4d24-9363-ee6405162190.mock.pstmn.io/api/v1/insurance/1").and_return(fake_response)
 
       result = Insurance.find(1)
 
@@ -49,7 +49,7 @@ describe Insurance do
 
     it 'retorna vazio se API está suspensa/indisponível' do
       fake_response = double('faraday_response', success?: false, body: "{'error': 'Erro ao obter dados da pesquisa'}")
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/insurance/1').and_return(fake_response)
+      allow(Faraday).to receive(:get).with("https://71d13ee0-1448-4d24-9363-ee6405162190.mock.pstmn.io/api/v1/insurance/1").and_return(fake_response)
 
       result = Insurance.find(1)
 

@@ -1,0 +1,3 @@
+development:
+  get_insurance: https://71d13ee0-1448-4d24-9363-ee6405162190.mock.pstmn.io/api/v1
+  get_payment_method: https://71d13ee0-1448-4d24-9363-ee6405162190.mock.pstmn.io/api/v1

@@ -1,0 +1,9 @@
+{
+    "name": "Laranja",
+    "tax_percentage": 5,
+    "tax_maximum": 150,
+    "payment_type": "Cartão de Crédito",
+    "status": 0,
+    "max_parcels": 12,
+    "single_parcel_discout": 5
+}

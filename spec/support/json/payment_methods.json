@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Roxo",
+        "tax_percentage": 3,
+        "tax_maximum": 50,
+        "payment_type": "Boleto",
+        "status": 0,
+        "max_parcels": 12,
+        "single_parcel_discout": 5
+    },
+    {
+        "id": 2,
+        "name": "Laranja",
+        "tax_percentage": 5,
+        "tax_maximum": 150,
+        "payment_type": "Cartão de Crédito",
+        "status": 0,
+        "max_parcels": 12,
+        "single_parcel_discout": 5
+    },
+    {
+        "id": 3,
+        "name": "Azul",
+        "tax_percentage": 2,
+        "tax_maximum": 200,
+        "payment_type": "Pix",
+        "status": 1,
+        "max_parcels": 0,
+        "single_parcel_discout": 0
+    }
+]
