@@ -29,7 +29,7 @@ class EquipmentController < ApplicationController
     if @equipment.update(equipment_params)
       redirect_to @equipment, notice: I18n.t('Your equipment has been successfully updated!')
     else 
-      flash.now[:alert] = I18n.t('It is not possible to edit your equipment. Please check and try again.')
+      flash.now[:alert] = I18n.t('It is not possible to edit your equipment.')
       render 'edit'
     end
   end
