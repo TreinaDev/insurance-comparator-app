@@ -19,13 +19,12 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    insurance = Insurance.find(params[:insurance_id])
     set_insurance
-    @order.client = current_client
     @order.save
     if @order.valid?
       return redirect_to insurance_order_path(insurance, @order), notice: t(:your_order_is_being_processed)
     end
+
     flash.now[:alert] = t(:your_order_was_not_registered)
     render :new
   end
@@ -43,5 +42,6 @@ class OrdersController < ApplicationController
     @order.insurance_name = insurance.insurance_name
     @order.packages = insurance.packages
     @order.insurance_model = insurance.product_model
+    @order.client = current_client
   end
 end
