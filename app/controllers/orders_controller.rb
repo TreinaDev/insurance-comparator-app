@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
     set_insurance
     @order.save
     if @order.valid?
-      return redirect_to insurance_order_path(insurance, @order), notice: t(:your_order_is_being_processed)
+      return redirect_to insurance_order_path(@insurance, @order), notice: t(:your_order_is_being_processed)
     end
 
     flash.now[:alert] = t(:your_order_was_not_registered)
@@ -36,12 +36,12 @@ class OrdersController < ApplicationController
   end
 
   def set_insurance
-    insurance = Insurance.find(params[:insurance_id])
-    @order.insurance_id = insurance.id
-    @order.price_percentage = insurance.price
-    @order.insurance_name = insurance.insurance_name
-    @order.packages = insurance.packages
-    @order.insurance_model = insurance.product_model
+    @insurance = Insurance.find(params[:insurance_id])
+    @order.insurance_id = @insurance.id
+    @order.price_percentage = @insurance.price
+    @order.insurance_name = @insurance.insurance_name
+    @order.packages = @insurance.packages
+    @order.insurance_model = @insurance.product_model
     @order.client = current_client
   end
 end
