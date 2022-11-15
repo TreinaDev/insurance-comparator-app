@@ -28,14 +28,23 @@
     <div class="row"> 
       <div class="mb-3 col-lg-6 col-12">
         <%= f.label :invoice, class: 'form-label' %><br />
-        <%= f.file_field :invoice, class: 'form-control' %>
+        <%= f.file_field :invoice, class: 'form-control' %><br/>
+        <% if @equipment.invoice.attached? %>
+          <%= @equipment.invoice.blob.filename %>
+        <% end %>
       </div>
     </div>
     <div class="row"> 
       <div class="mb-3 col-lg-6 col-12">
         <%= f.label :photos, class: 'form-label' %><br />
-        <%= f.file_field :photos, multiple: true, class: 'form-control' %>
+        <%= f.file_field :photos, multiple:true, class: 'form-control' %><br/>
+        <% if @equipment.photos.attached? %>
+          <% @equipment.photos.each do |i| %>
+            <%= i.filename %><br>
+          <% end %>
+        <% end %>
       </div>
+    </div>
       <p class="fw-light">É necessário o cadastro de, pelo menos, 2 (duas) fotos com a frente e o verso do dispositivo.</p>
     </div>
     <%= f.submit I18n.t(:save), class: 'btn btn-dark mb-4' %>
