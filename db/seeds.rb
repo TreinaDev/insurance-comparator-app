@@ -3,7 +3,7 @@ client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '123
                         address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                         birth_date: '29/10/1997')
 
-# dispositivos cadastrados 
+# dispositivos cadastrados
 equipment = Equipment.new(client:, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: Time.zone.today)
 equipment.invoice.attach(io: Rails.root.join('spec/support/invoice.png').open, filename: 'nota_fiscal.png')
 equipment.photos.attach(io: Rails.root.join('spec/support/photo_1.png').open, filename: 'foto_frente.png')
