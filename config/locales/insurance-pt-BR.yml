@@ -3,4 +3,7 @@ pt-BR:
   insurance_name: 'Nome da Seguradora'
   product_model: 'Modelo do Produto'
   packages: 'Tipo de Pacote'
-  price: 'Valor da Contratação'
+  price: 'Valor da Contratação por 12 meses'
+  to_hire: 'Contratar'
+  contract_package: 'Contratar Pacote'
+  is_necessary_register_a_device_to_purchase_the_insurance: 'É necessário cadastrar um dispositivo para contratar o seguro'

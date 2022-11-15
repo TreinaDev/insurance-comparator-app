@@ -1,30 +1,34 @@
 class OrdersController < ApplicationController
-  # before_action :authenticate_client!
+  before_action :authenticate_client!
+
+  def show
+    @order = Order.find(params[:id])
+  end
 
   def new
-    get_insurance
+    @insurance = Insurance.find(params[:insurance_id])
     @order = Order.new
-    @devices = Equipment.all
-    @payment_methods = PaymentOption.all
-    p @payment_methods
-    @period = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-  end
-
-  def create
-    
-  end
-
-  private
-  def get_insurance
-    id = params[:id]
-    @insurance = Insurance.find(id)
+    @payment_options = PaymentOption.all
     if @insurance.nil?
-      return redirect_to root_path, alert: t(:unable_to_load_package_information) 
+      redirect_to root_path, alert: t(:unable_to_load_package_information)
+    elsif current_client.equipment.empty?
+      redirect_to new_equipment_path, alert: t(:is_necessary_register_a_device_to_purchase_the_insurance)
     end
   end
 
+  def create
+    @order = Order.new(order_params)
+    @order.client = current_client
+    if @order.save
+      redirect_to @order, notice: t('Seu pedido está em análise pela seguradora')
+    else
+      render :new, alert: t('Não foi possível cadastrar o pedido')
+    end
+  end
+
+  private
+
   def order_params
-    # params.require(:order).permit(:product_id, :client_id, :status, :payment_method, :contract_period :contract_price, :coverage)
+    params.require(:order).permit(:equipment_id, :payment_option, :contract_period)
   end
 end
-

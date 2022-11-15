@@ -72,9 +72,6 @@ GEM
     bcrypt (3.1.18)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
-    bootstrap_form (5.1.0)
-      actionpack (>= 5.2)
-      activemodel (>= 5.2)
     builder (3.2.4)
     capybara (3.37.1)
       addressable
@@ -87,9 +84,6 @@ GEM
       xpath (~> 3.2)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
-    credit_card_validations (6.0.0)
-      activemodel (>= 5.2, < 7.1)
-      activesupport (>= 5.2, < 7.1)
     cssbundling-rails (1.1.1)
       railties (>= 6.0.0)
     debug (1.6.3)
@@ -285,9 +279,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  bootstrap_form
   capybara
-  credit_card_validations
   cssbundling-rails
   debug
   devise

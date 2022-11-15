@@ -1,57 +1,97 @@
 require 'rails_helper'
 
 describe 'Cliente compra pacote de seguro' do
+  it 'se estiver autenticado' do
+    insurance = Insurance.new(id: 76, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
+                              price: 50)
+    allow(Insurance).to receive(:find).with('76').and_return(insurance)
+
+    visit insurance_path(insurance.id)
+    click_link 'Contratar'
+
+    expect(current_path).to eq new_client_session_path
+  end
+
+  it 'se tiver um dispositivo cadastrado' do
+    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                            birth_date: '29/10/1997')
+    insurance = Insurance.new(id: 44, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
+                              price: 50)
+    allow(Insurance).to receive(:find).with('44').and_return(insurance)
+
+    login_as(client)
+    visit insurance_path(insurance.id)
+    click_link 'Contratar'
+
+    expect(current_path).to eq new_equipment_path
+    expect(page).to have_content 'É necessário cadastrar um dispositivo para contratar o seguro'
+  end
+
   it 'a partir da página de detalhes do pacote' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')
-    equipment = Equipment.create(client_id: 1, name: 'Iphone', brand: 'Apple', purchase_date: Time.zone.today)
-    insurance = {"id"=>1, "insurance_name"=>"Seguradora 1", "product_model"=>"iPhone 11", "packages"=>"Premium", "price"=>50}
-    payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Roxo', max_installments: 5, tax_percentage: 5,
-                                      tax_maximum: 2, payment_method_status: 'aprovado',
-                                      single_installment_discount:1)
-    payment_method_b = PaymentOption.new(payment_method_id: 2, payment_method_name: 'Azul', max_installments: 1, tax_percentage: 15,
-                                      tax_maximum: 7, payment_method_status: 'aprovado',
-                                      single_installment_discount:1)
-                              
-    visit insurance_path(insurance['id'])                            
-    click_on 'Contratar'
-    
-    expect(current_path).to eq new_order_path
-    expect(page).to have_content 'Dados do seguro'
-    expect(page).to have_content 'Nome da Seguradora: Seguradora 1'
+    Equipment.create!(client:, name: 'iphone 11', brand: 'Apple',
+                      purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
+                      photos: [fixture_file_upload('spec/support/photo_1.png'),
+                               fixture_file_upload('spec/support/photo_2.jpg')])
+    Equipment.create!(client:, name: 'Samsung SX', brand: 'Samsung',
+                      purchase_date: '28/09/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
+                      photos: [fixture_file_upload('spec/support/photo_1.png'),
+                               fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 67, insurance_name: 'Seguradora 67', product_model: 'iPhone 11', packages: 'Premium',
+                              price: 50)
+
+    allow(Insurance).to receive(:find).with('67').and_return(insurance)
+
+    login_as(client)
+    visit insurance_path(insurance.id)
+    click_link 'Contratar'
+
+    expect(current_path).to eq new_insurance_order_path(insurance.id)
+    expect(page).to have_content 'Aquisição do Seguro'
+    expect(page).to have_content 'Nome da Seguradora: Seguradora 67'
     expect(page).to have_content 'Tipo de Pacote: Premium'
     expect(page).to have_content 'Modelo do Produto: iPhone 11'
-    expect(page).to have_content 'Valor de Contratação para 12 meses: R$ 50,00'
+    expect(page).to have_content 'Valor da Contratação por 12 meses: R$ 50,00'
+    expect(page).to have_select 'Dispositivo', text: 'iphone 11'
+    expect(page).to have_select 'Dispositivo', text: 'Samsung SX'
+    expect(page).to have_field 'Período de contratação em meses', type: :number
+    expect(page).to have_select 'Meio de Pagamento'
+    expect(page).to have_button 'Contratar Pacote'
   end
-  it 'e preenche os dados' do 
+
+  it 'com sucesso' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')
-    equipment = Equipment.create(client_id: 1, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: Time.zone.today)
-    equipment_b = Equipment.create(client_id: 1, name: 'TV LG', brand: 'LG', purchase_date: Time.zone.today)
-    insurance = {"id"=>1, "insurance_name"=>"Seguradora 1", "product_model"=>"iPhone 11", "packages"=>"Premium", "price"=>50}
+    Equipment.create!(client:, name: 'iphone 11', brand: 'Apple',
+                      purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
+                      photos: [fixture_file_upload('spec/support/photo_1.png'),
+                               fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11', packages: 'Premium',
+                              price: 50)
 
-    payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Roxo', max_installments: 5, tax_percentage: 5,
-                                      tax_maximum: 2, payment_method_status: 'aprovado',
-                                      single_installment_discount:1)
-    payment_method_b = PaymentOption.new(payment_method_id: 2, payment_method_name: 'Azul', max_installments: 1, tax_percentage: 15,
-                                      tax_maximum: 7, payment_method_status: 'aprovado',
-                                      single_installment_discount:1)
+    allow(Insurance).to receive(:find).with('45').and_return(insurance)
 
-    allow(PaymentOption).to receive(:all).with(no_args).and_return([payment_method, payment_method_b])
-         
-    visit insurance_path(insurance['id'])
-                                  
-    click_on 'Contratar'
-    within ('form') do
-      select 'Iphone 14 - ProMax', from: 'Selecione o dispositivo'
-      select '6', from: 'Período de contratação em meses'
-      select 'Roxo', from: 'Selecione o meio de pagamento'
-    end
-    click_on 'Enviar'
-    
-    # expect(current_path).to eq new_payment_method_path
-    # expect(page).to have_content 'Seu dispositivo está em análise pela seguradora'
+    login_as(client)
+    visit insurance_path(insurance.id)
+    click_link 'Contratar'
+    select 'iphone 11', from: 'Dispositivo'
+    fill_in 'Período de contratação em meses', with: 7
+    select 'Cartão de crédito', from: 'Meio de Pagamento'
+    click_button 'Contratar Pacote'
+
+    expect(page).to have_content 'Seu pedido está em análise pela seguradora'
+    expect(page).to have_content 'Nome da Seguradora: Seguradora 45'
+    expect(page).to have_content 'Modelo do Produto: iPhone 11'
+    expect(page).to have_content 'Duração: 7 meses'
+    expect(page).to have_content 'Preço: R$ 29,16'
+    expect(page).to have_content 'Tipo de Pacote: Premium'
+    expect(page).to have_content 'Dispositivo: iphone 11'
+    expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
   end
+
+  # testar cenários de erro
 end

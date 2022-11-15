@@ -6,12 +6,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <% stylesheet_link_tag "application" %>
-    <% javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
     <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-default">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-default mb-4">
       <div class="container-fluid">
         <%= link_to t(:insurance_comparator), root_path, class:'navbar-brand' %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

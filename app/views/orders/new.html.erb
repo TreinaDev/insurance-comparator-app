@@ -1,20 +1,83 @@
-<h2>Aquisição do seguro <%= @insurance['insurance_name'] %></h2>
-  <h3> Dados do seguro</h3>
-<ul>
-  <li> Nome da Seguradora: <%= @insurance['insurance_name'] %></li>
-  <li> Tipo de Pacote: <%= @insurance['packages'] %></li>
-  <li> Modelo do Produto: <%= @insurance['product_model'] %></li>
-  <li> Valor de Contratação para 12 meses: <%= number_to_currency(@insurance['price'], unit: "R$", separator: ",", delimiter: "", format: "%u %n") %></li>
-</ul>
-<%= bootstrap_form_with(model: @order, local: true) do |f| %>
-	<div>
-    <%= f.collection_select(:equipment_id, @devices, :id, :name, { label: "Selecione o dispositivo", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } ) %>
-	</div>
-	<div>
-    <%= f.select :period, @period, { label: "Período de contratação em meses", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
-	</div>
-	<div>
-    <%= f.collection_select(:payment_method_id, @payment_methods, :payment_method_id, :payment_method_name, { label: "Selecione o meio de pagamento", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } ) %>
-	</div>
-  <%= f.submit "Enviar" %>
-<% end %>
+<h1 class="fs-2">Aquisição do Seguro <%= @insurance.packages %></h1>
+
+<% if @order.errors.any? %>
+  <p> Por favor, verifique os erros abaixo: </p>
+  <ul>
+    <% @order.errors.full_messages.each do |msg| %>
+      <li class="alert alert-danger" role="alert"><%= msg %></li>
+    <% end %>
+  </ul>
+<%end%>
+
+<div class="container">
+  <ul class="list-group">
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12">
+        <li class="list-group-item">
+          <b><%= t :insurance_name %>:</b>
+          <%= @insurance.insurance_name %>
+        </li>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12">
+        <li class="list-group-item">
+          <b><%= t :packages %>:</b>
+          <%= @insurance.packages %>
+        </li>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12">
+        <li class="list-group-item">
+          <b><%= t :product_model %>:</b>
+          <%= @insurance.product_model %>
+        </li>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12">
+        <li class="list-group-item">
+          <b><%= t :price %>:</b>
+          <%= number_to_currency(@insurance.price) %>
+        </li>
+      </div>
+    </div>
+  </div>
+
+  <%= form_with model: [:insurance, @order], method: :post do |f| %>
+    <div class="row"> 
+      <div class="col-lg-6 col-12 mb-2">
+        <li class="list-group-item">
+          <%= f.label :equipment_id, 'Dispositivo', class: 'form-label mt-4' %>
+          <%= f.collection_select :equipment_id, current_client.equipment.order(:name), :id, :name, {} , class: 'form-control' %>
+        </li>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12 mb-2">
+        <li class="list-group-item">
+          <%= f.label :contracted_period, 'Período de contratação em meses', class: 'form-label' %>
+          <%= f.number_field :contracted_period, class: 'form-control' %>
+        </li>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12 mb-2">
+        <li class="list-group-item">
+          <%= f.label :payment_option_id, 'Meio de Pagamento', class: 'form-label' %>
+          <%= f.collection_select :payment_option_id, @payment_options, :payment_method_id, :payment_method_name, {} , class: 'form-control' %>
+        </li>
+      </div>
+    </div>
+
+    <%= f.submit t(:contract_package), class: 'btn btn-dark mt-3 mb-4' %>
+
+  <% end %>
+</div>

@@ -4,8 +4,8 @@ FactoryBot.define do
     equipment_id { nil }
     order_id { nil }
     card_number { 1 }
-    card_name { "MyString" }
+    card_name { 'MyString' }
     boleto { 1 }
-    pix { "MyString" }
+    pix { 'MyString' }
   end
 end
