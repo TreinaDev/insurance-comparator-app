@@ -2,6 +2,7 @@ class Equipment < ApplicationRecord
   has_one_attached :invoice
   has_many_attached :photos
   belongs_to :client
+  has_one :policy
 
   validates :name, :brand, :purchase_date, :invoice, :photos, presence: true
   validates :photos, length: { minimum: 2 }

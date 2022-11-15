@@ -2,10 +2,17 @@ require 'rails_helper'
 
 describe 'Usuário vê apólice' do 
   it 'a partir da tela inicial' do
+    user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
+      state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
+    Equipment.create!(client: user, name: 'Samsung J7', brand: 'Samsung',
+        purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
+        photos: [fixture_file_upload('spec/support/photo_1.png'),
+                 fixture_file_upload('spec/support/photo_2.jpg')])
     json_data = File.read(Rails.root.join('spec/support/json/policy.json'))
     fake_response = double("faraday_response", status: 200, body: json_data)
     allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/equipment/1/policy').and_return(fake_response)
     
+    login_as user
     visit root_path
     click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
@@ -35,10 +42,10 @@ describe 'Usuário vê apólice' do
     expect(page).to have_content 'E-mail:'
     expect(page).to have_content 'mario@sistemadeseguros.com'
     expect(page).to have_content 'Endereço:'
-    expect(page).to have_content 'Rua Dr Nogueira Martins, 555',
-    expect(page).to have_content 'Cidade:',
-    expect(page).to have_content 'São Paulo',
-    expect(page).to have_content 'Estado:',
-    expect(page).to have_content 'SP',
+    expect(page).to have_content 'Rua Dr Nogueira Martins, 555'
+    expect(page).to have_content 'Cidade:'
+    expect(page).to have_content 'São Paulo'
+    expect(page).to have_content 'Estado:'
+    expect(page).to have_content 'SP'
   end
 end
