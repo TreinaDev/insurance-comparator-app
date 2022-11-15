@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
   def set_insurance
     insurance = Insurance.find(params[:insurance_id])
     @order.insurance_id = insurance.id
-    @order.contract_price = insurance.price
+    @order.price_percentage = insurance.price
     @order.insurance_name = insurance.insurance_name
     @order.packages = insurance.packages
     @order.insurance_model = insurance.product_model
