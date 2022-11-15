@@ -18,4 +18,10 @@ class Order < ApplicationRecord
       end
     end
   end
+
+  def validade_charge(order)
+    if order.status == 'cpf_approved'
+      order.charge_pending!
+    end
+  end
 end

@@ -6,14 +6,14 @@ class OrdersController < ApplicationController
       order.validate_cpf(order) if order.insurance_approved?
 
       # issue API - Disponibiliza emissão de cobrança
-      if order.cpf_approved? # -> perguntamos se o status da compra está como CPF aprovado
-        order.validade_charge # -> chamamos o método que manda a compra pra app de Cobrança -> método fica dentro do MODEL
-      end
+      order.validade_charge(order) if order.cpf_approved? 
 
-      if order.cpf_disapproved?
-        # aqui a compra não continua / Cliente consegue ver no status da compra que seu CPF está bloqueado
-        # dentro da VIEW colocamos uma mensagem para o Cliente (if order.cpf_disapproved?)
-      end
+      #Verificar se não podemos substituir o status "CPF Aprovado" por Pagamento em Processamento, uma vez que, se o cpf está aprovado, o pagamento já se torna pendente de aprovação.
+
+      # if order.cpf_disapproved?
+      #   # aqui a compra não continua / Cliente consegue ver no status da compra que seu CPF está bloqueado
+      #   # dentro da VIEW colocamos uma mensagem para o Cliente (if order.cpf_disapproved?)
+      # end
 
       # if order.charge_pending?
       # end
