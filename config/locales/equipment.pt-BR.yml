@@ -1,6 +1,9 @@
 pt-BR:
   Your equipment has been successfully registered!: Seu dispositivo foi cadastrado com sucesso!
   It is not possible to register your equipment: Não foi possível registrar o seu dispositivo.
+  Your equipment has been successfully updated!: Seu dispositivo foi atualizado com sucesso!
+  It is not possible to edit your equipment. Please check and try again.: Não foi possível atualizar equipamento, por favor verifique
+                           e tente novamente.
   activerecord:
     models:
       equipment:
