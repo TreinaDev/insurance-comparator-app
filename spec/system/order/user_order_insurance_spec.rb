@@ -85,12 +85,12 @@ describe 'Cliente compra pacote de seguro' do
 
     expect(page).to have_content 'Seu pedido está em análise pela seguradora'
     expect(page).to have_content 'Nome da Seguradora: Seguradora 45'
-    # expect(page).to have_content 'Modelo do Produto: iPhone 11'
-    # expect(page).to have_content 'Duração: 7 meses'
-    # expect(page).to have_content 'Preço: R$ 29,16'
-    # expect(page).to have_content 'Tipo de Pacote: Premium'
-    # expect(page).to have_content 'Dispositivo: iphone 11'
-    # expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
+    expect(page).to have_content 'Modelo do Produto: iPhone 11'
+    expect(page).to have_content 'Período contratado: 7 meses'
+    expect(page).to have_content 'Valor: R$ 50,00'
+    expect(page).to have_content 'Tipo de Pacote: Premium'
+    expect(page).to have_content 'Dispositivo: iphone 11'
+    expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
   end
 
   # testar cenários de erro

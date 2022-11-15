@@ -1,4 +1,12 @@
 pt-BR:
+  your_order_is_being_processed: 'Seu pedido está em análise pela seguradora'
+  your_order_was_not_registered: 'Não foi possível cadastrar o pedido'
+  contract_price: "Valor"
+  insurance_name: "Nome da Seguradora"
+  packages: "Tipo de Pacote"
+  insurance_model: "Modelo do Produto"
+  contract_period: "Período contratado"
+  equipment: "Dispositivo"
   activerecord:
     models:
       order: "Pedido"

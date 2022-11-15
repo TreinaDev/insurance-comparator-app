@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @equipment = Equipment.find(@order.equipment_id)
   end
 
   def new
@@ -19,13 +20,13 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     insurance = Insurance.find(params[:insurance_id])
-    get_insurance
+    set_insurance
     @order.client = current_client
     @order.save
     if @order.valid?
-      return redirect_to insurance_order_path(insurance, @order), notice: t('Seu pedido está em análise pela seguradora')
+      return redirect_to insurance_order_path(insurance, @order), notice: t(:your_order_is_being_processed)
     end
-    flash.now[:alert] = t('Não foi possível cadastrar o pedido')
+    flash.now[:alert] = t(:your_order_was_not_registered)
     render :new
   end
 
@@ -35,7 +36,7 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:client_id, :equipment_id, :payment_option, :contract_period, :insurance_id)
   end
 
-  def get_insurance
+  def set_insurance
     insurance = Insurance.find(params[:insurance_id])
     @order.insurance_id = insurance.id
     @order.contract_price = insurance.price
