@@ -10,12 +10,10 @@
   </thead>
   <tbody>
     <tr>
-      <% @client.equipment.each do |e| %>
-        <td class="align-middle"><%= e["name"] %></td>
-        <td class="align-middle"><%= e["brand"] %></td>
-      <% end %>
-      <% @client.orders.each do |o| %>
-        <td class="align-middle"><%= Order.human_attribute_name("status.#{o["status"]}") %></td>
+      <% @orders.each do |order| %>
+        <td class="align-middle"><%= order.equipment.name %></td>
+        <td class="align-middle"><%= order.equipment.brand %></td>
+        <td class="align-middle"><%= Order.human_attribute_name("status.#{order.status}") %></td>
       <% end %>
     </tr>
   </tbody>

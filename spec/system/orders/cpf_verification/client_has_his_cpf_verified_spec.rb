@@ -12,10 +12,10 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
                                         fixture_file_upload('spec/support/photo_2.jpg')])
 
     order = Order.create!(client: ana, equipment: iphone, status: :insurance_approved)
-    
+
     json_data = Rails.root.join('spec/support/json/cpfs.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/payment/verifica_cpf').and_return(fake_response)
+    allow(Faraday).to receive(:get).with('https://mocki.io/v1/ba1a1ec8-8d1d-47a3-aaf3-4ac9fe9c390c').and_return(fake_response)
 
     order.validate_cpf(order)
 
@@ -29,7 +29,7 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
     expect(page).to have_css 'table', text: 'Marca'
     expect(page).to have_css 'table', text: 'Apple'
     expect(page).to have_css 'table', text: 'Status da Compra'
-    expect(page).to have_css 'table', text: 'CPF Aprovado'
+    expect(page).to have_css 'table', text: 'Pagamento em Processamento'
   end
 
   it 'e o CPF está bloqueado' do
@@ -46,7 +46,7 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
 
     json_data = Rails.root.join('spec/support/json/cpfs.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/payment/verifica_cpf').and_return(fake_response)
+    allow(Faraday).to receive(:get).with('https://mocki.io/v1/ba1a1ec8-8d1d-47a3-aaf3-4ac9fe9c390c').and_return(fake_response)
 
     order.validate_cpf(order)
 
