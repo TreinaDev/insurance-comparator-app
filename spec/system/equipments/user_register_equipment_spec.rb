@@ -28,7 +28,7 @@ describe 'Usuário cadastra dispositivo' do
     click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
-    fill_in 'Nome', with: 'Iphone 14 - ProMax'
+    fill_in 'Nome', with: 'IPHONE 14 - PROMAX'
     fill_in 'Marca', with: 'Apple'
     fill_in 'Data da compra', with: '01/11/2022'
     attach_file 'Nota Fiscal', Rails.root.join('spec/support/invoice.png')

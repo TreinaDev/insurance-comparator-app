@@ -1,0 +1,17 @@
+<h1> Resultado da Busca: <%= @query %> </h1>
+<hr/>
+<% if @insurances.empty? %>
+  <p>Nenhuma Seguradora encontrada</p>
+<% end %>
+<% @insurances.each do |insurance| %>
+  <div>
+    <dl>
+      <dt> <%= t(:insurance_name)%>:</dt>
+      <dd> <%= link_to insurance.insurance_name, insurance_path(insurance.id) %></dd>
+      <dt> <%= t(:packages)%>:</dt>
+      <dd> <%= insurance.packages %></dd>
+      <dt> <%= t(:price)%> por 12 meses: </dt>
+      <dd> <%= number_to_currency(insurance.price) %></dd>
+    </dl>
+  </div>
+<% end %>
