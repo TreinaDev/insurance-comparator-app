@@ -18,17 +18,29 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    insurance = Insurance.find(params[:insurance_id])
+    get_insurance
     @order.client = current_client
-    if @order.save
-      redirect_to @order, notice: t('Seu pedido está em análise pela seguradora')
-    else
-      render :new, alert: t('Não foi possível cadastrar o pedido')
+    @order.save
+    if @order.valid?
+      return redirect_to insurance_order_path(insurance, @order), notice: t('Seu pedido está em análise pela seguradora')
     end
+    flash.now[:alert] = t('Não foi possível cadastrar o pedido')
+    render :new
   end
 
   private
 
   def order_params
-    params.require(:order).permit(:equipment_id, :payment_option, :contract_period)
+    params.require(:order).permit(:client_id, :equipment_id, :payment_option, :contract_period, :insurance_id)
+  end
+
+  def get_insurance
+    insurance = Insurance.find(params[:insurance_id])
+    @order.insurance_id = insurance.id
+    @order.contract_price = insurance.price
+    @order.insurance_name = insurance.insurance_name
+    @order.packages = insurance.packages
+    @order.insurance_model = insurance.product_model
   end
 end
