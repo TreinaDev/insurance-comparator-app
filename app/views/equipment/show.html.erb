@@ -1,7 +1,7 @@
-
-
 <br/><h1 class="display-6"><%= @equipment.name.upcase %></h1><br/>
 <dl>
+  <dt><%= Equipment.human_attribute_name(:equipment_price) %>:</dt>
+  <dd><%= number_to_currency(@equipment.equipment_price) %></dd>
   <dt><%= Equipment.human_attribute_name(:brand) %>:</dt>
   <dd><%= @equipment.brand %></dd>
   <dt><%= Equipment.human_attribute_name(:purchase_date) %>:</dt>

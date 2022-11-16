@@ -13,6 +13,7 @@ describe 'Usuário cadastra dispositivo' do
 
     expect(page).to have_content 'Cadastro de Dispositivo'
     expect(page).to have_field 'Nome'
+    expect(page).to have_field 'Valor'
     expect(page).to have_field 'Marca'
     expect(page).to have_field 'Data da compra'
     expect(page).to have_field 'Nota Fiscal'
@@ -29,6 +30,7 @@ describe 'Usuário cadastra dispositivo' do
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
     fill_in 'Nome', with: 'IPHONE 14 - PROMAX'
+    fill_in 'Valor', with: '10199'
     fill_in 'Marca', with: 'Apple'
     fill_in 'Data da compra', with: '01/11/2022'
     attach_file 'Nota Fiscal', Rails.root.join('spec/support/invoice.png')
@@ -37,6 +39,7 @@ describe 'Usuário cadastra dispositivo' do
 
     expect(page).to have_content 'Seu dispositivo foi cadastrado com sucesso!'
     expect(page).to have_content 'IPHONE 14 - PROMAX'
+    expect(page).to have_content 'Valor: R$ 10.199,00'
     expect(page).to have_content 'Marca: Apple'
     expect(page).to have_content 'Data da compra: 01/11/2022'
     expect(page).to have_css('img[src*="invoice.png"]')
@@ -62,10 +65,24 @@ describe 'Usuário cadastra dispositivo' do
 
     expect(page).to have_content 'Não foi possível registrar o seu dispositivo.'
     expect(page).to have_content 'Nome não pode ficar em branco'
+    expect(page).to have_content 'Valor não pode ficar em branco'
     expect(page).to have_content 'Marca não pode ficar em branco'
     expect(page).to have_content 'Data da compra não pode ficar em branco'
     expect(page).to have_content 'Nota Fiscal não pode ficar em branco'
     expect(page).to have_content 'Fotos não pode ficar em branco'
+  end
+
+  it 'com valor menor ou igual a 0' do
+    user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
+                          state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
+
+    login_as(user)
+    visit new_equipment_path
+    fill_in 'Valor', with: '-200'
+    click_on 'Salvar'
+
+    expect(page).to have_content 'Não foi possível registrar o seu dispositivo.'
+    expect(page).to have_content 'Valor deve ser maior que 0'
   end
 
   it 'e volta para tela inicial' do

@@ -6,8 +6,7 @@ describe 'Cliente compra pacote de seguro' do
                               price: 50)
     allow(Insurance).to receive(:find).with('76').and_return(insurance)
 
-    visit insurance_path(insurance.id)
-    click_link 'Contratar'
+    visit new_insurance_order_path(insurance.id)
 
     expect(current_path).to eq new_client_session_path
   end
@@ -21,8 +20,7 @@ describe 'Cliente compra pacote de seguro' do
     allow(Insurance).to receive(:find).with('44').and_return(insurance)
 
     login_as(client)
-    visit insurance_path(insurance.id)
-    click_link 'Contratar'
+    visit new_insurance_order_path(insurance.id)
 
     expect(current_path).to eq new_equipment_path
     expect(page).to have_content 'É necessário cadastrar um dispositivo para contratar o seguro'
@@ -32,11 +30,11 @@ describe 'Cliente compra pacote de seguro' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')
-    Equipment.create!(client:, name: 'iphone 11', brand: 'Apple',
+    Equipment.create!(client:, name: 'iphone 11', brand: 'Apple', equipment_price: 10_199,
                       purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
                       photos: [fixture_file_upload('spec/support/photo_1.png'),
                                fixture_file_upload('spec/support/photo_2.jpg')])
-    Equipment.create!(client:, name: 'Samsung SX', brand: 'Samsung',
+    Equipment.create!(client:, name: 'Samsung SX', brand: 'Samsung', equipment_price: 10_199,
                       purchase_date: '28/09/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
                       photos: [fixture_file_upload('spec/support/photo_1.png'),
                                fixture_file_upload('spec/support/photo_2.jpg')])
@@ -54,7 +52,7 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_content 'Nome da Seguradora: Seguradora 67'
     expect(page).to have_content 'Tipo de Pacote: Premium'
     expect(page).to have_content 'Modelo do Produto: iPhone 11'
-    expect(page).to have_content 'Valor da Contratação por 12 meses: R$ 50,00'
+    expect(page).to have_content 'Porcentagem do Seguro: 50 %'
     expect(page).to have_select 'Dispositivo', text: 'iphone 11'
     expect(page).to have_select 'Dispositivo', text: 'Samsung SX'
     expect(page).to have_field 'Período de contratação em meses', type: :number
@@ -94,5 +92,28 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
   end
 
-  # testar cenários de erro
+  it 'e deixa campo obrigatório em branco' do
+    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                            birth_date: '29/10/1997')
+    Equipment.create!(client:, name: 'iphone 11', brand: 'Apple', equipment_price: 1000,
+                      purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
+                      photos: [fixture_file_upload('spec/support/photo_1.png'),
+                               fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11', packages: 'Premium',
+                              price: 2.5)
+
+    allow(Insurance).to receive(:find).with('45').and_return(insurance)
+
+    login_as(client)
+    visit insurance_path(insurance.id)
+    click_link 'Contratar'
+    select 'iphone 11', from: 'Dispositivo'
+    select 'Cartão de crédito', from: 'Meio de Pagamento'
+    click_button 'Contratar Pacote'
+
+    expect(page).to have_content 'Não foi possível cadastrar o pedido'
+    expect(page).to have_content 'Por favor verifique o erro abaixo'
+    expect(page).to have_content 'Período contratado não pode ficar em branco'
+  end
 end

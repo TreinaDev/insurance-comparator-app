@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  describe '#valid?' do
+  describe '#total_price' do
     it 'falso quando preço diferente do esperado' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
@@ -22,6 +22,22 @@ RSpec.describe Order, type: :model do
 
       order.save
       expect(order.total_price).to eq 500
+    end
+  end
+  describe '#valid?' do
+    context 'presence' do
+      it 'período contratado não pode ficar em branco' do
+        order = Order.new(contract_period: '')
+        order.valid?
+        expect(order.errors[:contract_period]).to include 'não pode ficar em branco'
+      end
+    end
+    context 'comparison' do
+      it 'período contratado deve ser maior que 0' do
+        order = Order.new(contract_period: 0)
+        order.valid?
+        expect(order.errors[:contract_period]).to include 'deve ser maior que 0'
+      end
     end
   end
 end

@@ -19,23 +19,24 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    set_insurance
-    @order.save
-    if @order.valid?
-      return redirect_to insurance_order_path(@insurance, @order), notice: t(:your_order_is_being_processed)
+    set_insurance_and_client
+    if @order.save
+      return redirect_to insurance_order_path(@insurance, @order),
+                         notice: t(:your_order_is_being_processed)
     end
 
     flash.now[:alert] = t(:your_order_was_not_registered)
+    @payment_options = PaymentOption.all
     render :new
   end
 
   private
 
   def order_params
-    params.require(:order).permit(:client_id, :equipment_id, :payment_option, :contract_period, :insurance_id)
+    params.require(:order).permit(:equipment_id, :payment_option, :contract_period)
   end
 
-  def set_insurance
+  def set_insurance_and_client
     @insurance = Insurance.find(params[:insurance_id])
     @order.insurance_id = @insurance.id
     @order.price_percentage = @insurance.price
