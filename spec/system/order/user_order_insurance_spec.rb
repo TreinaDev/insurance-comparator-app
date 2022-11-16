@@ -115,5 +115,31 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_content 'Não foi possível cadastrar o pedido'
     expect(page).to have_content 'Por favor verifique o erro abaixo'
     expect(page).to have_content 'Período contratado não pode ficar em branco'
+    expect(page).not_to have_content 'Seu pedido está em análise pela seguradora'
+  end
+
+  it 'com dados inválidos' do
+    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                            birth_date: '29/10/1997')
+    Equipment.create!(client:, name: 'iphone 11', brand: 'Apple', equipment_price: 1000,
+                      purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
+                      photos: [fixture_file_upload('spec/support/photo_1.png'),
+                               fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11', packages: 'Premium',
+                              price: 2.5)
+
+    allow(Insurance).to receive(:find).with('45').and_return(insurance)
+
+    login_as(client)
+    visit insurance_path(insurance.id)
+    click_link 'Contratar'
+    select 'iphone 11', from: 'Dispositivo'
+    fill_in 'Período de contratação em meses', with: -5
+    select 'Cartão de crédito', from: 'Meio de Pagamento'
+    click_button 'Contratar Pacote'
+
+    expect(page).to have_content 'Período contratado deve ser maior que 0'
+    expect(page).not_to have_content 'Seu pedido está em análise pela seguradora'
   end
 end
