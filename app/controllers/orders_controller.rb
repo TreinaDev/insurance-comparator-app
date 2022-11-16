@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:equipment_id, :payment_option, :contract_period)
+    params.require(:order).permit(:equipment_id, :contract_period)
   end
 
   def set_insurance_and_client
