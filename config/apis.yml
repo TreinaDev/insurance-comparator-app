@@ -1,0 +1,7 @@
+development:
+  insurances_api: http://localhost:4000/api/v1
+  insurance_api: https://636ea488bb9cf402c806e80f.mockapi.io/api/v1
+
+test:
+  insurances_api: http://localhost:4000/api/v1
+  insurance_api: https://636ea488bb9cf402c806e80f.mockapi.io/api/v1
