@@ -44,20 +44,6 @@ RSpec.describe Equipment, type: :model do
       expect(equipment.errors[:purchase_date]).to include 'não pode ficar em branco'
     end
 
-    it 'deve ter uma marca' do
-      client = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
-                              state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
-      equipment = Equipment.new(name: 'Iphone 14 - ProMax', brand: '', purchase_date: '01/11/2022', client:,
-                                invoice: fixture_file_upload('spec/support/invoice.png'),
-                                photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                         fixture_file_upload('spec/support/photo_2.jpg')])
-
-      result = equipment.valid?
-
-      expect(result).to eq false
-      expect(equipment.errors[:brand]).to include 'não pode ficar em branco'
-    end
-
     it 'deve ter um valor' do
       equipment = Equipment.new(equipment_price: '')
 
