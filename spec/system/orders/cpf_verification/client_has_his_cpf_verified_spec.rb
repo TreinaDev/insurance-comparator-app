@@ -13,11 +13,8 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
 
     order = Order.create!(client: ana, equipment: iphone, status: :insurance_approved)
 
-    json_data = Rails.root.join('spec/support/json/cpfs.json').read
-    fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with('https://mocki.io/v1/ba1a1ec8-8d1d-47a3-aaf3-4ac9fe9c390c').and_return(fake_response)
-
-    order.validate_cpf(order)
+    order_result = Order.create!(client: ana, equipment: iphone, status: :charge_pending)
+    allow(order).to receive(:validate_cpf).and_return(order_result)
 
     login_as(ana)
     visit root_path
@@ -44,11 +41,8 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
 
     order = Order.create!(client: ana, equipment: iphone, status: :insurance_approved)
 
-    json_data = Rails.root.join('spec/support/json/cpfs.json').read
-    fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with('https://mocki.io/v1/ba1a1ec8-8d1d-47a3-aaf3-4ac9fe9c390c').and_return(fake_response)
-
-    order.validate_cpf(order)
+    order_result = Order.create!(client: ana, equipment: iphone, status: :cpf_disapproved)
+    allow(order).to receive(:validate_cpf).and_return(order_result)
 
     login_as(ana)
     visit root_path
