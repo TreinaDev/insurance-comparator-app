@@ -9,7 +9,6 @@ class OrdersController < ApplicationController
   def new
     @insurance = Insurance.find(params[:insurance_id])
     @order = Order.new
-    @payment_options = PaymentOption.all
     if @insurance.nil?
       redirect_to root_path, alert: t(:unable_to_load_package_information)
     elsif current_client.equipment.empty?
@@ -26,7 +25,6 @@ class OrdersController < ApplicationController
     end
 
     flash.now[:alert] = t(:your_order_was_not_registered)
-    @payment_options = PaymentOption.all
     render :new
   end
 

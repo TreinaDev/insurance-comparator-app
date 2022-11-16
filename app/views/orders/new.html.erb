@@ -68,15 +68,6 @@
       </div>
     </div>
 
-    <div class="row"> 
-      <div class="col-lg-6 col-12 mb-2">
-        <li class="list-group-item">
-          <%= f.label :payment_option_id, class: 'form-label' %>
-          <%= f.collection_select :payment_option_id, @payment_options, :payment_method_id, :payment_method_name, {} , class: 'form-control' %>
-        </li>
-      </div>
-    </div>
-
     <%= f.submit t(:contract_package), class: 'btn btn-dark mt-3 mb-4' %>
 
   <% end %>

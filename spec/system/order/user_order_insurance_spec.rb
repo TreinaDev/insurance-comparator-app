@@ -56,7 +56,6 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_select 'Dispositivo', text: 'iphone 11'
     expect(page).to have_select 'Dispositivo', text: 'Samsung SX'
     expect(page).to have_field 'Período de contratação em meses', type: :number
-    expect(page).to have_select 'Meio de Pagamento'
     expect(page).to have_button 'Contratar Pacote'
   end
 
@@ -78,7 +77,6 @@ describe 'Cliente compra pacote de seguro' do
     click_link 'Contratar'
     select 'iphone 11', from: 'Dispositivo'
     fill_in 'Período de contratação em meses', with: 7
-    select 'Cartão de crédito', from: 'Meio de Pagamento'
     click_button 'Contratar Pacote'
 
     expect(page).to have_content 'Seu pedido está em análise pela seguradora'
@@ -109,7 +107,6 @@ describe 'Cliente compra pacote de seguro' do
     visit insurance_path(insurance.id)
     click_link 'Contratar'
     select 'iphone 11', from: 'Dispositivo'
-    select 'Cartão de crédito', from: 'Meio de Pagamento'
     click_button 'Contratar Pacote'
 
     expect(page).to have_content 'Não foi possível cadastrar o pedido'
@@ -136,7 +133,6 @@ describe 'Cliente compra pacote de seguro' do
     click_link 'Contratar'
     select 'iphone 11', from: 'Dispositivo'
     fill_in 'Período de contratação em meses', with: -5
-    select 'Cartão de crédito', from: 'Meio de Pagamento'
     click_button 'Contratar Pacote'
 
     expect(page).to have_content 'Período contratado deve ser maior que 0'
