@@ -5,3 +5,4 @@ development:
 test:
   insurances_api: http://localhost:4000/api/v1
   insurance_api: https://636ea488bb9cf402c806e80f.mockapi.io/api/v1
+  payment_options_api: https://mocki.io/v1/f914b988-2ce9-4263-bca2-dd40fd3a20ba
