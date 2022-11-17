@@ -1,0 +1,15 @@
+<h1 class="fs-2">Emissão de Pagamento </h1>
+
+
+
+    <% @payment_options.each do |payment_option| %>
+      <%= payment_option.formatted_payment_type_and_name %>
+      <p> Taxa por Cobrança: <%= payment_option.tax_percentage %>% </p>
+      <p> Taxa Máxima: <%= number_to_currency(payment_option.tax_maximum) %>% </p>
+      <p> Quantidade máxima de parcelas: <%= payment_option.max_parcels %>x </p>
+      <p> Desconto à vista: <%= payment_option.single_parcel_discount %>% </p>
+    <% end %>
+
+    <p> Nome da Seguradora: <%= @order.insurance_name %></p>
+
+<%# f.select :payment_option, @payment.options {|payment.option| [payment_option.formatted_payment_type_and_name, payment_option.id]}%>

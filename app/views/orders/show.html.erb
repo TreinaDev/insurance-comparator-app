@@ -11,5 +11,4 @@
   <li class="list-group-item"> <%= Order.human_attribute_name(:status) %>: <%= Order.human_attribute_name("status.#{@order.status}")%></li>
 </ul>
 
-<% #link_to t(:payment), pagamento_path, class: 'btn btn-dark mt-3'%>
-
+<%= link_to t(:pay), new_insurance_order_payment_option_path(@order.insurance_id, @order), class: 'btn btn-dark mt-3'%>
