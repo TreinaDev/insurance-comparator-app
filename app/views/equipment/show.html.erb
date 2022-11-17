@@ -1,9 +1,9 @@
-
-
 <br/><h1 class="display-6"><%= @equipment.name.upcase %></h1><br/>
 <dl class="row">
   <dt class="col-sm-3"><%= Equipment.human_attribute_name(:brand) %>:</dt>
   <dd class="col-sm-9"><%= @equipment.brand %></dd>
+  <dt class="col-sm-3"><%= Equipment.human_attribute_name(:equipment_price) %>:</dt>
+  <dd class="col-sm-9"><%= number_to_currency(@equipment.equipment_price) %></dd>
   <dt class="col-sm-3"><%= Equipment.human_attribute_name(:purchase_date) %>:</dt>
   <dd class="col-sm-9"><%= l(@equipment.purchase_date) %></dd>
   <dt class="col-sm-3"><%= Equipment.human_attribute_name(:invoice) %></dt>

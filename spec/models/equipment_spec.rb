@@ -44,6 +44,24 @@ RSpec.describe Equipment, type: :model do
       expect(equipment.errors[:purchase_date]).to include 'não pode ficar em branco'
     end
 
+    it 'deve ter um valor' do
+      equipment = Equipment.new(equipment_price: '')
+
+      result = equipment.valid?
+
+      expect(result).to eq false
+      expect(equipment.errors[:equipment_price]).to include 'não pode ficar em branco'
+    end
+
+    it 'valor deve ser maior que 0' do
+      equipment = Equipment.new(equipment_price: -2)
+
+      result = equipment.valid?
+
+      expect(result).to eq false
+      expect(equipment.errors[:equipment_price]).to include 'deve ser maior que 0'
+    end
+
     it 'data de compra não deve ser futura' do
       client = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                               state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')

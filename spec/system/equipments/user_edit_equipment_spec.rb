@@ -5,7 +5,7 @@ describe 'Usuário edita um dispositivo' do
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
     Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: '01/11/2022',
-                      invoice: fixture_file_upload('spec/support/invoice.png'),
+                      invoice: fixture_file_upload('spec/support/invoice.png'), equipment_price: 10_199,
                       photos: [fixture_file_upload('spec/support/photo_1.png'),
                                fixture_file_upload('spec/support/photo_2.jpg')])
 
@@ -36,7 +36,7 @@ describe 'Usuário edita um dispositivo' do
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
     Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: '01/11/2022',
-                      invoice: fixture_file_upload('spec/support/invoice.png'),
+                      invoice: fixture_file_upload('spec/support/invoice.png'), equipment_price: 10_199,
                       photos: [fixture_file_upload('spec/support/photo_1.png'),
                                fixture_file_upload('spec/support/photo_2.jpg')])
 
@@ -63,7 +63,7 @@ describe 'Usuário edita um dispositivo' do
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
     equipment = Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: '01/11/2022',
-                                  invoice: fixture_file_upload('spec/support/invoice.png'),
+                                  invoice: fixture_file_upload('spec/support/invoice.png'), equipment_price: 10_199,
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
 
