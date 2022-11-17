@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get 'profile', to: 'clients#profile'
   resources :equipment, only: [:index, :new, :create, :show]
 
-  resources :orders, only: [:index]
+  resources :orders, only: [:index, :show]
 end

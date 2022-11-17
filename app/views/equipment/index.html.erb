@@ -1,30 +1,34 @@
 <% if @equipment.any? %>
-    <br/><h1 class="display-6">Meus Dispositivos</h1><br/>
-    <table class="table table-bordered border-primary text-center">
-        <thead>
-            <tr>
-                <th scope="col"><%=Equipment.human_attribute_name(:name)%></th>
-                <th scope="col"><%=Equipment.human_attribute_name(:brand)%></th>
-                <th scope="col"><%=Equipment.human_attribute_name(:purchase_date)%></th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @equipment.each do |equipment| %>
-            <tr>
-                <td class="align-middle"><%= link_to equipment.name, equipment %></td>
-                <td class="align-middle"><%= equipment.brand %></td>
-                <td class="align-middle"><%= I18n.l(equipment.purchase_date) %></td>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
+  <br/>
+  <h1 class="display-6">Meus Dispositivos</h1>
+  <br/>
+  <hr/>
+  <div class="row">
+    <% @equipment.each do |equipment| %>
+      <div class="col-sm-6" style="width: 22rem;">
+        <div class="card" style="width: 20rem;">
+          <% equipment.photos.each do |photo| %>
+            <div style="display: flex;height: 100%;justify-content: center;">
+              <%= image_tag photo, class:"mx-auto d-block" %>
+            </div>
+            <% break %>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to equipment.name, equipment %></h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><%=Equipment.human_attribute_name(:brand)%>: <%= equipment.brand %></li>
+            <li class="list-group-item"><%=Equipment.human_attribute_name(:purchase_date)%>: <%= I18n.l(equipment.purchase_date) %></li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% else %>
-    <% flash.now[:alert] = 'Nenhum dispositivo encontrado' %>
+  <% flash.now[:alert] = 'Nenhum dispositivo encontrado' %>
 <% end %>
-
+<br/>
 <div>
-<%= link_to 'Cadastrar Novo', new_equipment_path, class: "btn btn-dark m-2" %>
-<%= link_to 'Voltar', root_path, class: "btn btn-dark m-2" %>
+  <%= link_to 'Cadastrar Novo', new_equipment_path, class: "btn btn-dark m-2" %>
+  <%= link_to 'Voltar', root_path, class: "btn btn-dark m-2" %>
 </div>
-
-

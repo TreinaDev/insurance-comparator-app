@@ -25,3 +25,6 @@ equipment3.invoice.attach(io: Rails.root.join('spec/support/invoice.png').open, 
 equipment3.photos.attach(io: Rails.root.join('spec/support/photo_1.png').open, filename: 'foto_frente.png')
 equipment3.photos.attach(io: Rails.root.join('spec/support/photo_2.jpg').open, filename: 'foto_verso.jpg')
 equipment3.save!
+
+Order.create!(client: client1, equipment:, status: :pending)
+Order.create!(client: client1, equipment: equipment2, status: :pending)

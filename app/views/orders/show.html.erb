@@ -1,0 +1,17 @@
+<br/>
+<h1 class="display-6">Meu Pedido</h1>
+<hr/>
+<br/>
+<div class="card">
+  <div class="card-header">
+    <%= @order.equipment.name %>
+  </div>
+  <div class="card-body">
+    <p class="card-text"><%= @order.equipment.brand%></p>
+    <p class="card-text"><strong><%=Order.human_attribute_name("status.#{@order.status}")%></strong></p>
+    <% @order.equipment.photos.each do |photo| %>
+      <%= image_tag photo, class:"card-img-top" %>
+      <% break %>
+    <% end %>
+  </div>
+</div>

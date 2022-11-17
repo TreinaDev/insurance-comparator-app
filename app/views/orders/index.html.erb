@@ -1,21 +1,29 @@
-<br/><h1 class="display-6">Meus Pedidos</h1><br/>
-
-<table class="table table-bordered border-primary text-center">
-  <thead>
-    <tr>
-      <th scope="col"><%=Equipment.model_name.human(count: 1)%></th>
-      <th scope="col"><%=Equipment.human_attribute_name(:brand)%></th>
-      <th scope="col">Status da Compra</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <% @orders.each do |order| %>
-        <td class="align-middle"><%= order.equipment.name %></td>
-        <td class="align-middle"><%= order.equipment.brand %></td>
-        <td class="align-middle"><%= Order.human_attribute_name("status.#{order.status}") %></td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
-
+<% if @orders.any? %>
+  <br/>
+  <h1 class="display-6">Meus Pedidos</h1>
+  <hr/>
+  <br/>
+  <div class="row">
+    <% @orders.each do |order| %>
+      <div class="col-sm-6" style="width: 22rem;">
+        <div class="card" style="width: 20rem;">
+          <% order.equipment.photos.each do |photo| %>
+            <div style="display: flex;height: 100%;justify-content: center;">
+              <%= image_tag photo, class:"mx-auto d-block" %>
+            </div>
+            <% break %>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%=link_to order.equipment.name, order_path(order)%></h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><%=order.equipment.brand%></li>
+            <li class="list-group-item"><strong><%=Order.human_attribute_name("status.#{order.status}")%></strong></li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h1 class="display-6">Nenhum pedido encontrado.</h1>
+<% end %>
