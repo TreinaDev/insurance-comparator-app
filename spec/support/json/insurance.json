@@ -1,5 +1,6 @@
 {
   "id": 1,
+  "insurance_company_id": 1,
   "insurance_name": "Seguradora 1",
   "product_model": "iPhone 11",
   "packages": "Premium",
