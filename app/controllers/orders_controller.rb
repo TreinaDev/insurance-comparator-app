@@ -7,8 +7,8 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @client = current_client
     @equipment = Equipment.find(@order.equipment_id)
-    @order.validate_cpf(@client.cpf) if @order.pending?
   end
 
   def new
@@ -25,6 +25,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     set_insurance_and_client
     if @order.save
+      @order.validate_cpf(@client.cpf) if @order.pending?
       return redirect_to insurance_order_path(@insurance, @order),
                          notice: t(:your_order_is_being_processed)
     end
