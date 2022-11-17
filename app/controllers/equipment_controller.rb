@@ -1,6 +1,6 @@
 class EquipmentController < ApplicationController
   before_action :authenticate_client!
-  before_action :set_equipment, only:[:show, :edit, :update,:edit]
+  before_action :set_equipment, only: %i[show edit update edit]
 
   def index
     @equipment = current_client.equipment
@@ -11,6 +11,8 @@ class EquipmentController < ApplicationController
   def new
     @equipment = Equipment.new
   end
+
+  def edit; end
 
   def create
     @equipment = Equipment.new(equipment_params)
@@ -23,12 +25,10 @@ class EquipmentController < ApplicationController
     end
   end
 
-  def edit; end
-
-  def update 
+  def update
     if @equipment.update(equipment_params)
       redirect_to @equipment, notice: I18n.t('Your equipment has been successfully updated!')
-    else 
+    else
       flash.now[:alert] = I18n.t('It is not possible to edit your equipment.')
       render 'edit'
     end
@@ -36,7 +36,7 @@ class EquipmentController < ApplicationController
 
   private
 
-  def set_equipment 
+  def set_equipment
     @equipment = Equipment.find(params[:id])
   end
 
