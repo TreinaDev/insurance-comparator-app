@@ -10,7 +10,8 @@ pt-BR:
       order: "Pedido"
     attributes:
       order/status: 
-        pending: "Aguardando Aprovação da Seguradora"
+        pending: "Pendente"
+        insurance_company_approval: "Aguardando Aprovação da Seguradora"
         insurance_approved: "Pedido Aprovado"
         cpf_disapproved: "CPF Recusado"
         charge_pending: "Pagamento em Processamento"

@@ -27,7 +27,7 @@ RSpec.describe Order, type: :model do
       order.validate_cpf(order.client.cpf)
       result = order.status
 
-      expect(result).to eq 'charge_pending'
+      expect(result).to eq 'insurance_company_approval'
     end
 
     it 'e retorna CPF bloqueado' do
