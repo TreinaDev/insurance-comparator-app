@@ -1,0 +1,74 @@
+<h1 class="fs-2">Aquisição do Seguro <%= @insurance.packages %></h1>
+
+<% if @order.errors.any? %>
+  <h5> <%= t(:please_check_errors, count: @order.errors.count) %>: </h5>
+  <ul>
+    <% @order.errors.full_messages.each do |msg| %>
+      <li class="alert alert-danger" role="alert"><%= msg %></li>
+    <% end %>
+  </ul>
+<%end%>
+
+<div class="container">
+  <ul class="list-group">
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12">
+        <li class="list-group-item">
+          <b><%= t :insurance_name %>:</b>
+          <%= @insurance.insurance_name %>
+        </li>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12">
+        <li class="list-group-item">
+          <b><%= t :packages %>:</b>
+          <%= @insurance.packages %>
+        </li>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12">
+        <li class="list-group-item">
+          <b><%= t :product_model %>:</b>
+          <%= @insurance.product_model %>
+        </li>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12">
+        <li class="list-group-item">
+          <b><%= Order.human_attribute_name(:price_percentage) %>:</b>
+          <%= "#{@insurance.price} %" %>
+        </li>
+      </div>
+    </div>
+  </div>
+
+  <%= form_with model: [:insurance, @order], method: :post do |f| %>
+    <div class="row"> 
+      <div class="col-lg-6 col-12 mb-2">
+        <li class="list-group-item">
+          <%= f.label :equipment_id, class: 'form-label mt-4' %>
+          <%= f.collection_select :equipment_id, current_client.equipment.order(:name), :id, :name, {} , class: 'form-control' %>
+        </li>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-lg-6 col-12 mb-2">
+        <li class="list-group-item">
+          <%= f.label :contract_period, t(:contract_period_in_months), class: 'form-label' %>
+          <%= f.number_field :contract_period, class: 'form-control' %>
+        </li>
+      </div>
+    </div>
+
+    <%= f.submit t(:contract_package), class: 'btn btn-dark mt-3 mb-4' %>
+
+  <% end %>
+</div>

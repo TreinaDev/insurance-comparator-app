@@ -23,9 +23,8 @@ class PaymentOption
     if response.success? data = JSON.parse(response.body)
       data.each do |d|
         payment_options << PaymentOption.new(payment_method_id: d['payment_method_id'], payment_method_name: d['payment_method_name'],
-                                             max_installments: d['max_installments'], tax_percentage: d['tax_percentage'],
-                                             tax_maximum: d['tax_maximum'], payment_method_status: d['payment_method_status'],
-                                             single_installment_discount: d['single_installment_discount'])
+                                             max_installments: d['max_installments'], tax_percentage: d['tax_percentage'], tax_maximum: d['tax_maximum'],
+                                             payment_method_status: d['payment_method_status'], single_installment_discount: d['single_installment_discount'])
       end
     end; payment_options
   end
