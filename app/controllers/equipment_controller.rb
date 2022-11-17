@@ -18,18 +18,18 @@ class EquipmentController < ApplicationController
     @equipment = Equipment.new(equipment_params)
     @equipment.client = current_client
     if @equipment.save
-      redirect_to @equipment, notice: I18n.t('Your equipment has been successfully registered!')
+      redirect_to @equipment, notice: I18n.t('equipment_created')
     else
-      flash.now[:alert] = I18n.t('It is not possible to register your equipment.')
+      flash.now[:alert] = I18n.t('equipment_not_created')
       render 'new'
     end
   end
 
   def update
     if @equipment.update(equipment_params)
-      redirect_to @equipment, notice: I18n.t('Your equipment has been successfully updated!')
+      redirect_to @equipment, notice: I18n.t('equipment_updated')
     else
-      flash.now[:alert] = I18n.t('It is not possible to edit your equipment.')
+      flash.now[:alert] = I18n.t('equipment_not_updated')
       render 'edit'
     end
   end

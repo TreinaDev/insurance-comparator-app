@@ -30,7 +30,7 @@
         <%= f.label :invoice, class: 'form-label' %><br />
         <%= f.file_field :invoice, class: 'form-control' %>
         <% if @equipment.invoice.attached? %>
-          <%= @equipment.invoice.blob.filename %>
+          <p class="fst-italic"><%= @equipment.invoice.blob.filename %></p>
         <% end %>
       </div>
     </div>
@@ -39,9 +39,11 @@
         <%= f.label :photos, class: 'form-label' %><br />
         <%= f.file_field :photos, multiple: true, class: 'form-control' %>
         <% if @equipment.photos.attached? %>
+          <p class="fst-italic">
           <% @equipment.photos.each do |i| %>
-            <%= i.filename %><br>
+            <%= i.filename %>,
           <% end %>
+          </p>
         <% end %>
       </div>
       <p class="fw-light">É necessário o cadastro de, pelo menos, 2 (duas) fotos com a frente e o verso do dispositivo.</p>
