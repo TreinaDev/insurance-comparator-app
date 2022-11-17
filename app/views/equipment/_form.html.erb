@@ -1,0 +1,56 @@
+<% if @equipment.errors.any? %>
+    <p> Verifique os erros abaixo: </p>
+    <ul>
+    <% @equipment.errors.full_messages.each do |msg| %>
+        <li class="alert alert-danger" role="alert"><%= msg %> </li>
+    <% end %>
+    </ul>
+<%end%>
+
+<div class="container">
+  <%= form_with(model:@equipment) do |f| %>
+    <div class="row"> 
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :name, class: 'form-label' %><br />
+        <%= f.text_field :name, autofocus: true, class: 'form-control' %>
+      </div>
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :equipment_price, class: 'form-label' %><br />
+        <%= f.number_field :equipment_price, placeholder: 'R$', class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :brand, class: 'form-label' %><br />
+        <%= f.text_field :brand, class: 'form-control' %>
+      </div> 
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :purchase_date, class: 'form-label' %><br />
+        <%= f.date_field :purchase_date, max: Date.today, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="mb-3 col-lg-6 col-12">
+        <%= f.label :invoice, class: 'form-label' %><br />
+        <%= f.file_field :invoice, class: 'form-control' %>
+        <% if @equipment.invoice.attached? %>
+          <p class="fst-italic"><%= @equipment.invoice.blob.filename %></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="mb-3 col-lg-6 col-12">
+        <%= f.label :photos, class: 'form-label' %><br />
+        <%= f.file_field :photos, multiple: true, class: 'form-control' %>
+        <% if @equipment.photos.attached? %>
+          <p class="fst-italic">
+          <% @equipment.photos.each do |i| %>
+            <%= i.filename %>,
+          <% end %>
+          </p>
+        <% end %>
+      </div>
+      <p class="fw-light">É necessário o cadastro de, pelo menos, 2 (duas) fotos com a frente e o verso do dispositivo.</p>
+    </div>
+    <%= f.submit I18n.t(:save), class: 'btn btn-dark mb-4' %>
+  <% end %>

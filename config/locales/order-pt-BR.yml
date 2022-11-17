@@ -1,4 +1,10 @@
 pt-BR:
+  your_order_is_being_processed: 'Seu pedido está em análise pela seguradora'
+  your_order_was_not_registered: 'Não foi possível cadastrar o pedido'
+  contract_period_in_months: 'Período de contratação em meses'
+  month:
+    one: 'mês'
+    other: 'meses'
   activerecord:
     models:
       order: "Pedido"
@@ -9,3 +15,13 @@ pt-BR:
         cpf_disapproved: "CPF Recusado"
         charge_pending: "Pagamento em Processamento"
         charge_approved: "Pagamento Aprovado"
+      order:
+        price_percentage: "Porcentagem do Seguro"
+        insurance_name: "Nome da Seguradora"
+        packages: "Tipo de Pacote"
+        insurance_model: "Modelo do Produto"
+        contract_period: "Período contratado"
+        equipment: "Dispositivo"
+        equipment_id: 'Dispositivo'
+        total_price: "Valor do Seguro"
+        payment_option_id: 'Meio de Pagamento'

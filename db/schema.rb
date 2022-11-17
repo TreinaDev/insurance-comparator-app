@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_13_230200) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_15_212445) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,14 +34,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_230200) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "email", default: "blank", null: false
+    t.string "encrypted_password", default: "blank", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -65,6 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_230200) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "client_id", null: false
+    t.integer "equipment_price"
     t.index ["client_id"], name: "index_equipment_on_client_id"
   end
 
@@ -73,7 +74,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_230200) do
     t.datetime "updated_at", null: false
     t.integer "client_id", null: false
     t.integer "status", default: 0
+    t.integer "payment_method"
+    t.integer "contract_period"
+    t.decimal "price_percentage"
+    t.string "coverage"
     t.integer "equipment_id", null: false
+    t.integer "insurance_id"
+    t.string "insurance_name"
+    t.string "packages"
+    t.string "insurance_model"
+    t.integer "total_price"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["equipment_id"], name: "index_orders_on_equipment_id"
   end
