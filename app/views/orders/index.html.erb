@@ -1,25 +1,21 @@
 <% if @orders.any? %>
-  <br/>
   <h1 class="display-6">Meus Pedidos</h1>
   <hr/>
-  <br/>
   <div class="row">
     <% @orders.each do |order| %>
       <div class="col-sm-6" style="width: 22rem;">
         <div class="card" style="width: 20rem;">
-          <% order.equipment.photos.each do |photo| %>
-            <div style="display: flex;height: 100%;justify-content: center;">
-              <%= image_tag photo, class:"mx-auto d-block" %>
-            </div>
-            <% break %>
-          <% end %>
-          <div class="card-body">
-            <h5 class="card-title"><%=link_to order.equipment.name, order_path(order)%></h5>
+          <div class="card-header">
+            <%= link_to order.equipment.name, order %>
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item"><%=order.equipment.brand%></li>
-            <li class="list-group-item"><strong><%=Order.human_attribute_name("status.#{order.status}")%></strong></li>
-          </ul>
+          <div class="card-body">
+            <p class="card-text"><%=Equipment.human_attribute_name(:brand)%>: <%=order.equipment.brand%></p>
+            <p class="card-text"><strong><%=Order.human_attribute_name("status.#{order.status}")%></strong></p>
+            <% order.equipment.photos.each do |photo| %>
+              <%= image_tag photo, class:"card-img-top" %>
+              <% break %>
+            <% end %>
+          </div>
         </div>
       </div>
     <% end %>
