@@ -73,5 +73,19 @@ RSpec.describe Equipment, type: :model do
 
       expect(equipment.errors.include?(:purchase_date)).to be false
     end
+
+    it 'deve conter ao menos 2 fotos do produto' do
+      client = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
+                              state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com',
+                              password: 'password')
+      equipment = Equipment.new(client:, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: Time.zone.today,
+                                invoice: fixture_file_upload('spec/support/invoice.png'),
+                                photos: [fixture_file_upload('spec/support/photo_1.png')])
+
+      equipment.valid?
+
+      expect(equipment.errors.include?(:base)).to be true
+      expect(equipment.errors[:base]).to include('Deve haver ao menos 2 fotos do produto')
+    end
   end
 end
