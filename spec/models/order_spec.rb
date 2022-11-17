@@ -11,12 +11,9 @@ RSpec.describe Order, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                                         max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                                         payment_method_status: 0, single_installment_discount: 10)
       Insurance.new(id: 45, insurance_company_id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11',
                     packages: 'Premium', price: 5)
-      order = Order.new(client:, equipment:, payment_method:, contract_period: 10, insurance_id: 45,
+      order = Order.new(client:, equipment:, contract_period: 10, insurance_id: 45,
                         price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
                         insurance_model: 'iPhone 11')
 

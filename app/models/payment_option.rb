@@ -2,29 +2,28 @@
 # rubocop:disable Layout/LineLength
 
 class PaymentOption
-  attr_accessor :payment_method_id, :payment_method_name, :max_installments, :tax_percentage, :tax_maximum,
-                :single_installment_discount, :payment_method_status
-
-  def initialize(payment_method_id:, payment_method_name:, max_installments:, tax_percentage:, tax_maximum:,
-                 single_installment_discount:, payment_method_status:)
-    @payment_method_id = payment_method_id
-    @payment_method_name = payment_method_name
-    @max_installments = max_installments
+  attr_accessor :name, :payment_type, :tax_percentage, :tax_maximum,
+                :max_parcels, :single_parcel_discount
+                
+  def initialize(name:, payment_type:, tax_percentage:, tax_maximum:, max_parcels:, 
+                 single_parcel_discount:)
+    @name = name
+    @payment_type = payment_type
     @tax_maximum = tax_maximum
     @tax_percentage = tax_percentage
-    @single_installment_discount = single_installment_discount
-    @payment_method_status = payment_method_status
+    @max_parcels = max_parcels
+    @single_parcel_discount = single_parcel_discount
   end
 
   def self.all
     payment_options = []
-    response = Faraday.get('https://mocki.io/v1/f914b988-2ce9-4263-bca2-dd40fd3a20ba')
+    response = Faraday.get('http://localhost:5000/api/v1/insurance_companies/1/payment_options')
     if response.success?
       data = JSON.parse(response.body)
       data.each do |d|
-        payment_options << PaymentOption.new(payment_method_id: d['payment_method_id'], payment_method_name: d['payment_method_name'],
-                                             max_installments: d['max_installments'], tax_percentage: d['tax_percentage'], tax_maximum: d['tax_maximum'],
-                                             payment_method_status: d['payment_method_status'], single_installment_discount: d['single_installment_discount'])
+        payment_options << PaymentOption.new(name: d['name'], payment_type: d['payment_type'],
+                                             tax_percentage: d['tax_percentage'], tax_maximum: d['tax_maximum'],
+                                             max_parcels: d['max_parcels'], single_parcel_discount: d['single_parcel_discount'])
       end
     end; payment_options
   end
