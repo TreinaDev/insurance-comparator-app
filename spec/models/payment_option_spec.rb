@@ -20,7 +20,6 @@ describe PaymentOption do
 
     it 'retorna vazio se API está suspensa/indisponível' do
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
-      p api_url
       fake_response = double('faraday_response', success?: false, body: '{}')
       allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
 
