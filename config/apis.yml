@@ -1,8 +1,8 @@
 development:
-  insurances_api: http://localhost:4000/api/v1
-  insurance_api: https://636ea488bb9cf402c806e80f.mockapi.io/api/v1
+  insurances_api: https://run.mocky.io/v3/cdfe379d-88f3-4bce-bf7e-dd16b06f5a0a/api/v1
+  insurance_api: https://bab203fd-d999-4b90-9570-6aa9c2a5ae31.mock.pstmn.io/api/v1
+  payment_options_api: https://mocki.io/v1/f914b988-2ce9-4263-bca2-dd40fd3a20ba
 
 test:
   insurances_api: http://localhost:4000/api/v1
-  insurance_api: https://636ea488bb9cf402c806e80f.mockapi.io/api/v1
-  payment_options_api: https://mocki.io/v1/f914b988-2ce9-4263-bca2-dd40fd3a20ba
+  payment_options_api: http://localhost:4000/api/v1

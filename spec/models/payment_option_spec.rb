@@ -3,7 +3,7 @@ require 'rails_helper'
 describe PaymentOption do
   context '.all' do
     it 'retorna os metodos de pagamento disponíveis pela seguradora' do
-      api_url = Rails.configuration.external_apis.payment_options_api
+      api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
@@ -19,7 +19,8 @@ describe PaymentOption do
     end
 
     it 'retorna vazio se API está suspensa/indisponível' do
-      api_url = Rails.configuration.external_apis.payment_options_api
+      api_url = Rails.configuration.external_apis['payment_options_api'].to_s
+      p api_url
       fake_response = double('faraday_response', success?: false, body: '{}')
       allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
 

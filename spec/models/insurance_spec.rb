@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Insurance do
   context '.search' do
     it 'retorna as seguradoras encontradas' do
-      api_url = Rails.configuration.external_apis.insurances_api
+      api_url = Rails.configuration.external_apis['insurances_api'].to_s
       json_data = Rails.root.join('spec/support/json/insurances.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with("#{api_url}/insurances/iphone11").and_return(fake_response)
@@ -24,7 +24,7 @@ describe Insurance do
     end
 
     it 'retorna vazio se API está suspensa/indisponível' do
-      api_url = Rails.configuration.external_apis.insurances_api
+      api_url = Rails.configuration.external_apis['insurances_api'].to_s
       fake_response = double('faraday_response', success?: false, body: "{'error': 'Erro ao obter dados da pesquisa'}")
       allow(Faraday).to receive(:get).with("#{api_url}/insurances/iphone11").and_return(fake_response)
 
@@ -36,7 +36,7 @@ describe Insurance do
 
   context '.find' do
     it 'retorna a seguradora escolhida' do
-      api_url = Rails.configuration.external_apis.insurance_api
+      api_url = Rails.configuration.external_apis['insurances_api'].to_s
       json_data = Rails.root.join('spec/support/json/insurance.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with("#{api_url}/insurances/1").and_return(fake_response)
@@ -51,7 +51,7 @@ describe Insurance do
     end
 
     it 'retorna vazio se API está suspensa/indisponível' do
-      api_url = Rails.configuration.external_apis.insurance_api
+      api_url = Rails.configuration.external_apis['insurances_api'].to_s
       fake_response = double('faraday_response', success?: false, body: "{'error': 'Erro ao obter dados da pesquisa'}")
       allow(Faraday).to receive(:get).with("#{api_url}/insurances/1").and_return(fake_response)
 
