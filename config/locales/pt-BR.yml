@@ -3,3 +3,5 @@ pt-BR:
   please_check_errors: 
     one: 'Por favor verifique o erro abaixo'
     other: 'Por favor verifique os erros abaixo'
+  edit: 'Editar'
+  back: 'Voltar'

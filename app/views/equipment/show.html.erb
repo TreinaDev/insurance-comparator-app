@@ -1,17 +1,19 @@
 <br/><h1 class="display-6"><%= @equipment.name.upcase %></h1><br/>
-<dl>
-  <dt><%= Equipment.human_attribute_name(:equipment_price) %>:</dt>
-  <dd><%= number_to_currency(@equipment.equipment_price) %></dd>
-  <dt><%= Equipment.human_attribute_name(:brand) %>:</dt>
-  <dd><%= @equipment.brand %></dd>
-  <dt><%= Equipment.human_attribute_name(:purchase_date) %>:</dt>
-  <dd><%= l(@equipment.purchase_date) %></dd>
-  <dt><%= Equipment.human_attribute_name(:invoice) %></dt>
-  <dd><%= image_tag @equipment.invoice %></dd>  
-<dt><%= Equipment.human_attribute_name(:photos) %></dt>
-  <dd>
+<dl class="row">
+  <dt class="col-sm-3"><%= Equipment.human_attribute_name(:brand) %>:</dt>
+  <dd class="col-sm-9"><%= @equipment.brand %></dd>
+  <dt class="col-sm-3"><%= Equipment.human_attribute_name(:equipment_price) %>:</dt>
+  <dd class="col-sm-9"><%= number_to_currency(@equipment.equipment_price) %></dd>
+  <dt class="col-sm-3"><%= Equipment.human_attribute_name(:purchase_date) %>:</dt>
+  <dd class="col-sm-9"><%= l(@equipment.purchase_date) %></dd>
+  <dt class="col-sm-3"><%= Equipment.human_attribute_name(:invoice) %></dt>
+  <dd class="col-sm-9"><%= image_tag @equipment.invoice %></dd>  
+  <dt class="col-sm-3"><%= Equipment.human_attribute_name(:photos) %></dt>
+  <dd class="col-sm-9">
   <% @equipment.photos.each do |photo| %>
     <%= image_tag photo, class:"img" %>
   <% end %>
   </dd>
 </dl>
+<%= link_to t(:edit), edit_equipment_path, class: 'btn btn-dark mt-2'%>
+<%= link_to I18n.t(:back), equipment_index_path, class: 'btn btn-dark mt-2'%>
