@@ -23,7 +23,7 @@ describe 'Usuário efetua pagamento' do
     login_as(client)
     visit insurance_order_path(insurance.id, order.id)
 
-    expect(page).to have_content 'Status: Pagamento Pendente'
+    expect(page).to have_content 'Status: Pagamento em Processamento'
     expect(page).to have_link 'Pagar'
   end
 
@@ -62,7 +62,7 @@ describe 'Usuário efetua pagamento' do
     expect(page).to have_content 'Taxa Máxima: R$ 5,00'
     expect(page).to have_content 'Quantidade máxima de parcelas: 1x'
     expect(page).to have_content 'Desconto à vista: 1%'
-    expect(page).to have_content 'Nome da Seguradora: Seguradora 45'
+    expect(page).to have_content 'Nome da Seguradora: Seguradora 67'
     expect(page).to have_content 'Período contratado: 7 meses'
     expect(page).to have_content 'Porcentagem do Seguro: 2.5%'
     expect(page).to have_content 'Valor do Seguro: R$ 175,00'

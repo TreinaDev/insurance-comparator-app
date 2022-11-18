@@ -21,12 +21,9 @@ describe 'Usuário vê dispositivos' do
     click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
 
-    expect(page).to have_content 'Nome'
-    expect(page).to have_content 'Marca'
     expect(page).to have_content 'Iphone 14 - ProMax'
-    expect(page).to have_content 'Apple'
-    expect(page).to have_content 'Data da compra'
-    expect(page).to have_content '01/11/2022'
+    expect(page).to have_content 'Marca: Apple'
+    expect(page).to have_content 'Data da compra: 01/11/2022'
   end
 
   it 'e vê somente os seus dispositivos' do

@@ -10,6 +10,13 @@ pt-BR:
     models:
       order: "Pedido"
     attributes:
+      order/status: 
+        pending: "Pendente"
+        insurance_company_approval: "Aguardando Aprovação da Seguradora"
+        insurance_approved: "Pedido Aprovado"
+        cpf_disapproved: "CPF Recusado"
+        charge_pending: "Pagamento em Processamento"
+        charge_approved: "Pagamento Aprovado"
       order:
         price_percentage: "Porcentagem do Seguro"
         insurance_name: "Nome da Seguradora"
@@ -20,9 +27,3 @@ pt-BR:
         equipment_id: 'Dispositivo'
         total_price: "Valor do Seguro"
         payment_option_id: 'Meio de Pagamento'
-      order/status: 
-        pending: "Aguardando Aprovação da Seguradora"
-        insurance_approved: "Pedido Aprovado"
-        cpf_approved: "CPF Aprovado"
-        charge_pending: "Pagamento Pendente"
-        charge_approved: "Pagamento Aprovado"

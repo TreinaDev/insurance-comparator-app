@@ -8,5 +8,6 @@ Rails.application.routes.draw do
       resources :payment_options, only: [:new, :create]
     end
   end  
+  resources :orders, only: [:show, :index]
   resources :equipment, only: [:index, :new, :create, :show, :edit, :update]
 end
