@@ -15,11 +15,11 @@ class PaymentOption
     @single_parcel_discount = single_parcel_discount
   end
 
+  # rubocop:disable Metrics/AbcSize
   def self.all
     payment_options = []
-    response = Faraday.get('http://localhost:5000/api/v1/insurance_companies/1/payment_options')
-    if response.success?
-      data = JSON.parse(response.body)
+    response = Faraday.get(Rails.configuration.external_apis['payment_options_api'].to_s)
+    if response.success? data = JSON.parse(response.body)
       data.each do |d|
         payment_options << PaymentOption.new(name: d['name'], payment_type: d['payment_type'],
                                              tax_percentage: d['tax_percentage'], tax_maximum: d['tax_maximum'],
@@ -33,5 +33,6 @@ class PaymentOption
   end
 end
 
+# rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/ParameterLists
 # rubocop:enable Layout/LineLength
