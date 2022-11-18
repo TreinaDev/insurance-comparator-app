@@ -1,0 +1,25 @@
+<% if @orders.any? %>
+  <h1 class="display-6">Meus Pedidos</h1>
+  <hr/>
+  <div class="row">
+    <% @orders.each do |order| %>
+      <div class="col-sm-6" style="width: 22rem;">
+        <div class="card" style="width: 20rem;">
+          <div class="card-header">
+            <%= link_to order.equipment.name, order %>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><%=Equipment.human_attribute_name(:brand)%>: <%=order.equipment.brand%></p>
+            <p class="card-text"><strong><%=Order.human_attribute_name("status.#{order.status}")%></strong></p>
+            <% order.equipment.photos.each do |photo| %>
+              <%= image_tag photo, class:"card-img-top" %>
+              <% break %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h1 class="display-6">Nenhum pedido encontrado.</h1>
+<% end %>

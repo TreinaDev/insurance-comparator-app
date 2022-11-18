@@ -92,6 +92,10 @@ describe 'Cliente compra pacote de seguro' do
 
     allow(Insurance).to receive(:find).with('45').and_return(insurance)
 
+    json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
+    fake_response = double('faraday_response', success?: true, body: json_data)
+    allow(Faraday).to receive(:get).with('https://localhost:5000/api/v1/verifica_cpf/21234567890').and_return(fake_response)
+
     login_as(client)
     visit insurance_path(insurance.id)
     click_link 'Contratar'
