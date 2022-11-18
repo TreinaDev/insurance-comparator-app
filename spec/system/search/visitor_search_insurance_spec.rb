@@ -13,8 +13,10 @@ describe 'Visitante realiza uma busca por seguradoras' do
 
   it 'a partir do nome do seu produto' do
     dados_fake = []
-    dados_fake << Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
-                                price: 50)
+    dados_fake << Insurance.new(id: 2, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
+                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1, 
+                                product_category: 'Telefone', product_model: 'iPhone 11')
+
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(dados_fake)
 
     visit root_path
@@ -24,7 +26,7 @@ describe 'Visitante realiza uma busca por seguradoras' do
     expect(current_path).to eq search_path
     expect(page).to have_content 'Resultado da Busca: iPhone 11'
     expect(page).to have_content 'Seguradora: Seguradora 1'
-    expect(page).to have_content 'Tipo de Pacote: Premium'
+    expect(page).to have_content 'Tipo de Pacote: Super Econômico'
     expect(page).to have_content 'Valor da Contratação por 12 meses: R$ 50,00'
   end
 

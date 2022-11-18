@@ -2,8 +2,10 @@ require 'rails_helper'
 
 describe 'Cliente compra pacote de seguro' do
   it 'se estiver autenticado' do
-    insurance = Insurance.new(id: 76, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
-                              price: 50)
+    insurance = Insurance.new(id: 2, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 76,
+                              insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1, product_category: 'Telefone',
+                              product_model: 'iPhone 11')
+
     allow(Insurance).to receive(:find).with('76').and_return(insurance)
 
     visit new_insurance_order_path(insurance.id)
@@ -15,8 +17,12 @@ describe 'Cliente compra pacote de seguro' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')
-    insurance = Insurance.new(id: 44, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
-                              price: 50)
+
+    insurance = Insurance.new(id: 2, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 44,
+                            insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1, product_category: 'Telefone',
+                            product_model: 'iPhone 11')
+
+
     allow(Insurance).to receive(:find).with('44').and_return(insurance)
 
     login_as(client)
