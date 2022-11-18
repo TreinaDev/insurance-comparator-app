@@ -1,0 +1,17 @@
+pt-BR:
+  pending: 'Pendente'
+  paid: 'Pago'
+  fail: 'Falha'
+  activerecord:
+    models:
+      payment:
+        one: 'Pagamento'
+        other: 'Pagamentos'
+    attributes:
+      payment:
+        status: 'Status'
+        invoice_token: 'Número da Nota Fiscal'
+        parcels: 'Parcelas'
+        payment_method: 'Meio de Pagamento'
+        payment_methot_id: 'Meio de Pagamento'
+

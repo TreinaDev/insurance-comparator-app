@@ -1,15 +1,10 @@
 pt-BR:
-  activerecord:
-    models:
-      payment_option:
-        one: 'Meio de Pagamento'
-        other: 'Meios de Pagamento'
-    attributes:
-      payment_option:
-        name: 'Nome'
-        tax_percentage: 'Taxa por Cobrança'
-        tax_maximum: 'Taxa Máxima'
-        payment_type: 'Tipo de Pagamento'
-        single_parcel_discount: 'Desconto à vista'
-        max_parcels: 'Quantidade máxima de parcelas'
-        
+  payment_option:
+    one: 'Meio de Pagamento'
+    other: 'Meios de Pagamento'
+  name: 'Nome'
+  tax_percentage: 'Taxa por Cobrança'
+  tax_maximum: 'Taxa Máxima'
+  payment_type: 'Tipo de Pagamento'
+  single_parcel_discount: 'Desconto à vista'
+  max_parcels: 'Quantidade máxima de parcelas'

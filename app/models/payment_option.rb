@@ -3,10 +3,11 @@
 
 class PaymentOption
   attr_accessor :name, :payment_type, :tax_percentage, :tax_maximum,
-                :max_parcels, :single_parcel_discount
+                :max_parcels, :single_parcel_discount, :payment_method_id
 
   def initialize(name:, payment_type:, tax_percentage:, tax_maximum:, max_parcels:,
-                 single_parcel_discount:)
+                 single_parcel_discount:, payment_method_id:)
+    @payment_method_id = payment_method_id
     @name = name
     @payment_type = payment_type
     @tax_maximum = tax_maximum
@@ -23,7 +24,8 @@ class PaymentOption
       data.each do |d|
         payment_options << PaymentOption.new(name: d['name'], payment_type: d['payment_type'],
                                              tax_percentage: d['tax_percentage'], tax_maximum: d['tax_maximum'],
-                                             max_parcels: d['max_parcels'], single_parcel_discount: d['single_parcel_discount'])
+                                             max_parcels: d['max_parcels'], single_parcel_discount: d['single_parcel_discount'],
+                                             payment_method_id: d['payment_method_id'])
       end
     end; payment_options
   end
