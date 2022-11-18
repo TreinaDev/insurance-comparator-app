@@ -20,6 +20,30 @@ class Order < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/methodLength
+  def validate_coupon
+    @id = order.product_model_id
+    @voucher = params[:coupon].upcase
+    @preco = order.final_price
+    response = Faraday.get("https://localhost:5000/api/v1/promos/#{@id}-#{@voucher}-#{@preco}")
+    return unless response.success?
+
+    data = JSON.parse(response.body)
+    case data['status']
+    when 'Cupom expirado'
+      flash.now[:alert] = 'Cupom expirado'
+      render 'new'
+    when 'Cupom inválido'
+      flash.now[:alert] = 'Cupom inválido'
+      render 'new'
+    when 'Cupom válido'
+      flash.now[:notice] = 'Cupom válido'
+      @discount = data['discount']
+      render 'new'
+    end
+  end
+  # rubocop:enable Metrics/methodLength
+
   def calculate_price
     equipment_price = equipment.equipment_price
     self.total_price = (((price_percentage * equipment_price) / 100) * contract_period)
