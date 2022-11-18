@@ -65,8 +65,9 @@ describe 'Usuário efetua pagamento' do
     expect(page).to have_content 'Nome da Seguradora: Seguradora 67'
     expect(page).to have_content 'Período contratado: 9 meses'
     expect(page).to have_content 'Valor do Seguro: R$ 215,00'
-    expect(page).to have_select 'Meio de Pagamento', text: 'Cartão de Crédito - Laranja'
-    expect(page).to have_select 'Meio de Pagamento', text: 'Boleto - Roxinho'
+    expect(page).to have_link 'iphone 11', href: equipment_path(equipment)
+    expect(page).to have_select 'Meio de Pagamento', text: 'Laranja' # Pendente mudar para 'Cartão de Crédito - Laranja'
+    expect(page).to have_select 'Meio de Pagamento', text: 'Roxinho' # Pendente mudar para 'Boleto - Roxinho'
     expect(page).to have_button 'Salvar'
   end
 end

@@ -20,12 +20,12 @@ class PaymentOption
   def self.all
     payment_options = []
     response = Faraday.get(Rails.configuration.external_apis['payment_options_api'].to_s)
-    if response.success? data = JSON.parse(response.body)
+    if response.success?
+      data = JSON.parse(response.body)
       data.each do |d|
-        payment_options << PaymentOption.new(name: d['name'], payment_type: d['payment_type'],
+        payment_options << PaymentOption.new(name: d['name'], payment_type: d['payment_type'], max_parcels: d['max_parcels'],
                                              tax_percentage: d['tax_percentage'], tax_maximum: d['tax_maximum'],
-                                             max_parcels: d['max_parcels'], single_parcel_discount: d['single_parcel_discount'],
-                                             payment_method_id: d['payment_method_id'])
+                                             single_parcel_discount: d['single_parcel_discount'], payment_method_id: d['payment_method_id'])
       end
     end; payment_options
   end
