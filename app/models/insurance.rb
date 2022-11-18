@@ -19,12 +19,13 @@ class Insurance
 
   def self.search(query)
     insurances = []
-    #response = Faraday.get("https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d/#{query}")
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{query}")
+    formated_query = query.split.join.downcase
+    response = Faraday.get("https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d")
+    # response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{query}")
     if response.success?
       data = JSON.parse(response.body)
       data.each do |d|
-        if d['product_model'].split.join.downcase == query.split.join.downcase
+        if d['product_model'].split.join.downcase == formated_query
           insurances << Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'], 
           insurance_company_id: d['insurance_company_id'], insurance_name: d['insurance_name'], price: d['price'],
           product_category_id: d['product_category_id'], product_category: d['product_category'], 
@@ -36,8 +37,8 @@ class Insurance
   end
 
   def self.find(id)
-    #response = Faraday.get("https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d/#{id}")
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{id}")
+    response = Faraday.get("https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d/#{id}")
+    # response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{id}")
     if response.success?
       d = JSON.parse(response.body)
       insurance = Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],

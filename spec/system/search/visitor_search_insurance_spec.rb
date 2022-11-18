@@ -27,7 +27,7 @@ describe 'Visitante realiza uma busca por seguradoras' do
     expect(page).to have_content 'Resultado da Busca: iPhone 11'
     expect(page).to have_content 'Seguradora: Seguradora 1'
     expect(page).to have_content 'Tipo de Pacote: Super Econômico'
-    expect(page).to have_content 'Valor da Contratação por 12 meses: R$ 50,00'
+    expect(page).to have_content 'Valor da Contratação: R$ 100,00'
   end
 
   it 'e não encontra seguradoras para o seu produto' do

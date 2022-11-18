@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
     @order.insurance_id = @insurance.id
     @order.price_percentage = @insurance.price
     @order.insurance_name = @insurance.insurance_name
-    @order.packages = @insurance.packages
+    @order.packages = @insurance.name
     @order.insurance_model = @insurance.product_model
     @order.client = current_client
   end
