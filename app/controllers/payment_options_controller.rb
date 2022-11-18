@@ -4,6 +4,5 @@ class PaymentOptionsController < ApplicationController
     @order = Order.find(params[:order_id])
   end
 
-  def create
-  end
+  def create; end
 end
