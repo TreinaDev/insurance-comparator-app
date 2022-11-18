@@ -16,10 +16,9 @@ class PaymentOption
     @payment_method_status = payment_method_status
   end
 
-  # rubocop:disable Metrics/AbcSize
   def self.all
     payment_options = []
-    response = Faraday.get(Rails.configuration.external_apis['payment_options_api'].to_s)
+    response = Faraday.get(Settings.payment_options_api.to_s)
     if response.success? data = JSON.parse(response.body)
       data.each do |d|
         payment_options << PaymentOption.new(payment_method_id: d['payment_method_id'], payment_method_name: d['payment_method_name'],
@@ -30,6 +29,5 @@ class PaymentOption
   end
 end
 
-# rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/ParameterLists
 # rubocop:enable Layout/LineLength
