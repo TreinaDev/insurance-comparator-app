@@ -19,7 +19,8 @@ class Insurance
 
   def self.search(query)
     insurances = []
-    response = Faraday.get("https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d/#{query}")
+    #response = Faraday.get("https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d/#{query}")
+    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{query}")
     if response.success?
       data = JSON.parse(response.body)
       data.each do |d|
@@ -35,7 +36,8 @@ class Insurance
   end
 
   def self.find(id)
-    response = Faraday.get("https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d/#{id}")
+    #response = Faraday.get("https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d/#{id}")
+    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{id}")
     if response.success?
       d = JSON.parse(response.body)
       insurance = Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],

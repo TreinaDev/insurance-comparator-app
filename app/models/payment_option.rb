@@ -16,11 +16,11 @@ class PaymentOption
     @payment_method_status = payment_method_status
   end
 
+  # rubocop:disable Metrics/AbcSize
   def self.all
     payment_options = []
-    response = Faraday.get('https://mocki.io/v1/f914b988-2ce9-4263-bca2-dd40fd3a20ba')
-    if response.success?
-      data = JSON.parse(response.body)
+    response = Faraday.get(Rails.configuration.external_apis['payment_options_api'].to_s)
+    if response.success? data = JSON.parse(response.body)
       data.each do |d|
         payment_options << PaymentOption.new(payment_method_id: d['payment_method_id'], payment_method_name: d['payment_method_name'],
                                              max_installments: d['max_installments'], tax_percentage: d['tax_percentage'], tax_maximum: d['tax_maximum'],
@@ -30,5 +30,6 @@ class PaymentOption
   end
 end
 
+# rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/ParameterLists
 # rubocop:enable Layout/LineLength
