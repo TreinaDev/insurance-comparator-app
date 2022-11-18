@@ -1,0 +1,3 @@
+test:
+  insurances_api: http://localhost:4000/api/v1
+  payment_options_api: http://localhost:4000/api/v1

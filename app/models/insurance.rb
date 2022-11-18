@@ -12,7 +12,7 @@ class Insurance
 
   def self.search(query)
     insurances = []
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{query}")
+    response = Faraday.get("#{Settings.insurance_api}/insurances/#{query}")
     if response.success?
       data = JSON.parse(response.body)
       data.each do |d|
@@ -24,7 +24,7 @@ class Insurance
   end
 
   def self.find(id)
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{id}")
+    response = Faraday.get("#{Settings.insurance_api}/insurances/#{id}")
     if response.success?
       d = JSON.parse(response.body)
       insurance = Insurance.new(id: d['id'], insurance_name: d['insurance_name'], product_model: d['product_model'],
