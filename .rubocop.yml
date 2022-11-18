@@ -38,3 +38,5 @@ Style/FrozenStringLiteralComment:
 Metrics/BlockLength:
   AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'it']
 
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
