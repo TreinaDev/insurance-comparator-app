@@ -14,6 +14,10 @@
     <p class="card-text"><%=Order.human_attribute_name(:price_percentage)%>: <%=@order.price_percentage%>%</p>
     <p class="card-text"><%=Order.human_attribute_name(:total_price)%>: <%=number_to_currency(@order.total_price)%></p>
     <p class="card-text">Status: <strong><%=Order.human_attribute_name("status.#{@order.status}")%></strong></p>
+    <% if @order.charge_pending? %>
+      <p class="card-text"><%=Order.human_attribute_name(:payment_method)%>: <%=@order.payment_method%></p>
+      <p class="card-text"><%=Payment.human_attribute_name(:parcels)%>: <%=@order.payment.parcels%>x</p>
+    <% end %>
     <% @order.equipment.photos.each do |photo| %>
       <%= image_tag photo, class:"card-img-top" %>
       <% break %>

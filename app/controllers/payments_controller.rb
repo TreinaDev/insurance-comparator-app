@@ -8,7 +8,19 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @client = current_client
+    @payment = Payment.new(payment_params)
+    @payment.client = current_client
+    @payment.order = @order
+    if @payment.save
+      @order.charge_pending!
+      @payment.pending!
+      @order.update!(payment_method: @payment.payment_method_id)
+      redirect_to @order, notice: I18n.t('payment_created')
+    else
+      @payment_options = PaymentOption.all
+      flash.now[:alert] = I18n.t('payment_not_created')
+      render 'new'
+    end
   end
 
   private
@@ -18,6 +30,6 @@ class PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment).permit(:parcels, :payment_method_id)
+    params.require(:payment).permit(:parcels, :payment_method_id, :order_id)
   end
 end

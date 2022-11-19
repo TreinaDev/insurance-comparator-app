@@ -1,7 +1,6 @@
 pt-BR:
-  pending: 'Pendente'
-  paid: 'Pago'
-  fail: 'Falha'
+  payment_created: Seu pagamento foi salvo com sucesso!
+  payment_not_created: Não foi possível salvar o seu pagamento.
   activerecord:
     models:
       payment:
@@ -14,4 +13,9 @@ pt-BR:
         parcels: 'Parcelas'
         payment_method: 'Meio de Pagamento'
         payment_methot_id: 'Meio de Pagamento'
+    status:
+      payment:
+        pending: 'Pendente'
+        paid: 'Pago'
+        fail: 'Falha'
 

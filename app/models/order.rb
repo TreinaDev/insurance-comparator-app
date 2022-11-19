@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :equipment
   belongs_to :client
-  has_many :payments, dependent: nil
+  has_one :payment, dependent: nil
   before_save :calculate_price
   validates :contract_period, presence: true
   validates :contract_period, comparison: { greater_than: 0 }, allow_blank: true

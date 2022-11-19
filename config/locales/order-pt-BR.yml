@@ -26,4 +26,4 @@ pt-BR:
         equipment: "Dispositivo"
         equipment_id: 'Dispositivo'
         total_price: "Valor do Seguro"
-        payment_option_id: 'Meio de Pagamento'
+        payment_method: 'Meio de Pagamento'
