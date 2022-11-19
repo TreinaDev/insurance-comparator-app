@@ -7,7 +7,13 @@ class OrdersController < ApplicationController
   end
 
   def new
+    @equipment = Equipment.all
+    p @equipment
+    p "AAAAAAA #{params[:insurance_id]}"
     @insurance = Insurance.find(params[:insurance_id])
+    puts "======================"
+    p @insurance
+    puts "======================"
     @order = Order.new
     if @insurance.nil?
       redirect_to root_path, alert: t(:unable_to_load_package_information)
@@ -36,11 +42,26 @@ class OrdersController < ApplicationController
 
   def set_insurance_and_client
     @insurance = Insurance.find(params[:insurance_id])
-    @order.insurance_id = @insurance.id
-    @order.price_percentage = @insurance.price
+    @order.package_name = @insurance.name
     @order.insurance_name = @insurance.insurance_name
-    @order.packages = @insurance.packages
-    @order.insurance_model = @insurance.product_model
+    @order.id = @insurance.id
+    @order.max_period = @insurance.max_period
+    @order.min_period = @insurance.min_period
+    @order.product_category_id = @insurance.product_category_id
+    @order.product_category = @insurance.product_category
+    @order.product_model = @insurance.product_model
+    @order.price = @insurance.price
     @order.client = current_client
   end
 end
+
+# @id = id
+#     @name = name
+#     @max_period = max_period
+#     @min_period = min_period
+#     @id = id
+#     @insurance_name = insurance_name
+#     @price = price
+#     @product_category_id = product_category_id
+#     @product_category = product_category
+#     @product_model = product_model

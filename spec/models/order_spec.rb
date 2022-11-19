@@ -16,7 +16,7 @@ RSpec.describe Order, type: :model do
                                          payment_method_status: 0, single_installment_discount: 10)
       Insurance.new(id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11',
                     packages: 'Premium', price: 5)
-      order = Order.new(client:, equipment:, payment_method:, contract_period: 10, insurance_id: 45,
+      order = Order.new(client:, equipment:, payment_method:, contract_period: 10, insurance_company_id: 45,
                         price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
                         insurance_model: 'iPhone 11')
 

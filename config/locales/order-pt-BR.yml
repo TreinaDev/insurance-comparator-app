@@ -1,7 +1,6 @@
 pt-BR:
   your_order_is_being_processed: 'Seu pedido está em análise pela seguradora'
   your_order_was_not_registered: 'Não foi possível cadastrar o pedido'
-  contract_period_in_months: 'Período de contratação em meses'
   month:
     one: 'mês'
     other: 'meses'
@@ -10,15 +9,15 @@ pt-BR:
       order: "Pedido"
     attributes:
       order:
-        price_percentage: "Porcentagem do Seguro"
-        insurance_name: "Nome da Seguradora"
-        packages: "Tipo de Pacote"
-        insurance_model: "Modelo do Produto"
-        contract_period: "Período contratado"
+        price: "Preço do Seguro"
+        name: "Nome da Seguradora"
+        insurance_name: "Tipo de Pacote"
+        product_model: "Modelo do Produto"
         equipment: "Dispositivo"
         equipment_id: 'Dispositivo'
         total_price: "Valor do Seguro"
         payment_option_id: 'Meio de Pagamento'
+        order_contract_period: 'Período de contratação em meses'
       order/status: 
         pending: "Aguardando Aprovação da Seguradora"
         insurance_approved: "Pedido Aprovado"

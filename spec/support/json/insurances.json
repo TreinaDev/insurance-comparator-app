@@ -1,16 +1,27 @@
 [
+  
   {
     "id": 1,
+    "name": "Plus",
+    "max_period": 24 ,
+    "min_period": 6,
+    "insurance_company_id":1, 
     "insurance_name": "Seguradora 1",
-    "product_model": "iPhone 11",
-    "packages": "Premium",
-    "price": 50
+    "price": 50,
+    "product_category": "Celular",
+    "product_category_id":1,
+    "product_model": "IPhone"
   },
   {
     "id": 2,
+    "name": "Plus",
+    "max_period": 24 ,
+    "min_period": 6,
+    "insurance_company_id":1, 
     "insurance_name": "Seguradora 2",
-    "product_model": "iPhone 11",
-    "packages": "Plus",
-    "price": 20
+    "price": 50,
+    "product_category": "Celular",
+    "product_category_id":1,
+    "product_model": "IPhone"
   }
 ]

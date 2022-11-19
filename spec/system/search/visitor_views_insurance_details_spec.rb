@@ -3,13 +3,13 @@ require 'rails_helper'
 describe 'visitante vê detalhes do pacote' do
   it 'com sucesso' do
     insurances = []
-    insurances << Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
+    insurances << Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', name: 'Premium',
                                 price: 50)
-    insurances << Insurance.new(id: 2, insurance_name: 'Seguradora 2', product_model: 'iPhone 11', packages: 'Plus',
+    insurances << Insurance.new(id: 2, insurance_name: 'Seguradora 2', product_model: 'iPhone 11', name: 'Plus',
                                 price: 20)
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(insurances)
 
-    insurance = Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
+    insurance = Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', name: 'Premium',
                               price: 50)
     allow(Insurance).to receive(:find).with('1').and_return(insurance)
 
@@ -29,9 +29,9 @@ describe 'visitante vê detalhes do pacote' do
 
   it 'e não consegue visualizar o pacote' do
     insurances = []
-    insurances << Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', packages: 'Premium',
+    insurances << Insurance.new(id: 1, insurance_name: 'Seguradora 1', product_model: 'iPhone 11', name: 'Premium',
                                 price: 50)
-    insurances << Insurance.new(id: 2, insurance_name: 'Seguradora 2', product_model: 'iPhone 11', packages: 'Plus',
+    insurances << Insurance.new(id: 2, insurance_name: 'Seguradora 2', product_model: 'iPhone 11', name: 'Plus',
                                 price: 20)
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(insurances)
 

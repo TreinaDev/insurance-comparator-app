@@ -8,8 +8,8 @@
     <dl>
       <dt> <%= t(:insurance_name)%>:</dt>
       <dd> <%= link_to insurance.insurance_name, insurance_path(insurance.id) %></dd>
-      <dt> <%= t(:packages)%>:</dt>
-      <dd> <%= insurance.packages %></dd>
+      <dt> <%= t(:name)%>:</dt>
+      <dd> <%= insurance.name %></dd>
       <dt> <%= t(:price)%>:</dt>
       <dd> <%= number_to_currency(insurance.price) %></dd>
     </dl>
