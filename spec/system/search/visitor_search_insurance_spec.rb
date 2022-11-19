@@ -38,4 +38,13 @@ describe 'Visitante realiza uma busca por seguradoras' do
 
     expect(page).to have_content 'Nenhuma Seguradora encontrada'
   end
+
+  it 'a partir do menu na página inicial' do
+    visit root_path
+
+    expect(page).to have_button 'Celular'
+    expect(page).to have_button 'Computador'
+    expect(page).to have_button 'Tablet'
+    expect(page).to have_button 'Televisão'
+  end
 end

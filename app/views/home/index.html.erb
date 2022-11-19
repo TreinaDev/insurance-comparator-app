@@ -2,6 +2,7 @@
 <p class="text-secondary"> Informe abaixo o nome do seu produto para encontrar os Pacotes de Seguro compatíveis </p>
 <hr/>
 
+<h3>Digite o modelo do seu equipamento</h3>
 <%= form_with(url: search_path, method: :get) do |f|%>
   
 <div class="row g-3 align-items-center mt-4">
@@ -16,4 +17,23 @@
   </div>
 </div>
 <% end %>
+<br>
+<br>
 
+<h3>Ou selecione uma das opções abaixo</h3>
+<br>
+<button type=button class="btn btn-purple"><i class="bi bi-phone">
+  <br>Celular</br>
+</i></button>
+
+<button type=button class="btn btn-primary"> <i class="bi bi-laptop">
+  <br>Computador</br>
+</i></button>
+
+<button type=button class="btn btn-primary"> <i class="bi bi-tablet">
+  <br>Tablet</br>
+</i></button>
+
+<button type=button class="btn btn-primary"> <i class="bi bi-tv">
+  <br>Televisão</br>
+</i></button>
