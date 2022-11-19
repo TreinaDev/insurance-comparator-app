@@ -101,7 +101,36 @@ describe 'Usuário efetua pagamento' do
     expect(current_path).to eq order_path(order.id)
     expect(page).to have_content 'Seu pagamento foi salvo com sucesso!'
     expect(page).to have_content 'Status: Pagamento em Processamento'
-    expect(page).to have_content 'Meio de Pagamento: 2' #Mudar pra nome e tipo formatado
+    expect(page).to have_content 'Meio de Pagamento: 2' # Mudar pra nome e tipo formatado
     expect(page).to have_content 'Parcelas: 1x'
+  end
+
+  it 'com dados inválidos' do
+    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                            birth_date: '29/10/1997')
+    equipment = Equipment.create!(client:, name: 'iPhone 11', brand: 'Apple', equipment_price: 1199,
+                                  purchase_date: '01/11/2022',
+                                  invoice: fixture_file_upload('spec/support/invoice.png'),
+                                  photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                           fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
+                              product_model: 'iPhone 11', packages: 'Premium', price: 2)
+    api_url = Rails.configuration.external_apis['payment_options_api'].to_s
+    json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
+    fake_response = double('faraday_response', success?: true, body: json_data)
+    allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
+
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
+                          client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
+                          insurance_model: insurance.product_model, price_percentage: insurance.price)
+
+    login_as(client)
+    visit order_path(order.id)
+    click_on 'Pagar'
+    fill_in 'Parcelas', with: ''
+    click_on 'Salvar'
+
+    expect(page).to have_content 'Não foi possível salvar o seu pagamento.'
   end
 end

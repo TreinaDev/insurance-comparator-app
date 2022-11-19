@@ -12,9 +12,7 @@ class PaymentsController < ApplicationController
     @payment.client = current_client
     @payment.order = @order
     if @payment.save
-      @order.charge_pending!
-      @payment.pending!
-      @order.update!(payment_method: @payment.payment_method_id)
+      @order.update!(payment_method: @payment.payment_method_id, status: :charge_pending)
       redirect_to @order, notice: I18n.t('payment_created')
     else
       @payment_options = PaymentOption.all
