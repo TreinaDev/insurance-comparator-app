@@ -14,14 +14,15 @@ RSpec.describe Order, type: :model do
       payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
                                          max_installments: 0, tax_percentage: 7, tax_maximum: 20,
                                          payment_method_status: 0, single_installment_discount: 10)
-      Insurance.new(id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11',
-                    packages: 'Premium', price: 5)
-      order = Order.new(client:, equipment:, payment_method:, contract_period: 10, insurance_company_id: 45,
-                        price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
-                        insurance_model: 'iPhone 11')
+      insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
+                              insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
+                              product_category_id: 1, product_category:'Celular', product_model: 'iphone 11')
+      order = Order.new(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium', max_period: 24, min_period: 6,
+                              insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
+                              product_category_id: 1, product_category:'Celular', product_model: 'iphone 11')
 
       order.save
-      expect(order.total_price).to eq 500
+      expect(order.final_price).to eq 100
     end
   end
   describe '#valid?' do

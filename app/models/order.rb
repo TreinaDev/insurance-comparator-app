@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   before_validation :generate_code, on: :create
   before_save :calculate_price
   validates :contract_period, presence: true
-  validates :contract_period, comparison: { greater_than: 0 }, allow_blank: true
+  validates :contract_period, comparison: { greater_than: 0 }, allow_blank: false
 
   def calculate_price
     self.final_price = price * contract_period

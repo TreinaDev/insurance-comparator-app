@@ -3,12 +3,12 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    @equipment = Equipment.find(@order.equipment_id)
+    @equipment = Equipment.where(id: @order.equipment_id)
   end
 
   def new
-    @equipment = Equipment.find(current_client.id)
-    insurance_id
+    @equipment = Equipment.where(client_id: current_client)
+    set_insurance_id
     @order = Order.new
     if @insurance.nil?
       redirect_to root_path, alert: t(:unable_to_load_package_information)
@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     set_insurance_and_client
     if @order.save
-      return redirect_to insurance_order_path(@insurance, @order),
+      return redirect_to insurance_order_path(@insurance.id, @order),
                          notice: t(:your_order_is_being_processed)
     end
 
@@ -36,10 +36,10 @@ class OrdersController < ApplicationController
   end
 
   def set_insurance_and_client
-    insurance_id
+    set_insurance_id
     @order.package_name = @insurance.name
     @order.insurance_name = @insurance.insurance_name
-    @order.id = @insurance.id
+    @order.insurance_company_id = @insurance.insurance_company_id
     @order.max_period = @insurance.max_period
     @order.min_period = @insurance.min_period
     @order.product_category_id = @insurance.product_category_id
@@ -49,8 +49,13 @@ class OrdersController < ApplicationController
     @order.client = current_client
   end
 
-  def insurance_id
+  def set_insurance_id
     @insurance = Insurance.find(params[:insurance_id])
+  end
+
+  def set_coverage
+    Faraday.get("https://d946210b-806a-47b9-ad2f-4a1d9b6c8852.mock.pstmn.io/api/v1/package_coverages")
+    
   end
 end
 
