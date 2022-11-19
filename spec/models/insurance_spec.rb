@@ -3,10 +3,10 @@ require 'rails_helper'
 describe Insurance do
   context '.search' do
     it 'retorna as seguradoras encontradas' do
-      api_url = Rails.configuration.external_apis['insurances_api'].to_s
+      # api_url = Rails.configuration.external_apis['insurances_api'].to_s
       json_data = Rails.root.join('spec/support/json/insurances.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
-      allow(Faraday).to receive(:get).with('https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('https://63781a5e5c477765122c38f4.mockapi.io/api/v1/insurances').and_return(fake_response)
       # allow(Faraday).to receive(:get).with("#{api_url}/insurances/iphone11").and_return(fake_response)
 
       result = Insurance.search('iphone11')
@@ -23,9 +23,9 @@ describe Insurance do
     end
 
     it 'retorna vazio se API está suspensa/indisponível' do
-      api_url = Rails.configuration.external_apis['insurances_api'].to_s
+      # api_url = Rails.configuration.external_apis['insurances_api'].to_s
       fake_response = double('faraday_response', success?: false, body: "{'error': 'Erro ao obter dados da pesquisa'}")
-      allow(Faraday).to receive(:get).with('https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('https://63781a5e5c477765122c38f4.mockapi.io/api/v1/insurances').and_return(fake_response)
       # allow(Faraday).to receive(:get).with("#{api_url}/insurances/iphone11").and_return(fake_response)
 
       result = Insurance.search('iphone11')
@@ -36,10 +36,10 @@ describe Insurance do
 
   context '.find' do
     it 'retorna a seguradora escolhida' do
-      api_url = Rails.configuration.external_apis['insurances_api'].to_s
+      # api_url = Rails.configuration.external_apis['insurances_api'].to_s
       json_data = Rails.root.join('spec/support/json/insurance.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
-      allow(Faraday).to receive(:get).with('https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d/1').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('https://63781a5e5c477765122c38f4.mockapi.io/api/v1/insurances/1').and_return(fake_response)
       # allow(Faraday).to receive(:get).with("#{api_url}/insurances/1").and_return(fake_response)
 
       result = Insurance.find(1)
@@ -56,9 +56,9 @@ describe Insurance do
     end
 
     it 'retorna vazio se API está suspensa/indisponível' do
-      api_url = Rails.configuration.external_apis['insurances_api'].to_s
+      # api_url = Rails.configuration.external_apis['insurances_api'].to_s
       fake_response = double('faraday_response', success?: false, body: "{'error': 'Erro ao obter dados da pesquisa'}")
-      allow(Faraday).to receive(:get).with('https://mocki.io/v1/5ec26462-6b55-4f71-8bde-55c682aa994d/1').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('https://63781a5e5c477765122c38f4.mockapi.io/api/v1/insurances/1').and_return(fake_response)
       # allow(Faraday).to receive(:get).with("#{api_url}/insurances/1").and_return(fake_response)
 
       result = Insurance.find(1)

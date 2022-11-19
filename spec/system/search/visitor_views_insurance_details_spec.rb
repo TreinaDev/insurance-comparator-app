@@ -4,16 +4,17 @@ describe 'visitante vê detalhes do pacote' do
   it 'com sucesso' do
     insurances = []
     insurances << Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
-                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1, product_category: 'Telefone',
-                                product_model: 'iPhone 11')
+                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
     insurances << Insurance.new(id: 4, name: 'Super Premium', max_period: 12, min_period: 2, insurance_company_id: 2,
-                                insurance_name: 'Seguradora 2', price: 500.00, product_category_id: 1, product_category: 'Telefone',
-                                product_model: 'iPhone 11')
+                                insurance_name: 'Seguradora 2', price: 500.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(insurances)
 
     insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
-                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1, product_category: 'Telefone',
-                                product_model: 'iPhone 11')
+                              insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
+                              product_category: 'Telefone', product_model: 'iPhone 11')
+
     allow(Insurance).to receive(:find).with('1').and_return(insurance)
 
     visit root_path
@@ -33,11 +34,11 @@ describe 'visitante vê detalhes do pacote' do
   it 'e não consegue visualizar o pacote' do
     insurances = []
     insurances << Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
-                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1, product_category: 'Telefone',
-                                product_model: 'iPhone 11')
+                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
     insurances << Insurance.new(id: 4, name: 'Super Premium', max_period: 12, min_period: 2, insurance_company_id: 2,
-                                insurance_name: 'Seguradora 2', price: 500.00, product_category_id: 1, product_category: 'Telefone',
-                                product_model: 'iPhone 11')
+                                insurance_name: 'Seguradora 2', price: 500.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(insurances)
 
     insurance = nil

@@ -14,7 +14,7 @@ describe 'Visitante realiza uma busca por seguradoras' do
   it 'a partir do nome do seu produto' do
     dados_fake = []
     dados_fake << Insurance.new(id: 2, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
-                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1, 
+                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
                                 product_category: 'Telefone', product_model: 'iPhone 11')
 
     allow(Insurance).to receive(:search).with('iPhone 11').and_return(dados_fake)
