@@ -11,8 +11,8 @@ class Payment < ApplicationRecord
 
   def parcels_is_less_than_or_equal_to_max_parcels
     payment_option = PaymentOption.find(payment_method_id)
-    if parcels.present? && payment_option.present? && parcels > payment_option.max_parcels
-      errors.add(:parcels, ' não pode ser maior que o máximo permitido pelo meio de pagamento')
-    end
+    return unless parcels.present? && payment_option.present? && parcels > payment_option.max_parcels
+
+    errors.add(:parcels, ' não pode ser maior que o máximo permitido pelo meio de pagamento')
   end
 end
