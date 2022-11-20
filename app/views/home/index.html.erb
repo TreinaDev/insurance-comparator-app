@@ -21,8 +21,17 @@
 <br>
 
 <h3>Ou selecione uma das opções abaixo</h3>
-<br>
-<button type=button class="btn btn-purple"><i class="bi bi-phone">
+
+<% @insurances.each do |insurance| %>
+  <div>
+    <dl>
+      <dd> <%= link_to insurance.product_category, root_path  %></dd> <!--blabla_path-->
+    </dl>
+  </div>
+<% end %>
+
+<%# <br>
+<button type=button class="btn btn-primary"><i class="bi bi-phone">
   <br>Celular</br>
 </i></button>
 
@@ -36,4 +45,4 @@
 
 <button type=button class="btn btn-primary"> <i class="bi bi-tv">
   <br>Televisão</br>
-</i></button>
+</i></button> %>

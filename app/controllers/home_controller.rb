@@ -1,3 +1,6 @@
 class HomeController < ApplicationController
-  def index; end
+  def index
+    @insurances = Insurance.all
+  end
+
 end

@@ -55,6 +55,22 @@ class Insurance
     end
     insurance
   end
+
+  def self.all
+    insurances = []
+    response = Faraday.get("https://63781a5e5c477765122c38f4.mockapi.io/api/v1/insurances/")
+    # response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/")
+    if response.success?
+      data = JSON.parse(response.body)
+      data.each do |d|
+        insurances << Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],
+                                    insurance_company_id: d['insurance_company_id'], insurance_name: d['insurance_name'], price: d['price'],
+                                    product_category_id: d['product_category_id'], product_category: d['product_category'],
+                                    product_model: d['product_model'])
+      end
+    end
+    insurances
+  end
 end
 
 # rubocop:enable Metrics/AbcSize
