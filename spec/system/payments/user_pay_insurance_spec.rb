@@ -15,7 +15,7 @@ describe 'Usuário efetua pagamento' do
     api_url = Rails.configuration.external_apis['payment_options_api'].to_s
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
+    allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
 
     order = Order.create!(status: :insurance_approved, contract_period: 9, price_percentage: 2, equipment:,
                           client:, insurance_id: insurance.id)
@@ -41,7 +41,7 @@ describe 'Usuário efetua pagamento' do
     api_url = Rails.configuration.external_apis['payment_options_api'].to_s
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
+    allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
 
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
                           client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
@@ -82,11 +82,18 @@ describe 'Usuário efetua pagamento' do
                                            fixture_file_upload('spec/support/photo_2.jpg')])
     insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
                               product_model: 'iPhone 11', packages: 'Premium', price: 2)
-    api_url = Rails.configuration.external_apis['payment_options_api'].to_s
-    json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
-    fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
-
+    payment_options = []
+    payment_options << PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
+                                         tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
+                                         payment_method_id: 1)
+    payment_options << PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
+                                         max_parcels: 1, single_parcel_discount: 1,
+                                         payment_method_id: 2)
+    allow(PaymentOption).to receive(:all).and_return(payment_options)
+    payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
+                                       max_parcels: 1, single_parcel_discount: 1,
+                                       payment_method_id: 2)
+    allow(PaymentOption).to receive(:find).with(2).and_return(payment_option)
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
                           client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
                           insurance_model: insurance.product_model, price_percentage: insurance.price)
@@ -101,8 +108,9 @@ describe 'Usuário efetua pagamento' do
     expect(current_path).to eq order_path(order.id)
     expect(page).to have_content 'Seu pagamento foi salvo com sucesso!'
     expect(page).to have_content 'Status: Pagamento em Processamento'
-    expect(page).to have_content 'Meio de Pagamento: 2' # Mudar pra nome e tipo formatado
+    expect(page).to have_content 'Meio de Pagamento: Boleto - Roxinho'
     expect(page).to have_content 'Parcelas: 1x'
+    expect(page).not_to have_button 'Pagar'
   end
 
   it 'com dados inválidos' do
@@ -119,8 +127,11 @@ describe 'Usuário efetua pagamento' do
     api_url = Rails.configuration.external_apis['payment_options_api'].to_s
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
-
+    allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
+    payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
+                                       max_parcels: 1, single_parcel_discount: 1,
+                                       payment_method_id: 2)
+    allow(PaymentOption).to receive(:find).with(2).and_return(payment_option)
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
                           client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
                           insurance_model: insurance.product_model, price_percentage: insurance.price)
@@ -128,9 +139,46 @@ describe 'Usuário efetua pagamento' do
     login_as(client)
     visit order_path(order.id)
     click_on 'Pagar'
+    select 'Boleto - Roxinho', from: 'Meio de Pagamento'
     fill_in 'Parcelas', with: ''
     click_on 'Salvar'
 
     expect(page).to have_content 'Não foi possível salvar o seu pagamento.'
+    expect(page).to have_content 'Parcelas não pode ficar em branco'
+  end
+
+  it 'com número de parcelas maior que o permitido pelo meio de pagamento' do
+    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                            birth_date: '29/10/1997')
+    equipment = Equipment.create!(client:, name: 'iPhone 11', brand: 'Apple', equipment_price: 1199,
+                                  purchase_date: '01/11/2022',
+                                  invoice: fixture_file_upload('spec/support/invoice.png'),
+                                  photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                           fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
+                              product_model: 'iPhone 11', packages: 'Premium', price: 2)
+    api_url = Rails.configuration.external_apis['payment_options_api'].to_s
+    json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
+    fake_response = double('faraday_response', success?: true, body: json_data)
+    allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
+                          client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
+                          insurance_model: insurance.product_model, price_percentage: insurance.price)
+
+    payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
+                                       max_parcels: 1, single_parcel_discount: 1,
+                                       payment_method_id: 2)
+    allow(PaymentOption).to receive(:find).with(2).and_return(payment_option)
+
+    login_as(client)
+    visit order_path(order.id)
+    click_on 'Pagar'
+    select 'Boleto - Roxinho', from: 'Meio de Pagamento'
+    fill_in 'Parcelas', with: '20'
+    click_on 'Salvar'
+
+    expect(page).to have_content 'Não foi possível salvar o seu pagamento.'
+    expect(page).to have_content 'Parcelas não pode ser maior que o máximo permitido pelo meio de pagamento'
   end
 end

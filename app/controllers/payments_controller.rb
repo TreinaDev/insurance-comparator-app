@@ -9,8 +9,7 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = Payment.new(payment_params)
-    @payment.client = current_client
-    @payment.order = @order
+    set_payment_informations
     if @payment.save
       @order.update!(payment_method: @payment.payment_method_id, status: :charge_pending)
       redirect_to @order, notice: I18n.t('payment_created')
@@ -29,5 +28,11 @@ class PaymentsController < ApplicationController
 
   def payment_params
     params.require(:payment).permit(:parcels, :payment_method_id, :order_id)
+  end
+
+  def set_payment_informations
+    @payment.client = current_client
+    @payment.order = @order
+    @payment.payment_description = PaymentOption.find(@payment.payment_method_id).formatted_payment_type_and_name
   end
 end

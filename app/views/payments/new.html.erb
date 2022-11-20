@@ -1,4 +1,14 @@
 <h1 class="fs-2">Emissão de Pagamento </h1>
+
+<% if @payment.errors.any? %>
+  <p> Por favor verifique os erros abaixo: </p>
+  <ul>
+    <% @payment.errors.full_messages.each do |msg| %>
+      <li class="alert alert-danger" role="alert"><%= msg %> </li>
+    <% end %>
+  </ul>
+<%end%>
+
 <div class="container">
   <% @payment_options.each do |payment_option| %>
     <p class="mt-3"><b><%= payment_option.formatted_payment_type_and_name %></b></p>
@@ -45,16 +55,6 @@
 <p><b><%=Order.human_attribute_name(:total_price)%>:</b> <%=number_to_currency(@order.total_price)%></p>
 <p><b><%=Order.human_attribute_name(:equipment)%>:</b> <%= link_to @order.equipment.name, equipment_path(@order.equipment) %></p>
 
-
-<% if @payment.errors.any? %>
-    <p> Verifique os erros abaixo: </p>
-    <ul>
-    <% @payment.errors.full_messages.each do |msg| %>
-        <li class="alert alert-danger" role="alert"><%= msg %> </li>
-    <% end %>
-    </ul>
-<%end%>
-
 <div class="container">
   <%= form_with model: [@order, @payment] do |f| %>
     <div class="row"> 
@@ -65,7 +65,7 @@
 
       <div class="mb-3 col-lg-3 col-6">
         <%= f.label :payment_method_id, 'Meio de Pagamento', class: 'form-label' %> </br>
-        <%= f.collection_select :payment_method_id, @payment_options, :payment_method_id, :formatted_payment_type_and_name , class: 'form-control' %>
+        <%= f.collection_select :payment_method_id, @payment_options, :payment_method_id, :formatted_payment_type_and_name, {}, class: 'form-control' %>
       </div>
     </div>
     <%= f.submit t(:save), class: 'btn btn-dark mt-3 mb-4' %>
