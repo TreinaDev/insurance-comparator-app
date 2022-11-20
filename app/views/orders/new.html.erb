@@ -1,4 +1,4 @@
-<h1 class="fs-2">Aquisição do Seguro <%= @insurance.packages %></h1>
+<h1 class="fs-2">Aquisição do Seguro <%= @insurance.name %></h1>
 
 <% if @order.errors.any? %>
   <h5> <%= t(:please_check_errors, count: @order.errors.count) %>: </h5>
@@ -24,8 +24,8 @@
     <div class="row"> 
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
-          <b><%= t :packages %>:</b>
-          <%= @insurance.packages %>
+          <b><%= t :name %>:</b>
+          <%= @insurance.name %>
         </li>
       </div>
     </div>
