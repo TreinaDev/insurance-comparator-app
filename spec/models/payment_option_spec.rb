@@ -55,8 +55,8 @@ describe PaymentOption do
   describe '#formatted_payment_type_and_name' do
     it 'deve formatar o nome e o tipo do pagamento para exibição' do
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
-                                        max_parcels: 1, single_parcel_discount: 1,
-                                        payment_method_id: 2)
+                                         max_parcels: 1, single_parcel_discount: 1,
+                                         payment_method_id: 2)
       expect(payment_option.formatted_payment_type_and_name).to eq 'Boleto - Roxinho'
     end
   end
