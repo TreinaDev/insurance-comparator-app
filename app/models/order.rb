@@ -21,23 +21,23 @@ class Order < ApplicationRecord
   end
 
   # rubocop:disable Metrics/methodLength
-  def voucher
-    @novomodel = Novomodel.find(params[:novomodel_id])
+  def voucher # dentro do payment controller
+    @payment = Payment.find(params[:payment_id])
 
-    order_id = @novomodel.order_id
+    order_id = @payment.order_id
     @order = Order.find(order_id)
 
     @voucher = params[:voucher].upcase
     @id = @order.product_model_id
     @price = @order.final_price
 
-    @novomodel.voucher_validation
+    @payment.voucher_validation
   end
 
-  def voucher_validation # dentro do novomodel
+  def voucher_validation # dentro do payment model
     voucher_params = { id: @id, voucher: @voucher, price: @price }.to_query
 
-    response = Faraday.get("https://localhost:5000/api/v1/promos/#{voucher_params}")
+    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/promos/#{voucher_params}")
     return unless response.success?
 
     data = JSON.parse(response.body)
@@ -47,10 +47,9 @@ class Order < ApplicationRecord
     when 'Cupom inválido'
       render 'new', alert: 'Cupom inválido'
     when 'Cupom válido'
-      discount = data['discount']
 
       @order.voucher_name = @voucher
-      @order.voucher = discount
+      @order.voucher = data['discount']
       @order.save!
 
       render 'new', notice: 'Cupom inserido com sucesso'
