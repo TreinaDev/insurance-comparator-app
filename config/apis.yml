@@ -1,7 +1,11 @@
 development:
-  insurance_api: https://63781a5e5c477765122c38f4.mockapi.io/api/v1/
-  payment_options_api: https://mocki.io/v1/f914b988-2ce9-4263-bca2-dd40fd3a20ba
+  insurance_api: http://localhost:4000/api/v1
+  payment_options_api: http://localhost:5000/api/v1
 
 test:
-  insurances_api: http://localhost:4000/api/v1
-  payment_options_api: http://localhost:4000/api/v1
+  insurance_api: http://apiseguros.com.br/v1
+  payment_options_api: http://apipagamentos/api/v1
+
+production:
+  insurance_api: https://63781a5e5c477765122c38f4.mockapi.io/api/v1
+  payment_options_api: https://mocki.io/v1/f914b988-2ce9-4263-bca2-dd40fd3a20ba
