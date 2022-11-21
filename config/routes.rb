@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'profile', to: 'clients#profile'
   devise_for :clients
   resources :insurances, only: [:show, :new, :create] do 
-    resources :orders, only: [:new, :create, :show]
+    resources :orders, only: [:new, :create]
   end  
   resources :orders, only: [:show, :index]
   resources :equipment, only: [:index, :new, :create, :show, :edit, :update]

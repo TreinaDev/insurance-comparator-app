@@ -30,6 +30,7 @@ pt-BR:
         payment_option_id: 'Meio de Pagamento'
         product_category: 'Categoria do Produto'
         contract_period: "Período de contratação"
+        code: 'Código do pedido'
       order/status: 
         pending: "Aguardando Aprovação da Seguradora"
         insurance_approved: "Pedido Aprovado"

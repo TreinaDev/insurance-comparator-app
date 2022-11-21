@@ -7,12 +7,8 @@ class OrdersController < ApplicationController
   end
 
   def show
-<<<<<<< HEAD
     @order = Order.find(params[:id])
     @equipment = Equipment.where(id: @order.equipment_id)
-=======
-    @equipment = Equipment.find(@order.equipment_id)
->>>>>>> main
   end
 
   def new
@@ -27,13 +23,11 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @client = current_client
+    client_cpf = Client.where(cpf: client_cpf)
     @order = Order.new(order_params)
     set_insurance_and_client
     if @order.save
-      return redirect_to insurance_order_path(@insurance.id, @order),
-      @order.validate_cpf(@client.cpf) if @order.pending?
-      return redirect_to order_path(@order),
+      return redirect_to order_path(@order.id),
                          notice: t(:your_order_is_being_processed)
     end
 
@@ -42,7 +36,7 @@ class OrdersController < ApplicationController
   end
 
   private
-
+  
   def set_order
     @order = Order.find(params[:id])
   end
@@ -68,20 +62,4 @@ class OrdersController < ApplicationController
   def set_insurance_id
     @insurance = Insurance.find(params[:insurance_id])
   end
-
-  def set_coverage
-    Faraday.get("https://d946210b-806a-47b9-ad2f-4a1d9b6c8852.mock.pstmn.io/api/v1/package_coverages")
-    
-  end
 end
-
-# @id = id
-#     @name = name
-#     @max_period = max_period
-#     @min_period = min_period
-#     @id = id
-#     @insurance_name = insurance_name
-#     @price = price
-#     @product_category_id = product_category_id
-#     @product_category = product_category
-#     @product_model = product_model
