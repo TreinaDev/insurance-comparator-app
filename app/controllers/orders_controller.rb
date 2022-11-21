@@ -1,9 +1,18 @@
 class OrdersController < ApplicationController
   before_action :authenticate_client!
+  before_action :set_order, only: [:show]
+
+  def index
+    @orders = Order.all
+  end
 
   def show
+<<<<<<< HEAD
     @order = Order.find(params[:id])
     @equipment = Equipment.where(id: @order.equipment_id)
+=======
+    @equipment = Equipment.find(@order.equipment_id)
+>>>>>>> main
   end
 
   def new
@@ -18,10 +27,13 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @client = current_client
     @order = Order.new(order_params)
     set_insurance_and_client
     if @order.save
       return redirect_to insurance_order_path(@insurance.id, @order),
+      @order.validate_cpf(@client.cpf) if @order.pending?
+      return redirect_to order_path(@order),
                          notice: t(:your_order_is_being_processed)
     end
 
@@ -30,6 +42,10 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def set_order
+    @order = Order.find(params[:id])
+  end
 
   def order_params
     params.require(:order).permit(:equipment_id, :contract_period)

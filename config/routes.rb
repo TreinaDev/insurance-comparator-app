@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   resources :insurances, only: [:show, :new, :create] do 
     resources :orders, only: [:new, :create, :show]
   end  
+  resources :orders, only: [:show, :index]
   resources :equipment, only: [:index, :new, :create, :show, :edit, :update]
 end
