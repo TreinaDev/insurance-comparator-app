@@ -21,25 +21,39 @@ class Order < ApplicationRecord
   end
 
   # rubocop:disable Metrics/methodLength
-  def validate_coupon
-    @id = order.product_model_id
-    @voucher = params[:coupon].upcase
-    @preco = order.final_price
-    response = Faraday.get("https://localhost:5000/api/v1/promos/#{@id}-#{@voucher}-#{@preco}")
+  def voucher
+    @novomodel = Novomodel.find(params[:novomodel_id])
+
+    order_id = @novomodel.order_id
+    @order = Order.find(order_id)
+
+    @voucher = params[:voucher].upcase
+    @id = @order.product_model_id
+    @price = @order.final_price
+
+    @novomodel.voucher_validation
+  end
+
+  def voucher_validation # dentro do novomodel
+    voucher_params = { id: @id, voucher: @voucher, price: @price }.to_query
+
+    response = Faraday.get("https://localhost:5000/api/v1/promos/#{voucher_params}")
     return unless response.success?
 
     data = JSON.parse(response.body)
     case data['status']
     when 'Cupom expirado'
-      flash.now[:alert] = 'Cupom expirado'
-      render 'new'
+      render 'new', alert: 'Cupom expirado'
     when 'Cupom inválido'
-      flash.now[:alert] = 'Cupom inválido'
-      render 'new'
+      render 'new', alert: 'Cupom inválido'
     when 'Cupom válido'
-      flash.now[:notice] = 'Cupom válido'
-      @discount = data['discount']
-      render 'new'
+      discount = data['discount']
+
+      @order.voucher_name = @voucher
+      @order.voucher = discount
+      @order.save!
+
+      render 'new', notice: 'Cupom inserido com sucesso'
     end
   end
   # rubocop:enable Metrics/methodLength
