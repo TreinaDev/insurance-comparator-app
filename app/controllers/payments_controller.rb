@@ -12,6 +12,7 @@ class PaymentsController < ApplicationController
     set_payment_informations
     if @payment.save
       @order.update!(payment_method: @payment.payment_method_id, status: :charge_pending)
+      @payment.post_on_external_api
       redirect_to @order, notice: I18n.t('payment_created')
     else
       @payment_options = PaymentOption.all

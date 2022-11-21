@@ -15,4 +15,10 @@ class Payment < ApplicationRecord
 
     errors.add(:parcels, ' não pode ser maior que o máximo permitido pelo meio de pagamento')
   end
+
+  def post_on_external_api
+    data = {regitration_number: client.cpf, insurance_company_id: 1, status: :pending,
+            payment_method_id: self.payment_method_id, package_id: order.insurance_id, order_id: order.id}
+    Faraday.post('http://localhost:5000/api/v1/invoices', params: data)
+  end
 end

@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.2'
 
 gem 'rename'
-
+gem 'byebug'
 gem 'faraday'
 
 gem 'devise'
