@@ -10,4 +10,10 @@ Rails.application.routes.draw do
     resources :payments, only: [:new, :create]
   end
   resources :equipment, only: [:index, :new, :create, :show, :edit, :update]
+
+  namespace :api do
+    namespace :v1 do
+      resources :payments, only: [:show, :edit, :update]
+    end
+  end
 end
