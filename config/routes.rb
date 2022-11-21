@@ -8,4 +8,10 @@ Rails.application.routes.draw do
   end  
   resources :orders, only: [:show, :index]
   resources :equipment, only: [:index, :new, :create, :show, :edit, :update]
+
+  namespace :api do
+    namespace :v1 do
+      resources :orders, only: [:show]
+    end
+  end
 end
