@@ -33,7 +33,7 @@ class Insurance
         next unless d['product_model'].split.join.downcase == formated_query
 
         insurances << Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],
-                                    insurance_company_id: d['insurance_company_id'], 
+                                    insurance_company_id: d['insurance_company_id'],
                                     insurance_name: d['insurance_name'], price: d['price'],
                                     product_category_id: d['product_category_id'], product_category: d['product_category'],
                                     product_model: d['product_model'])
@@ -48,7 +48,7 @@ class Insurance
     if response.success?
       d = JSON.parse(response.body)
       insurance = Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],
-                                insurance_company_id: d['insurance_company_id'], insurance_name: d['insurance_name'], 
+                                insurance_company_id: d['insurance_company_id'], insurance_name: d['insurance_name'],
                                 price: d['price'], product_category_id: d['product_category_id'],
                                 product_category: d['product_category'],
                                 product_model: d['product_model'])
