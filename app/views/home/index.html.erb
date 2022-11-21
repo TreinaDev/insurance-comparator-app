@@ -22,27 +22,16 @@
 
 <h3>Ou selecione uma das opções abaixo</h3>
 
-<% @insurances.each do |insurance| %>
-  <div>
-    <dl>
-      <dd> <%= link_to insurance.product_category, root_path  %></dd> <!--blabla_path-->
-    </dl>
+<% if @product_categories.empty? %>
+  <div class="alert alert-secondary" role="alert">
+    Não foi possível carregar as categorias.
   </div>
 <% end %>
 
-<%# <br>
-<button type=button class="btn btn-primary"><i class="bi bi-phone">
-  <br>Celular</br>
-</i></button>
-
-<button type=button class="btn btn-primary"> <i class="bi bi-laptop">
-  <br>Computador</br>
-</i></button>
-
-<button type=button class="btn btn-primary"> <i class="bi bi-tablet">
-  <br>Tablet</br>
-</i></button>
-
-<button type=button class="btn btn-primary"> <i class="bi bi-tv">
-  <br>Televisão</br>
-</i></button> %>
+<% @product_categories.each do |pc| %>
+  <div class = "btn btn-outline-primary">
+    <i class="bi bi-phone">
+      <br><%= link_to pc['name'], product_model_index_path, :class => "btn" %></br>
+    </i>
+  </div>
+<% end %>

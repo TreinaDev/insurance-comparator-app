@@ -1,0 +1,30 @@
+[
+  {
+     "name":"Telefone",
+     "id":"1"
+  },
+  {
+     "name":"Computador",
+     "id":"2"
+  },
+  {
+     "name":"Tablet",
+     "id":"3"
+  },
+  {
+     "name":"Televisão",
+     "id":"4"
+  },
+  {
+     "name":"Câmera",
+     "id":"5"
+  },
+  {
+     "name":"Smartwatch",
+     "id":"6"
+  },
+  {
+     "name":"Filmadora",
+     "id":"7"
+  }
+]
