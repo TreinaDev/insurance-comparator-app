@@ -1,6 +1,9 @@
 <ul class="list-group list-group-flush">
+  <li class="list-group-item"><%="#{t :name}: #{@insurance.name}"%></li>
   <li class="list-group-item"><%="#{t :insurance_name}: #{@insurance.insurance_name}"%></li>
-  <li class="list-group-item"><%="#{t :packages}: #{@insurance.packages}"%></li>
+  <li class="list-group-item"><%="#{t :product_category}: #{@insurance.product_category}"%></li>
+  <li class="list-group-item"><%="#{t :max_period}: #{@insurance.max_period}"%></li>
+  <li class="list-group-item"><%="#{t :min_period}: #{@insurance.min_period}"%></li>
   <li class="list-group-item"><%="#{t :product_model}: #{@insurance.product_model}"%></li>
   <li class="list-group-item"><%="#{t :price}: #{number_to_currency(@insurance.price)}"%> </li>
 </ul>
