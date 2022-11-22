@@ -1,30 +1,30 @@
 <% if @equipment.any? %>
-    <br/><h1 class="display-6">Meus Dispositivos</h1><br/>
-    <table class="table table-bordered border-primary text-center">
-        <thead>
-            <tr>
-                <th scope="col"><%=Equipment.human_attribute_name(:name)%></th>
-                <th scope="col"><%=Equipment.human_attribute_name(:brand)%></th>
-                <th scope="col"><%=Equipment.human_attribute_name(:purchase_date)%></th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @equipment.each do |equipment| %>
-            <tr>
-                <td class="align-middle"><%= link_to equipment.name, equipment %></td>
-                <td class="align-middle"><%= equipment.brand %></td>
-                <td class="align-middle"><%= I18n.l(equipment.purchase_date) %></td>
-            </tr>
+  <h1 class="display-6">Meus Dispositivos</h1>
+  <hr/>
+  <div class="row">
+    <% @equipment.each do |equipment| %>
+      <div class="col-sm-6" style="width: 22rem;">
+        <div class="card" style="width: 20rem;">
+          <div class="card-header">
+            <%= link_to equipment.name, equipment %>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><%=Equipment.human_attribute_name(:brand)%>: <%= equipment.brand %></p>
+            <p class="card-text"><%=Equipment.human_attribute_name(:purchase_date)%>: <%= I18n.l(equipment.purchase_date) %></p>
+            <% equipment.photos.each do |photo| %>
+              <%= image_tag photo, class:"card-img-top" %>
+              <% break %>
             <% end %>
-        </tbody>
-    </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% else %>
-    <% flash.now[:alert] = 'Nenhum dispositivo encontrado' %>
+  <% flash.now[:alert] = 'Nenhum dispositivo encontrado' %>
 <% end %>
-
+<br/>
 <div>
-<%= link_to 'Cadastrar Novo', new_equipment_path, class: "btn btn-dark m-2" %>
-<%= link_to 'Voltar', root_path, class: "btn btn-dark m-2" %>
+  <%= link_to 'Cadastrar Novo', new_equipment_path, class: "btn btn-dark mt-2" %>
+  <%= link_to 'Voltar', root_path, class: "btn btn-dark mt-2" %>
 </div>
-
-

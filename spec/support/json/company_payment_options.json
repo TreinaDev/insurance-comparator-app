@@ -1,0 +1,29 @@
+[
+  {
+    "payment_method_id": 1,
+    "payment_method_name": "Boleto bancário",
+    "tax_percentage": 2,
+    "tax_maximum": 10,
+    "max_installments": 1, 
+    "single_installment_discount": 0,
+    "payment_method_status": 0
+  },
+  {
+    "payment_method_id": 3,
+    "payment_method_name": "Pix",
+    "tax_percentage": 0,
+    "tax_maximum": 7,
+    "max_installments": 1, 
+    "single_installment_discount": 20,
+    "payment_method_status": 0
+  },
+  {
+    "payment_method_id": 5,
+    "payment_method_name": "Cartão de crédito",
+    "tax_percentage": 5,
+    "tax_maximum": 15,
+    "max_installments": 12, 
+    "single_installment_discount": 10,
+    "payment_method_status": 0
+  }
+]

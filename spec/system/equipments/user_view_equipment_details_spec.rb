@@ -4,7 +4,7 @@ describe 'Usuário vê detalhes de dispositivo' do
   it 'e deve estar autenticado' do
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
-    equipment = Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple',
+    equipment = Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple', equipment_price: 10_199,
                                   purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
@@ -17,7 +17,7 @@ describe 'Usuário vê detalhes de dispositivo' do
   it 'a partir da tela inicial' do
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
-    equipment = Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple',
+    equipment = Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple', equipment_price: 10_199,
                                   purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
@@ -40,7 +40,7 @@ describe 'Usuário vê detalhes de dispositivo' do
   it 'a partir da tela de dispositivos' do
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
-    equipment = Equipment.create!(client: user, name: 'Samsung J7', brand: 'Samsung',
+    equipment = Equipment.create!(client: user, name: 'Samsung J7', brand: 'Samsung', equipment_price: 10_199,
                                   purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
@@ -50,8 +50,9 @@ describe 'Usuário vê detalhes de dispositivo' do
     click_on 'Samsung J7'
 
     expect(page).to have_content 'SAMSUNG J7'
+    expect(page).to have_content 'Valor: R$ 10.199,00'
     expect(page).to have_content 'Marca:'
-    expect(page).to have_content 'Samsung'
+    expect(page).to have_content 'SAMSUNG'
     expect(page).to have_content 'Data da compra:'
     expect(page).to have_content '01/11/2022'
     expect(page).to have_content 'Nota Fiscal'

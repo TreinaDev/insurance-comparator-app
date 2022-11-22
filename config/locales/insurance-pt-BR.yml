@@ -1,0 +1,12 @@
+pt-BR:
+  unable_to_load_package_information: 'Não foi possível carregar as informações do pacote'
+  is_necessary_register_a_device_to_purchase_the_insurance: 'É necessário cadastrar um dispositivo para contratar o seguro'
+  name: 'Tipo de Pacote'
+  max_period: 'Período Máximo de Contratação'
+  min_period: 'Período Mínimo de Contratação'
+  insurance_name: 'Nome da Seguradora'
+  product_model: 'Modelo do Produto'
+  price: 'Valor da Contratação'
+  product_category: 'Categoria'
+  to_hire: 'Contratar'
+  contract_package: 'Contratar Pacote'
