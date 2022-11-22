@@ -43,8 +43,10 @@ describe 'Cliente compra pacote de seguro' do
     insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                               insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
                               product_category_id: 1, product_category:'Celular', product_model: 'iPhone 11')
-
     allow(Insurance).to receive(:find).with('45').and_return(insurance)
+    json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
+    fake_response = double('faraday_response', success?: true, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/blocked_registration_numbers/21234567890').and_return(fake_response)
 
     login_as(client)
     visit insurance_path(insurance.id)
@@ -79,7 +81,7 @@ describe 'Cliente compra pacote de seguro' do
 
     json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with('https://localhost:5000/api/v1/verifica_cpf/21234567890').and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/blocked_registration_numbers/21234567890').and_return(fake_response)
 
     login_as(client)
     visit insurance_path(insurance.id)
@@ -89,7 +91,7 @@ describe 'Cliente compra pacote de seguro' do
     click_button 'Contratar Pacote'
  
     expect(page).to have_content 'Seu pedido está em análise pela seguradora'
-    # expect(page).to have_content 'Código do pedido: ABCD-0123456789'
+    expect(page).to have_content 'Código do pedido: ABCD-0123456789'
     expect(page).to have_content 'Nome da Seguradora: Seguradora 45'
     expect(page).to have_content 'Categoria do Produto: Celular'
     expect(page).to have_content 'Modelo do Produto: iphone 11'
@@ -110,18 +112,19 @@ describe 'Cliente compra pacote de seguro' do
     insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6,
                               insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
                               product_category_id: 1, product_category:'Celular', product_model: 'iphone 11')  
-    order = Order.new(client:, equipment:, contract_period: 10, package_name: 'Premium', max_period: 24, min_period: 6,
-                              insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
-                              product_category_id: 1, product_category:'Celular', product_model: 'iphone 11', status: 'insurance_company_approval')                         
+                                               
     allow(Insurance).to receive(:find).with('13').and_return(insurance)
-    allow(order).to receive(:validate_cpf).with('21234567890').and_return(true)
+    json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
+    fake_response = double('faraday_response', success?: true, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/blocked_registration_numbers/21234567890').and_return(fake_response)
 
     login_as(client)
     visit insurance_path(insurance.id)
     click_link 'Contratar'
     click_button 'Contratar Pacote'
     
-    expect(page).to have_content 'Não foi possível cadastrar o pedido'
+    # expect(flash[:alert]).to match 'Período de contratação não pode ficar em branco'
+    # expect(page).to have_content 'Não foi possível cadastrar o pedido'
     expect(page).to have_content 'Por favor verifique os erros abaixo'
     expect(page).to have_content 'Período de contratação não pode ficar em branco'
     expect(page).to have_content 'Dispositivo é obrigatório(a)'
@@ -144,7 +147,7 @@ describe 'Cliente compra pacote de seguro' do
 
     json_data = Rails.root.join('spec/support/json/cpf_disapproved.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
-    allow(Faraday).to receive(:get).with('https://localhost:5000/api/v1/verifica_cpf/21234567890').and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/blocked_registration_numbers/21234567890').and_return(fake_response)
 
     login_as(client)
     visit insurance_path(insurance.id)

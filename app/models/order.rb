@@ -7,11 +7,11 @@ class Order < ApplicationRecord
   validates :contract_period, comparison: { greater_than: 0 }, allow_blank: false
   enum status: { pending: 0, insurance_company_approval: 2, insurance_approved: 3, cpf_approved: 5, cpf_disapproved: 6,
                  charge_pending: 9, charge_approved: 12 }
-  # before_save :validate_cpf
+  #before_save :validate_cpf
 
   def validate_cpf(client_cpf)
-    response = Faraday.get("https://localhost:5000/api/v1/verifica_cpf/#{client_cpf}")
-    return unless response.success?
+    response = Faraday.get("http://localhost:5000/api/v1/blocked_registration_numbers/#{client_cpf}")
+    return response.success?
 
     data = JSON.parse(response.body)
     if data['blocked'] == 'true'
