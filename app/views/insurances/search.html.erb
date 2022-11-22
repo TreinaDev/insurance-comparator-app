@@ -6,6 +6,8 @@
 <% @insurances.each do |insurance| %>
   <div>
     <dl>
+      <dt> <%= t(:name)%>:</dt>
+      <dd> <%= link_to insurance.name, insurance_path(insurance.id) %></dd>
       <dt> <%= t(:insurance_name)%>:</dt>
       <dd> <%= link_to insurance.insurance_name, insurance_path(insurance.id) %></dd>
       <dt> <%= t(:name)%>:</dt>
@@ -15,3 +17,4 @@
     </dl>
   </div>
 <% end %>
+

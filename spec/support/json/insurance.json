@@ -1,13 +1,12 @@
 {
   "id": 1,
-  "name": "Plus",
-  "max_period": 24 ,
+  "name": "Super Econômico",
+  "max_period": 18,
   "min_period": 6,
-  "insurance_company_id":1, 
+  "insurance_company_id": 1,
   "insurance_name": "Seguradora 1",
-  "price": 50,
-  "product_category": "Celular",
-  "product_category_id":1,
-  "product_model": "IPhone"
-  
+  "price": 100.00,
+  "product_category_id": 1,
+  "product_category": "Telefone",
+  "product_model": "iPhone 11"
 }

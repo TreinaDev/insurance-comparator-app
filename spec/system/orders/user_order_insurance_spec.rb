@@ -62,6 +62,17 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_select 'Dispositivo', text: 'Samsung SX'
     expect(page).to have_select "Período de contratação", maximum: insurance.max_period
     expect(page).to have_button 'Contratar Pacote'
+
+    # expect(current_path).to eq new_insurance_order_path(insurance.id)
+    # expect(page).to have_content 'Aquisição do Seguro'
+    # expect(page).to have_content 'Nome da Seguradora: Seguradora 67'
+    # expect(page).to have_content 'Tipo de Pacote: Premium'
+    # expect(page).to have_content 'Modelo do Produto: iPhone 11'
+    # expect(page).to have_content 'Porcentagem do Seguro: 50 %'
+    # expect(page).to have_select 'Dispositivo', text: 'iphone 11'
+    # expect(page).to have_select 'Dispositivo', text: 'Samsung SX'
+    # expect(page).to have_field 'Período de contratação em meses', type: :number
+    # expect(page).to have_button 'Contratar Pacote'
   end
 
   it 'com sucesso' do
@@ -100,6 +111,16 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_content 'Valor final sem desconto: R$ 70,00'
     expect(page).to have_content 'Tipo de Pacote: Premium'
     expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
+
+    # expect(page).to have_content 'Seu pedido está em análise pela seguradora'
+    # expect(page).to have_content 'Nome da Seguradora: Seguradora 45'
+    # expect(page).to have_content 'Modelo do Produto: iPhone 11'
+    # expect(page).to have_content 'Período contratado: 7 meses'
+    # expect(page).to have_content 'Porcentagem do Seguro: 2.5%'
+    # expect(page).to have_content 'Valor do Seguro: R$ 175,00'
+    # expect(page).to have_content 'Tipo de Pacote: Premium'
+    # expect(page).to have_content 'Dispositivo: iphone 11'
+    # expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
   end
   it 'com dados inválidos' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
