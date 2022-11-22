@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_15_212445) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_20_194717) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_212445) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -88,9 +88,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_212445) do
     t.index ["equipment_id"], name: "index_orders_on_equipment_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.integer "order_id", null: false
+    t.integer "payment_method_id"
+    t.integer "parcels"
+    t.integer "status", default: 0
+    t.string "invoice_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "payment_description"
+    t.index ["client_id"], name: "index_payments_on_client_id"
+    t.index ["order_id"], name: "index_payments_on_order_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "equipment", "clients"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "equipment"
+  add_foreign_key "payments", "clients"
+  add_foreign_key "payments", "orders"
 end

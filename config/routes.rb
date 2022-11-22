@@ -7,7 +7,14 @@ Rails.application.routes.draw do
     resources :orders, only: [:new, :create]
   end  
   resources :orders, only: [:show, :index]
-  resources :equipment, only: [:index, :new, :create, :show, :edit, :update] do
-    resources :policy, only: [:new, :create, :show]    
+  resources :equipment, only: [:index, :new, :create, :show, :edit, :update]
+
+  namespace :api do
+    namespace :v1 do
+      resources :orders, only: [:show] do
+        post 'insurance_company_approval', on: :member
+        post 'insurance_approved', on: :member
+      end
+    end
   end
 end
