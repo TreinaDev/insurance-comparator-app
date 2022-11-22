@@ -5,16 +5,16 @@ class Order < ApplicationRecord
   before_save :calculate_price
   validates :contract_period, presence: true
   validates :contract_period, comparison: { greater_than: 0 }, allow_blank: false
-  enum status: { pending: 0, insurance_company_approval: 2, insurance_approved: 3, cpf_approved: 5, cpf_disapproved: 6,
+  enum status: { pending: 0, insurance_company_approval: 2, insurance_approved: 3, cpf_disapproved: 6,
                  charge_pending: 9, charge_approved: 12 }
   #before_save :validate_cpf
 
   def validate_cpf(client_cpf)
     response = Faraday.get("http://localhost:5000/api/v1/blocked_registration_numbers/#{client_cpf}")
-    return response.success?
-
+    return unless response.success?
+     
     data = JSON.parse(response.body)
-    if data['blocked'] == 'true'
+    if data['blocked'] == 'true' 
       cpf_disapproved!
     else
       insurance_company_approval!
