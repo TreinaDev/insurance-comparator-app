@@ -17,8 +17,10 @@ class Payment < ApplicationRecord
   end
 
   def post_on_external_api
-    data = {regitration_number: client.cpf, insurance_company_id: 1, status: :pending,
-            payment_method_id: self.payment_method_id, package_id: order.insurance_id, order_id: order.id}
-    Faraday.post('http://localhost:5000/api/v1/invoices', params: data)
+    data = {invoice: {payment_method_id: self.payment_method_id, order_id: order.id, registration_number: client.cpf,
+            package_id: order.insurance_id, insurance_company_id: 1}}
+    response = Faraday.post('http://localhost:5000/api/v1/invoices', params: data.to_json)
+
+    return JSON.parse(response.body) if response.success?
   end
 end

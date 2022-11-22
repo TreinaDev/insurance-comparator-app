@@ -183,7 +183,7 @@ describe 'Payment API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
+      insurance = Insurance.new(id: 1, insurance_company_id: 1, insurance_name: 'Seguradora 1',
                                 product_model: 'iPhone 11', packages: 'Premium', price: 2)
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -199,9 +199,23 @@ describe 'Payment API' do
       allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
       payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
 
-      payment.post_on_external_api
+      url = 'http://localhost:5000/api/v1/invoices'
+      json_dt = Rails.root.join('spec/support/json/invoice.json').read
+      fake_response = double('faraday_response', success?: true, body: json_dt)
+      params = {invoice: {payment_method_id: 1, order_id: 1, registration_number: '21234567890', package_id: 1,
+                          insurance_company_id:1}}
+      allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)
 
-      expect(response).to have_http_status(200)
+      response = payment.post_on_external_api
+
+      expect(response["id"]).to eq 9
+      expect(response["insurance_company_id"]).to eq 1
+      expect(response["order_id"]).to eq 1
+      expect(response["package_id"]).to eq 1
+      expect(response["payment_method_id"]).to eq 2
+      expect(response["registration_number"]).to eq "21234567890"
+      expect(response["status"]).to eq "pending"
+      expect(response["token"]).to eq "CWTGUUWXJUMS4ABQYGPV"
     end
   end
 end
