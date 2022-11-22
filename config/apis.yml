@@ -1,7 +1,7 @@
 development:
   insurance_api: https://bab203fd-d999-4b90-9570-6aa9c2a5ae31.mock.pstmn.io/api/v1
-  payment_api: https://mocki.io/v1/f914b988-2ce9-4263-bca2-dd40fd3a20ba
+  payment_api: http://localhost:5000/api/v1
 
 test:
   insurances_api: http://localhost:4000/api/v1
-  payment_api: http://localhost:5000/api/v1
+  payment_api: http://pagamentos:5000/api/v1

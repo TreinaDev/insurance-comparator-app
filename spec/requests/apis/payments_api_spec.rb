@@ -199,7 +199,7 @@ describe 'Payment API' do
       allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
       payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
 
-      url = 'http://localhost:5000/api/v1/invoices'
+      url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/invoices"
       json_dt = Rails.root.join('spec/support/json/invoice.json').read
       fake_response = double('faraday_response', success?: true, body: json_dt)
       params = {invoice: {payment_method_id: 1, order_id: 1, registration_number: '21234567890', package_id: 1,

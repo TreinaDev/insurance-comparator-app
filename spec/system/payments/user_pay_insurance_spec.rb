@@ -80,7 +80,7 @@ describe 'Usuário efetua pagamento' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
+    insurance = Insurance.new(id: 1, insurance_company_id: 67, insurance_name: 'Seguradora 67',
                               product_model: 'iPhone 11', packages: 'Premium', price: 2)
     payment_options = []
     payment_options << PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
@@ -90,25 +90,32 @@ describe 'Usuário efetua pagamento' do
                                          max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
     allow(PaymentOption).to receive(:all).and_return(payment_options)
-    payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
-                                       max_parcels: 1, single_parcel_discount: 1,
-                                       payment_method_id: 2)
-    allow(PaymentOption).to receive(:find).with(2).and_return(payment_option)
+    payment_option = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
+                                       tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
+                                       payment_method_id: 1)
+    allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
                           client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
                           insurance_model: insurance.product_model, price_percentage: insurance.price)
 
+    url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/invoices"
+    json_dt = Rails.root.join('spec/support/json/invoice.json').read
+    fake_response = double('faraday_response', success?: true, body: json_dt)
+    params = {invoice: {payment_method_id: 1, order_id: 1, registration_number: '21234567890', package_id: 1,
+                        insurance_company_id:1}}
+    allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)    
+
     login_as(client)
     visit order_path(order.id)
     click_on 'Pagar'
-    select 'Boleto - Roxinho', from: 'Meio de Pagamento'
+    select 'Cartão de Crédito - Laranja', from: 'Meio de Pagamento'
     fill_in 'Parcelas', with: '1'
     click_on 'Salvar'
 
     expect(current_path).to eq order_path(order.id)
     expect(page).to have_content 'Seu pagamento foi salvo com sucesso!'
     expect(page).to have_content 'Status: Pagamento em Processamento'
-    expect(page).to have_content 'Meio de Pagamento: Boleto - Roxinho'
+    expect(page).to have_content 'Meio de Pagamento: Cartão de Crédito - Laranja'
     expect(page).to have_content 'Parcelas: 1x'
     expect(page).not_to have_button 'Pagar'
   end
