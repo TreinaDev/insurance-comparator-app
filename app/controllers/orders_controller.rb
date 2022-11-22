@@ -23,18 +23,19 @@ class OrdersController < ApplicationController
   end
 
   def create
-    client_cpf = Client.where(cpf: client_cpf)
+    client_cpf = current_client.cpf
     @order = Order.new(order_params)
     set_insurance_and_client
-    if @order.save
-      return redirect_to order_path(@order.id),
-                         notice: t(:your_order_is_being_processed)
+      @order.validate_cpf(client_cpf)
+      if @order.save && @order.insurance_company_approval? 
+        return redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
+
+        flash.now[:alert] = t(:your_order_was_not_registered)
+        set_insurance_id
+        render :new
     end
-
-    flash.now[:alert] = t(:your_order_was_not_registered)
-    render :new
   end
-
+  
   private
   
   def set_order

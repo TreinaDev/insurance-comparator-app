@@ -32,8 +32,10 @@ pt-BR:
         contract_period: "Período de contratação"
         code: 'Código do pedido'
       order/status: 
-        pending: "Aguardando Aprovação da Seguradora"
+        insurance_company_approval: "Aguardando Aprovação da Seguradora"
+        pending: "Pendente"
         insurance_approved: "Pedido Aprovado"
         cpf_approved: "CPF Aprovado"
-        charge_pending: "Pagamento Pendente"
+        cpf_disapproved: "CPF Recusado"
+        charge_pending: "Pagamento em Processamento"
         charge_approved: "Pagamento Aprovado"

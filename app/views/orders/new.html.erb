@@ -48,8 +48,7 @@
       </div>
     </div>
   </div>
-
-  <%= form_with model: [:insurance, @order], method: :post do |f| %>
+  <%= form_with model: @order, url: "/insurances/#{@insurance.id}/orders", method: :post do |f| %>
     <div class="row"> 
       <div class="col-lg-6 col-12 mb-2">
         <li class="list-group-item">
