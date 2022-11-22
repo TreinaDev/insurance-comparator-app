@@ -9,16 +9,18 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                              product_model: 'iPhone 11', packages: 'Premium', price: 50)
+                                    fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                              insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                              product_category: 'Telefone', product_model: 'iPhone 11')
     api_url = Rails.configuration.external_apis['payment_options_api'].to_s
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
 
-    order = Order.create!(status: :insurance_approved, contract_period: 9, price_percentage: 2, equipment:,
-                          client:, insurance_id: insurance.id)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
+                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                          insurance_model: insurance.product_category, price_percentage: insurance.price)
 
     login_as(client)
     visit order_path(order.id)
@@ -36,16 +38,17 @@ describe 'Usuário efetua pagamento' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                              product_model: 'iPhone 11', packages: 'Premium', price: 2)
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                              insurance_name: 'Seguradora 67', price: 2, product_category_id: 1,
+                              product_category: 'Telefone', product_model: 'iPhone 11')
     api_url = Rails.configuration.external_apis['payment_options_api'].to_s
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
 
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                          client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
-                          insurance_model: insurance.product_model, price_percentage: insurance.price)
+                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                          insurance_model: insurance.product_category, price_percentage: insurance.price)
 
     login_as(client)
     visit order_path(order.id)
@@ -80,8 +83,9 @@ describe 'Usuário efetua pagamento' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 1, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                              product_model: 'iPhone 11', packages: 'Premium', price: 2)
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                              insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                              product_category: 'Telefone', product_model: 'iPhone 11')
     payment_options = []
     payment_options << PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                          tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
@@ -95,13 +99,13 @@ describe 'Usuário efetua pagamento' do
                                        payment_method_id: 1)
     allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                          client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
-                          insurance_model: insurance.product_model, price_percentage: insurance.price)
+                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                          insurance_model: insurance.product_category, price_percentage: insurance.price)
 
     url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/invoices"
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: true, body: json_dt)
-    params = {invoice: {payment_method_id: 1, order_id: 1, registration_number: '21234567890', package_id: 1,
+    params = {invoice: {payment_method_id: 1, order_id: 1, registration_number: '21234567890', package_id: insurance.id,
                         insurance_company_id:1}}
     allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)    
 
@@ -129,8 +133,9 @@ describe 'Usuário efetua pagamento' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                              product_model: 'iPhone 11', packages: 'Premium', price: 2)
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                              insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                              product_category: 'Telefone', product_model: 'iPhone 11')
     api_url = Rails.configuration.external_apis['payment_options_api'].to_s
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
@@ -140,8 +145,8 @@ describe 'Usuário efetua pagamento' do
                                        payment_method_id: 2)
     allow(PaymentOption).to receive(:find).with(2).and_return(payment_option)
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                          client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
-                          insurance_model: insurance.product_model, price_percentage: insurance.price)
+                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                          insurance_model: insurance.product_category, price_percentage: insurance.price)
 
     login_as(client)
     visit order_path(order.id)
@@ -163,15 +168,16 @@ describe 'Usuário efetua pagamento' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                              product_model: 'iPhone 11', packages: 'Premium', price: 2)
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                              insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                              product_category: 'Telefone', product_model: 'iPhone 11')
     api_url = Rails.configuration.external_apis['payment_options_api'].to_s
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                          client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
-                          insurance_model: insurance.product_model, price_percentage: insurance.price)
+                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                          insurance_model: insurance.product_category, price_percentage: insurance.price)
 
     payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                        max_parcels: 1, single_parcel_discount: 1,

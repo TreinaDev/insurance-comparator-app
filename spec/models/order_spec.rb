@@ -14,8 +14,9 @@ RSpec.describe Order, type: :model do
       payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                          tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                          payment_method_id: 1)
-      Insurance.new(id: 45, insurance_company_id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11',
-                    packages: 'Premium', price: 5)
+      Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
+                    insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                    product_category: 'Telefone', product_model: 'iPhone 11')
       order = Order.new(client: ana, equipment:, payment_method:, contract_period: 10, insurance_id: 45,
                         price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
                         insurance_model: 'iPhone 11', status: :pending)
@@ -42,8 +43,9 @@ RSpec.describe Order, type: :model do
       payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                          tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                          payment_method_id: 1)
-      Insurance.new(id: 45, insurance_company_id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11',
-                    packages: 'Premium', price: 5)
+      Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
+                    insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                    product_category: 'Telefone', product_model: 'iPhone 11')
       order = Order.new(client: ana, equipment:, payment_method:, contract_period: 10, insurance_id: 45,
                         price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
                         insurance_model: 'iPhone 11', status: :pending)
@@ -69,9 +71,15 @@ RSpec.describe Order, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      Insurance.new(id: 45, insurance_company_id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11',
-                    packages: 'Premium', price: 5)
-      order = Order.new(client:, equipment:, contract_period: 10, insurance_id: 45,
+      payment_method = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
+                                         max_parcels: 1, single_parcel_discount: 1,
+                                         payment_method_id: 2)
+
+      Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                    insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                    product_category: 'Telefone', product_model: 'iPhone 11')
+
+      order = Order.new(client:, equipment:, payment_method:, contract_period: 10, insurance_id: 45,
                         price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
                         insurance_model: 'iPhone 11')
 

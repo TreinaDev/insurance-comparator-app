@@ -11,11 +11,12 @@ RSpec.describe Payment, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                                product_model: 'iPhone 11', packages: 'Premium', price: 2)
+      insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                                insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
-                            insurance_model: insurance.product_model, price_percentage: insurance.price)
+                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                            insurance_model: insurance.product_category, price_percentage: insurance.price)
       payment_option = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                          tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                          payment_method_id: 1)
@@ -36,11 +37,12 @@ RSpec.describe Payment, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                                product_model: 'iPhone 11', packages: 'Premium', price: 2)
+      insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                                insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
-                            insurance_model: insurance.product_model, price_percentage: insurance.price)
+                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                            insurance_model: insurance.product_category, price_percentage: insurance.price)
       payment_option = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                          tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                          payment_method_id: 1)
@@ -61,11 +63,12 @@ RSpec.describe Payment, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                                product_model: 'iPhone 11', packages: 'Premium', price: 2)
+      insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                                insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
-                            insurance_model: insurance.product_model, price_percentage: insurance.price)
+                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                            insurance_model: insurance.product_category, price_percentage: insurance.price)
       allow(PaymentOption).to receive(:find).with(nil).and_return(nil)
       payment = Payment.new(order:, client:, payment_method_id: nil, parcels: 1)
 
@@ -83,11 +86,12 @@ RSpec.describe Payment, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                                product_model: 'iPhone 11', packages: 'Premium', price: 2)
+      insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                                insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
-                            insurance_model: insurance.product_model, price_percentage: insurance.price)
+                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                            insurance_model: insurance.product_category, price_percentage: insurance.price)
       payment_option = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                          tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                          payment_method_id: 1)
@@ -108,11 +112,12 @@ RSpec.describe Payment, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, insurance_company_id: 67, insurance_name: 'Seguradora 67',
-                                product_model: 'iPhone 11', packages: 'Premium', price: 2)
+      insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                                insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.packages,
-                            insurance_model: insurance.product_model, price_percentage: insurance.price)
+                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                            insurance_model: insurance.product_category, price_percentage: insurance.price)
       payment_option = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                          tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                          payment_method_id: 1)

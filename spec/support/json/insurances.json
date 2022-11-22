@@ -1,18 +1,40 @@
 [
   {
     "id": 1,
+    "name": "Super Econômico",
+    "max_period": 18,
+    "min_period": 6,
     "insurance_company_id": 1,
     "insurance_name": "Seguradora 1",
-    "product_model": "iPhone 11",
-    "packages": "Premium",
-    "price": 50
+    "price": 100.00,
+    "product_category_id": 1,
+    "product_category": "Telefone",
+    "product_model": "IPhone 11"
   },
+
   {
     "id": 2,
+    "name": "Premium",
+    "max_period": 24,
+    "min_period": 6,
     "insurance_company_id": 2,
     "insurance_name": "Seguradora 2",
-    "product_model": "iPhone 11",
-    "packages": "Plus",
-    "price": 20
+    "price": 400.00,
+    "product_category_id": 1,
+    "product_category": "Telefone",
+    "product_model": "IPhone 11"
+  },
+
+  {
+    "id": 3,
+    "name": "Super Econômico",
+    "max_period": 18,
+    "min_period": 6,
+    "insurance_company_id": 1,
+    "insurance_name": "Seguradora 1",
+    "price": 100.00,
+    "product_category_id": 1,
+    "product_category": "Computador",
+    "product_model": "MacBook"
   }
 ]

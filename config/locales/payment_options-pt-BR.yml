@@ -2,7 +2,7 @@ pt-BR:
   payment_option:
     one: 'Meio de Pagamento'
     other: 'Meios de Pagamento'
-  name: 'Nome'
+  payment_name: 'Nome'
   tax_percentage: 'Taxa por Cobrança'
   tax_maximum: 'Taxa Máxima'
   payment_type: 'Tipo de Pagamento'

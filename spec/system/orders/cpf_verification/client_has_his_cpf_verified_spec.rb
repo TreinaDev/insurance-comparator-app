@@ -13,8 +13,10 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
     payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
-    Insurance.new(id: 45, insurance_company_id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11',
-                  packages: 'Premium', price: 5)
+    Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
+                  insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1, product_category: 'Telefone',
+                  product_model: 'iPhone 11')
+
     order = Order.create!(client: ana, equipment:, payment_method:, contract_period: 10, insurance_id: 45,
                           price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
                           insurance_model: 'iPhone 11', status: :pending)
@@ -46,8 +48,9 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
     payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
-    Insurance.new(id: 45, insurance_company_id: 45, insurance_name: 'Seguradora 45', product_model: 'iPhone 11',
-                  packages: 'Premium', price: 5)
+    Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
+                  insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1, product_category: 'Telefone',
+                  product_model: 'iPhone 11')
     order = Order.create!(client: ana, equipment:, payment_method:, contract_period: 10, insurance_id: 45,
                           price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
                           insurance_model: 'iPhone 11', status: :pending)
