@@ -29,7 +29,6 @@ class Insurance
     response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{query}")
     if response.success?
       data = JSON.parse(response.body)
-      p data
       data.each do |d|
         next unless d['product_model'].split.join.downcase == formated_query
 
@@ -46,7 +45,6 @@ class Insurance
 
   def self.find(id)
     response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{id}")
-    # response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{id}")
     if response.success?
       d = JSON.parse(response.body)
       insurance = Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],

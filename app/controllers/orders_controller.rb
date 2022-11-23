@@ -13,7 +13,8 @@ class OrdersController < ApplicationController
 
   def new
     @equipment = Equipment.where(client_id: current_client)
-    set_insurance_id
+    @insurance = Insurance.find(params[:insurance_id])
+    p @insurance
     @order = Order.new
     if @insurance.nil?
       redirect_to root_path, alert: t(:unable_to_load_package_information)
@@ -22,56 +23,27 @@ class OrdersController < ApplicationController
     end
   end
 
-  # def create
-  #   @client = current_client
-  #   @order = Order.new(order_params)
-  #   set_insurance_and_client
-  #   if @order.save
-  #     @order.validate_cpf(@client.cpf) if @order.pending?
-  #     return redirect_to order_path(@order), notice: t(:your_order_is_being_processed)
-  #   end
-
-  #   flash.now[:alert] = t(:your_order_was_not_registered)
-  #   render :new
-  # end
   def create
-    client_cpf = current_client.cpf
+    insurance = Insurance.find(params[:insurance_id])
     @order = Order.new(order_params)
-    set_insurance_and_client
-    @order.validate_cpf(client_cpf)
-    if @order.save && @order.insurance_company_approval? 
+    @order.client = current_client
+    @order.assign_insurance_to_order(insurance)
+    @order.validate_cpf(current_client().cpf)
+    if @order.save && @order.insurance_company_approval?
       return redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
     end
-      flash.now[:alert] = t(:your_order_was_not_registered)
-      set_insurance_id
-      render :new
+    rescue ActiveRecord::RecordInvalid
+    flash.now[:alert] = t(:your_order_was_not_registered)
+    render :action => "new", :id => insurance
   end
-  
+
   private
-  
+
   def set_order
     @order = Order.find(params[:id])
   end
 
   def order_params
     params.require(:order).permit(:equipment_id, :contract_period)
-  end
-
-  def set_insurance_and_client
-    set_insurance_id
-    @order.package_name = @insurance.name
-    @order.insurance_name = @insurance.insurance_name
-    @order.insurance_company_id = @insurance.insurance_company_id
-    @order.max_period = @insurance.max_period
-    @order.min_period = @insurance.min_period
-    @order.product_category_id = @insurance.product_category_id
-    @order.product_category = @insurance.product_category
-    @order.product_model = @insurance.product_model
-    @order.price = @insurance.price
-    @order.client = current_client
-  end
-
-  def set_insurance_id
-    @insurance = Insurance.find(params[:insurance_id])
   end
 end

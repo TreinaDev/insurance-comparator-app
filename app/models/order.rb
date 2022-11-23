@@ -7,14 +7,14 @@ class Order < ApplicationRecord
   validates :contract_period, comparison: { greater_than: 0 }, allow_blank: false
   enum status: { pending: 0, insurance_company_approval: 2, insurance_approved: 3, cpf_disapproved: 6,
                  charge_pending: 9, charge_approved: 12 }
-  #before_save :validate_cpf
+  # before_save :validate_cpf
 
   def validate_cpf(client_cpf)
-    response = Faraday.get("http://localhost:5000/api/v1/blocked_registration_numbers/#{client_cpf}")
+    response = Faraday.get("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{client_cpf}")
     return unless response.success?
      
     data = JSON.parse(response.body)
-    if data['blocked'] == 'true' 
+    if data['blocked'] == 'true'
       cpf_disapproved!
     else
       insurance_company_approval!
@@ -26,10 +26,23 @@ class Order < ApplicationRecord
   end
 
   def update_final_price
-   (price * contract_period) - voucher
+    (price * contract_period) - voucher
+  end
+
+  def assign_insurance_to_order(insurance)
+    self.price = insurance.price
+    self.package_name = insurance.name
+    self.insurance_name = insurance.insurance_name
+    self.insurance_company_id = insurance.insurance_company_id
+    self.max_period = insurance.max_period
+    self.min_period = insurance.min_period
+    self.product_category_id = insurance.product_category_id
+    self.product_category = insurance.product_category
+    self.product_model = insurance.product_model
   end
 
   private
+  
   def generate_code
     self.code = SecureRandom.alphanumeric(15).upcase
   end

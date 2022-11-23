@@ -4,6 +4,7 @@ pt-BR:
   contract_period: "Período de contratação"
   your_order_is_being_processed: 'Seu pedido está em análise pela seguradora'
   your_order_was_not_registered: 'Não foi possível cadastrar o pedido'
+  contract_package: 'Contratar Pacote'
   month:
     one: 'mês'
     other: 'meses'
