@@ -32,4 +32,10 @@ describe 'Order API' do
       expect(json_response.keys).not_to include('updated_at')
     end
   end
+
+  it 'falha se o pedido não é encontrado' do
+    get '/api/v1/orders/99999999999999999999999999999999999'
+
+    expect(response.status).to eq 404
+  end
 end
