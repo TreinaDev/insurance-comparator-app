@@ -26,12 +26,14 @@ class OrdersController < ApplicationController
     set_insurance_and_client
     if @order.save
       @order.validate_cpf(@client.cpf) if @order.pending?
-      return redirect_to order_path(@order),
-                         notice: t(:your_order_is_being_processed)
-    end
 
-    flash.now[:alert] = t(:your_order_was_not_registered)
-    render :new
+      @order.post_insurance_app
+
+      redirect_to order_path(@order), notice: t(:your_order_is_being_processed)
+    else
+      flash.now[:alert] = t(:your_order_was_not_registered)
+      render :new
+    end
   end
 
   private
