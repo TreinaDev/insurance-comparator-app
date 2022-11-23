@@ -16,12 +16,12 @@ class Payment < ApplicationRecord
     errors.add(:parcels, ' não pode ser maior que o máximo permitido pelo meio de pagamento')
   end
 
-  def post_on_external_api
-    data = { payment_method_id:, order_id: order.id, registration_number: client.cpf,
-             package_id: order.insurance_id, insurance_company_id: 45, voucher: nil, parcels:,
-             total_price: order.total_price }
+  def request_payment
+    data = { invoice: { payment_method_id: payment_method_id, order_id: order.id, registration_number: client.cpf,
+             package_id: order.insurance_id, insurance_company_id: 1, voucher: '', parcels: 0,
+             final_price: order.total_price }}
     response = Faraday.post("#{Rails.configuration.external_apis['payment_options_api']}/invoices",
-                            params: data.to_json)
+                            data.to_json, "Content-Type" => "application/json")
 
     return JSON.parse(response.body) if response.success?
   end

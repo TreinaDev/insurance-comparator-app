@@ -1,15 +1,1 @@
-{
- "id": 9,
- "token": "CWTGUUWXJUMS4ABQYGPV",
- "package_id": 1,
- "registration_number": "21234567890",
- "status": "pending",
- "order_id": 1,
- "payment_method_id": 2,
- "insurance_company_id": 1,
- "voucher": null,
- "transaction_registration_number": null,
- "reason_for_failure":null,
- "parcels": 1,
- "total_price":10791
-}
+{"message": "Sucesso."}

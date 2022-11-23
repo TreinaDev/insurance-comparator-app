@@ -105,9 +105,10 @@ describe 'Usuário efetua pagamento' do
     url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: true, body: json_dt)
-    params = { payment_method_id: 1, order_id: order.id, registration_number: client.cpf, package_id: insurance.id,
-               insurance_company_id: insurance.insurance_company_id, voucher: nil, parcels: 1, total_price: order.total_price }
-    allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)
+    params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
+                          package_id: order.insurance_id, insurance_company_id: 1, voucher: '', parcels: 0,
+                          final_price: order.total_price }}
+    allow(Faraday).to receive(:post).with(url, params.to_json, "Content-Type" => "application/json").and_return(fake_response)
 
     login_as(client)
     visit order_path(order.id)
