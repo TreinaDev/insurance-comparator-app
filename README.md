@@ -98,13 +98,13 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 {
     "id": 1,
-    "code": "PA4I5MYHP0BMKWK",
+    "code": "0HOIFGR9NNUGRM0",
     "package_name": "Premium",
     "insurance_company_id": 45,
     "insurance_name": "Seguradora 45",
     "product_category_id": 1,
-    "product_category": "Celular",
-    "product_model": "iPhone 11",
+    "product_category": "Computadpr",
+    "product_model": "Macbook",
     "contract_period": 10,
     "price": "200.0",
     "voucher_code": "DESCONTO10",

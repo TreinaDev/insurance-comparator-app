@@ -1,5 +1,4 @@
 class ClientApi
-
   def initialize(client)
     @name = client.name
     @email = client.email

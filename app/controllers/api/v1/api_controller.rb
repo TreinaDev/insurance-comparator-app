@@ -1,15 +1,14 @@
 class Api::V1::ApiController < ActionController::API
-  rescue_from ActiveRecord::ActiveRecordError, with: :return_500
-  rescue_from ActiveRecord::RecordNotFound, with: :return_404
+  rescue_from ActiveRecord::ActiveRecordError, with: :return500
+  rescue_from ActiveRecord::RecordNotFound, with: :return404
 
   private
 
-  def return_500
+  def return500
     render status: :internal_server_error, json: {}
   end
 
-  def return_404
+  def return404
     render status: :not_found, json: {}
   end
-  
 end

@@ -1,5 +1,6 @@
 class OrderApi
-
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable  Metrics/MethodLength
   def initialize(order, equipment, client)
     @id = order.id
     @code = order.code
@@ -15,7 +16,9 @@ class OrderApi
     @voucher_price = order.voucher_price
     @final_price = order.final_price
     @status = order.status
-		@equipment = EquipmentApi.new(equipment)
-		@client = ClientApi.new(client)
+    @equipment = EquipmentApi.new(equipment)
+    @client = ClientApi.new(client)
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable  Metrics/MethodLength
 end
