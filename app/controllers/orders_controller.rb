@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
     end
   rescue ActiveRecord::RecordInvalid
     flash.now[:alert] = t(:your_order_was_not_registered)
-    render 'new'
+    render :new
   end
 
   private

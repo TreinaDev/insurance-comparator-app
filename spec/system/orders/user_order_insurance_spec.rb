@@ -129,8 +129,6 @@ describe 'Cliente compra pacote de seguro' do
     click_link 'Contratar'
     click_button 'Contratar Pacote'
 
-    # expect(flash[:alert]).to match 'Período de contratação não pode ficar em branco'
-    # expect(page).to have_content 'Não foi possível cadastrar o pedido'
     expect(page).to have_content 'Por favor verifique os erros abaixo'
     expect(page).to have_content 'Período de contratação não pode ficar em branco'
     expect(page).to have_content 'Dispositivo é obrigatório(a)'
