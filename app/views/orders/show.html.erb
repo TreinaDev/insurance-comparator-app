@@ -2,22 +2,20 @@
 <hr/>
 <div class="card" style="width: 20rem;">
   <div class="card-header">
-    <%= @order.equipment.name %>
+    <%= "#{Order.human_attribute_name(:order)}: #{@order.code}" %>
   </div>
-  <div class="card-body">
-    <p class="card-text"><%=Equipment.human_attribute_name(:brand)%>: <%=@order.equipment.brand%></p>
-    <p class="card-text"><%=Order.human_attribute_name(:insurance_name)%>: <%=@order.insurance_name%></p>
-    <p class="card-text"><%=Order.human_attribute_name(:packages)%>: <%=@order.packages%></p>
-    <p class="card-text"><%=Order.human_attribute_name(:insurance_model)%>: <%=@order.insurance_model%></p>
-    <p class="card-text"><%=Order.human_attribute_name(:contract_period)%>: <%=@order.contract_period%> <%=(t :month, count: @order.contract_period)%></p>
-    <p class="card-text"><%=Order.human_attribute_name(:equipment)%>: <%=@order.equipment.name%></p>
-    <p class="card-text"><%=Order.human_attribute_name(:price_percentage)%>: <%=@order.price_percentage%>%</p>
-    <p class="card-text"><%=Order.human_attribute_name(:total_price)%>: <%=number_to_currency(@order.total_price)%></p>
-    <p class="card-text">Status: <strong><%=Order.human_attribute_name("status.#{@order.status}")%></strong></p>
-    <% @order.equipment.photos.each do |photo| %>
+  <p class="card-text"><%="#{Order.human_attribute_name(:insurance_name)}: #{@order.insurance_name}"%></p>
+  <p class="card-text"><%="#{Order.human_attribute_name(:package_name)}: #{@order.package_name}"%></p>
+  <p class="card-text"><%="#{Order.human_attribute_name(:product_model)}: #{@order.product_model}"%></p>
+  <p class="card-text"><%="#{Order.human_attribute_name(:product_category)}: #{@order.product_category}"%></p>
+  <p class="card-text"><%="#{Order.human_attribute_name(:contract_period)}: #{@order.contract_period} #{t :month, count: @order.contract_period}"%></p>
+  <p class="card-text"><%="#{Order.human_attribute_name(:equipment)}: #{@equipment.name}"%></p>
+  <p class="card-text"><%="#{Order.human_attribute_name(:price)}: #{number_to_currency(@order.price, unit: "R$", separator: ",", delimiter: "", format: "%u %n")}"%></p>
+  <p class="card-text"><%="#{Order.human_attribute_name(:final_price)}: #{number_to_currency(@order.final_price, unit: "R$", separator: ",", delimiter: "", format: "%u %n")}"%></p>
+  <p class="card-text"> <%= Order.human_attribute_name(:status) %>: <%= Order.human_attribute_name("status.#{@order.status}")%></p>
+  <% @order.equipment.photos.each do |photo| %>
       <%= image_tag photo, class:"card-img-top" %>
       <% break %>
     <% end %>
   </div>
 </div>
-<% #link_to t(:payment), pagamento_path, class: 'btn btn-dark mt-3'%>
