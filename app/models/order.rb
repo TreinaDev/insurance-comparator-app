@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   validates :contract_period, presence: true
   validates :contract_period, comparison: { greater_than: 0 }, allow_blank: true
   enum status: { pending: 0, insurance_company_approval: 2, insurance_approved: 3, cpf_disapproved: 6,
-                 charge_pending: 9, charge_approved: 12 }
+                 charge_pending: 9, charge_approved: 12, charge_refused: 14 }
   # enum payment_method: { credit_card: 4, pix: 8, boleto: 12 }
 
   def validate_cpf(client_cpf)
