@@ -42,19 +42,18 @@
     <div class="row"> 
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
-          <b><%= Order.human_attribute_name(:price_percentage) %>:</b>
-          <%= "#{@insurance.price} %" %>
+          <b><%= Order.human_attribute_name(:price) %>:</b>
+          <%= "#{number_to_currency(@insurance.price, unit: "R$", separator: ".", delimiter: "", format: "%u %n")}" %>
         </li>
       </div>
     </div>
   </div>
-
-  <%= form_with model: [:insurance, @order], method: :post do |f| %>
+  <%= form_with model: @order, url: "/insurances/#{@insurance.id}/orders", method: :post do |f| %>
     <div class="row"> 
       <div class="col-lg-6 col-12 mb-2">
         <li class="list-group-item">
           <%= f.label :equipment_id, class: 'form-label mt-4' %>
-          <%= f.collection_select :equipment_id, current_client.equipment.order(:name), :id, :name, {} , class: 'form-control' %>
+          <%= f.select :equipment_id, current_client.equipment.collect { |e| [ e.name, e.id ] },:include_blank => t(:select_device), class: 'form-control' %>
         </li>
       </div>
     </div>
@@ -62,8 +61,8 @@
     <div class="row"> 
       <div class="col-lg-6 col-12 mb-2">
         <li class="list-group-item">
-          <%= f.label :contract_period, t(:contract_period_in_months), class: 'form-label' %>
-          <%= f.number_field :contract_period, class: 'form-control' %>
+          <%= f.label :contract_period, t(:contract_period), class: 'form-label' %>
+          <%= f.select :contract_period,(@insurance.min_period..@insurance.max_period), :include_blank => t(:select_period), class: 'form-control' %>
         </li>
       </div>
     </div>

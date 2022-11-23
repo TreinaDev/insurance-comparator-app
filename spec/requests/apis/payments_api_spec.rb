@@ -19,10 +19,10 @@ describe 'Payment API' do
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
-      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                            insurance_model: insurance.product_category, price_percentage: insurance.price)
-
+      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                            client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                            product_model: insurance.product_category, price: insurance.price)
+        
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
@@ -40,7 +40,7 @@ describe 'Payment API' do
       # expect(json_response['order']['insurance_company_id']).to eq(67)
       expect(json_response['payment_method_id']).to eq(1)
       expect(json_response['parcels']).to eq(1)
-      expect(json_response['order']['insurance_id']).to eq(67)
+      # expect(json_response['order']['insurance_id']).to eq(67) package_id
       # expect(json_response['total_price']).to eq(insurance.price)
     end
 
@@ -76,9 +76,9 @@ describe 'Payment API' do
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
-      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                            insurance_model: insurance.product_category, price_percentage: insurance.price)
+      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                            client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                            product_model: insurance.product_category, price: insurance.price)
 
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,
@@ -98,7 +98,7 @@ describe 'Payment API' do
       # expect(json_response['order']['insurance_company_id']).to eq(67)
       expect(json_response['payment_method_id']).to eq(1)
       expect(json_response['parcels']).to eq(1)
-      expect(json_response['order']['insurance_id']).to eq(67)
+      # expect(json_response['order']['insurance_id']).to eq(67)
       # expect(json_response['total_price']).to eq(insurance.price)
     end
 
@@ -118,9 +118,9 @@ describe 'Payment API' do
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
-      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                            insurance_model: insurance.product_category, price_percentage: insurance.price)
+      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                            client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                            product_model: insurance.product_category, price: insurance.price)
 
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,
@@ -141,7 +141,7 @@ describe 'Payment API' do
       # expect(json_response['order']['insurance_company_id']).to eq(67)
       expect(json_response['payment_method_id']).to eq(1)
       expect(json_response['parcels']).to eq(1)
-      expect(json_response['order']['insurance_id']).to eq(67)
+      # expect(json_response['order']['insurance_id']).to eq(67)
       # expect(json_response['final_price']).to eq(order.final_price)
     end
 
@@ -162,9 +162,9 @@ describe 'Payment API' do
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
-                            insurance_id: insurance.id, client:, insurance_name: insurance.insurance_name,
-                            packages: insurance.name, insurance_model: insurance.product_category,
-                            price_percentage: insurance.price)
+                            client:, insurance_name: insurance.insurance_name,
+                            package_name: insurance.name, product_model: insurance.product_category,
+                            price: insurance.price)
 
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,
@@ -195,9 +195,8 @@ describe 'Payment API' do
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
-                            insurance_id: insurance.id, client:, insurance_name: insurance.insurance_name,
-                            packages: insurance.name, insurance_model: insurance.product_category,
-                            price_percentage: insurance.price)
+                            client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                            product_model: insurance.product_category, price: insurance.price)
 
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,
@@ -227,9 +226,9 @@ describe 'Payment API' do
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
-      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                            insurance_model: insurance.product_category, price_percentage: insurance.price)
+      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                            client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                            product_model: insurance.product_category, price: insurance.price)
 
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,

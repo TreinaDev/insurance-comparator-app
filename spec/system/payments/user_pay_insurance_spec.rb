@@ -18,9 +18,9 @@ describe 'Usuário efetua pagamento' do
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
 
-    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                          insurance_model: insurance.product_category, price_percentage: insurance.price)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                          client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                          product_model: insurance.product_category, price: insurance.price)
 
     login_as(client)
     visit order_path(order.id)
@@ -46,9 +46,9 @@ describe 'Usuário efetua pagamento' do
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
 
-    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                          insurance_model: insurance.product_category, price_percentage: insurance.price)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                          client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                          product_model: insurance.product_category, price: insurance.price)
 
     login_as(client)
     visit order_path(order.id)
@@ -66,8 +66,8 @@ describe 'Usuário efetua pagamento' do
     expect(page).to have_content 'Quantidade máxima de parcelas: 1x'
     expect(page).to have_content 'Desconto à vista: 1%'
     expect(page).to have_content 'Nome da Seguradora: Seguradora 67'
-    expect(page).to have_content 'Período contratado: 9 meses'
-    expect(page).to have_content 'Valor do Seguro: R$ 215,00'
+    expect(page).to have_content 'Período de contratação: 9 meses'
+    expect(page).to have_content 'Valor do Seguro: R$ 18,00'
     expect(page).to have_link 'iPhone 11', href: equipment_path(equipment)
     expect(page).to have_select 'Meio de Pagamento', text: 'Cartão de Crédito - Laranja'
     expect(page).to have_select 'Meio de Pagamento', text: 'Boleto - Roxinho'
@@ -98,16 +98,16 @@ describe 'Usuário efetua pagamento' do
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
     allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                          insurance_model: insurance.product_category, price_percentage: insurance.price)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                          client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                          product_model: insurance.product_category, price: insurance.price)
 
     url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: true, body: json_dt)
     params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
-                          package_id: order.insurance_id, insurance_company_id: 1, voucher: '', parcels: 0,
-                          final_price: order.total_price }}
+                          package_id: 1, insurance_company_id: 1, voucher: '', parcels: 0,
+                          final_price: order.final_price }}
     allow(Faraday).to receive(:post).with(url, params.to_json, "Content-Type" => "application/json").and_return(fake_response)
 
     login_as(client)
@@ -145,9 +145,9 @@ describe 'Usuário efetua pagamento' do
                                        max_parcels: 1, single_parcel_discount: 1,
                                        payment_method_id: 2)
     allow(PaymentOption).to receive(:find).with(2).and_return(payment_option)
-    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                          insurance_model: insurance.product_category, price_percentage: insurance.price)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                          client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                          product_model: insurance.product_category, price: insurance.price)
 
     login_as(client)
     visit order_path(order.id)
@@ -176,9 +176,9 @@ describe 'Usuário efetua pagamento' do
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
-    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                          client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                          insurance_model: insurance.product_category, price_percentage: insurance.price)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                          client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                          product_model: insurance.product_category, price: insurance.price)
 
     payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                        max_parcels: 1, single_parcel_discount: 1,
