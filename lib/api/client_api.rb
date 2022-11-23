@@ -1,4 +1,3 @@
-
 class ClientApi
 
   def initialize(client)

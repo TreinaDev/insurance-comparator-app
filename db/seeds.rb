@@ -28,3 +28,9 @@ equipment3.invoice.attach(io: Rails.root.join('spec/support/invoice.png').open, 
 equipment3.photos.attach(io: Rails.root.join('spec/support/photo_1.png').open, filename: 'foto_frente.png')
 equipment3.photos.attach(io: Rails.root.join('spec/support/photo_2.jpg').open, filename: 'foto_verso.jpg')
 equipment3.save!
+
+order = Order.create!(client: client1, equipment: equipment2, min_period: 1, max_period: 24, price: 200.00,
+                        contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
+                        package_name: 'Premium', product_category: 'Celular', product_category_id: 1, voucher_price: 10.00,
+                        voucher_code: 'DESCONTO10', final_price: 1990.00,
+                        product_model: 'iPhone 11', status: :insurance_company_approval)

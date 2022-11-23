@@ -11,7 +11,8 @@ class OrderApi
     @product_model = order.product_model
     @contract_period = order.contract_period
     @price = order.price
-    @voucher = order.voucher
+    @voucher_code = order.voucher_code
+    @voucher_price = order.voucher_price
     @final_price = order.final_price
     @status = order.status
 		@equipment = EquipmentApi.new(equipment)

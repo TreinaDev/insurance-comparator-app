@@ -84,4 +84,46 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 </h4>
 
 
+## Documentação da API
 
+### Obter Pedido
+
+**Endpoint: GET /api/v1/orders/**
+
+<p align = "justify">Retornos:</p>
+
+<p align = "justify">200 (Sucesso)</p>
+
+```json
+
+{
+    "id": 1,
+    "code": "PA4I5MYHP0BMKWK",
+    "package_name": "Premium",
+    "insurance_company_id": 45,
+    "insurance_name": "Seguradora 45",
+    "product_category_id": 1,
+    "product_category": "Celular",
+    "product_model": "iPhone 11",
+    "contract_period": 10,
+    "price": "200.0",
+    "voucher_code": "DESCONTO10",
+    "voucher_price": "10.0",
+    "final_price": "2000.0",
+    "status": "insurance_company_approval",
+    "equipment": {
+    "name": "Macbook Air",
+    "brand": "Apple",
+    "purchase_date": "2021-04-13"
+    },
+    "client": {
+    "name": "Ana Lima",
+    "email": "ana@gmail.com",
+    "cpf": "21234567890",
+    "address": "Rua Dr Nogueira Martins, 680",
+    "city": "São Paulo",
+    "state": "SP",
+    "birth_date": "1997-10-29"
+    }
+}
+```
