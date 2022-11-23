@@ -11,8 +11,9 @@ describe 'Payment API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
-                                insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
+                                insurance_company_id: 45, insurance_name: 'Seguradora 45',
+                                price: 100.00, product_category_id: 1,
                                 product_category: 'Telefone', product_model: 'iPhone 11')
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -58,8 +59,8 @@ describe 'Payment API' do
     end
   end
 
-  context 'PATCH /api/v1/payments/:id' do
-    it 'com sucesso e status de falha' do
+  context 'post /api/v1/payments/1/refused e /api/v1/payments/1/approved' do
+    it 'com sucesso e status de recusado' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                               birth_date: '29/10/1997')
@@ -68,9 +69,9 @@ describe 'Payment API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
-                                insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
-                                product_category: 'Telefone', product_model: 'iPhone 11')
+      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
+                                insurance_company_id: 45, insurance_name: 'Seguradora 45', price: 100.00,
+                                product_category_id: 1, product_category: 'Telefone', product_model: 'iPhone 11')
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
@@ -83,15 +84,15 @@ describe 'Payment API' do
                                          max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
       allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-      payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
-      payment_params = { payment: { status: :fail } }
+      Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
+      payment_params = { payment: { status: :refused } }
 
-      patch '/api/v1/payments/1', params: payment_params
+      post '/api/v1/payments/1/refused', params: payment_params
 
       expect(response).to have_http_status(200)
       expect(response.content_type).to include('application/json')
       json_response = JSON.parse(response.body)
-      expect(json_response['status']).to eq('fail')
+      expect(json_response['status']).to eq('refused')
       expect(json_response['order_id']).to eq(1)
       expect(json_response['client']['cpf']).to eq('21234567890')
       # expect(json_response['order']['insurance_company_id']).to eq(67)
@@ -101,7 +102,7 @@ describe 'Payment API' do
       # expect(json_response['total_price']).to eq(insurance.price)
     end
 
-    it 'com sucesso e status de pago' do
+    it 'com sucesso e status de aprovado' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                               birth_date: '29/10/1997')
@@ -110,9 +111,9 @@ describe 'Payment API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
-                                insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
-                                product_category: 'Telefone', product_model: 'iPhone 11')
+      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
+                                insurance_company_id: 45, insurance_name: 'Seguradora 45', price: 100.00,
+                                product_category_id: 1, product_category: 'Telefone', product_model: 'iPhone 11')
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
@@ -125,15 +126,15 @@ describe 'Payment API' do
                                          max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
       allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-      payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
-      payment_params = { payment: { status: :paid, invoice_token: 'USAIUE55D85A' } }
+      Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
+      payment_params = { payment: { status: :approved, invoice_token: 'USAIUE55D85A' } }
 
-      patch '/api/v1/payments/1', params: payment_params
+      post '/api/v1/payments/1/approved', params: payment_params
 
       expect(response).to have_http_status(200)
       expect(response.content_type).to include('application/json')
       json_response = JSON.parse(response.body)
-      expect(json_response['status']).to eq('paid')
+      expect(json_response['status']).to eq('approved')
       expect(json_response['invoice_token']).to eq('USAIUE55D85A')
       expect(json_response['order_id']).to eq(1)
       expect(json_response['client']['cpf']).to eq('21234567890')
@@ -153,32 +154,31 @@ describe 'Payment API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
-                                insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
-                                product_category: 'Telefone', product_model: 'iPhone 11')
+      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
+                                insurance_company_id: 45, insurance_name: 'Seguradora 45', price: 100.00,
+                                product_category_id: 1, product_category: 'Telefone', product_model: 'iPhone 11')
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
-      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                            insurance_model: insurance.product_category, price_percentage: insurance.price)
+      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                            insurance_id: insurance.id, client:, insurance_name: insurance.insurance_name,
+                            packages: insurance.name, insurance_model: insurance.product_category,
+                            price_percentage: insurance.price)
 
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
       allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-      payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
-      payment_params = { payment: { status: :paid } }
+      Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
+      payment_params = { payment: { status: :approved } }
 
-      patch '/api/v1/payments/1', params: payment_params
+      post '/api/v1/payments/1/approved', params: payment_params
 
       expect(response).to have_http_status(412)
     end
-  end
 
-  context 'POST /api/v1/payments/:id' do
-    it 'com sucesso' do
+    it 'com status approved e api refused' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                               birth_date: '29/10/1997')
@@ -187,9 +187,42 @@ describe 'Payment API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
-                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
-                                product_category: 'Telefone', product_model: 'iPhone 11')
+      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
+                                insurance_company_id: 45, insurance_name: 'Seguradora 45', price: 100.00,
+                                product_category_id: 1, product_category: 'Telefone', product_model: 'iPhone 11')
+      api_url = Rails.configuration.external_apis['payment_options_api'].to_s
+      json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
+      fake_response = double('faraday_response', success?: true, body: json_data)
+      allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
+      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                            insurance_id: insurance.id, client:, insurance_name: insurance.insurance_name,
+                            packages: insurance.name, insurance_model: insurance.product_category,
+                            price_percentage: insurance.price)
+
+      payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
+                                         max_parcels: 1, single_parcel_discount: 1,
+                                         payment_method_id: 2)
+      allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
+      Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
+      payment_params = { payment: { status: :approved } }
+
+      post '/api/v1/payments/1/refused', params: payment_params
+
+      expect(response).to have_http_status(406)
+    end
+
+    it 'com status refused e api approved' do
+      client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                              address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                              birth_date: '29/10/1997')
+      equipment = Equipment.create!(client:, name: 'iPhone 11', brand: 'Apple', equipment_price: 1199,
+                                    purchase_date: '01/11/2022',
+                                    invoice: fixture_file_upload('spec/support/invoice.png'),
+                                    photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                             fixture_file_upload('spec/support/photo_2.jpg')])
+      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
+                                insurance_company_id: 45, insurance_name: 'Seguradora 45', price: 100.00,
+                                product_category_id: 1, product_category: 'Telefone', product_model: 'iPhone 11')
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
@@ -202,27 +235,12 @@ describe 'Payment API' do
                                          max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
       allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-      payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
+      Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
+      payment_params = { payment: { status: :refused, invoice_token: 'USAIUE55D85A' } }
 
-      url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/invoices"
-      json_dt = Rails.root.join('spec/support/json/invoice.json').read
-      fake_response = double('faraday_response', success?: true, body: json_dt)
-      params = {payment_method_id: payment.payment_method_id, order_id: order.id, registration_number: client.cpf, package_id: insurance.id,
-                          insurance_company_id: insurance.insurance_company_id, voucher: nil, parcels: payment.parcels, total_price: order.total_price}
-      allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)
+      post '/api/v1/payments/1/approved', params: payment_params
 
-      response = payment.post_on_external_api
-
-      expect(response["id"]).to eq 9
-      expect(response["insurance_company_id"]).to eq 1
-      expect(response["order_id"]).to eq 1
-      expect(response["package_id"]).to eq 1
-      expect(response["payment_method_id"]).to eq 2
-      expect(response["registration_number"]).to eq "21234567890"
-      expect(response["status"]).to eq "pending"
-      expect(response["parcels"]).to eq 1
-      expect(response["total_price"]).to eq 10791
-      expect(response["token"]).to eq "CWTGUUWXJUMS4ABQYGPV"
+      expect(response).to have_http_status(406)
     end
   end
 end

@@ -96,7 +96,7 @@ RSpec.describe Payment, type: :model do
                                          tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                          payment_method_id: 1)
       allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-      payment = Payment.new(order:, client:, payment_method_id: 1, parcels: 1, invoice_token: nil, status: :paid)
+      payment = Payment.new(order:, client:, payment_method_id: 1, parcels: 1, invoice_token: nil, status: :approved)
 
       result = payment.valid?
 
@@ -128,6 +128,56 @@ RSpec.describe Payment, type: :model do
 
       expect(result).to eq false
       expect(payment.errors[:parcels]).to include ' não pode ser maior que o máximo permitido pelo meio de pagamento'
+    end
+  end
+
+  context 'post_on_external_api' do
+    it 'com sucesso' do
+      client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                              address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                              birth_date: '29/10/1997')
+      equipment = Equipment.create!(client:, name: 'iPhone 11', brand: 'Apple', equipment_price: 1199,
+                                    purchase_date: '01/11/2022',
+                                    invoice: fixture_file_upload('spec/support/invoice.png'),
+                                    photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                             fixture_file_upload('spec/support/photo_2.jpg')])
+      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                                insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
+                                product_category: 'Telefone', product_model: 'iPhone 11')
+      api_url = Rails.configuration.external_apis['payment_options_api'].to_s
+      json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
+      fake_response = double('faraday_response', success?: true, body: json_data)
+      allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
+      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, insurance_id: insurance.id,
+                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
+                            insurance_model: insurance.product_category, price_percentage: insurance.price)
+
+      payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
+                                         max_parcels: 1, single_parcel_discount: 1,
+                                         payment_method_id: 2)
+      allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
+      payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
+
+      url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
+      json_dt = Rails.root.join('spec/support/json/invoice.json').read
+      fake_response = double('faraday_response', success?: true, body: json_dt)
+      params = { payment_method_id: payment.payment_method_id, order_id: order.id, registration_number: client.cpf, package_id: insurance.id,
+                 insurance_company_id: insurance.insurance_company_id, voucher: nil, parcels: payment.parcels,
+                 total_price: order.total_price }
+      allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)
+
+      response = payment.post_on_external_api
+
+      expect(response['id']).to eq 9
+      expect(response['insurance_company_id']).to eq 1
+      expect(response['order_id']).to eq 1
+      expect(response['package_id']).to eq 1
+      expect(response['payment_method_id']).to eq 2
+      expect(response['registration_number']).to eq '21234567890'
+      expect(response['status']).to eq 'pending'
+      expect(response['parcels']).to eq 1
+      expect(response['total_price']).to eq 10_791
+      expect(response['token']).to eq 'CWTGUUWXJUMS4ABQYGPV'
     end
   end
 end

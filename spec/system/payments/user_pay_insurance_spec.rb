@@ -9,7 +9,7 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                    fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')])
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
                               product_category: 'Telefone', product_model: 'iPhone 11')
@@ -102,12 +102,12 @@ describe 'Usuário efetua pagamento' do
                           client:, insurance_name: insurance.insurance_name, packages: insurance.name,
                           insurance_model: insurance.product_category, price_percentage: insurance.price)
 
-    url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/invoices"
+    url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: true, body: json_dt)
-    params = {payment_method_id: 1, order_id: order.id, registration_number: client.cpf, package_id: insurance.id,
-      insurance_company_id: insurance.insurance_company_id, voucher: nil, parcels: 1, total_price: order.total_price}
-    allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)    
+    params = { payment_method_id: 1, order_id: order.id, registration_number: client.cpf, package_id: insurance.id,
+               insurance_company_id: insurance.insurance_company_id, voucher: nil, parcels: 1, total_price: order.total_price }
+    allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)
 
     login_as(client)
     visit order_path(order.id)

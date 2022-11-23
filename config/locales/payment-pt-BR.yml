@@ -16,6 +16,6 @@ pt-BR:
     status:
       payment:
         pending: 'Pendente'
-        paid: 'Pago'
-        fail: 'Falha'
+        approved: Sucesso no Pagamento
+        refused: Falha no Pagamento
 
