@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Order API' do
-  context 'GET /api/v1/order/1' do
+  context 'GET /api/v1/orders/1' do
     it 'sucesso' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
