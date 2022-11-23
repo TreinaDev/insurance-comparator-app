@@ -23,9 +23,9 @@ class Order < ApplicationRecord
   end
 
   def post_insurance_app
-    params = { client_name: current_client.name, client_registration_number: current_client.cpf,
-               client_email: current_client.email, policy_period: order.contract_period, order_id: order.id,
-               package_id: order.package_id, insurance_company_id: order.insurance_company_id,
+    params = { client_name: client.name, client_registration_number: client.cpf,
+               client_email: client.email, policy_period: contract_period, order_id: id,
+               package_id: package_id, insurance_company_id: insurance_company_id,
                equipment_id: equipment.id }
     response = Faraday.post("#{Rails.configuration.external_apis['payment_options_api']}/policies", params)
     data = JSON.parse(response.body)

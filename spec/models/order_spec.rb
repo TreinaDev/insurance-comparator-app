@@ -124,15 +124,19 @@ RSpec.describe Order, type: :model do
       insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
                                 product_category: 'Telefone', product_model: 'iPhone 11')
-      order = Order.create!(contract_period: 12, equipment:, insurance_id: insurance.id,
-                            client:, insurance_name: insurance.insurance_name, packages: insurance.name,
-                            insurance_model: insurance.product_category, price_percentage: insurance.price, policy_id: nil, policy_code: nil)
+
+      order = Order.new(client:, equipment:, contract_period: 12, package_name: 'Premium',
+                        max_period: 24, min_period: 6, insurance_company_id: 1,
+                        insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
+                        product_category: 'Telefone', product_model: 'iPhone 11')
+
       url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
       json_dt = Rails.root.join('spec/support/json/policy.json').read
       fake_response = double('faraday_response', success?: true, body: json_dt)
+      
       params = { client_name: client.name, client_registration_number: client.cpf,
                  client_email: client.email, policy_period: order.contract_period, order_id: order.id,
-                 package_id: order.package_id, insurance_company_id: order.insurance_company_id,
+                 package_id: insurance.id, insurance_company_id: order.insurance_company_id,
                  equipment_id: equipment.id }
       allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)
 
