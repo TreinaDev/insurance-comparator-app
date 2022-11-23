@@ -50,6 +50,34 @@ rspec
 ```
 <br>
 
+## API para mudar status de pedido
+
+#### Endpoints:
+  - **POST /api/v1/orders/order_id/payment_approved** Para pagamentos confirmados
+  - **POST /api/v1/orders/order_id/payment_refused** Para pagamentos recusados
+
+Substitua `order_id` pelo `id` correspondente do pedido. 
+
+Respostas possíveis:
+ - 200 (Success)
+
+```json
+  { 'message': 'success' }
+```
+
+ - 404 (Not Found)
+
+```json
+  { 'error': 'Invalid ID' }
+```
+
+ - 500 (Internal Server Error)
+
+```json
+  { 'error': 'Internal server error' }
+```
+
+
 ### ❕ Dados adicionais
 Login de cliente para acesso da app:
 - Email: ana@gmail.com
