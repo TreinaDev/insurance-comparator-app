@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_client!
   before_action :set_order, only: [:show]
-  before_action :set_insurance, only: [:new, :create]
-
+  before_action :set_insurance, only: %i[new create]
 
   def index
     @orders = Order.all
@@ -23,19 +22,23 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-    @order.client = current_client
-    @order.assign_insurance_to_order(@insurance)
-    @order.validate_cpf(@order.client.cpf)
+    assign_order_variables
     if @order.save && @order.insurance_company_approval?
-      return redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
+      redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
     end
-    rescue ActiveRecord::RecordInvalid
+  rescue ActiveRecord::RecordInvalid
     flash.now[:alert] = t(:your_order_was_not_registered)
     render 'new'
   end
 
   private
+
+  def assign_order_variables
+    @order = Order.new(order_params)
+    @order.client = current_client
+    @order.assign_insurance_to_order(@insurance)
+    @order.validate_cpf(@order.client.cpf)
+  end
 
   def set_order
     @order = Order.find(params[:id])

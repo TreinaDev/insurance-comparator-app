@@ -4,7 +4,7 @@ describe 'Cliente compra pacote de seguro' do
   it 'se estiver autenticado' do
     insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                               insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
-                              product_category_id: 1, product_category:'Celular', product_model: 'iPhone 11')
+                              product_category_id: 1, product_category: 'Celular', product_model: 'iPhone 11')
     allow(Insurance).to receive(:find).with('76').and_return(insurance)
 
     visit new_insurance_order_path(insurance.id)
@@ -18,7 +18,7 @@ describe 'Cliente compra pacote de seguro' do
                             birth_date: '29/10/1997')
     insurance = Insurance.new(id: 44, name: 'Premium', max_period: 24, min_period: 6,
                               insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
-                              product_category_id: 1, product_category:'Celular', product_model: 'iPhone 11')
+                              product_category_id: 1, product_category: 'Celular', product_model: 'iPhone 11')
     allow(Insurance).to receive(:find).with('44').and_return(insurance)
 
     login_as(client)
@@ -32,7 +32,7 @@ describe 'Cliente compra pacote de seguro' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')
-    Equipment.create!(client: , name: 'iphone 11', brand: 'Apple',
+    Equipment.create!(client:, name: 'iphone 11', brand: 'Apple',
                       equipment_price: 10_199, purchase_date: '01/11/2022',
                       invoice: fixture_file_upload('spec/support/invoice.png'),
                       photos: [fixture_file_upload('spec/support/photo_1.png'),
@@ -49,8 +49,8 @@ describe 'Cliente compra pacote de seguro' do
     json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get)
-    .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/21234567890")
-    .and_return(fake_response)
+      .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/21234567890")
+      .and_return(fake_response)
 
     login_as(client)
     visit insurance_path(insurance.id)
@@ -63,7 +63,7 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_content 'Modelo do Produto: iPhone 11'
     expect(page).to have_select 'Dispositivo', text: 'iphone 11'
     expect(page).to have_select 'Dispositivo', text: 'Samsung SX'
-    expect(page).to have_select "Período de contratação", maximum: insurance.max_period
+    expect(page).to have_select 'Período de contratação', maximum: insurance.max_period
     expect(page).to have_button 'Contratar Pacote'
   end
 
@@ -82,9 +82,10 @@ describe 'Cliente compra pacote de seguro' do
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABCD-0123456789')
     json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
+    cpf = '21234567890'
     allow(Faraday).to receive(:get)
-                  .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/21234567890")
-                  .and_return(fake_response)
+      .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{cpf}")
+      .and_return(fake_response)
 
     login_as(client)
     visit insurance_path(insurance.id)
@@ -118,9 +119,10 @@ describe 'Cliente compra pacote de seguro' do
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABCD-0123456789')
     json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
+    cpf = '21234567890'
     allow(Faraday).to receive(:get)
-                  .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/21234567890")
-                  .and_return(fake_response)
+      .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{cpf}")
+      .and_return(fake_response)
 
     login_as(client)
     visit insurance_path(insurance.id)

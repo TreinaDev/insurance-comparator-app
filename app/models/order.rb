@@ -10,11 +10,12 @@ class Order < ApplicationRecord
   # before_save :validate_cpf
 
   def validate_cpf(client_cpf)
-    response = Faraday.get("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{client_cpf}")
+    response = Faraday.get("#{Rails.configuration
+      .external_apis['validate_cpf_api']}/blocked_registration_numbers/#{client_cpf}")
     return unless response.success?
-     
+
     data = JSON.parse(response.body)
-    if data['blocked'] == 'true' 
+    if data['blocked'] == 'true'
       cpf_disapproved!
     else
       insurance_company_approval!
@@ -30,19 +31,35 @@ class Order < ApplicationRecord
   end
 
   def assign_insurance_to_order(insurance)
-    self.price = insurance.price
-    self.package_name = insurance.name
-    self.insurance_name = insurance.insurance_name
-    self.insurance_company_id = insurance.insurance_company_id
-    self.max_period = insurance.max_period
-    self.min_period = insurance.min_period
+    assign_product_variables(insurance)
+    assign_insurance_variables(insurance)
+    assign_period_variables(insurance)
+    assign_package_variables(insurance)
+  end
+
+  private
+
+  def assign_product_variables(insurance)
     self.product_category_id = insurance.product_category_id
     self.product_category = insurance.product_category
     self.product_model = insurance.product_model
   end
 
-  private
-  
+  def assign_insurance_variables(insurance)
+    self.insurance_name = insurance.insurance_name
+    self.insurance_company_id = insurance.insurance_company_id
+  end
+
+  def assign_period_variables(insurance)
+    self.max_period = insurance.max_period
+    self.min_period = insurance.min_period
+  end
+
+  def assign_package_variables(insurance)
+    self.price = insurance.price
+    self.package_name = insurance.name
+  end
+
   def generate_code
     self.code = SecureRandom.alphanumeric(15).upcase
   end

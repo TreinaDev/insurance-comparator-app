@@ -11,19 +11,23 @@ RSpec.describe Order, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                                         max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                                         payment_method_status: 0, single_installment_discount: 10)
-      insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
-                                insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
-                                product_category_id: 1, product_category: 'Celular', product_model: 'iPhone 11')
+      PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
+                        max_installments: 0, tax_percentage: 7, tax_maximum: 20,
+                        payment_method_status: 0, single_installment_discount: 10)
+      Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
+                    insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
+                    product_category_id: 1, product_category: 'Celular', product_model: 'iPhone 11')
       order = Order.new(client: ana, equipment:, contract_period: 10, insurance_company_id: 45,
-                        price: 10.00, final_price: 100, insurance_name: 'Seguradora 45', package_name: 'Premium', product_category_id: 2,
-                        product_category: 'iPhone 11', status: :pending)
+                        price: 10.00, final_price: 100, insurance_name: 'Seguradora 45',
+                        package_name: 'Premium', product_category_id: 2, product_category: 'iPhone 11',
+                        status: :pending)
 
       json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
-      allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/21234567890").and_return(fake_response)
+      cpf = '21234567890'
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{cpf}")
+        .and_return(fake_response)
 
       order.validate_cpf(order.client.cpf)
       result = order.status
@@ -40,18 +44,22 @@ RSpec.describe Order, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                                         max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                                         payment_method_status: 0, single_installment_discount: 10)
-      insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
-                                insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
-                                product_category_id: 1, product_category: 'Celular', product_model: 'iPhone 11')
-      order = Order.new(id: 2, client: ana, equipment:, min_period: 1, max_period: 24, contract_period: 10, insurance_company_id: 45,
-                        price: 5, insurance_name: 'Seguradora 45', package_name: 'Premium', product_category: 'Celular', 
-                        product_category_id: 1, product_model: 'iPhone 11',  status: :pending)
+      PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
+                        max_installments: 0, tax_percentage: 7, tax_maximum: 20,
+                        payment_method_status: 0, single_installment_discount: 10)
+      Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
+                    insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
+                    product_category_id: 1, product_category: 'Celular', product_model: 'iPhone 11')
+      order = Order.new(id: 2, client: ana, equipment:, min_period: 1, max_period: 24,
+                        contract_period: 10, insurance_company_id: 45, price: 5, insurance_name: 'Seguradora 45',
+                        package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
+                        product_model: 'iPhone 11', status: :pending)
       json_data = Rails.root.join('spec/support/json/cpf_disapproved.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
-      allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/21234567890").and_return(fake_response)
+      cpf = '21234567890'
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{cpf}")
+        .and_return(fake_response)
 
       order.validate_cpf(order.client.cpf)
       result = order.status
@@ -73,13 +81,13 @@ RSpec.describe Order, type: :model do
       payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
                                          max_installments: 0, tax_percentage: 7, tax_maximum: 20,
                                          payment_method_status: 0, single_installment_discount: 10)
-      insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
-                              insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
-                              product_category_id: 1, product_category: 'Celular', product_model: 'iphone 11')
+      Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
+                    insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
+                    product_category_id: 1, product_category: 'Celular', product_model: 'iphone 11')
       order = Order.new(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
                         max_period: 24, min_period: 6, insurance_company_id: 1,
                         insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
-                        product_category:'Celular', product_model: 'iphone 11')
+                        product_category: 'Celular', product_model: 'iphone 11')
 
       order.save
       expect(order.final_price).to eq 100

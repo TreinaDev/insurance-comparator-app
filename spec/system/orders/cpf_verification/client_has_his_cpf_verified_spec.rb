@@ -19,14 +19,14 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
                   product_model: 'iPhone 11')
 
     order = Order.create!(client: ana, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                        max_period: 24, min_period: 6, insurance_company_id: 1,
-                        insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
-                        product_category:'Celular', product_model: 'iphone 11')
+                          max_period: 24, min_period: 6, insurance_company_id: 1,
+                          insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
+                          product_category: 'Celular', product_model: 'iphone 11')
 
     order_result = Order.create!(client: ana, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                        max_period: 24, min_period: 6, insurance_company_id: 1,
-                        insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
-                        product_category:'Celular', product_model: 'iphone 11', status: :charge_pending)
+                                 max_period: 24, min_period: 6, insurance_company_id: 1,
+                                 insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
+                                 product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
     allow(order).to receive(:validate_cpf).with('21234567890').and_return(order_result)
 
     login_as(ana)
@@ -55,14 +55,14 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
                   insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1, product_category: 'Telefone',
                   product_model: 'iPhone 11')
     order = Order.create!(client: ana, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                        max_period: 24, min_period: 6, insurance_company_id: 1,
-                        insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
-                        product_category:'Celular', product_model: 'iphone 11')
+                          max_period: 24, min_period: 6, insurance_company_id: 1,
+                          insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
+                          product_category: 'Celular', product_model: 'iphone 11')
 
     order_result = Order.create!(client: ana, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                        max_period: 24, min_period: 6, insurance_company_id: 1,
-                        insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
-                        product_category:'Celular', product_model: 'iphone 11', status: :cpf_disapproved)
+                                 max_period: 24, min_period: 6, insurance_company_id: 1,
+                                 insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
+                                 product_category: 'Celular', product_model: 'iphone 11', status: :cpf_disapproved)
 
     allow(order).to receive(:validate_cpf).with('21234567890').and_return(order_result)
 
