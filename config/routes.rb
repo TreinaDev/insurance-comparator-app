@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root "home#index"
-  get 'search', to: 'insurances#search'
   get 'profile', to: 'clients#profile'
   devise_for :clients
-  resources :insurances, only: [:show] do 
+  get 'search', to: 'products#search'
+  resources :insurances, only: [:show, :index] do 
     resources :orders, only: [:new, :create]
   end  
   resources :orders, only: [:show, :index]

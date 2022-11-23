@@ -3,10 +3,11 @@
 
 class Insurance
   attr_accessor :id, :name, :max_period, :min_period, :insurance_company_id, :insurance_name, :price,
-                :product_category_id, :product_category, :product_model
+                :product_category_id, :product_category, :product_model, :product_model_id,
+                :coverages, :services
 
-  def initialize(id:, name:, max_period:, min_period:, insurance_company_id:,
-                 insurance_name:, price:, product_category_id:, product_category:, product_model:)
+  def initialize(id:, name:, max_period:, min_period:, insurance_company_id:, insurance_name:, price:,
+                 product_category_id:, product_category:, product_model:, product_model_id:, coverages:, services:)
 
     @id = id
     @name = name
@@ -18,42 +19,29 @@ class Insurance
     @product_category_id = product_category_id
     @product_category = product_category
     @product_model = product_model
+    @product_model_id = product_model_id
+    @coverages = coverages
+    @services = services
   end
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
 
-  def self.search(query)
-    insurances = []
-    formated_query = query.split.join.downcase
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{query}")
-    if response.success?
-      data = JSON.parse(response.body)
-      data.each do |d|
-        next unless d['product_model'].split.join.downcase == formated_query
-
-        insurances << Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],
-                                    insurance_company_id: d['insurance_company_id'],
-                                    insurance_name: d['insurance_name'], price: d['price'],
-                                    product_category_id: d['product_category_id'], product_category: d['product_category'],
-                                    product_model: d['product_model'])
-      end
-    end
-    insurances
-  end
   # rubocop:enable Metrics/MethodLength
 
   def self.find(id)
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{id}")
+    insurances = []
+    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/packages")
     if response.success?
       d = JSON.parse(response.body)
-      insurance = Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],
-                                insurance_company_id: d['insurance_company_id'], insurance_name: d['insurance_name'],
-                                price: d['price'], product_category_id: d['product_category_id'],
-                                product_category: d['product_category'],
-                                product_model: d['product_model'])
+      insurances << Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],
+                                  insurance_company_id: d['insurance_company_id'],
+                                  insurance_name: d['insurance_name'], price: d['price_per_month'],
+                                  product_category_id: d['product_category_id'], product_category: d['product_category'],
+                                  product_model: d['product_model'], product_model_id: d['product_model_id'],
+                                  coverages: d['coverages'], services: d['services'])
     end
-    insurance
+    insurances
   end
 
   def self.all
@@ -64,9 +52,11 @@ class Insurance
       data = JSON.parse(response.body)
       data.each do |d|
         insurances << Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],
-                                    insurance_company_id: d['insurance_company_id'], insurance_name: d['insurance_name'], price: d['price'],
+                                    insurance_company_id: d['insurance_company_id'],
+                                    insurance_name: d['insurance_name'], price: d['price_per_month'],
                                     product_category_id: d['product_category_id'], product_category: d['product_category'],
-                                    product_model: d['product_model'])
+                                    product_model: d['product_model'], product_model_id: d['product_model_id'],
+                                    coverages: d['coverages'], services: d['services'])
       end
     end
     insurances

@@ -1,8 +1,10 @@
 <h1>Categoria: Telefone</h1>
 
-<% @product_model.each do |pm| %>
+<% @exibir.each do |pm| %>
   <div>
-  <%= pm["product_model"]%>
+    <p><%= pm["brand"]%></p>
+    <p><%= pm["product_model"]%></p>
+    <p><%= image_tag pm["image_url"], class:"img" %></p>
   </div>
-  ==========================
+<hr>
 <% end %>
