@@ -125,7 +125,6 @@ describe 'Cliente compra pacote de seguro' do
     login_as(client)
     visit insurance_path(insurance.id)
     click_link 'Contratar'
-    click_on 'Contratar'
     click_button 'Contratar Pacote'
 
     # expect(flash[:alert]).to match 'Período de contratação não pode ficar em branco'

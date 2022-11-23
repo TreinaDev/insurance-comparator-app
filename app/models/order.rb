@@ -14,7 +14,7 @@ class Order < ApplicationRecord
     return unless response.success?
      
     data = JSON.parse(response.body)
-    if data['blocked'] == 'true'
+    if data['blocked'] == 'true' 
       cpf_disapproved!
     else
       insurance_company_approval!
