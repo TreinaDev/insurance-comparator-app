@@ -4,7 +4,7 @@ class PaymentsController < ApplicationController
 
   def new
     @payment = Payment.new
-    @payment_options = PaymentOption.all
+    @payment_options = PaymentOption.all(@order.insurance_company_id)
   end
 
   def create
@@ -15,7 +15,7 @@ class PaymentsController < ApplicationController
       @payment.request_payment
       redirect_to @order, notice: I18n.t('payment_created')
     else
-      @payment_options = PaymentOption.all
+      @payment_options = PaymentOption.all(@order.insurance_company_id)
       flash.now[:alert] = I18n.t('payment_not_created')
       render 'new'
     end

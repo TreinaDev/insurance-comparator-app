@@ -3,12 +3,13 @@ require 'rails_helper'
 describe PaymentOption do
   context '.all' do
     it 'retorna os metodos de pagamento disponíveis pela seguradora' do
-      api_url = Rails.configuration.external_apis['payment_options_api'].to_s
+      insurance_company_id = 1
+      api_url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/insurance_companies/#{insurance_company_id}/payment_options"
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
 
-      result = PaymentOption.all
+      result = PaymentOption.all(insurance_company_id)
 
       expect(result.length).to eq 2
       expect(result[0].name).to eq 'Laranja'
@@ -22,11 +23,12 @@ describe PaymentOption do
     end
 
     it 'retorna vazio se API está suspensa/indisponível' do
-      api_url = Rails.configuration.external_apis['payment_options_api'].to_s
+      insurance_company_id = 15
+      api_url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/insurance_companies/#{insurance_company_id}/payment_options"
       fake_response = double('faraday_response', success?: false, body: '{}')
       allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
 
-      result = PaymentOption.all
+      result = PaymentOption.all(insurance_company_id)
 
       expect(result).to eq []
     end
