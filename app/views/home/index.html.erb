@@ -31,7 +31,7 @@
 <% @product_categories.each do |pc| %>
   <div button type="button" class="btn btn-outline-primary">
     <i class="bi bi-phone">
-      <br><%= link_to pc['name'], product_model_index_path, :class => "btn" %></br>
+      <br><%= link_to pc['name'], product_path(pc['id']), :class => "btn" %>
     </i>
   </div>
 <% end %>

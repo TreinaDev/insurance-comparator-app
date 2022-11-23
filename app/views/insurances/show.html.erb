@@ -1,3 +1,5 @@
+<h1 class="display-6"> Detalhes do Pacote </h1>
+
 <ul class="list-group list-group-flush">
   <li class="list-group-item"><%="#{t :name}: #{@insurance.name}"%></li>
   <li class="list-group-item"><%="#{t :insurance_name}: #{@insurance.insurance_name}"%></li>
@@ -5,7 +7,17 @@
   <li class="list-group-item"><%="#{t :max_period}: #{@insurance.max_period}"%></li>
   <li class="list-group-item"><%="#{t :min_period}: #{@insurance.min_period}"%></li>
   <li class="list-group-item"><%="#{t :product_model}: #{@insurance.product_model}"%></li>
-  <li class="list-group-item"><%="#{t :price}: #{number_to_currency(@insurance.price)}"%> </li>
+  <li class="list-group-item"><%="#{t :price}: #{number_to_currency(@insurance.price_per_month)}"%> </li>
+    # <% @insurance.coverages.each do |coverage| %>
+    #   <li class="list-group-item"> <%= coverage.name %> </li>
+    #   <li class="list-group-item"> <%= coverage.description %> </li>
+    # <% end %>
+    
+    # <% @insurance.services.each do |service| %>
+    #   <li class="list-group-item"><%= service.name %> </li>
+    #   <li class="list-group-item"><%= service.description %> </li>
+    # <% end %>
+
 </ul>
 
-<%= link_to t(:to_hire), new_insurance_order_path(@insurance.id), class: 'btn btn-dark mt-3' %>
+<%= link_to t(:to_hire), new_product_insurance_order_path(@product_id, @insurance.id), class: 'btn btn-dark mt-3' %>

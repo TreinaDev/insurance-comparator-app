@@ -1,15 +1,4 @@
 <h1> Resultado da Busca: <%= @query %> </h1>
 <hr/>
-<% if @products.empty? %>
-  <p>Nenhum produto encontrado</p>
-<% end %>
-<% @products.each do |product| %>
-  <div>
-    <dl>
-      <dd> <%= link_to product.product_model, insurances_path %></dd>
-      <dt> <%= t(:brand)%>:</dt>
-      <dd> <%= product.brand %></dd>
-      <%= image_tag product.image_url, class:"img" %>
-    </dl>
-  </div>
-<% end %>
+
+<%= render 'products'%>
