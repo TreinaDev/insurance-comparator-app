@@ -187,7 +187,7 @@ describe 'Payment API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
+      insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
                                 product_category: 'Telefone', product_model: 'iPhone 11')
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
@@ -207,8 +207,8 @@ describe 'Payment API' do
       url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/invoices"
       json_dt = Rails.root.join('spec/support/json/invoice.json').read
       fake_response = double('faraday_response', success?: true, body: json_dt)
-      params = {invoice: {payment_method_id: payment.payment_method_id, order_id: order.id, registration_number: client.cpf, package_id: insurance.id,
-                          insurance_company_id: insurance.insurance_company_id}}
+      params = {payment_method_id: payment.payment_method_id, order_id: order.id, registration_number: client.cpf, package_id: insurance.id,
+                          insurance_company_id: insurance.insurance_company_id, voucher: nil, parcels: payment.parcels, total_price: order.total_price}
       allow(Faraday).to receive(:post).with(url, params: params.to_json).and_return(fake_response)
 
       response = payment.post_on_external_api
@@ -220,6 +220,8 @@ describe 'Payment API' do
       expect(response["payment_method_id"]).to eq 2
       expect(response["registration_number"]).to eq "21234567890"
       expect(response["status"]).to eq "pending"
+      expect(response["parcels"]).to eq 1
+      expect(response["total_price"]).to eq 10791
       expect(response["token"]).to eq "CWTGUUWXJUMS4ABQYGPV"
     end
   end

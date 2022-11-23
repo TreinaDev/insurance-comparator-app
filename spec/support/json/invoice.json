@@ -9,5 +9,7 @@
  "insurance_company_id": 1,
  "voucher": null,
  "transaction_registration_number": null,
- "reason_for_failure":null
+ "reason_for_failure":null,
+ "parcels": 1,
+ "total_price":10791
 }
