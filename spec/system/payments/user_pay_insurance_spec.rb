@@ -98,15 +98,16 @@ describe 'Usuário efetua pagamento' do
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
     allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, package_id: insurance.id,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
-                          product_model: insurance.product_category, price: insurance.price)
+                          product_model: insurance.product_category, price: insurance.price,
+                          insurance_company_id: insurance.insurance_company_id)
 
     url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: true, body: json_dt)
     params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
-                          package_id: 1, insurance_company_id: 1, voucher: '', parcels: 0,
+                          package_id: order.package_id, insurance_company_id: order.insurance_company_id, voucher: '', parcels: 1,
                           final_price: order.final_price }}
     allow(Faraday).to receive(:post).with(url, params.to_json, "Content-Type" => "application/json").and_return(fake_response)
 

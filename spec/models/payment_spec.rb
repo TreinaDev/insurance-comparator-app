@@ -148,9 +148,10 @@ RSpec.describe Payment, type: :model do
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
-      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+      order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, package_id: insurance.id,
                             client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
-                            product_model: insurance.product_category, price: insurance.price)
+                            product_model: insurance.product_category, price: insurance.price,
+                            insurance_company_id: insurance.insurance_company_id)
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
@@ -161,7 +162,7 @@ RSpec.describe Payment, type: :model do
       json_dt = Rails.root.join('spec/support/json/invoice.json').read
       fake_response = double('faraday_response', success?: true, body: json_dt)
       params = { invoice: { payment_method_id: payment.payment_method_id, order_id: order.id, registration_number: client.cpf,
-                package_id: 1, insurance_company_id: 1, voucher: '', parcels: 0,
+                package_id: order.package_id, insurance_company_id: order.insurance_company_id, voucher: '', parcels: payment.parcels,
                 final_price: order.final_price }}
       allow(Faraday).to receive(:post).with(url, params.to_json, "Content-Type" => "application/json").and_return(fake_response)
 

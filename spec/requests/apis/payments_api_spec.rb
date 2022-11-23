@@ -37,11 +37,8 @@ describe 'Payment API' do
       expect(json_response['status']).to eq('pending')
       expect(json_response['order_id']).to eq(1)
       expect(json_response['client']['cpf']).to eq('21234567890')
-      # expect(json_response['order']['insurance_company_id']).to eq(67)
       expect(json_response['payment_method_id']).to eq(1)
       expect(json_response['parcels']).to eq(1)
-      # expect(json_response['order']['insurance_id']).to eq(67) package_id
-      # expect(json_response['total_price']).to eq(insurance.price)
     end
 
     it 'e não encontra pagamento' do
@@ -95,11 +92,8 @@ describe 'Payment API' do
       expect(json_response['status']).to eq('refused')
       expect(json_response['order_id']).to eq(1)
       expect(json_response['client']['cpf']).to eq('21234567890')
-      # expect(json_response['order']['insurance_company_id']).to eq(67)
       expect(json_response['payment_method_id']).to eq(1)
       expect(json_response['parcels']).to eq(1)
-      # expect(json_response['order']['insurance_id']).to eq(67)
-      # expect(json_response['total_price']).to eq(insurance.price)
     end
 
     it 'com sucesso e status de aprovado' do
@@ -138,11 +132,8 @@ describe 'Payment API' do
       expect(json_response['invoice_token']).to eq('USAIUE55D85A')
       expect(json_response['order_id']).to eq(1)
       expect(json_response['client']['cpf']).to eq('21234567890')
-      # expect(json_response['order']['insurance_company_id']).to eq(67)
       expect(json_response['payment_method_id']).to eq(1)
       expect(json_response['parcels']).to eq(1)
-      # expect(json_response['order']['insurance_id']).to eq(67)
-      # expect(json_response['final_price']).to eq(order.final_price)
     end
 
     it 'com dados inválidos' do

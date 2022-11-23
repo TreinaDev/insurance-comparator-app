@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_23_190749) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_23_213141) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_190749) do
     t.string "product_category"
     t.integer "product_category_id"
     t.string "voucher_code"
+    t.integer "package_id"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["equipment_id"], name: "index_orders_on_equipment_id"
   end
