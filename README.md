@@ -62,19 +62,19 @@ Respostas possíveis:
  - 200 (Success)
 
 ```json
-  { 'message': 'success' }
+  { "message": "success" }
 ```
 
  - 404 (Not Found)
 
 ```json
-  { 'error': 'Invalid ID' }
+  { "error": "Invalid ID" }
 ```
 
  - 500 (Internal Server Error)
 
 ```json
-  { 'error': 'Internal server error' }
+  { "error": "Internal server error" }
 ```
 
 
