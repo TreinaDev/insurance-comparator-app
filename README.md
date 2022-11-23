@@ -88,7 +88,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 ### Obter Pedido
 
-**Endpoint: GET /api/v1/orders/**
+**Endpoint: GET /api/v1/orders/1
 
 <p align = "justify">Retornos:</p>
 
