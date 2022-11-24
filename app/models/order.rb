@@ -23,14 +23,15 @@ class Order < ApplicationRecord
   end
 
   def post_insurance_app
-    params = { client_name: client.name, client_registration_number: client.cpf,
-               client_email: client.email, policy_period: contract_period, order_id: id,
-               package_id: package_id, insurance_company_id: insurance_company_id,
-               equipment_id: equipment.id }
-    response = Faraday.post("#{Rails.configuration.external_apis['payment_options_api']}/policies", params)
+    json_data = { client_name: client.name, client_registration_number: client.cpf,
+                  client_email: client.email, policy_period: contract_period, order_id: id,
+                  package_id:, insurance_company_id:,
+                  equipment_id: equipment.id }
+    response = Faraday.post("#{Rails.configuration.external_apis['payment_options_api']}/policies", body: json_data)
     data = JSON.parse(response.body)
-    @order.update!(policy_id: data['id'], policy_code: data['code'], status: :insurance_company_approval)
     return JSON.parse(response.body) if response.success?
+
+    @order.update!(policy_id: data['id'], policy_code: data['code'], status: :insurance_company_approval)
   end
 
   def calculate_price
