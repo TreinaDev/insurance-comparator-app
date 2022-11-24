@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         post 'approved', on: :member  
         post 'refused', on: :member      
       end
+      resources :orders, only: [:show]
     end
   end
 end
