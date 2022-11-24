@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end 
   end
 
-     # get 'insurances', on: :member
+  # get 'insurances', on: :member
   
   resources :orders, only: [:show, :index]
   resources :equipment, only: [:index, :new, :create, :show, :edit, :update]

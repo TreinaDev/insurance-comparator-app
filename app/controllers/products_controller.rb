@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
   def show
     id = params[:id]
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/product_categories/#{id}/products")
-    @products = JSON.parse(response.body)
+    @products = Product.product_by_category(id)
+    redirect_to root_path, alert: t(:unable_to_load_category_information) if @products.nil?
   end
 
   def search

@@ -3,12 +3,12 @@ require 'rails_helper'
 describe 'Cliente compra pacote de seguro' do
   it 'se estiver autenticado' do
     insurance = Insurance.new(id: 76, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                              insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
-                              product_category: 'Telefone', product_model: 'iPhone 11')
+                              insurance_company_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                              product_model: 'iPhone 11', product_model_id: 1, coverages: 'Furto', services: '12')
 
     allow(Insurance).to receive(:find).with('76').and_return(insurance)
 
-    visit new_insurance_order_path(insurance.id)
+    visit new_product_insurance_order_path(insurance.product_model_id, insurance.id)
 
     expect(current_path).to eq new_client_session_path
   end
@@ -19,8 +19,8 @@ describe 'Cliente compra pacote de seguro' do
                             birth_date: '29/10/1997')
 
     insurance = Insurance.new(id: 44, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                              insurance_name: 'Seguradora 1', price: 100.00, product_category_id: 1,
-                              product_category: 'Telefone', product_model: 'iPhone 11')
+                              insurance_company_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                              product_model: 'iPhone 11', product_model_id: 1, coverages: 'Furto', services: '12')
 
     allow(Insurance).to receive(:find).with('44').and_return(insurance)
 
@@ -45,8 +45,8 @@ describe 'Cliente compra pacote de seguro' do
                                fixture_file_upload('spec/support/photo_2.jpg')])
 
     insurance = Insurance.new(id: 67, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                              insurance_name: 'Seguradora 67', price: 100.00, product_category_id: 1,
-                              product_category: 'Telefone', product_model: 'iPhone 11')
+                              insurance_company_name: 'Seguradora 67', price_per_month: 100.00, product_category_id: 1,
+                              product_model: 'iPhone 11', product_model_id: 1, coverages: 'Furto', services: '12')
 
     allow(Insurance).to receive(:find).with('67').and_return(insurance)
 
@@ -86,8 +86,8 @@ describe 'Cliente compra pacote de seguro' do
                                fixture_file_upload('spec/support/photo_2.jpg')])
 
     insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                              insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
-                              product_category: 'Telefone', product_model: 'iPhone 11')
+                              insurance_company_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                              product_model: 'iPhone 11', product_model_id: 1, coverages: 'Furto', services: '12')
 
     allow(Insurance).to receive(:find).with('45').and_return(insurance)
 
@@ -132,8 +132,8 @@ describe 'Cliente compra pacote de seguro' do
                                fixture_file_upload('spec/support/photo_2.jpg')])
 
     insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                              insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
-                              product_category: 'Telefone', product_model: 'iPhone 11')
+                              insurance_company_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                              product_model: 'iPhone 11', product_model_id: 1, coverages: 'Furto', services: '12')
 
     allow(Insurance).to receive(:find).with('45').and_return(insurance)
 
@@ -159,8 +159,8 @@ describe 'Cliente compra pacote de seguro' do
                                fixture_file_upload('spec/support/photo_2.jpg')])
 
     insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                              insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
-                              product_category: 'Telefone', product_model: 'iPhone 11')
+                              insurance_company_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                              product_model: 'iPhone 11', product_model_id: 1, coverages: 'Furto', services: '12')
 
     allow(Insurance).to receive(:find).with('45').and_return(insurance)
 
