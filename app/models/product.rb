@@ -13,12 +13,9 @@ class Product
   # rubocop:disable Metrics/AbcSize
   def self.search(query)
     products = []
-    formated_query = query.split.join.downcase
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/products")
-    data = JSON.parse(response.body) if response.success?
+    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/products/query?id=#{query}")
+    data = JSON.parse(response.body) if response.status == 200
     data.each do |d|
-      next unless d['product_model'].split.join.downcase == formated_query
-
       products << Product.new(id: d['id'], product_model: d['product_model'], brand: d['brand'],
                               product_category_id: d['product_category_id'], image_url: d['image_url'])
     end; products

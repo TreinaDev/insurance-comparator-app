@@ -29,13 +29,13 @@ class Insurance
     if response.success?
       d = JSON.parse(response.body)
       insurance = Insurance.new(id: d['id'].to_i, name: d['name'], max_period: d['max_period'],
-                                min_period: d['min_period'], insurance_company_id: d['insurance_company_id'],
+                                min_period: d['min_period'], insurance_company_id: d['insurance_company_id'].to_i,
                                 insurance_company_name: d['insurance_company_name'],
                                 price_per_month: d['price_per_month'], product_model: d['product_model'],
-                                product_category_id: d['product_category_id'],
+                                product_category_id: d['product_category_id'].to_i,
                                 product_model_id: d['product_model_id'].to_i,
                                 coverages: d['coverages'], services: d['services'])
-    end; insurance
+  insurance
   end
 end
 

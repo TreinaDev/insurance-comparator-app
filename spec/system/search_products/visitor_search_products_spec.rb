@@ -30,11 +30,18 @@ describe 'Visitante realiza uma busca por produto' do
   end
 
   it 'e não encontra produtos correspondentes' do
-    products = []
-    allow(Product).to receive(:search).with('iPhone 11').and_return(products)
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with(
+      "#{Rails.configuration.external_apis['insurance_api']}/product_categories"
+    ).and_return(fake_response1)
+    fake_response2 = double('faraday_response', status: 200, body: '[]')
+    allow(Faraday).to receive(:get).with(
+      "#{Rails.configuration.external_apis['insurance_api']}/products/query?id=iphone"
+    ).and_return(fake_response2)
 
     visit root_path
-    fill_in 'Produto', with: 'iPhone 11'
+    fill_in 'Produto', with: 'iphone'
     click_on 'Buscar'
 
     expect(page).to have_content 'Nenhum produto encontrado'
