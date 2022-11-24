@@ -11,7 +11,7 @@ class Order < ApplicationRecord
 
   def validate_cpf(client_cpf)
     response = Faraday.get("#{Rails.configuration
-      .external_apis['validate_cpf_api']}/blocked_registration_numbers/#{client_cpf}")
+      .external_apis['payment_fraud_api']}/blocked_registration_numbers/#{client_cpf}")
     return unless response.success?
 
     data = JSON.parse(response.body)

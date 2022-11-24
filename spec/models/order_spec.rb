@@ -26,7 +26,7 @@ RSpec.describe Order, type: :model do
       fake_response = double('faraday_response', success?: true, body: json_data)
       cpf = '21234567890'
       allow(Faraday).to receive(:get)
-        .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{cpf}")
+        .with("#{Rails.configuration.external_apis['payment_fraud_api']}/blocked_registration_numbers/#{cpf}")
         .and_return(fake_response)
 
       order.validate_cpf(order.client.cpf)
@@ -58,7 +58,7 @@ RSpec.describe Order, type: :model do
       fake_response = double('faraday_response', success?: true, body: json_data)
       cpf = '21234567890'
       allow(Faraday).to receive(:get)
-        .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{cpf}")
+        .with("#{Rails.configuration.external_apis['payment_fraud_api']}/blocked_registration_numbers/#{cpf}")
         .and_return(fake_response)
 
       order.validate_cpf(order.client.cpf)

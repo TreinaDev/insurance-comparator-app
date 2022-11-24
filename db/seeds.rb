@@ -35,20 +35,14 @@ Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
 
 Insurance.new(id: 46, name: 'Master', max_period: 24, min_period: 6,
               insurance_company_id: 1, insurance_name: 'Seguradora 46', price: 10.00,
-              product_category_id: 1, product_category: 'Notebook', product_model: 'macbook')              
+              product_category_id: 1, product_category: 'Notebook', product_model: 'macbook')
 
-Order.create(client: client1, equipment:equipment, contract_period: 10, insurance_company_id: 45,
+Order.create(client: client1, equipment:, contract_period: 10, insurance_company_id: 45,
              price: 10.00, final_price: 100, insurance_name: 'Seguradora 45',
              package_name: 'Premium', product_category_id: 1, product_category: 'iPhone 11',
-             status: :pending)  
+             status: :pending)
 
-Order.create(client: client2, equipment:equipment2, contract_period: 10, insurance_company_id: 46,
+Order.create(client: client2, equipment: equipment2, contract_period: 10, insurance_company_id: 46,
              price: 10.00, final_price: 5000, insurance_name: 'Seguradora 46',
              package_name: 'Premium', product_category_id: 1, product_category: 'Macbook',
-             status: :insurance_company_approval) 
-
-
-
-                        
-
-
+             status: :insurance_company_approval)
