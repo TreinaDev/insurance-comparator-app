@@ -98,32 +98,37 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 {
     "id": 1,
-    "code": "0HOIFGR9NNUGRM0",
-    "package_name": "Premium",
-    "insurance_company_id": 45,
-    "insurance_name": "Seguradora 45",
-    "product_category_id": 1,
-    "product_category": "Computadpr",
-    "product_model": "Macbook",
+    "status": "insurance_company_approval",
+    "payment_method": null,
     "contract_period": 10,
     "price": "200.0",
-    "voucher_code": "DESCONTO10",
-    "voucher_price": "10.0",
+    "coverage": null,
+    "insurance_company_id": 45,
+    "insurance_name": "Seguradora 45",
+    "package_name": "Premium",
+    "product_model": "Macbook",
     "final_price": "2000.0",
-    "status": "insurance_company_approval",
+    "voucher_price": "10.0",
+    "code": "0HOIFGR9NNUGRM0",
+    "max_period": 24,
+    "min_period": 1,
+    "product_category": "Computadpr",
+    "voucher_code": "DESCONTO10",
+    "product_category_id": 1,
     "equipment": {
     "name": "Macbook Air",
     "brand": "Apple",
-    "purchase_date": "2021-04-13"
+    "purchase_date": "2021-04-13",
+    "equipment_price": "15129.0"
     },
     "client": {
-    "name": "Ana Lima",
     "email": "ana@gmail.com",
+    "name": "Ana Lima",
     "cpf": "21234567890",
     "address": "Rua Dr Nogueira Martins, 680",
     "city": "São Paulo",
-    "state": "SP",
-    "birth_date": "1997-10-29"
+    "birth_date": "1997-10-29",
+    "state": "SP"
     }
 }
 ```

@@ -25,7 +25,7 @@ describe 'Order API' do
       expect(response.status).to eq 200
       expect(response.content_type).to include('application/json')
       json_response = JSON.parse(response.body)
-      expect(json_response.length).to eq 16
+      expect(json_response.length).to eq 20
       expect(json_response['code']).to eq 'ABCD-0123456789'
       expect(json_response['package_name']).to eq 'Premium'
       expect(json_response.keys).not_to include('created_at')
