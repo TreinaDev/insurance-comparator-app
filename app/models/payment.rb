@@ -17,12 +17,16 @@ class Payment < ApplicationRecord
   end
 
   def request_payment
-    data = { invoice: { payment_method_id: payment_method_id, order_id: order.id, registration_number: client.cpf,
-             package_id: order.package_id, insurance_company_id: order.insurance_company_id, voucher: '', parcels: parcels,
-             final_price: order.final_price }}
+    data = { invoice: invoice_attributes }
     response = Faraday.post("#{Rails.configuration.external_apis['payment_options_api']}/invoices",
-                            data.to_json, "Content-Type" => "application/json")
+                            data.to_json, 'Content-Type' => 'application/json')
 
     return JSON.parse(response.body) if response.success?
+  end
+
+  def invoice_attributes
+    { payment_method_id:, order_id: order.id, registration_number: client.cpf,
+      package_id: order.package_id, insurance_company_id: order.insurance_company_id,
+      voucher: '', parcels:, final_price: order.final_price }
   end
 end

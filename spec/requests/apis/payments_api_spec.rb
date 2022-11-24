@@ -22,14 +22,14 @@ describe 'Payment API' do
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                             client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                             product_model: insurance.product_category, price: insurance.price)
-        
+
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
       allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-      payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
+      Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
 
-      get "/api/v1/payments/#{payment.order_id}"
+      get "/api/v1/payments/#{order.id}"
 
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
@@ -84,7 +84,7 @@ describe 'Payment API' do
       Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
       payment_params = { payment: { status: :refused } }
 
-      post '/api/v1/payments/1/refused', params: payment_params
+      post "/api/v1/payments/#{order.id}/refused", params: payment_params
 
       expect(response).to have_http_status(200)
       expect(response.content_type).to include('application/json')
@@ -123,7 +123,7 @@ describe 'Payment API' do
       Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
       payment_params = { payment: { status: :approved, invoice_token: 'USAIUE55D85A' } }
 
-      post '/api/v1/payments/1/approved', params: payment_params
+      post "/api/v1/payments/#{order.id}/approved", params: payment_params
 
       expect(response).to have_http_status(200)
       expect(response.content_type).to include('application/json')
@@ -164,7 +164,7 @@ describe 'Payment API' do
       Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
       payment_params = { payment: { status: :approved } }
 
-      post '/api/v1/payments/1/approved', params: payment_params
+      post "/api/v1/payments/#{order.id}/approved", params: payment_params
 
       expect(response).to have_http_status(412)
     end
@@ -196,7 +196,7 @@ describe 'Payment API' do
       Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
       payment_params = { payment: { status: :approved } }
 
-      post '/api/v1/payments/1/refused', params: payment_params
+      post "/api/v1/payments/#{order.id}/refused", params: payment_params
 
       expect(response).to have_http_status(406)
     end
@@ -228,7 +228,7 @@ describe 'Payment API' do
       Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
       payment_params = { payment: { status: :refused, invoice_token: 'USAIUE55D85A' } }
 
-      post '/api/v1/payments/1/approved', params: payment_params
+      post "/api/v1/payments/#{order.id}/approved", params: payment_params
 
       expect(response).to have_http_status(406)
     end

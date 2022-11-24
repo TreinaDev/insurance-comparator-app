@@ -41,7 +41,9 @@ describe 'Usuário efetua pagamento' do
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 67', price: 2, product_category_id: 1,
                               product_category: 'Telefone', product_model: 'iPhone 11')
-    api_url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
+    # rubocop:disable Layout/LineLength
+    api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
+    # rubocop:enable Layout/LineLength
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
@@ -108,9 +110,11 @@ describe 'Usuário efetua pagamento' do
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: true, body: json_dt)
     params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
-                          package_id: order.package_id, insurance_company_id: order.insurance_company_id, voucher: '', parcels: 1,
-                          final_price: order.final_price }}
-    allow(Faraday).to receive(:post).with(url, params.to_json, "Content-Type" => "application/json").and_return(fake_response)
+                          package_id: order.package_id, insurance_company_id: order.insurance_company_id,
+                          voucher: '', parcels: 1,
+                          final_price: order.final_price } }
+    allow(Faraday).to receive(:post).with(url, params.to_json,
+                                          'Content-Type' => 'application/json').and_return(fake_response)
 
     login_as(client)
     visit order_path(order.id)
@@ -139,7 +143,9 @@ describe 'Usuário efetua pagamento' do
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
                               product_category: 'Telefone', product_model: 'iPhone 11')
-    api_url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
+    # rubocop:disable Layout/LineLength
+    api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
+    # rubocop:enable Layout/LineLength
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
@@ -175,7 +181,9 @@ describe 'Usuário efetua pagamento' do
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
                               product_category: 'Telefone', product_model: 'iPhone 11')
-    api_url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
+    # rubocop:disable Layout/LineLength
+    api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
+    # rubocop:enable Layout/LineLength
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
@@ -198,5 +206,54 @@ describe 'Usuário efetua pagamento' do
 
     expect(page).to have_content 'Não foi possível salvar o seu pagamento.'
     expect(page).to have_content 'Parcelas não pode ser maior que o máximo permitido pelo meio de pagamento'
+  end
+
+  it 'e não é possível realizar a cobrança no sistema de pagamentos' do
+    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                            birth_date: '29/10/1997')
+    equipment = Equipment.create!(client:, name: 'iPhone 11', brand: 'Apple', equipment_price: 1199,
+                                  purchase_date: '01/11/2022',
+                                  invoice: fixture_file_upload('spec/support/invoice.png'),
+                                  photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                           fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                              insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
+                              product_category: 'Telefone', product_model: 'iPhone 11')
+    payment_options = []
+    payment_options << PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
+                                         tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
+                                         payment_method_id: 1)
+    payment_options << PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
+                                         max_parcels: 1, single_parcel_discount: 1,
+                                         payment_method_id: 2)
+    allow(PaymentOption).to receive(:all).and_return(payment_options)
+    payment_option = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
+                                       tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
+                                       payment_method_id: 1)
+    allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, package_id: insurance.id,
+                          client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                          product_model: insurance.product_category, price: insurance.price,
+                          insurance_company_id: insurance.insurance_company_id)
+
+    url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
+    json_dt = Rails.root.join('spec/support/json/invoice.json').read
+    fake_response = double('faraday_response', success?: false, body: json_dt)
+    params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
+                          package_id: order.package_id, insurance_company_id: order.insurance_company_id,
+                          voucher: '', parcels: 1,
+                          final_price: order.final_price } }
+    allow(Faraday).to receive(:post).with(url, params.to_json,
+                                          'Content-Type' => 'application/json').and_return(fake_response)
+
+    login_as(client)
+    visit order_path(order.id)
+    click_on 'Pagar'
+    select 'Cartão de Crédito - Laranja', from: 'Meio de Pagamento'
+    fill_in 'Parcelas', with: '1'
+    click_on 'Salvar'
+
+    expect(page).to have_content 'Falha no sistema.'
   end
 end

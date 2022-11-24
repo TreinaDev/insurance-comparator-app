@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :payments, only: [:show] do
+      resources :payments, only: [:show], param: :order_id do
         post 'approved', on: :member  
         post 'refused', on: :member      
       end

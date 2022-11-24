@@ -19,7 +19,7 @@ class PaymentOption
   # rubocop:disable Metrics/AbcSize
   def self.all(insurance_company_id)
     payment_options = []
-    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api'].to_s}/insurance_companies/#{insurance_company_id}/payment_options")
+    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance_company_id}/payment_options")
     if response.success?
       data = JSON.parse(response.body)
       data.each do |d|

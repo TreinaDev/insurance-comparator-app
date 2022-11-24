@@ -1,5 +1,5 @@
-class Api::V1::PaymentsController < Api::V1::ApiController
-  before_action :set_payment, only: %i[show approved refused]
+class Api::V1::OrdersApiController < Api::V1::ApiController
+  before_action :set_order_and_payment, only: %i[show payment_approved payment_refused]
 
   def show
     return render status: :ok, json: create_json(@payment) if @payment.present?
@@ -7,7 +7,7 @@ class Api::V1::PaymentsController < Api::V1::ApiController
     raise ActiveRecord::RecordNotFound
   end
 
-  def approved
+  def payment_approved
     payment_params = params.require(:payment).permit(:status, :invoice_token)
 
     if payment_params[:status] == 'approved'
@@ -21,7 +21,7 @@ class Api::V1::PaymentsController < Api::V1::ApiController
     end
   end
 
-  def refused
+  def payment_refused
     payment_params = params.require(:payment).permit(:status)
 
     if payment_params[:status] == 'refused'
@@ -43,7 +43,8 @@ class Api::V1::PaymentsController < Api::V1::ApiController
                                order: { only: %i[insurance_company_id total_price insurance_id] } })
   end
 
-  def set_payment
-    @payment = Payment.find(params[:order_id])
+  def set_order_and_payment
+    @order = Order.find(params[:id])
+    @payment = @order.payment
   end
 end

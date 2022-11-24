@@ -4,7 +4,9 @@ describe PaymentOption do
   context '.all' do
     it 'retorna os metodos de pagamento disponíveis pela seguradora' do
       insurance_company_id = 1
-      api_url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/insurance_companies/#{insurance_company_id}/payment_options"
+      # rubocop:disable Layout/LineLength
+      api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance_company_id}/payment_options"
+      # rubocop:enable Layout/LineLength
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
       allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
@@ -24,7 +26,9 @@ describe PaymentOption do
 
     it 'retorna vazio se API está suspensa/indisponível' do
       insurance_company_id = 15
-      api_url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/insurance_companies/#{insurance_company_id}/payment_options"
+      # rubocop:disable Layout/LineLength
+      api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance_company_id}/payment_options"
+      # rubocop:enable Layout/LineLength
       fake_response = double('faraday_response', success?: false, body: '{}')
       allow(Faraday).to receive(:get).with(api_url.to_s).and_return(fake_response)
 
@@ -56,8 +60,8 @@ describe PaymentOption do
 
   describe '#formatted_payment_type_and_name' do
     it 'deve formatar o nome e o tipo do pagamento para exibição' do
-      payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
-                                         max_parcels: 1, single_parcel_discount: 1,
+      payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1,
+                                         tax_maximum: 5, max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
       expect(payment_option.formatted_payment_type_and_name).to eq 'Boleto - Roxinho'
     end

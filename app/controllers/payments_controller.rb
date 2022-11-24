@@ -1,6 +1,7 @@
 class PaymentsController < ApplicationController
   before_action :authenticate_client!
   before_action :set_order, only: %i[new create]
+  before_action :set_payment_params, only: %i[create]
 
   def new
     @payment = Payment.new
@@ -8,12 +9,11 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @payment = Payment.new(payment_params)
-    set_payment_informations
-    if @payment.save
+    if @payment.save && @payment.request_payment
       @order.update!(payment_method: @payment.payment_method_id, status: :charge_pending)
-      @payment.request_payment
       redirect_to @order, notice: I18n.t('payment_created')
+    elsif @payment.valid?
+      redirect_to @order, alert: I18n.t('system_fail')
     else
       @payment_options = PaymentOption.all(@order.insurance_company_id)
       flash.now[:alert] = I18n.t('payment_not_created')
@@ -31,7 +31,8 @@ class PaymentsController < ApplicationController
     params.require(:payment).permit(:parcels, :payment_method_id, :order_id)
   end
 
-  def set_payment_informations
+  def set_payment_params
+    @payment = Payment.new(payment_params)
     @payment.client = current_client
     @payment.order = @order
     @payment.payment_description = PaymentOption.find(@payment.payment_method_id).formatted_payment_type_and_name
