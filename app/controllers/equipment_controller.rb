@@ -21,7 +21,7 @@ class EquipmentController < ApplicationController
       redirect_to @equipment, notice: I18n.t('equipment_created')
     else
       flash.now[:alert] = I18n.t('equipment_not_created')
-      render 'new'
+      render :new
     end
   end
 
@@ -30,7 +30,7 @@ class EquipmentController < ApplicationController
       redirect_to @equipment, notice: I18n.t('equipment_updated')
     else
       flash.now[:alert] = I18n.t('equipment_not_updated')
-      render 'edit'
+      render :edit
     end
   end
 

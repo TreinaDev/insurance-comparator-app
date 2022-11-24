@@ -9,7 +9,9 @@
       <dt> <%= t(:name)%>:</dt>
       <dd> <%= link_to insurance.name, insurance_path(insurance.id) %></dd>
       <dt> <%= t(:insurance_name)%>:</dt>
-      <dd> <%= insurance.insurance_name %></dd>
+      <dd> <%= link_to insurance.insurance_name, insurance_path(insurance.id) %></dd>
+      <dt> <%= t(:name)%>:</dt>
+      <dd> <%= insurance.name %></dd>
       <dt> <%= t(:price)%>:</dt>
       <dd> <%= number_to_currency(insurance.price) %></dd>
     </dl>
