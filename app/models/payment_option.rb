@@ -31,7 +31,7 @@ class PaymentOption
   end
 
   def self.find(id)
-    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/#{id}")
+    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/payment_options/#{id}")
     return unless response.success?
 
     d = JSON.parse(response.body)

@@ -40,11 +40,11 @@ describe PaymentOption do
 
   context '.find' do
     it 'retorna o meio de pagamento com o id fornecido' do
-      api_url = Rails.configuration.external_apis['payment_options_api'].to_s
+      id = 2
+      api_url = "#{Rails.configuration.external_apis['payment_options_api'].to_s}/payment_options/#{id}"
       json_data = Rails.root.join('spec/support/json/company_payment_option.json').read
       fake_response = double('faraday_response', success?: true, body: json_data)
-      id = 2
-      allow(Faraday).to receive(:get).with("#{api_url}/#{id}").and_return(fake_response)
+      allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
 
       result = PaymentOption.find(id)
 
