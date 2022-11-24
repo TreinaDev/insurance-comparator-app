@@ -55,7 +55,7 @@ describe 'Cliente compra pacote de seguro' do
     json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
     fake_response = double('faraday_response', success?: true, body: json_data)
     allow(Faraday).to receive(:get)
-      .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/21234567890")
+      .with("#{Rails.configuration.external_apis['payment_fraud_api']}/blocked_registration_numbers/21234567890")
       .and_return(fake_response)
 
     login_as(client)
@@ -92,7 +92,7 @@ describe 'Cliente compra pacote de seguro' do
     fake_response = double('faraday_response', success?: true, body: json_data)
     cpf = '21234567890'
     allow(Faraday).to receive(:get)
-      .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{cpf}")
+      .with("#{Rails.configuration.external_apis['payment_fraud_api']}/blocked_registration_numbers/#{cpf}")
       .and_return(fake_response)
 
     login_as(client)
@@ -158,7 +158,7 @@ describe 'Cliente compra pacote de seguro' do
     fake_response = double('faraday_response', success?: true, body: json_data)
     cpf = '21234567890'
     allow(Faraday).to receive(:get)
-      .with("#{Rails.configuration.external_apis['validate_cpf_api']}/blocked_registration_numbers/#{cpf}")
+      .with("#{Rails.configuration.external_apis['payment_fraud_api']}/blocked_registration_numbers/#{cpf}")
       .and_return(fake_response)
 
     login_as(client)

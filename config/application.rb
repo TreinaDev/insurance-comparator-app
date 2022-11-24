@@ -38,6 +38,6 @@ module InsuranceComparatorApp
     config.generators.system_tests = nil
 
     config.external_apis = config_for(:apis)
-
+    config.autoload_paths += %W(#{config.root}/lib/api)
   end
 end
