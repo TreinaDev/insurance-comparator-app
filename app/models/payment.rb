@@ -22,6 +22,8 @@ class Payment < ApplicationRecord
                             data.to_json, 'Content-Type' => 'application/json')
 
     return JSON.parse(response.body) if response.success?
+
+    nil
   end
 
   def invoice_attributes
