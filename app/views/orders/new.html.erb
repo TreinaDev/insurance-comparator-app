@@ -15,8 +15,8 @@
     <div class="row"> 
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
-          <b><%= t :insurance_company_name %>:</b>
-          <%= @insurance.insurance_company_name %>
+          <b><%= t :insurance_name %>:</b>
+          <%= @insurance.insurance_name %>
         </li>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
           <b><%= Order.human_attribute_name(:price) %>:</b>
-          <%= "#{number_to_currency(@insurance.price, unit: "R$", separator: ".", delimiter: "", format: "%u %n")}" %>
+          <%= "#{number_to_currency(@insurance.price_per_month)}" %>
         </li>
       </div>
     </div>

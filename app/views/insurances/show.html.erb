@@ -1,15 +1,27 @@
 <h1 class="display-6"> Detalhes do Pacote </h1>
 
 <ul class="list-group list-group-flush">
-  <li class="list-group-item"><%="#{t :name}: #{@insurance.name}"%></li>
-  <li class="list-group-item"><%="#{t :insurance_name}: #{@insurance.insurance_company_name}"%></li>
-  <li class="list-group-item"><%="#{t :max_period}: #{@insurance.max_period}"%> meses </li>
-  <li class="list-group-item"><%="#{t :min_period}: #{@insurance.min_period}"%> meses </li>
+  <li class="list-group-item"><%="#{t :name}: #{@insurance['name']}"%></li>
+  <li class="list-group-item"><%="#{t :insurance_name}: #{@insurance['insurance_company_name']}"%></li>
+  <li class="list-group-item"><%="#{t :max_period}: #{@insurance['max_period']}"%> meses </li>
+  <li class="list-group-item"><%="#{t :min_period}: #{@insurance['min_period']}"%> meses </li>
   <li class="list-group-item"><%="#{t :product_model}: #{@product['product_model']}"%></li>
-  <li class="list-group-item"><%="#{t :price}: #{number_to_currency(@insurance.price_per_month)}"%> </li>
-   <% @insurance.coverages %> <!--atributo não existente no end-point packages/id>-->
-   <% @insurance.services %> <!--atributo não existente no end-point packages/id>-->
+  <li class="list-group-item"><%="#{t :price}: #{number_to_currency(@insurance['price_per_month'])}"%> </li>
+  
+  <li class="list-group-item"> Coberturas: </li>
+  <% @insurance['coverages'].each do |c| %>
+      <li class="list-group-item"><%= c['name'] %> </li>
+      <li class="list-group-item"><%= c['description'] %> </li>
+  <% end %>
+  
+  <li class="list-group-item"> Serviços: </li>
+  <% @insurance['services'].each do |service| %>
+      <li class="list-group-item"><%= service['name'] %> </li>
+      <li class="list-group-item"><%= service['description'] %> </li>
+  <% end %>
+
+
 
 </ul>
 
-<%= link_to t(:to_hire), new_product_insurance_order_path(@product_id, @insurance.id), class: 'btn btn-dark mt-3' %>
+<%= link_to t(:to_hire), new_product_insurance_order_path(@product_id, @insurance['id']), class: 'btn btn-dark mt-3' %>

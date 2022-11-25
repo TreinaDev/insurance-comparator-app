@@ -10,7 +10,6 @@ class Product
   end
 
   # rubocop:disable Layout/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def self.search(query)
     products = []
     response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/products/query?id=#{query}")
@@ -36,4 +35,3 @@ class Product
   end
 end
 # rubocop:enable Layout/MethodLength
-# rubocop:enable Metrics/AbcSize

@@ -12,7 +12,7 @@ RSpec.describe Order, type: :model do
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
       Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                    insurance_company_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                    insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                     product_model: 'iPhone 11', product_model_id: 1,
                     coverages: 'Furto', services: '12')
 
@@ -49,7 +49,7 @@ RSpec.describe Order, type: :model do
                                              fixture_file_upload('spec/support/photo_2.jpg')])
 
       Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                    insurance_company_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                    insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                     product_model: 'iPhone 11', product_model_id: 1, coverages: 'Furto', services: '12')
 
       PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
@@ -89,7 +89,7 @@ RSpec.describe Order, type: :model do
                                          payment_method_status: 0, single_installment_discount: 10)
 
       Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                    insurance_company_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                    insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                     product_model: 'iPhone 11', product_model_id: 1, coverages: 'Furto', services: '12')
 
       order = Order.new(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',

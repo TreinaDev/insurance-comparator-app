@@ -2,6 +2,11 @@ require 'rails_helper'
 
 describe 'Visitante realiza uma busca por produto' do
   it 'a partir da página inicial' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     visit root_path
 
     expect(current_path).to eq root_path
@@ -12,6 +17,11 @@ describe 'Visitante realiza uma busca por produto' do
   end
 
   it 'a partir do nome do seu produto' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     products = []
     products << Product.new(id: 1, product_model: 'Samsung Galaxy S20', brand: 'Samsung', product_category_id: 1,
                             image_url: 'http://localhost:4000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--65dbe6762532c687ed95b7ff5c8c3e9e2e0f38b0/galaxy-s20-produto.jpg')
