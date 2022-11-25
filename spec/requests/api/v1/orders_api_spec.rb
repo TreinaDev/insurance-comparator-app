@@ -44,7 +44,7 @@ end
 
 describe 'Order API' do
   context 'POST /api/v1/orders/:id/insurance_approved' do
-    it 'com sucesso' do
+    it 'com sucesso e pedido é aprovado pela seguradora' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                               birth_date: '29/10/1997')
@@ -58,22 +58,54 @@ describe 'Order API' do
                                 product_category_id: 1, product_category: 'Celular', product_model: 'iphone 11')
 
       order = Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,
-                    contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
-                    package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
-                    voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
-                    product_model: 'iPhone 11', status: 0,
-                    package_id: insurance.id)
+                            contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
+                            package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
+                            voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
+                            product_model: 'iPhone 11', status: 0,
+                            package_id: insurance.id)
 
-      order_params = { order: { status: :insurance_approved, policy_id: 1, policy_code:'ABC1234567' } }
+      order_params = { order: { status: :insurance_approved, policy_id: 1, policy_code: 'ABC1234567' } }
 
-      post "/api/v1/orders/#{order.id}/insurance_approved", params: order_params       
-      p order
+      post "/api/v1/orders/#{order.id}/insurance_approved", params: order_params
+
       expect(response).to have_http_status(200)
       expect(response.content_type).to include('application/json')
       json_response = JSON.parse(response.body)
       expect(json_response['status']).to eq('insurance_approved')
       expect(json_response['policy_id']).to eq 1
       expect(json_response['policy_code']).to eq 'ABC1234567'
+    end
+
+    it 'com sucesso e pedido é recusado pela seguradora' do
+      client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                              address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                              birth_date: '29/10/1997')
+      equipment = Equipment.create!(client:, name: 'iphone 11', brand: 'Apple', equipment_price: 1000,
+                                    purchase_date: '01/11/2022',
+                                    invoice: fixture_file_upload('spec/support/invoice.png'),
+                                    photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                             fixture_file_upload('spec/support/photo_2.jpg')])
+      insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6,
+                                insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
+                                product_category_id: 1, product_category: 'Celular', product_model: 'iphone 11')
+
+      order = Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,
+                            contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
+                            package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
+                            voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
+                            product_model: 'iPhone 11', status: 0,
+                            package_id: insurance.id)
+
+      order_params = { order: { status: :insurance_disapproved } }
+
+      post "/api/v1/orders/#{order.id}/insurance_disapproved", params: order_params
+
+      expect(response).to have_http_status(200)
+      expect(response.content_type).to include('application/json')
+      json_response = JSON.parse(response.body)
+      expect(json_response['status']).to eq('insurance_disapproved')
+      expect(json_response['policy_id']).to eq nil
+      expect(json_response['policy_code']).to eq nil
     end
   end
 end
