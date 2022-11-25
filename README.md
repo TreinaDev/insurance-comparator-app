@@ -72,7 +72,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 ## 👩‍💻 Devs contribuindo no Projeto
 - [Aline Moraes](https://github.com/alisboam)
 - [Anyelly Luvizott](https://github.com/anyluvizott)
-- [Izabelly Brito](https://github.com/Diana-ops)
+- [Izabelly Brito](https://github.com/Izabellyrb)
 - [Karina Sakata](https://github.com/KarinaMSakata)
 - [Luciana Donadio](https://github.com/lcallefe)
 - [Sade Oli](https://github.com/sadeoli)
@@ -134,7 +134,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 ```
 ### Obter Pagamento
 
-**Endpoint: GET /api/v1/payments/:id**
+**Endpoint: GET /api/v1/payments/:order_id**
 
 <p align = "justify">Retornos:</p>
 
@@ -162,7 +162,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 ### Aprovação do Pagamento
 
-**Endpoint: POST /api/v1/payments/:id/approved**
+**Endpoint: POST /api/v1/payments/:order_id/approved**
 
 **Parametros que devem ser enviados para aprovação do pagamento**
 
@@ -202,7 +202,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 ### Reprovação do Pagamento
 
-**Endpoint: POST /api/v1/payments/:id/refused**
+**Endpoint: POST /api/v1/payments/:order_id/refused**
 
 **Parametro que deve ser enviado para reprovação do pagamento**
 
