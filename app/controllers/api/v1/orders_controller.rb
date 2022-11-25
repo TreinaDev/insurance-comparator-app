@@ -15,17 +15,17 @@ class Api::V1::OrdersController < Api::V1::ApiController
       @order.charge_approved!
       @payment.invoice_token = params['transaction_registration_number']
       @payment.approved!
-      return render status: :ok, json: { message: 'success' }.to_json
+      return render status: :ok, json: { message: 'success' }
     end
     @payment.errors.add(:invoice_token, 'não pode ficar em branco')
     render status: :precondition_failed, json: { message: 'failure',
-                                                 error: @payment.errors.first.full_message }.to_json
+                                                 error: @payment.errors.first.full_message }
   end
 
   def payment_refused
     @order.charge_refused!
     @payment.refused!
-    render status: :ok, json: { message: 'success' }.to_json
+    render status: :ok, json: { message: 'success' }
   end
 
   private
