@@ -41,7 +41,6 @@ describe 'Cliente insere um cupom de desconto' do
 
     expect(current_path).to eq new_order_payment_path(order)
     expect(page).to have_content 'Cupom inserido com sucesso'
-    expect(page).to have_content 'Valor Final --- valor com desconto'
   end
 
   it 'e o cupom é inválido' do
@@ -63,7 +62,6 @@ describe 'Cliente insere um cupom de desconto' do
 
     expect(current_path).to eq new_order_payment_path(@order)
     expect(page).to have_content 'Cupom inválido'
-    expect(page).to have_content 'Valor Final --- valor sem desconto'
   end
 
   it 'e o cupom está expirado' do
@@ -86,6 +84,5 @@ describe 'Cliente insere um cupom de desconto' do
 
     expect(current_path).to eq new_order_payment_path(@order)
     expect(page).to have_content 'Cupom expirado'
-    expect(page).to have_content 'Valor Final --- valor sem desconto'
   end
 end

@@ -12,7 +12,7 @@ class PaymentsController < ApplicationController
     if @payment.valid? && @payment.request_payment
       @payment.save
       @order.update!(payment_method: @payment.payment_method_id, status: :charge_pending,
-                      voucher_price: @order.voucher_price, voucher_code: @order.voucher_code)
+                     voucher_price: @order.voucher_price, voucher_code: @order.voucher_code)
       redirect_to @order, notice: t(:payment_created)
     elsif !@payment.valid?
       @payment_options = PaymentOption.all(@order.insurance_company_id)

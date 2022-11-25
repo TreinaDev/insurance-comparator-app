@@ -37,27 +37,6 @@ class Order < ApplicationRecord
     assign_package_variables(insurance)
   end
 
-  def voucher_validation
-    voucher_params = { id: @id, price: @price }.to_query
-
-    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/promos/#{@voucher}/#{voucher_params}")
-    return unless response.success?
-
-    data = JSON.parse(response.body)
-    case data['status']
-    when 'Cupom expirado'
-      render 'new', alert: 'Cupom expirado'
-    when 'Cupom inválido'
-      render 'new', alert: 'Cupom inválido'
-    when 'Cupom válido'
-
-      @order.voucher_code = @voucher
-      @order.voucher_price = data['discount']
-
-      render 'new', notice: 'Cupom inserido com sucesso'
-    end
-  end
-
   private
 
   def assign_product_variables(insurance)
