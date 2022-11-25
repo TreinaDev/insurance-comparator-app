@@ -92,7 +92,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 <p align = "justify">Retornos:</p>
 
-<p align = "justify">200 (Sucesso)</p>
+`200` (Sucesso)
 
 ```json
 
@@ -138,7 +138,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 <p align = "justify">Retornos:</p>
 
-<p align = "justify">200 (Sucesso)</p>
+`200` (Sucesso)
 
 ```json
 
@@ -153,3 +153,81 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
     "payment_method_id": 1,
     "status": "pending"
 }
+
+```
+
+`404` (Não encontrado)
+
+`500` (Erro interno do servidor)`
+
+### Aprovação do Pagamento
+
+**Endpoint: POST /api/v1/payments/:id/approved**
+
+**Parametros que devem ser enviados para aprovação do pagamento**
+
+```json
+
+{ "payment": { "status": "approved", "invoice_token": "USAIUE55D85A" }}
+
+```
+
+<p align = "justify">Retornos:</p>
+
+`200` (Sucesso)
+
+```json
+
+{
+    "client": {"cpf": "21234567890"},
+    "id": 1, 
+    "invoice_token": "USAIUE55D85A",
+    "order": {"insurance_company_id": 45},
+    "order_id": 1,
+    "parcels": 1,
+    "payment_description": "Cartão de Crédito - Laranja",
+    "payment_method_id": 1,
+    "status": "approved"
+}
+
+```
+
+`412` (Dados inválidos)
+
+```json
+
+{"errors": ["Número da Nota Fiscal não pode ficar em branco"]}
+
+```
+
+### Reprovação do Pagamento
+
+**Endpoint: POST /api/v1/payments/:id/refused**
+
+**Parametros que devem ser enviados para aprovação do pagamento**
+
+```json
+
+{ "payment": { "status": "refused" } }
+
+```
+
+<p align = "justify">Retornos:</p>
+
+`200` (Sucesso)
+
+```json
+
+{
+    "client": {"cpf": "21234567890"},
+    "id": 1, 
+    "invoice_token": "USAIUE55D85A",
+    "order": {"insurance_company_id": 45},
+    "order_id": 1,
+    "parcels": 1,
+    "payment_description": "Cartão de Crédito - Laranja",
+    "payment_method_id": 1,
+    "status": "refused"
+}
+
+```
