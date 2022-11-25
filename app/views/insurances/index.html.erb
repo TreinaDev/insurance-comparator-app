@@ -1,12 +1,13 @@
 <% if @packages.empty? %>
    <p>Não há pacotes disponíveis para este produto.</p>
 <% else %>
-   <h1 class="display-6"> Selecione seu Pacote </h1>
+   <h1 class="display-6"> Selecione seu Pacote</h1>
+   <p> <%= t(:product)%>: <%= @product.product_model%></p>
 
    <% @packages.each do |pack| %>
       <div class="card" style="width: 30rem;">
       <div class="card-header">
-         <%= link_to pack['name'], product_insurance_path(product_id: @product_id, id: pack['id'].to_i) %> 
+         <%= t(:package_type)%>: <%= link_to pack['name'], product_insurance_path(product_id: @product_id, id: pack['id'].to_i) %> 
       </div>
          <p class="card-text"> Nome da Seguradora: <%= pack['insurance_company_name']%> </p>
          <p class="card-text"> Contratação por 12 meses: <%= number_to_currency(pack['price_per_month'].to_d * 12) %> </p>

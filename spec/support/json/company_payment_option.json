@@ -1,0 +1,9 @@
+{
+  "name":"Roxinho",
+  "payment_type":"Boleto", 
+  "tax_percentage":1,
+  "tax_maximum":5,
+  "max_parcels":1,
+  "single_parcel_discount":1,
+  "payment_method_id": 2
+}
