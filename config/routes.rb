@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'profile', to: 'clients#profile'
   devise_for :clients
   resources :insurances, only: [:show, :new, :create] do 
-    resources :orders, only: [:new, :create]
+    resources :orders, only: [:new, :create, :update]
   end  
   resources :orders, only: [:show, :index] do
     resources :payments, only: [:new, :create]
@@ -17,7 +17,11 @@ Rails.application.routes.draw do
         post 'approved', on: :member  
         post 'refused', on: :member      
       end
-      resources :orders, only: [:show]
+      resources :orders, only: [:show, :update] do
+        post 'insurance_approved', on: :member
+        post 'insurance_disapproved', on: :member
+      end
     end
   end
+
 end
