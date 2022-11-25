@@ -1,15 +1,14 @@
 class Api::V1::OrdersController < Api::V1::ApiController
   before_action :set_order, only: %i[show insurance_approved insurance_disapproved]
+  before_action :order_params, only: %i[insurance_approved insurance_disapproved]
 
   def show
-    Equipment.find(@order.equipment_id)
-    Client.find(@order.client_id)
+    @order.equipment
+    @order.client
     render status: :ok, json: create_json(@order)
   end
 
   def insurance_approved
-    order_params = params.require(:order).permit(:policy_code, :policy_id, :status)
-
     if order_params[:status] == 'insurance_approved'
       if @order.update(order_params)
         render status: :ok, json: create_json(@order)
@@ -22,8 +21,6 @@ class Api::V1::OrdersController < Api::V1::ApiController
   end
 
   def insurance_disapproved
-    order_params = params.require(:order).permit(:status)
-
     if order_params[:status] == 'insurance_disapproved'
       if @order.update(order_params)
         render status: :ok, json: create_json(@order)
@@ -45,6 +42,10 @@ class Api::V1::OrdersController < Api::V1::ApiController
 
   def set_order
     @order = Order.find(params[:id])
+  end
+
+  def order_params
+    params.require(:order).permit(:policy_code, :policy_id, :status)
   end
 
   def internal_server_error
