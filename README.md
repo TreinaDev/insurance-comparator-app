@@ -204,7 +204,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 **Endpoint: POST /api/v1/payments/:id/refused**
 
-**Parametros que devem ser enviados para aprovação do pagamento**
+**Parametro que deve ser enviado para reprovação do pagamento**
 
 ```json
 
