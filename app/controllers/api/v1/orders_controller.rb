@@ -1,5 +1,5 @@
 class Api::V1::OrdersController < Api::V1::ApiController
-  before_action :fetch_order
+  before_action :fetch_order_and_payment
 
   def show
     order = Order.find(params[:id])
@@ -11,18 +11,31 @@ class Api::V1::OrdersController < Api::V1::ApiController
   end
 
   def payment_approved
-    @order.charge_approved!
-    render status: :ok, json: { message: 'success' }.to_json
+    if invoice_token?
+      @order.charge_approved!
+      @payment.invoice_token = params['transaction_registration_number']
+      @payment.approved!
+      return render status: :ok, json: { message: 'success' }.to_json
+    end
+    @payment.errors.add(:invoice_token, 'não pode ficar em branco')
+    render status: :precondition_failed, json: { message: 'failure',
+                                                 error: @payment.errors.first.full_message }.to_json
   end
 
   def payment_refused
     @order.charge_refused!
+    @payment.refused!
     render status: :ok, json: { message: 'success' }.to_json
   end
 
   private
 
-  def fetch_order
+  def fetch_order_and_payment
     @order = Order.find params[:id]
+    @payment = @order.payment
+  end
+
+  def invoice_token?
+    params['transaction_registration_number'].present?
   end
 end
