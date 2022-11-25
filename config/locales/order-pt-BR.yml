@@ -1,7 +1,11 @@
 pt-BR:
+  select_period: "Selecione a quantidade de meses"
+  select_device: "Selecione o dispositivo"
+  contract_period: "Período de contratação"
   your_order_is_being_processed: 'Seu pedido está em análise pela seguradora'
   your_order_was_not_registered: 'Não foi possível cadastrar o pedido'
-  contract_period_in_months: 'Período de contratação em meses'
+  pay: 'Pagar'
+  contract_package: 'Contratar Pacote'
   month:
     one: 'mês'
     other: 'meses'
@@ -17,12 +21,25 @@ pt-BR:
         charge_pending: "Pagamento em Processamento"
         charge_approved: "Pagamento Aprovado"
       order:
-        price_percentage: "Porcentagem do Seguro"
+        price: "Preço do Seguro"
         insurance_name: "Nome da Seguradora"
-        packages: "Tipo de Pacote"
-        insurance_model: "Modelo do Produto"
-        contract_period: "Período contratado"
+        package_name: "Tipo de Pacote"
+        product_model: "Modelo do Produto"
         equipment: "Dispositivo"
         equipment_id: 'Dispositivo'
         total_price: "Valor do Seguro"
+        payment_method: 'Meio de Pagamento'
+        price: "Valor do Seguro a/m"
+        final_price: "Valor final sem desconto"
         payment_option_id: 'Meio de Pagamento'
+        product_category: 'Categoria do Produto'
+        contract_period: "Período de contratação"
+        code: 'Código do pedido'
+      order/status: 
+        insurance_company_approval: "Aguardando Aprovação da Seguradora"
+        pending: "Pendente"
+        insurance_approved: "Pedido Aprovado"
+        cpf_approved: "CPF Aprovado"
+        cpf_disapproved: "CPF Recusado"
+        charge_pending: "Pagamento em Processamento"
+        charge_approved: "Pagamento Aprovado"

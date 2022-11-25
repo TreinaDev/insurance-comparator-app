@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_15_212445) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_24_160915) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_212445) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "client_id", null: false
-    t.integer "equipment_price"
+    t.decimal "equipment_price"
     t.index ["client_id"], name: "index_equipment_on_client_id"
   end
 
@@ -76,16 +76,38 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_212445) do
     t.integer "status", default: 0
     t.integer "payment_method"
     t.integer "contract_period"
-    t.decimal "price_percentage"
+    t.decimal "price"
     t.string "coverage"
     t.integer "equipment_id", null: false
-    t.integer "insurance_id"
+    t.integer "insurance_company_id"
     t.string "insurance_name"
-    t.string "packages"
-    t.string "insurance_model"
-    t.integer "total_price"
+    t.string "package_name"
+    t.string "product_model"
+    t.decimal "final_price"
+    t.decimal "voucher_price"
+    t.string "code"
+    t.integer "max_period"
+    t.integer "min_period"
+    t.string "product_category"
+    t.integer "product_category_id"
+    t.string "voucher_code"
+    t.integer "package_id"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["equipment_id"], name: "index_orders_on_equipment_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.integer "order_id", null: false
+    t.integer "payment_method_id"
+    t.integer "parcels"
+    t.integer "status", default: 0
+    t.string "invoice_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "payment_description"
+    t.index ["client_id"], name: "index_payments_on_client_id"
+    t.index ["order_id"], name: "index_payments_on_order_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -93,4 +115,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_212445) do
   add_foreign_key "equipment", "clients"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "equipment"
+  add_foreign_key "payments", "clients"
+  add_foreign_key "payments", "orders"
 end
