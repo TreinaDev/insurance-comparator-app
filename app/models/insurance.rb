@@ -25,8 +25,8 @@ class Insurance
 
   # rubocop:disable Metrics/AbcSize
   def self.find(product_id, id)
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/products/
-                            #{product_id}/packages/#{id}")
+    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']
+                            }/products/#{product_id}/packages/#{id}")
     if response.success?
       d = JSON.parse(response.body)
       insurance = Insurance.new(id: d['id'].to_i, name: d['name'], max_period: d['max_period'],

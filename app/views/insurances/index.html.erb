@@ -10,8 +10,8 @@
       </div>
          <p class="card-text"> Nome da Seguradora: <%= pack['insurance_company_name']%> </p>
          <p class="card-text"> Contratação por 12 meses: <%= number_to_currency(pack['price_per_month'].to_d * 12) %> </p>
-         <p class="card-text"> Período mínimo de contratação: <%= pack['min_period'] %> </p>
-         <p class="card-text"> Período máximo de contratação: <%= pack['max_period'] %> </p>
+         <p class="card-text"> Período Mínimo de Contratação: <%= pack['min_period'] %> meses </p>
+         <p class="card-text"> Período Máximo de Contratação: <%= pack['max_period'] %> meses </p>
 
       <strong>Coberturas: </strong>
       <% pack['coverages'].each do |c| %>

@@ -6,7 +6,7 @@
   <li class="list-group-item"><%="#{t :max_period}: #{@insurance['max_period']}"%> meses </li>
   <li class="list-group-item"><%="#{t :min_period}: #{@insurance['min_period']}"%> meses </li>
   <li class="list-group-item"><%="#{t :product_model}: #{@product['product_model']}"%></li>
-  <li class="list-group-item"><%="#{t :price}: #{number_to_currency(@insurance['price_per_month'])}"%> </li>
+  <li class="list-group-item"><%="#{t :price}: #{number_to_currency((@insurance['price_per_month']).to_i * 12 )}"%> </li>
   
   <li class="list-group-item"> Coberturas: </li>
   <% @insurance['coverages'].each do |c| %>
