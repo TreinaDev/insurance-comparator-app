@@ -21,7 +21,7 @@ describe 'Visitante procura seguros para o seu produto' do
     click_on 'Buscar'
     click_on 'Samsung Galaxy S20'
 
-    expect(page).to have_content 'Nome da Seguradora: Seguradora 1'
+    expect(page).to have_content 'Nome da Seguradora: Anjo Seguradora'
     expect(page).to have_content 'Tipo de Pacote: Super Premium'
     expect(page).to have_content 'Produto: Samsung Galaxy S20'
     expect(page).to have_content 'Período Mínimo de Contratação: 12 meses'

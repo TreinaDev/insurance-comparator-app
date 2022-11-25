@@ -11,25 +11,26 @@ describe 'Order API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6,
-                    insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 175.00,
-                    product_category_id: 1, product_model: 'iphone 11',
+      insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6,
+                                insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 175.00,
+                                product_category_id: 1, product_model: 'iphone 11',
                     product_model_id: 1, coverages: [{ 'code': '76R', 'name': 'Quebra de tela',
                                                       'description': 'Assistência por danificação da tela do aparelho.' }],
                                                       services: [])
-
-      allow(SecureRandom).to receive(:alphanumeric).and_return('ABCD-0123456789')
+       allow(SecureRandom).to receive(:alphanumeric).and_return('ABCD-0123456789')
       Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,
                     contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
                     package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
                     voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
-                    product_model: 'iPhone 11', status: :insurance_company_approval)
+                    product_model: 'iPhone 11', status: :insurance_company_approval,
+                    package_id: insurance.id)
+
       get '/api/v1/orders/1'
 
       expect(response.status).to eq 200
       expect(response.content_type).to include('application/json')
       json_response = JSON.parse(response.body)
-      expect(json_response.length).to eq 20
+      expect(json_response.length).to eq 21
       expect(json_response['code']).to eq 'ABCD-0123456789'
       expect(json_response['package_name']).to eq 'Premium'
       expect(json_response.keys).not_to include('created_at')

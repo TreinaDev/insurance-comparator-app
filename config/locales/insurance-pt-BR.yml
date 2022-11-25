@@ -12,3 +12,4 @@ pt-BR:
   contract_package: 'Contratar Pacote'
   coverages: 'Coberturas'
   services: 'Serviços'
+  package_type: 'Tipo de Pacote'
