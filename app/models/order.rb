@@ -22,43 +22,6 @@ class Order < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/methodLength
-  def voucher # dentro do payment controller
-    @payment = Payment.find(params[:payment_id])
-
-    order_id = @payment.order_id
-    @order = Order.find(order_id)
-
-    @voucher = params[:voucher].upcase
-    @id = @order.product_model_id
-    @price = @order.final_price
-
-    @payment.voucher_validation
-  end
-
-  def voucher_validation # dentro do payment model
-    voucher_params = { id: @id, voucher: @voucher, price: @price }.to_query
-
-    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/promos/#{voucher_params}")
-    return unless response.success?
-
-    data = JSON.parse(response.body)
-    case data['status']
-    when 'Cupom expirado'
-      render 'new', alert: 'Cupom expirado'
-    when 'Cupom inválido'
-      render 'new', alert: 'Cupom inválido'
-    when 'Cupom válido'
-
-      @order.voucher_name = @voucher
-      @order.voucher = data['discount']
-      @order.save!
-
-      render 'new', notice: 'Cupom inserido com sucesso'
-    end
-  end
-  # rubocop:enable Metrics/methodLength
-
   def calculate_price
     self.final_price = price * contract_period
   end
@@ -72,6 +35,27 @@ class Order < ApplicationRecord
     assign_insurance_variables(insurance)
     assign_period_variables(insurance)
     assign_package_variables(insurance)
+  end
+
+  def voucher_validation
+    voucher_params = { id: @id, price: @price }.to_query
+
+    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/promos/#{@voucher}/#{voucher_params}")
+    return unless response.success?
+
+    data = JSON.parse(response.body)
+    case data['status']
+    when 'Cupom expirado'
+      render 'new', alert: 'Cupom expirado'
+    when 'Cupom inválido'
+      render 'new', alert: 'Cupom inválido'
+    when 'Cupom válido'
+
+      @order.voucher_code = @voucher
+      @order.voucher_price = data['discount']
+
+      render 'new', notice: 'Cupom inserido com sucesso'
+    end
   end
 
   private

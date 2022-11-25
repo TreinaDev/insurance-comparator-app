@@ -27,10 +27,9 @@ pt-BR:
         product_model: "Modelo do Produto"
         equipment: "Dispositivo"
         equipment_id: 'Dispositivo'
-        total_price: "Valor do Seguro"
         payment_method: 'Meio de Pagamento'
         price: "Valor do Seguro a/m"
-        final_price: "Valor final sem desconto"
+        final_price: "Valor Final"
         payment_option_id: 'Meio de Pagamento'
         product_category: 'Categoria do Produto'
         contract_period: "Período de contratação"

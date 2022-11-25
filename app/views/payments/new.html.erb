@@ -52,8 +52,14 @@
 
 <p><b><%= Order.human_attribute_name(:insurance_name)%>:</b> <%=@order.insurance_name%></p>
 <p><b><%= Order.human_attribute_name(:contract_period) %>:</b> <%=@order.contract_period%> <%=(t :month, count: @order.contract_period)%></p>
-<p><b><%=Order.human_attribute_name(:total_price)%>:</b> <%=number_to_currency(@order.final_price)%></p>
+<p><b><%=Order.human_attribute_name(:final_price)%>:</b> <%=number_to_currency(@order.final_price - (@order.voucher_price.nil? ? 0 : @order.voucher_price)) %></p>
 <p><b><%=Order.human_attribute_name(:equipment)%>:</b> <%= link_to @order.equipment.name, equipment_path(@order.equipment) %></p>
+
+<%= form_with url: voucher_order_path(@order), method: :post do |form| %> 
+  <%= form.label :voucher, "Insira seu Cupom" %> 
+  <%= form.text_field :voucher %> 
+  <%=form.submit "Validar" %> 
+<% end %> 
 
 <div class="container">
   <%= form_with model: [@order, @payment] do |f| %>

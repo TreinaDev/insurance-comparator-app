@@ -62,7 +62,7 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe '#total_price' do
+  describe '#final_price' do
     it 'falso quando preço diferente do esperado' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
@@ -102,58 +102,6 @@ RSpec.describe Order, type: :model do
         order.valid?
         expect(order.errors[:contract_period]).to include 'deve ser maior que 0'
       end
-    end
-  end
-
-  context '.voucher_validation' do
-    it 'e retorna um cupom de desconto válido' do
-
-      order = Order.create!()
-      payment = Payment.create!()
-
-      id = order.product_model_id
-      price = order.final_price
-      voucher = 'ABC123'
-      voucher_params = { id:, voucher:, price: }.to_query
-
-      json_data = Rails.root.join('spec/support/json/valid_coupon.json').read
-      fake_response = double('faraday_response', success?: true, body: json_data)
-      allow(Faraday).to receive(:get).with("http://apipagamentos/api/v1/promos/#{voucher_params}").and_return(fake_response)
-
-      payment.voucher_validation
-      result_voucher = order.voucher_name
-      result_discount = order.voucher
-
-      expect(result_voucher).to eq 'ABC132'
-      expect(result_discount).to eq 20
-    end
-
-    it 'e retorna um cupom de desconto inválido' do
-
-      json_data = Rails.root.join('spec/support/json/invalid_coupon.json').read
-      fake_response = double('faraday_response', success?: true, body: json_data)
-      allow(Faraday).to receive(:get).with("http://apipagamentos/api/v1/promos/#{voucher_params}").and_return(fake_response)
-
-      payment.voucher_validation
-      result_voucher = order.voucher_name
-      result_discount = order.voucher
-
-      expect(result_voucher).to eq nil
-      expect(result_discount).to eq nil
-    end
-
-    it 'e retorna um cupom de desconto expirado' do
-
-      json_data = Rails.root.join('spec/support/json/expired_coupon.json').read
-      fake_response = double('faraday_response', success?: true, body: json_data)
-      allow(Faraday).to receive(:get).with("http://apipagamentos/api/v1/promos/#{voucher_params}").and_return(fake_response)
-
-      payment.voucher_validation
-      result_voucher = order.voucher_name
-      result_discount = order.voucher
-
-      expect(result_voucher).to eq nil
-      expect(result_discount).to eq nil
     end
   end
 end

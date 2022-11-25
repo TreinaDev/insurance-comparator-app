@@ -5,7 +5,7 @@ development:
 
 test:
   insurance_api: http://apiseguros.com.br/v1
-  payment_options_api: http://apipagamentos.com.br/v1
+  payment_options_api: http://apipagamentos.com.br/api/v1
   validate_cpf_api: http://apiseguros.com.br/v1
   payment_fraud_api: http://apiseguros.com.br/v1
 

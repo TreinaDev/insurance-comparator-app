@@ -9,15 +9,17 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    if @payment.save && @payment.request_payment
-      @order.update!(payment_method: @payment.payment_method_id, status: :charge_pending)
+    if @payment.valid? && @payment.request_payment
+      @payment.save
+      @order.update!(payment_method: @payment.payment_method_id, status: :charge_pending,
+                      voucher_price: @order.voucher_price, voucher_code: @order.voucher_code)
       redirect_to @order, notice: t(:payment_created)
-    elsif @payment.valid?
-      redirect_to @order, alert: t(:system_fail)
-    else
+    elsif !@payment.valid?
       @payment_options = PaymentOption.all(@order.insurance_company_id)
       flash.now[:alert] = t(:payment_not_created)
       render :new
+    else
+      redirect_to @order, alert: t(:system_fail)
     end
   end
 
