@@ -19,10 +19,10 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
 
-   Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
+    Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                   insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                   product_model: 'iPhone 11', product_model_id: 1,
-                  coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                  coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                   por danificação da tela do aparelho.' }], services: [])
 
     order = Order.create!(client: ana, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
@@ -67,7 +67,7 @@ describe 'Usuário tem seu CPF consultado na aplicação Anti-Fraude' do
     Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                   insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                   product_model: 'iPhone 11', product_model_id: 1,
-                  coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência por
+                  coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência por
                                 danificação da tela do aparelho.' }], services: [])
 
     order = Order.create!(client: ana, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',

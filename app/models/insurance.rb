@@ -4,10 +4,10 @@
 class Insurance
   attr_accessor :id, :name, :max_period, :min_period, :insurance_company_id, :insurance_name,
                 :price_per_month, :product_category_id, :product_model, :product_model_id,
-                :coverages, :services
+                :coberturas, :services
 
   def initialize(id:, name:, max_period:, min_period:, insurance_company_id:, insurance_name:,
-                 price_per_month:, product_category_id:, product_model:, product_model_id:, coverages:, services:)
+                 price_per_month:, product_category_id:, product_model:, product_model_id:, coberturas:, services:)
 
     @id = id
     @name = name
@@ -18,7 +18,7 @@ class Insurance
     @product_category_id = product_category_id
     @product_model = product_model
     @product_model_id = product_model_id
-    @coverages = coverages
+    @coberturas = coberturas
     @services = services
     @price_per_month = price_per_month
   end
@@ -35,8 +35,7 @@ class Insurance
                                 price_per_month: d['price_per_month'], product_model: d['product_model'],
                                 product_category_id: d['product_category_id'].to_i,
                                 product_model_id: d['product_model_id'].to_i,
-                                coverages: [{ name: 'Nome', description: 'descrição', code: 'código' }],
-                                services: [{ name: 'Nome', description: 'descrição', code: 'código' }])
+                                coberturas: d['coverages'], services: d['services'])
     end
     insurance
   end

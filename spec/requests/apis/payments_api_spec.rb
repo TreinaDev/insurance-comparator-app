@@ -15,7 +15,7 @@ describe 'Payment API' do
                                 insurance_company_id: 45, insurance_name: 'Seguradora 45',
                                 price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11', product_model_id: 1,
-                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -71,7 +71,7 @@ describe 'Payment API' do
       insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
                                 insurance_company_id: 45, insurance_name: 'Seguradora 45', price_per_month: 100.00,
                                 product_category_id: 1, product_model: 'iPhone 11', product_model_id: 1,
-                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -112,7 +112,7 @@ describe 'Payment API' do
       insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
                                 insurance_company_id: 45, insurance_name: 'Seguradora 45', price_per_month: 100.00,
                                 product_category_id: 1, product_model: 'iPhone 11', product_model_id: 1,
-                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -154,7 +154,7 @@ describe 'Payment API' do
       insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
                                 insurance_company_id: 45, insurance_name: 'Seguradora 45', price_per_month: 100.00,
                                 product_category_id: 1, product_model: 'iPhone 11', product_model_id: 1,
-                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -188,8 +188,8 @@ describe 'Payment API' do
                                              fixture_file_upload('spec/support/photo_2.jpg')])
       insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
                                 insurance_company_id: 45, insurance_name: 'Seguradora 45', price_per_month: 100.00,
-                                product_category_id: 1, product_model: 'iPhone 11',product_model_id: 1,
-                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                product_category_id: 1, product_model: 'iPhone 11', product_model_id: 1,
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -223,7 +223,7 @@ describe 'Payment API' do
       insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6,
                                 insurance_company_id: 45, insurance_name: 'Seguradora 45', price_per_month: 100.00,
                                 product_category_id: 1, product_model: 'iPhone 11', product_model_id: 1,
-                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
