@@ -38,8 +38,7 @@ class Insurance
                                     product_category_id: d['product_category_id'], product_category: d['product_category'],
                                     product_model: d['product_model'])
       end
-    end
-    insurances
+    end; insurances
   end
   # rubocop:enable Metrics/MethodLength
 

@@ -11,9 +11,6 @@ RSpec.describe Order, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                        max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                        payment_method_status: 0, single_installment_discount: 10)
       Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                     insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
                     product_category_id: 1, product_category: 'Celular', product_model: 'iPhone 11')
@@ -44,9 +41,6 @@ RSpec.describe Order, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                        max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                        payment_method_status: 0, single_installment_discount: 10)
       Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                     insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
                     product_category_id: 1, product_category: 'Celular', product_model: 'iPhone 11')
@@ -78,9 +72,9 @@ RSpec.describe Order, type: :model do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                                         max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                                         payment_method_status: 0, single_installment_discount: 10)
+      payment_method = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
+                                         max_parcels: 1, single_parcel_discount: 1,
+                                         payment_method_id: 2)
       Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                     insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
                     product_category_id: 1, product_category: 'Celular', product_model: 'iphone 11')

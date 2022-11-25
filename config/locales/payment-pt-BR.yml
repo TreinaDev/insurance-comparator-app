@@ -1,0 +1,22 @@
+pt-BR:
+  payment_created: Seu pagamento foi salvo com sucesso!
+  payment_not_created: Não foi possível salvar o seu pagamento.
+  system_fail: Falha no sistema.
+  activerecord:
+    models:
+      payment:
+        one: 'Pagamento'
+        other: 'Pagamentos'
+    attributes:
+      payment:
+        status: 'Status'
+        invoice_token: 'Número da Nota Fiscal'
+        parcels: 'Parcelas'
+        payment_method: 'Meio de Pagamento'
+        payment_methot_id: 'Meio de Pagamento'
+    status:
+      payment:
+        pending: 'Pendente'
+        approved: Sucesso no Pagamento
+        refused: Falha no Pagamento
+

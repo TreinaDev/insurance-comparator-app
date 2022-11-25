@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :equipment
   belongs_to :client
+  has_one :payment, dependent: nil
   before_validation :generate_code, on: :create
   before_save :calculate_price
   validates :contract_period, presence: true
