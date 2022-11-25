@@ -47,8 +47,4 @@ class Api::V1::OrdersController < Api::V1::ApiController
   def order_params
     params.require(:order).permit(:policy_code, :policy_id, :status)
   end
-
-  def internal_server_error
-    render status: :internal_server_error
-  end
 end
