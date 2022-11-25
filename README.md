@@ -72,7 +72,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 ## 👩‍💻 Devs contribuindo no Projeto
 - [Aline Moraes](https://github.com/alisboam)
 - [Anyelly Luvizott](https://github.com/anyluvizott)
-- [Izabelly Brito](https://github.com/Diana-ops)
+- [Izabelly Brito](https://github.com/Izabellyrb)
 - [Karina Sakata](https://github.com/KarinaMSakata)
 - [Luciana Donadio](https://github.com/lcallefe)
 - [Sade Oli](https://github.com/sadeoli)
@@ -88,11 +88,11 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 ### Obter Pedido
 
-**Endpoint: GET /api/v1/orders/1
+**Endpoint: GET /api/v1/orders/1**
 
 <p align = "justify">Retornos:</p>
 
-<p align = "justify">200 (Sucesso)</p>
+`200` (Sucesso)
 
 ```json
 
@@ -131,4 +131,103 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
     "state": "SP"
     }
 }
+```
+### Obter Pagamento
+
+**Endpoint: GET /api/v1/payments/:order_id**
+
+<p align = "justify">Retornos:</p>
+
+`200` (Sucesso)
+
+```json
+
+{
+    "client": {"cpf": "21234567890"},
+    "id": 1,
+    "invoice_token": "USAIUE55D85A",
+    "order": {"insurance_company_id": 45},
+    "order_id": 1,
+    "parcels": 1,
+    "payment_description": "Cartão de Crédito - Laranja",
+    "payment_method_id": 1,
+    "status": "pending"
+}
+
+```
+
+`404` (Não encontrado)
+
+`500` (Erro interno do servidor)`
+
+### Aprovação do Pagamento
+
+**Endpoint: POST /api/v1/payments/:order_id/approved**
+
+**Parametros que devem ser enviados para aprovação do pagamento**
+
+```json
+
+{ "payment": { "status": "approved", "invoice_token": "USAIUE55D85A" }}
+
+```
+
+<p align = "justify">Retornos:</p>
+
+`200` (Sucesso)
+
+```json
+
+{
+    "client": {"cpf": "21234567890"},
+    "id": 1, 
+    "invoice_token": "USAIUE55D85A",
+    "order": {"insurance_company_id": 45},
+    "order_id": 1,
+    "parcels": 1,
+    "payment_description": "Cartão de Crédito - Laranja",
+    "payment_method_id": 1,
+    "status": "approved"
+}
+
+```
+
+`412` (Dados inválidos)
+
+```json
+
+{"errors": ["Número da Nota Fiscal não pode ficar em branco"]}
+
+```
+
+### Reprovação do Pagamento
+
+**Endpoint: POST /api/v1/payments/:order_id/refused**
+
+**Parametro que deve ser enviado para reprovação do pagamento**
+
+```json
+
+{ "payment": { "status": "refused" } }
+
+```
+
+<p align = "justify">Retornos:</p>
+
+`200` (Sucesso)
+
+```json
+
+{
+    "client": {"cpf": "21234567890"},
+    "id": 1, 
+    "invoice_token": "USAIUE55D85A",
+    "order": {"insurance_company_id": 45},
+    "order_id": 1,
+    "parcels": 1,
+    "payment_description": "Cartão de Crédito - Laranja",
+    "payment_method_id": 1,
+    "status": "refused"
+}
+
 ```

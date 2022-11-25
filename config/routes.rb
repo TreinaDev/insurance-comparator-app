@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :products, only: [:show] do 
     resources :insurances, only: [:index, :show, :new, :create] do 
-      resources :orders, only: [:new, :create]
+      resources :orders, only: [:new, :create, :update]
     end 
   end
 
@@ -21,7 +21,11 @@ Rails.application.routes.draw do
         post 'approved', on: :member  
         post 'refused', on: :member      
       end
-      resources :orders, only: [:show]
+      resources :orders, only: [:show, :update] do
+        post 'insurance_approved', on: :member
+        post 'insurance_disapproved', on: :member
+      end
     end
   end
+
 end
