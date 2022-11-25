@@ -21,7 +21,8 @@ describe 'Payment API' do
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                             client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
-                            product_model: insurance.product_category, price: insurance.price)
+                            product_model: insurance.product_category, price: insurance.price,
+                            insurance_company_id: insurance.insurance_company_id)
 
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,

@@ -88,7 +88,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 ### Obter Pedido
 
-**Endpoint: GET /api/v1/orders/1
+**Endpoint: GET /api/v1/orders/1**
 
 <p align = "justify">Retornos:</p>
 
@@ -132,3 +132,24 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
     }
 }
 ```
+### Obter Pagamento
+
+**Endpoint: GET /api/v1/payments/:id**
+
+<p align = "justify">Retornos:</p>
+
+<p align = "justify">200 (Sucesso)</p>
+
+```json
+
+{
+    "client": {"cpf": "21234567890"},
+    "id": 1,
+    "invoice_token": "USAIUE55D85A",
+    "order": {"insurance_company_id": 45},
+    "order_id": 1,
+    "parcels": 1,
+    "payment_description": "Cartão de Crédito - Laranja",
+    "payment_method_id": 1,
+    "status": "pending"
+}
