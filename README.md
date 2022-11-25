@@ -50,33 +50,6 @@ rspec
 ```
 <br>
 
-## API para mudar status de pedido
-
-#### Endpoints:
-  - **POST /api/v1/orders/order_id/payment_approved** Para pagamentos confirmados
-  - **POST /api/v1/orders/order_id/payment_refused** Para pagamentos recusados
-
-Substitua `order_id` pelo `id` correspondente do pedido. 
-
-Respostas possíveis:
- - 200 (Success)
-
-```json
-  { "message": "success" }
-```
-
- - 404 (Not Found)
-
-```json
-  { "error": "Invalid ID" }
-```
-
- - 500 (Internal Server Error)
-
-```json
-  { "error": "Internal server error" }
-```
-
 
 ### ❕ Dados adicionais
 Login de cliente para acesso da app:
@@ -190,13 +163,13 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 ### Aprovação do Pagamento
 
-**Endpoint: POST /api/v1/payments/:order_id/approved**
+**Endpoint: POST /api/v1/orders/:order_id/payment_approved**
 
 **Parametros que devem ser enviados para aprovação do pagamento**
 
 ```json
 
-{ "payment": { "status": "approved", "invoice_token": "USAIUE55D85A" }}
+{ "transaction_registration_number": "USAIUE55D85A" }}
 
 ```
 
@@ -207,38 +180,42 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 ```json
 
 {
-    "client": {"cpf": "21234567890"},
-    "id": 1, 
-    "invoice_token": "USAIUE55D85A",
-    "order": {"insurance_company_id": 45},
-    "order_id": 1,
-    "parcels": 1,
-    "payment_description": "Cartão de Crédito - Laranja",
-    "payment_method_id": 1,
-    "status": "approved"
+  "message": "sucess"
 }
 
 ```
 
-`412` (Dados inválidos)
+`404` (Order ID Não encontrado)
 
 ```json
 
-{"errors": ["Número da Nota Fiscal não pode ficar em branco"]}
+{
+  "message": "Invalid ID"
+}
+
+```
+
+`500` (Erro interno de servidor)
+
+```json
+
+{
+  "message": "Internal server error"
+}
+
+```
+
+`412` (Número de transação inválido)
+
+```json
+
+{ "message": "failure", "error": ["Número da Transação não pode ficar em branco"]}
 
 ```
 
 ### Reprovação do Pagamento
 
-**Endpoint: POST /api/v1/payments/:order_id/refused**
-
-**Parametro que deve ser enviado para reprovação do pagamento**
-
-```json
-
-{ "payment": { "status": "refused" } }
-
-```
+**Endpoint: POST /api/v1/orders/:order_id/payment_refused**
 
 <p align = "justify">Retornos:</p>
 
@@ -247,15 +224,27 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 ```json
 
 {
-    "client": {"cpf": "21234567890"},
-    "id": 1, 
-    "invoice_token": "USAIUE55D85A",
-    "order": {"insurance_company_id": 45},
-    "order_id": 1,
-    "parcels": 1,
-    "payment_description": "Cartão de Crédito - Laranja",
-    "payment_method_id": 1,
-    "status": "refused"
+  "message": "sucess"
+}
+
+```
+
+`404` (Order ID Não encontrado)
+
+```json
+
+{
+  "message": "Invalid ID"
+}
+
+```
+
+`500` (Erro interno de servidor)
+
+```json
+
+{
+  "message": "Internal server error"
 }
 
 ```
