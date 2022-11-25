@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   before_save :calculate_price
   validates :contract_period, presence: true
   validates :contract_period, comparison: { greater_than: 0 }, allow_blank: false
-  enum status: { pending: 0, insurance_company_approval: 2, insurance_approved: 3, cpf_disapproved: 6,
+  enum status: { pending: 0, insurance_company_approval: 2, insurance_approved: 3, insurance_disapproved: 4, cpf_disapproved: 6,
                  charge_pending: 9, charge_approved: 12 }
 
   def validate_cpf(client_cpf)
@@ -21,6 +21,7 @@ class Order < ApplicationRecord
       insurance_company_approval!
     end
   end
+
 
   def calculate_price
     self.final_price = price * contract_period
