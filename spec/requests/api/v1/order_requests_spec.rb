@@ -12,15 +12,16 @@ describe 'Orders API' do
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
                                                fixture_file_upload('spec/support/photo_2.jpg')])
-        payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                                           max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                                           payment_method_status: 0, single_installment_discount: 10)
+        payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
+                                           tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
+                                           payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                                   insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
                                   product_category: 'Telefone', product_model: 'iPhone 11')
-        order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, insurance_id: insurance.id,
-                              price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
-                              insurance_model: 'iPhone 11', status: :charge_pending)
+        order = Order.create!(client: client, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
+                              product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
 
         post "/api/v1/orders/#{order.id}/payment_approved"
 
@@ -47,15 +48,16 @@ describe 'Orders API' do
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
                                                fixture_file_upload('spec/support/photo_2.jpg')])
-        payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                                           max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                                           payment_method_status: 0, single_installment_discount: 10)
+        payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
+                                           tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
+                                           payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                                   insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
                                   product_category: 'Telefone', product_model: 'iPhone 11')
-        order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, insurance_id: insurance.id,
-                              price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
-                              insurance_model: 'iPhone 11', status: :charge_pending)
+        order = Order.create!(client: client, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
+                              product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
 
         allow(Order).to receive(:find).with(order.id.to_s).and_raise(ActiveRecord::ActiveRecordError)
         post "/api/v1/orders/#{order.id}/payment_approved"
@@ -76,15 +78,16 @@ describe 'Orders API' do
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
                                                fixture_file_upload('spec/support/photo_2.jpg')])
-        payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                                           max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                                           payment_method_status: 0, single_installment_discount: 10)
+        payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
+                                           tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
+                                           payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                                   insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
                                   product_category: 'Telefone', product_model: 'iPhone 11')
-        order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, insurance_id: insurance.id,
-                              price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
-                              insurance_model: 'iPhone 11', status: :charge_pending)
+        order = Order.create!(client: client, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
+                              product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
 
         post "/api/v1/orders/#{order.id}/payment_refused"
 
@@ -111,15 +114,16 @@ describe 'Orders API' do
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
                                                fixture_file_upload('spec/support/photo_2.jpg')])
-        payment_method = PaymentOption.new(payment_method_id: 1, payment_method_name: 'Cartão',
-                                           max_installments: 0, tax_percentage: 7, tax_maximum: 20,
-                                           payment_method_status: 0, single_installment_discount: 10)
+        payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
+                                           tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
+                                           payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                                   insurance_name: 'Seguradora 45', price: 100.00, product_category_id: 1,
                                   product_category: 'Telefone', product_model: 'iPhone 11')
-        order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, insurance_id: insurance.id,
-                              price_percentage: 5, insurance_name: 'Seguradora 45', packages: 'Premium',
-                              insurance_model: 'iPhone 11', status: :charge_pending)
+        order = Order.create!(client: client, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
+                              product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
 
         allow(Order).to receive(:find).with(order.id.to_s).and_raise(ActiveRecord::ActiveRecordError)
         post "/api/v1/orders/#{order.id}/payment_refused"
