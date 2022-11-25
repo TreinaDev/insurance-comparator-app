@@ -23,10 +23,9 @@ class OrdersController < ApplicationController
 
   def create
     assign_order_variables
-    if @order.save && @order.insurance_company_approval?
-      redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
+    if @order.save && @order.validate_cpf(@order.client.cpf) && @order.post_policy
+      return redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
     end
-  rescue ActiveRecord::RecordInvalid
     flash.now[:alert] = t(:your_order_was_not_registered)
     render :new
   end

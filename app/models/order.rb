@@ -17,9 +17,21 @@ class Order < ApplicationRecord
     data = JSON.parse(response.body)
     if data['blocked'] == 'true'
       cpf_disapproved!
-    else
-      insurance_company_approval!
+      return false
     end
+    true
+  end
+
+  def post_policy
+    params = { policy: { client_name: client.name, client_registration_number: client.cpf, 
+               client_email: client.email, policy_period: contract_period, order_id: id,
+               package_id: package_id, insurance_company_id: insurance_company_id, equipment_id: equipment_id} }
+    response = Faraday.post("#{Rails.configuration
+      .external_apis['insurance_api']}/policies/", params)
+    return false unless response.success?
+
+    insurance_company_approval!
+    true
   end
 
   def calculate_price
@@ -58,6 +70,7 @@ class Order < ApplicationRecord
   def assign_package_variables(insurance)
     self.price = insurance.price
     self.package_name = insurance.name
+    self.package_id = insurance.id
   end
 
   def generate_code

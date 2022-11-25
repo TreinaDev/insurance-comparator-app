@@ -46,3 +46,4 @@ Order.create(client: client2, equipment: equipment2, contract_period: 10, insura
              price: 10.00, final_price: 5000, insurance_name: 'Seguradora 46',
              package_name: 'Premium', product_category_id: 1, product_category: 'Macbook',
              status: :insurance_company_approval)
+
