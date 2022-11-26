@@ -1,12 +1,13 @@
 # rubocop:disable Metrics/ParameterLists
-# rubocop:disable Layout/LineLength
+# rubocop:disable Layout/MethodLength
 
 class Insurance
-  attr_accessor :id, :name, :max_period, :min_period, :insurance_company_id, :insurance_name, :price,
-                :product_category_id, :product_category, :product_model
+  attr_accessor :id, :name, :max_period, :min_period, :insurance_company_id, :insurance_name,
+                :price_per_month, :product_category_id, :product_model, :product_model_id,
+                :coberturas, :services
 
-  def initialize(id:, name:, max_period:, min_period:, insurance_company_id:,
-                 insurance_name:, price:, product_category_id:, product_category:, product_model:)
+  def initialize(id:, name:, max_period:, min_period:, insurance_company_id:, insurance_name:,
+                 price_per_month:, product_category_id:, product_model:, product_model_id:, coberturas:, services:)
 
     @id = id
     @name = name
@@ -14,43 +15,27 @@ class Insurance
     @min_period = min_period
     @insurance_company_id = insurance_company_id
     @insurance_name = insurance_name
-    @price = price
     @product_category_id = product_category_id
-    @product_category = product_category
     @product_model = product_model
+    @product_model_id = product_model_id
+    @coberturas = coberturas
+    @services = services
+    @price_per_month = price_per_month
   end
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
-
-  def self.search(query)
-    insurances = []
-    formated_query = query.split.join.downcase
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{query}")
-    if response.success?
-      data = JSON.parse(response.body)
-      data.each do |d|
-        next unless d['product_model'].split.join.downcase == formated_query
-
-        insurances << Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],
-                                    insurance_company_id: d['insurance_company_id'],
-                                    insurance_name: d['insurance_name'], price: d['price'],
-                                    product_category_id: d['product_category_id'], product_category: d['product_category'],
-                                    product_model: d['product_model'])
-      end
-    end; insurances
-  end
-  # rubocop:enable Metrics/MethodLength
-
-  def self.find(id)
-    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/insurances/#{id}")
+  def self.find(product_id, id)
+    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']
+                            }/products/#{product_id}/packages/#{id}")
     if response.success?
       d = JSON.parse(response.body)
-      insurance = Insurance.new(id: d['id'], name: d['name'], max_period: d['max_period'], min_period: d['min_period'],
-                                insurance_company_id: d['insurance_company_id'], insurance_name: d['insurance_name'],
-                                price: d['price'], product_category_id: d['product_category_id'],
-                                product_category: d['product_category'],
-                                product_model: d['product_model'])
+      insurance = Insurance.new(id: d['id'].to_i, name: d['name'], max_period: d['max_period'],
+                                min_period: d['min_period'], insurance_company_id: d['insurance_company_id'].to_i,
+                                insurance_name: d['insurance_company_name'],
+                                price_per_month: d['price_per_month'], product_model: d['product_model'],
+                                product_category_id: d['product_category_id'].to_i,
+                                product_model_id: d['product_model_id'].to_i,
+                                coberturas: d['coverages'], services: d['services'])
     end
     insurance
   end
@@ -58,4 +43,4 @@ end
 
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/ParameterLists
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/MethodLength
