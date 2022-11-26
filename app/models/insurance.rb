@@ -1,6 +1,8 @@
 # rubocop:disable Metrics/ParameterLists
 # rubocop:disable Layout/MethodLength
 
+require 'json'
+
 class Insurance
   attr_accessor :id, :name, :max_period, :min_period, :insurance_company_id, :insurance_name,
                 :price_per_month, :product_category_id, :product_model, :product_model_id,
@@ -38,6 +40,14 @@ class Insurance
                                 coberturas: d['coverages'], services: d['services'])
     end
     insurance
+  end
+
+  def as_json(options={})
+      { coberturas: @coberturas, services: @services }
+  end
+
+  def to_json(*options)
+      as_json(*options).to_json(*options)
   end
 end
 

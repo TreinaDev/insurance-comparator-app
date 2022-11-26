@@ -1,3 +1,5 @@
+require 'json'
+
 class Order < ApplicationRecord
   belongs_to :equipment
   belongs_to :client
@@ -47,6 +49,10 @@ class Order < ApplicationRecord
     assign_package_variables(insurance)
   end
 
+  def insurance_coverages
+    JSON.parse(self.insurance_description)
+  end
+
   private
 
   def assign_product_variables(insurance)
@@ -68,6 +74,7 @@ class Order < ApplicationRecord
     self.price = insurance.price_per_month
     self.package_name = insurance.name
     self.package_id = insurance.id
+    self.insurance_description = insurance.to_json
   end
 
   def generate_code

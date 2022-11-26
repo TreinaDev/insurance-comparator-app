@@ -26,6 +26,7 @@ class OrdersController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def create
     if @order.save && @order.validate_cpf(@order.client.cpf) && @order.post_policy
+      p @order
       redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
     elsif @order.save && @order.post_policy == false
       flash[:alert] = t(:your_order_was_not_registered)

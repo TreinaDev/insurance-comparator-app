@@ -112,7 +112,8 @@ describe 'Cliente compra pacote de seguro' do
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11', product_model_id: 1,
                               coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
-                              por danificação da tela do aparelho.' }], services: [])
+                              por danificação da tela do aparelho.' },
+                              { code: '18Z', name: 'Furto', description: 'Cobertura total do valor do aparelho.' }], services: [])
 
     json_data3 = Rails.root.join('spec/support/json/product.json').read
     fake_response3 = double('faraday_response', status: 200, body: json_data3)
@@ -153,6 +154,9 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_content 'Valor do Seguro a/m: R$ 100,00'
     expect(page).to have_content 'Valor final sem desconto: R$ 700,00'
     expect(page).to have_content 'Tipo de Pacote: Premium'
+    expect(page).to have_content 'Quebra de tela'
+    expect(page).to have_content 'Assistência por danificação da tela do aparelho.'
+    expect(page).to have_content 'Furto'
     expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
   end
 

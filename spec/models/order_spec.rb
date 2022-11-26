@@ -119,7 +119,9 @@ RSpec.describe Order, type: :model do
       order = Order.new(client:, equipment:, contract_period: 10, insurance_company_id: 45,
                         price: 10.00, final_price: 100, insurance_name: 'Seguradora 45',
                         package_name: 'Premium', product_category_id: 2, product_category: 'iPhone 11',
-                        status: :pending, package_id: 2)
+                        status: :pending, package_id: 2, insurance_description: '{"coberturas": [{"code": "76R", "name": "Quebra de tela", "description": "Assistência por danificação da tela do aparelho."}], "services": []}')  
+
+      p order.insurance_coverages['coberturas'][0]['code']
 
       fake_response = double('faraday_response', success?: false, status: 500)
       params = { policy: { client_name: client.name, client_registration_number: client.cpf,
