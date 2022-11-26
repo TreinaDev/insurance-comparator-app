@@ -38,15 +38,15 @@ class Order < ApplicationRecord
   end
 
   def approve_charge
-    self.charge_approved!
-    self.activate_policy
+    activate_policy
+    charge_approved!
   end
 
   private
 
   def activate_policy
     external_url = Rails.configuration.external_apis['insurance_api']
-    Faraday.post("#{external_url}/policies/#{@order.policy_code}/active")
+    Faraday.post("#{external_url}/policies/#{policy_code}/active")
   end
 
   def assign_product_variables(insurance)
