@@ -21,10 +21,7 @@ Rails.application.routes.draw do
         post 'payment_approved', on: :member 
         post 'payment_refused', on: :member 
       end
-      resources :payments, only: [:show], param: :order_id do
-        # post 'approved', on: :member  
-        # post 'refused', on: :member      
-      end
+      resources :payments, only: [:show], param: :order_id
       resources :orders, only: [:show, :update] do
         post 'insurance_approved', on: :member
         post 'insurance_disapproved', on: :member
