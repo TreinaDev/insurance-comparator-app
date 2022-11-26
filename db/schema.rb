@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_25_153303) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_26_175356) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,8 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_153303) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "email", default: "blank", null: false
+    t.string "encrypted_password", default: "blank", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -103,11 +103,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_153303) do
     t.integer "order_id", null: false
     t.integer "payment_method_id"
     t.integer "parcels"
-    t.integer "status", default: 0
     t.string "invoice_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "payment_description"
+    t.integer "status", default: 0
     t.index ["client_id"], name: "index_payments_on_client_id"
     t.index ["order_id"], name: "index_payments_on_order_id"
   end
