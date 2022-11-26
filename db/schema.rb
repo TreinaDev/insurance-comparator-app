@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2022_11_25_143948) do
+=======
+ActiveRecord::Schema[7.0].define(version: 2022_11_25_153303) do
+>>>>>>> main
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -93,6 +97,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_143948) do
     t.string "voucher_code"
     t.integer "package_id"
     t.integer "product_model_id"
+    t.integer "policy_id"
+    t.string "policy_code"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["equipment_id"], name: "index_orders_on_equipment_id"
   end

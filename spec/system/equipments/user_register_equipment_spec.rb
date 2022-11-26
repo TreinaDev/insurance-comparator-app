@@ -2,6 +2,11 @@ require 'rails_helper'
 
 describe 'Usuário cadastra dispositivo' do
   it 'a partir da tela inicial' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
 
@@ -21,6 +26,11 @@ describe 'Usuário cadastra dispositivo' do
   end
 
   it 'com sucesso' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
 
@@ -48,6 +58,11 @@ describe 'Usuário cadastra dispositivo' do
   end
 
   it 'e não é possível cadastrar o dispositivo' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
 
@@ -86,6 +101,11 @@ describe 'Usuário cadastra dispositivo' do
   end
 
   it 'e volta para tela inicial' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
 
@@ -99,6 +119,11 @@ describe 'Usuário cadastra dispositivo' do
   end
 
   it 'e volta para tela dos dispositivos' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
 

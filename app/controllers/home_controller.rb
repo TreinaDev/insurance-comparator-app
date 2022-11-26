@@ -1,3 +1,5 @@
 class HomeController < ApplicationController
-  def index; end
+  def index
+    @product_categories = Product.all_categories
+  end
 end

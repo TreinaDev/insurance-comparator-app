@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe 'Usuário cria uma conta' do
   it 'com sucesso' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
     visit root_path
     within 'nav' do
       click_link 'Entrar'

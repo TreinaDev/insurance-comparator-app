@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_client!
   before_action :set_order, only: [:show]
   before_action :set_insurance, only: %i[new create]
+  before_action :set_product_id, only: %i[new create]
 
   def index
     @orders = Order.all
@@ -68,10 +69,16 @@ class OrdersController < ApplicationController
   end
 
   def set_insurance
-    @insurance = Insurance.find(params[:insurance_id])
+    @insurance = Insurance.find(params[:product_id], params[:insurance_id])
   end
 
   def order_params
     params.require(:order).permit(:equipment_id, :contract_period)
+  end
+
+  def set_product_id
+    @product_id = params[:product_id]
+    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/products/#{@product_id}")
+    @product = JSON.parse(response.body)
   end
 end
