@@ -96,7 +96,7 @@ describe 'Usuário edita um dispositivo' do
     login_as client
     visit edit_equipment_path(equipment)
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq equipment_index_path
     expect(page).to have_content 'Não é possível editar um equipamento que está vinculado a um pedido.'
   end
 end
