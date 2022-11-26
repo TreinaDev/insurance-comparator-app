@@ -20,16 +20,23 @@ describe 'Cliente compra pacote de seguro' do
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')
 
-    insurance = Insurance.new(id: 44, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                              insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
-                              product_model: 'iPhone 11', product_model_id: 20,
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
-                              por danificação da tela do aparelho.' }], services: [])
+    json_data3 = Rails.root.join('spec/support/json/product_iphone.json').read
+    fake_response3 = double('faraday_response', status: 200, body: json_data3)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/products/1")
+                                   .and_return(fake_response3)
 
-    allow(Insurance).to receive(:find).with('20', '44').and_return(insurance)
+    json_data4 = Rails.root.join('spec/support/json/insurances.json').read
+    fake_response4 = double('faraday_response', status: 200, body: json_data4)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/products/1/packages")
+                                   .and_return(fake_response4)
+
+    json_data5 = Rails.root.join('spec/support/json/insurance.json').read
+    fake_response5 = double('faraday_response', success?: true, body: json_data5)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/products/1/packages/4")
+                                   .and_return(fake_response5)
 
     login_as(client)
-    visit new_product_insurance_order_path(insurance.product_model_id, insurance.id)
+    visit new_product_insurance_order_path(1, 4)
 
     expect(current_path).to eq new_equipment_path
     expect(page).to have_content 'É necessário cadastrar um dispositivo para contratar o seguro'

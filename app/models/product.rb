@@ -38,6 +38,5 @@ class Product
     response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
     @product_categories = JSON.parse(response.body)
   end
-
 end
 # rubocop:enable Layout/MethodLength
