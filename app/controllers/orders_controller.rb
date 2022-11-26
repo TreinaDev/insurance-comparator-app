@@ -34,24 +34,24 @@ class OrdersController < ApplicationController
 
   def voucher
     @order = Order.find(params[:id])
-
     @voucher = params[:voucher].upcase
-    voucher_params = { id: @order.product_model_id, price: @order.final_price }.to_query
-    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/promos/#{@voucher}/#{voucher_params}")
+    voucher_params = { product_id: @order.product_model_id, price: @order.final_price }.to_query
+    response = Faraday.get("#{Rails.configuration.external_apis['payment_fraud_api']}/promos/#{@voucher}/?#{voucher_params}")
     return unless response.success?
 
     data = JSON.parse(response.body)
     case data['status']
-    when 'Cupom expirado'
-      render 'new', notice: 'Cupom inserido com sucesso'
+    when 'Cupom expirado.'
+      redirect_to new_order_payment_path(@order), alert: 'Cupom expirado'
 
-    when 'Cupom inválido'
-      render 'new', notice: 'Cupom inserido com sucesso'
+    when 'Cupom inválido.'
+      redirect_to new_order_payment_path(@order), alert: 'Cupom inválido'
 
-    when 'Cupom válido'
+    when 'Cupom válido.'
       @order.voucher_code = @voucher
       @order.voucher_price = data['discount'].to_f
-      render 'new', notice: 'Cupom inserido com sucesso'
+      @order.save!
+      redirect_to new_order_payment_path(@order), notice: 'Cupom inserido com sucesso'
     end
   end
 
@@ -62,6 +62,7 @@ class OrdersController < ApplicationController
     @order.client = current_client
     @order.assign_insurance_to_order(@insurance)
     @order.validate_cpf(@order.client.cpf)
+    @order.product_model_id = @product_id
   end
 
   def set_order

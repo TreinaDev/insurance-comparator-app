@@ -7,7 +7,7 @@
     </div>
     <p class="card-text"><%="#{Order.human_attribute_name(:insurance_name)}: #{@order.insurance_name}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:package_name)}: #{@order.package_name}"%></p>
-    <p class="card-text"><%="#{Order.human_attribute_name(:product_model)}: #{@order.product_model}"%></p>
+    <p class="card-text"><%="#{Order.human_attribute_name(:product_model)}: #{@order.product_model_id}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:product_category)}: #{@order.product_category}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:contract_period)}: #{@order.contract_period} #{t :month, count: @order.contract_period}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:equipment)}: #{@equipment.name}"%></p>

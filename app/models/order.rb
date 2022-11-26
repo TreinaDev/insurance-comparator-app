@@ -58,6 +58,7 @@ class Order < ApplicationRecord
   def assign_package_variables(insurance)
     self.price = insurance.price_per_month
     self.package_name = insurance.name
+    self.package_id = insurance.id
   end
 
   def generate_code
