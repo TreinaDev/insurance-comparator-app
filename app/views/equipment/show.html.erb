@@ -15,5 +15,7 @@
   <% end %>
   </dd>
 </dl>
-<%= link_to t(:edit), edit_equipment_path, class: 'btn btn-dark mt-2'%>
+<% if @equipment.orders.blank?%>
+  <%= link_to t(:edit), edit_equipment_path, class: 'btn btn-dark mt-2'%>
+<% end %>
 <%= link_to I18n.t(:back), equipment_index_path, class: 'btn btn-dark mt-2'%>

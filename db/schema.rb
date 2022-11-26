@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_25_153303) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_26_175356) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -103,11 +103,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_153303) do
     t.integer "order_id", null: false
     t.integer "payment_method_id"
     t.integer "parcels"
-    t.integer "status", default: 0
     t.string "invoice_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "payment_description"
+    t.integer "status", default: 0
     t.index ["client_id"], name: "index_payments_on_client_id"
     t.index ["order_id"], name: "index_payments_on_order_id"
   end
