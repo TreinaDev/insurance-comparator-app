@@ -27,6 +27,7 @@ class OrdersController < ApplicationController
     if @order.save && @order.validate_cpf(@order.client.cpf) && @order.post_policy
       return redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
     end
+
     flash.now[:alert] = t(:your_order_was_not_registered)
     render :new
   end
