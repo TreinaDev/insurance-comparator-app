@@ -11,9 +11,13 @@ describe 'Order API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6,
-                                insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
-                                product_category_id: 1, product_category: 'Celular', product_model: 'iphone 11')
+
+      insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
+                                insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
+                                product_model: 'iphone 11', product_model_id: 1,
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                por danificação da tela do aparelho.' }], services: [])
+
       allow(SecureRandom).to receive(:alphanumeric).and_return('ABCD-0123456789')
       Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,
                     contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
@@ -53,9 +57,12 @@ describe 'Order API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6,
-                                insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
-                                product_category_id: 1, product_category: 'Celular', product_model: 'iphone 11')
+
+      insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
+                                insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
+                                product_model: 'iphone 11', product_model_id: 1,
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                por danificação da tela do aparelho.' }], services: [])
 
       order = Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,
                             contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
@@ -85,9 +92,12 @@ describe 'Order API' do
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
                                              fixture_file_upload('spec/support/photo_2.jpg')])
-      insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6,
-                                insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 175.00,
-                                product_category_id: 1, product_category: 'Celular', product_model: 'iphone 11')
+
+      insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
+                                insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
+                                product_model: 'iphone 11', product_model_id: 1,
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                por danificação da tela do aparelho.' }], services: [])
 
       order = Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,
                             contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
