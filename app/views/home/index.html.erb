@@ -2,6 +2,7 @@
 <p class="text-secondary"> Informe abaixo o nome do seu produto para encontrar os Pacotes de Seguro compatíveis </p>
 <hr/>
 
+<h3>Digite o modelo do seu equipamento</h3>
 <%= form_with(url: search_path, method: :get) do |f|%>
   
 <div class="row g-3 align-items-center mt-4">
@@ -16,4 +17,21 @@
   </div>
 </div>
 <% end %>
+<br>
+<br>
 
+<h3>Ou selecione uma das opções abaixo</h3>
+
+<% if @product_categories.empty? %>
+  <div class="alert alert-secondary" role="alert">
+    Não foi possível carregar as categorias.
+  </div>
+<% end %>
+
+<% @product_categories.each do |pc| %>
+  <div button type="button" class="btn btn-outline-primary">
+    <i class="bi bi-phone">
+      <br><%= link_to pc['name'], product_path(pc['id']), :class => "btn" %>
+    </i>
+  </div>
+<% end %>

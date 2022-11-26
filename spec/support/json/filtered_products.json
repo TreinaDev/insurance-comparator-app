@@ -1,0 +1,22 @@
+[
+  {
+    "id": 3,
+    "product_model": "iPhone 14 Pro",
+    "launch_year": "2022",
+    "brand": "Apple",
+    "price": "10000.0",
+    "status": "active",
+    "product_category_id": 1,
+    "image_url": "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--da930e6da29d45bcb71d7a9ed6e4709e9052ef69/iphone_14.png"
+  },
+  {
+    "id": 1,
+    "product_model": "iPhone 12",
+    "launch_year": "2020",
+    "brand": "Apple",
+    "price": "5000.0",
+    "status": "active",
+    "product_category_id": 1,
+    "image_url": "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--1194ba57938d088ab53d9e3762b6f60b0a89754f/iphone_12.png"
+  }
+]
