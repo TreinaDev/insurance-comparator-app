@@ -32,13 +32,13 @@ equipment3.save!
 Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
               insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
               product_category_id: 1, product_model: 'iphone 11',
-              insurance_coverage: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
 Insurance.new(id: 46, name: 'Master', max_period: 24, min_period: 6,
               insurance_company_id: 1, insurance_name: 'Seguradora 46', price_per_month: 10.00,
               product_category_id: 1, product_model: 'macbook',
-              insurance_coverage: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
 Order.create(client: client1, equipment:, contract_period: 10, insurance_company_id: 45,
