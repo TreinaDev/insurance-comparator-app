@@ -16,6 +16,11 @@ describe 'Cliente compra pacote de seguro' do
   end
 
   it 'se tiver um dispositivo cadastrado' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')
@@ -138,6 +143,7 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_content 'Tipo de Pacote: Premium'
     expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
   end
+
   it 'tenta contratar sem selecionar as opções' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',

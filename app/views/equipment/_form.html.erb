@@ -14,6 +14,12 @@
         <%= f.label :name, class: 'form-label' %><br />
         <%= f.text_field :name, autofocus: true, class: 'form-control' %>
       </div>
+
+      <div class="mb-3 col-lg-3 col-6">
+        <%= f.label :product_category_id, class: 'form-label' %>
+        <%= f.select :product_category_id, @product_categories.collect { |pc| [pc[:id], pc[:name]]}, class: 'form-control' %>
+      </div>
+
       <div class="mb-3 col-lg-3 col-6">
         <%= f.label :equipment_price, class: 'form-label' %><br />
         <%= f.number_field :equipment_price, placeholder: 'R$', class: 'form-control' %>

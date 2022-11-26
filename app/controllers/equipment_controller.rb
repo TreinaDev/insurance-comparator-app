@@ -11,9 +11,12 @@ class EquipmentController < ApplicationController
 
   def new
     @equipment = Equipment.new
+    @product_categories = Product.all_categories
   end
 
-  def edit; end
+  def edit
+    @product_categories = Product.all_categories
+  end
 
   def create
     @equipment = Equipment.new(equipment_params)
@@ -21,6 +24,7 @@ class EquipmentController < ApplicationController
     if @equipment.save
       redirect_to @equipment, notice: t(:equipment_created)
     else
+      @product_categories = Product.all_categories
       flash.now[:alert] = t(:equipment_not_created)
       render :new
     end
@@ -30,6 +34,7 @@ class EquipmentController < ApplicationController
     if @equipment.update(equipment_params)
       redirect_to @equipment, notice: t(:equipment_updated)
     else
+      @product_categories = Product.all_categories
       flash.now[:alert] = t(:equipment_not_updated)
       render :edit
     end
