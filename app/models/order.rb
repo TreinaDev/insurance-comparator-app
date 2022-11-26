@@ -24,11 +24,8 @@ class Order < ApplicationRecord
   end
 
   def post_policy
-    params = { policy: { client_name: client.name, client_registration_number: client.cpf, 
-               client_email: client.email, policy_period: contract_period, order_id: id,
-               package_id: package_id, insurance_company_id: insurance_company_id, equipment_id: equipment_id} }
     response = Faraday.post("#{Rails.configuration
-      .external_apis['insurance_api']}/policies/", params)
+      .external_apis['insurance_api']}/policies/", set_params)
     return false unless response.success?
 
     insurance_company_approval!
@@ -75,5 +72,11 @@ class Order < ApplicationRecord
 
   def generate_code
     self.code = SecureRandom.alphanumeric(15).upcase
+  end
+
+  def set_params
+    { policy: { client_name: client.name, client_registration_number: client.cpf,
+                client_email: client.email, policy_period: contract_period, order_id: id,
+                package_id:, insurance_company_id:, equipment_id: } }
   end
 end

@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show]
   before_action :set_insurance, only: %i[new create]
   before_action :set_product_id, only: %i[new create]
+  before_action :assign_order_variables, only: %i[create]
 
   def index
     @orders = Order.all
@@ -22,15 +23,18 @@ class OrdersController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
-    assign_order_variables
     if @order.save && @order.validate_cpf(@order.client.cpf) && @order.post_policy
-      return redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
+      redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
+    elsif @order.save && @order.post_policy == false
+      flash[:alert] = t(:your_order_was_not_registered)
+      redirect_to new_product_insurance_order_path
+    else
+      throw_error
     end
-
-    flash.now[:alert] = t(:your_order_was_not_registered)
-    render :new
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -57,5 +61,10 @@ class OrdersController < ApplicationController
     @product_id = params[:product_id]
     response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/products/#{@product_id}")
     @product = JSON.parse(response.body)
+  end
+
+  def throw_error
+    flash.now[:alert] = t(:your_order_was_not_registered)
+    render :new
   end
 end
