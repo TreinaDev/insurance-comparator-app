@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário edita um dispositivo' do
+describe 'Cliente edita um dispositivo' do
   it 'se estiver autenticado' do
     client = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                             state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')

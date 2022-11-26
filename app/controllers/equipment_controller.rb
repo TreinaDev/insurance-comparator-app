@@ -46,8 +46,9 @@ class EquipmentController < ApplicationController
   end
 
   def cannot_belong_to_an_order
-    return unless @equipment.orders.present?
-      redirect_to equipment_index_path,
-                  alert: t(:unable_to_edit_equipment_that_is_linked_to_order)
+    return if @equipment.orders.blank?
+
+    redirect_to equipment_index_path,
+                alert: t(:unable_to_edit_equipment_that_is_linked_to_order)
   end
 end
