@@ -12,6 +12,7 @@ class Api::V1::PaymentsController < Api::V1::ApiController
 
     if payment_params[:status] == 'approved'
       if @payment.update(payment_params)
+        @payment.order.approve_charge
         render status: :ok, json: create_json(@payment)
       else
         render status: :precondition_failed, json: { errors: @payment.errors.full_messages }
@@ -36,7 +37,7 @@ class Api::V1::PaymentsController < Api::V1::ApiController
   end
 
   private
-
+  
   def create_json(payment)
     payment.as_json(except: %i[created_at updated_at client_id],
                     include: { client: { only: :cpf },
