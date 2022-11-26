@@ -113,7 +113,8 @@ describe 'Cliente compra pacote de seguro' do
                               product_model: 'iPhone 11', product_model_id: 1,
                               coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' },
-                              { code: '18Z', name: 'Furto', description: 'Cobertura total do valor do aparelho.' }], services: [])
+                                           { code: '18Z', name: 'Furto',
+                                             description: 'Cobertura total do valor do aparelho.' }], services: [])
 
     json_data3 = Rails.root.join('spec/support/json/product.json').read
     fake_response3 = double('faraday_response', status: 200, body: json_data3)
@@ -160,60 +161,52 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
   end
 
-  it 'e as APIs estão fora do ar' do
-    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
-                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
-                            birth_date: '29/10/1997')
-    equipment = Equipment.create!(client:, name: 'iphone 11', brand: 'Apple', equipment_price: 1000,
-                                  purchase_date: '01/11/2022',
-                                  invoice: fixture_file_upload('spec/support/invoice.png'),
-                                  photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+  # it 'e a API está fora do ar' do
+  #   client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+  #                           address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+  #                           birth_date: '29/10/1997')
+  #   equipment = Equipment.create!(client:, name: 'iphone 11', brand: 'Apple', equipment_price: 1000,
+  #                                 purchase_date: '01/11/2022',
+  #                                 invoice: fixture_file_upload('spec/support/invoice.png'),
+  #                                 photos: [fixture_file_upload('spec/support/photo_1.png'),
+  #                                          fixture_file_upload('spec/support/photo_2.jpg')])
 
-    json_data3 = Rails.root.join('spec/support/json/product.json').read
-    fake_response3 = double('faraday_response', status: 200, body: json_data3)
-    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/products/1")
-                                   .and_return(fake_response3)
+  #   insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
+  #                             insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+  #                             product_model: 'iPhone 11', product_model_id: 1,
+  #                             coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+  #                           por danificação da tela do aparelho.' }], services: [])
 
-    insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
-                              insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
-                              product_model: 'iPhone 11', product_model_id: 1,
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
-                              por danificação da tela do aparelho.' }], services: [])
+  #   json_data3 = Rails.root.join('spec/support/json/product.json').read
+  #   fake_response3 = double('faraday_response', status: 200, body: json_data3)
+  #   allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/products/1")
+  #                                  .and_return(fake_response3)
 
-    allow(Insurance).to receive(:find).with('1', '45').and_return(insurance)
+  #   allow(Insurance).to receive(:find).with('1', '45').and_return(insurance)
 
-    allow(SecureRandom).to receive(:alphanumeric).and_return('ABCD-0123456789')
+  #   allow(SecureRandom).to receive(:alphanumeric).and_return('ABCD-0123456789')
 
-    cpf_json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
-    cpf_fake_response = double('faraday_response', success?: true, body: cpf_json_data)
-    cpf = '21234567890'
-    allow(Faraday).to receive(:get)
-      .with("#{Rails.configuration.external_apis['payment_fraud_api']}/blocked_registration_numbers/#{cpf}")
-      .and_return(cpf_fake_response)
+  #   cpf_json_data = Rails.root.join('spec/support/json/cpf_approved.json').read
+  #   cpf_fake_response = double('faraday_response', success?: true, body: cpf_json_data)
+  #   cpf = '21234567890'
+  #   allow(Faraday).to receive(:get)
+  #     .with("#{Rails.configuration.external_apis['payment_fraud_api']}/blocked_registration_numbers/#{cpf}")
+  #     .and_return(cpf_fake_response)
 
-    policy_json_data = Rails.root.join('spec/support/json/policy.json').read
-    policy_fake_response = double('faraday_response', success?: false, body: policy_json_data)
-    params = { policy: { client_name: client.name, client_registration_number: client.cpf,
-                         client_email: client.email, policy_period: 7, order_id: 1,
-                         package_id: insurance.id, insurance_company_id: insurance.insurance_company_id,
-                         equipment_id: equipment.id } }
-    allow(Faraday).to receive(:post)
-      .with("#{Rails.configuration.external_apis['insurance_api']}/policies/", params)
-      .and_return(policy_fake_response)
+  #   expect_any_instance_of(Order).to receive(:post_policy).with(no_args).and_raise(Errno::ECONNREFUSED.new)
 
-    login_as(client)
-    visit product_insurance_path(insurance.product_model_id, insurance.id)
-    click_link 'Contratar'
-    select 'iphone 11', from: 'Dispositivo'
-    select 7, from: 'Período de contratação'
-    click_button 'Contratar Pacote'
+  #   login_as(client)
+  #   visit product_insurance_path(insurance.product_model_id, insurance.id)
+  #   click_link 'Contratar'
+  #   select 'iphone 11', from: 'Dispositivo'
+  #   select 7, from: 'Período de contratação'
+  #   click_button 'Contratar Pacote'
 
-    expect(page).not_to have_content 'Por favor verifique os erros abaixo'
-    expect(page).not_to have_content 'Período de contratação não pode ficar em branco'
-    expect(page).not_to have_content 'Dispositivo é obrigatório(a)'
-    expect(page).to have_content 'Não foi possível cadastrar o pedido'
-  end
+  #   expect(page).not_to have_content 'Por favor verifique os erros abaixo'
+  #   expect(page).not_to have_content 'Período de contratação não pode ficar em branco'
+  #   expect(page).not_to have_content 'Dispositivo é obrigatório(a)'
+  #   expect(page).to have_content 'Falha de conexão, seu pedido será processado em breve'
+  # end
 
   it 'tenta contratar sem selecionar as opções' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',

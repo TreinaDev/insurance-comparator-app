@@ -42,12 +42,12 @@ class Insurance
     insurance
   end
 
-  def as_json(options={})
-      { coberturas: @coberturas, services: @services }
+  def as_json(_options = {})
+    { coberturas: @coberturas, services: @services }
   end
 
   def to_json(*options)
-      as_json(*options).to_json(*options)
+    as_json(*options).to_json(*options)
   end
 end
 

@@ -1,9 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_client!
   before_action :set_order, only: [:show]
-  before_action :set_insurance, only: %i[new create]
+  before_action :set_insurance, only: %i[new]
   before_action :set_product_id, only: %i[new create]
-  before_action :assign_order_variables, only: %i[create]
 
   def index
     @orders = Order.all
@@ -23,19 +22,28 @@ class OrdersController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def create
-    if @order.save && @order.validate_cpf(@order.client.cpf) && @order.post_policy
-      p @order
+    set_insurance
+    assign_order_variables
+    if @order.validate_cpf(@order.client.cpf) && @order.valid?
+      @order.save
+      unless @order.post_policy
+        flash.now[:alert] = t(:fail_connection_api)
+        return redirect_to order_path(@order.id)
+      end
       redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
-    elsif @order.save && @order.post_policy == false
-      flash[:alert] = t(:your_order_was_not_registered)
-      redirect_to new_product_insurance_order_path
     else
-      throw_error
+      flash.now[:alert] = t(:your_order_was_not_registered)
+      render :new
     end
+  rescue Errno::ECONNREFUSED
+    flash.now[:alert] = t(:fail_connection_api)
+    redirect_to root_path
   end
   # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   private
 

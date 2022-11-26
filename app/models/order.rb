@@ -49,7 +49,7 @@ class Order < ApplicationRecord
   end
 
   def insurance_coverages
-    JSON.parse(self.insurance_description)
+    JSON.parse(insurance_description)
   end
 
   private

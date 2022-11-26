@@ -13,17 +13,18 @@
     <p class="card-text"><%="#{Order.human_attribute_name(:equipment)}: #{@equipment.name}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:price)}: #{number_to_currency(@order.price, unit: "R$", separator: ",", delimiter: "", format: "%u %n")}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:final_price)}: #{number_to_currency(@order.final_price, unit: "R$", separator: ",", delimiter: "", format: "%u %n")}"%></p>
-    <p class="card-text"> <%= Order.human_attribute_name(:status) %>: <%= Order.human_attribute_name("status.#{@order.status}")%></p>
     
-    <% @order.insurance_coverages['coberturas'].each do |c| %>
-      <%= c['name'] %>
-      <%= c['description'] %>
+    <% if !@order.insurance_coverages['coberturas'].nil?%>
+      <% @order.insurance_coverages['coberturas'].each do |c| %>
+        <p class="card-text"> <%= Order.human_attribute_name(:insurance_description) %>: <%= Order.human_attribute_name(c['name'])%> - <%= c['description'] %></p>
+      <% end %>
     <% end %>
 
     <% if @order.charge_pending? %>
       <p class="card-text"><%=Order.human_attribute_name(:payment_method)%>: <%=@order.payment.payment_description%></p>
       <p class="card-text"><%=Payment.human_attribute_name(:parcels)%>: <%=@order.payment.parcels%>x</p>
     <% end %>
+    <p class="card-text"> <%= Order.human_attribute_name(:status) %>: <%= Order.human_attribute_name("status.#{@order.status}")%></p>
   </div>
   <% @order.equipment.photos.each do |photo| %>
     <%= image_tag photo, class:"card-img-top" %>
