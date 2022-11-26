@@ -169,7 +169,7 @@ Os dados a serem fornecidos para os usuários desta app serão consumidos via AP
 
 ```json
 
-{ "transaction_registration_number": "USAIUE55D85A" }}
+{ "transaction_registration_number": "USAIUE55D85A" }
 
 ```
 
