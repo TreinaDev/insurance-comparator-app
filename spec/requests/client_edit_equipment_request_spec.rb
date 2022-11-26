@@ -30,6 +30,6 @@ describe 'Usuário edita um dispositivo' do
     login_as client
 
     patch(equipment_path(equipment), params: { equipment: { equipment_price: 15_199 } })
-    expect(response).to redirect_to root_path
+    expect(response).to redirect_to equipment_index_path
   end
 end
