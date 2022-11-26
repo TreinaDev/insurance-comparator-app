@@ -7,8 +7,7 @@ class Order < ApplicationRecord
   validates :contract_period, presence: true
   validates :contract_period, comparison: { greater_than: 0 }, allow_blank: false
   enum status: { pending: 0, insurance_company_approval: 2, insurance_approved: 3, cpf_disapproved: 6,
-                 charge_pending: 9, charge_approved: 12, charge_refused: 14 }
-  # enum payment_method: { credit_card: 4, pix: 8, boleto: 12 }
+                 insurance_disapproved: 4, charge_pending: 9, charge_approved: 12, charge_refused: 14 }
 
   def validate_cpf(client_cpf)
     response = Faraday.get("#{Rails.configuration
@@ -42,7 +41,6 @@ class Order < ApplicationRecord
 
   def assign_product_variables(insurance)
     self.product_category_id = insurance.product_category_id
-    self.product_category = insurance.product_category
     self.product_model = insurance.product_model
   end
 
@@ -57,7 +55,7 @@ class Order < ApplicationRecord
   end
 
   def assign_package_variables(insurance)
-    self.price = insurance.price
+    self.price = insurance.price_per_month
     self.package_name = insurance.name
   end
 

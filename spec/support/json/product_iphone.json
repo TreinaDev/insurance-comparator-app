@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "product_model": "iPhone 12",
+  "launch_year": "2018",
+  "brand": "Apple",
+  "price": "2000.0",
+  "status": "active",
+  "product_category_id": 1,
+  "image_url": "http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--677e89aa27092ea9bbb3e13b6a048138d50182fa/galaxy-s20-produto.jpg"
+}

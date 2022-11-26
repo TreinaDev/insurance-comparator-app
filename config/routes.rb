@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   root "home#index"
-  get 'search', to: 'insurances#search'
   get 'profile', to: 'clients#profile'
   devise_for :clients
-  resources :insurances, only: [:show, :new, :create] do 
-    resources :orders, only: [:new, :create]
-  end  
+  get 'search', to: 'products#search'
+
+  resources :products, only: [:show] do 
+    resources :insurances, only: [:index, :show, :new, :create] do 
+      resources :orders, only: [:new, :create, :update]
+    end 
+  end
+
   resources :orders, only: [:show, :index] do
     resources :payments, only: [:new, :create]
   end
@@ -18,9 +22,14 @@ Rails.application.routes.draw do
         post 'payment_refused', on: :member 
       end
       resources :payments, only: [:show], param: :order_id do
-        post 'approved', on: :member  
-        post 'refused', on: :member      
+        # post 'approved', on: :member  
+        # post 'refused', on: :member      
+      end
+      resources :orders, only: [:show, :update] do
+        post 'insurance_approved', on: :member
+        post 'insurance_disapproved', on: :member
       end
     end
   end
+
 end

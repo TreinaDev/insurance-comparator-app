@@ -9,6 +9,11 @@ describe 'Cliente vê o seu perfil' do
   end
 
   it 'a partir do menu' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
                             birth_date: '29/10/1997')

@@ -1,0 +1,7 @@
+<h1>Selecione seu Pacote</h1>
+
+<% @packages.each do |pack| %>
+   nome: <%= link_to pack['name'], product_insurance_path(pack['id']) %>
+   preço: <%= pack['price'] %>
+  <br>
+<% end %>
