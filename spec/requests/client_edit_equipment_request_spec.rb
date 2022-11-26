@@ -8,7 +8,7 @@ describe 'Usuário edita um dispositivo' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'), equipment_price: 10_199,
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
-    patch(equipment_path(equipment), params: {equipment: {equipment_price: 15_199}})
+    patch(equipment_path(equipment), params: { equipment: { equipment_price: 15_199 } })
     expect(response).to redirect_to new_client_session_path
   end
 
@@ -29,7 +29,7 @@ describe 'Usuário edita um dispositivo' do
 
     login_as client
 
-    patch(equipment_path(equipment), params: {equipment: {equipment_price: 15_199}})
+    patch(equipment_path(equipment), params: { equipment: { equipment_price: 15_199 } })
     expect(response).to redirect_to root_path
   end
 end
