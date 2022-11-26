@@ -118,4 +118,45 @@ describe 'Order API' do
       expect(json_response['policy_code']).to eq 'ABC1234567'
     end
   end
+  
+  context 'POST /api/v1/policies/:code/active' do
+    it 'com sucesso e apólice é ativada' do 
+      client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                              address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                              birth_date: '29/10/1997')
+      equipment = Equipment.create!(client:, name: 'iphone 11', brand: 'Apple', equipment_price: 1000,
+                                    purchase_date: '01/11/2022',
+                                    invoice: fixture_file_upload('spec/support/invoice.png'),
+                                    photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                             fixture_file_upload('spec/support/photo_2.jpg')])
+
+      insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
+                                insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
+                                product_model: 'iphone 11', product_model_id: 1,
+                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                por danificação da tela do aparelho.' }], services: [])
+      order = Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,
+                            contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
+                            package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
+                            voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
+                            product_model: 'iPhone 11', status: 0,
+                            package_id: insurance.id, policy_id: 3, policy_code: 'GHI1234567')
+                            
+      allow(Order).to receive(:activate_policy).with(@order.policy_code).and_return(order)                      
+      external_url = Rails.configuration.external_apis['insurance_api']
+      Faraday.post("#{external_url}/policies/#{@order.policy_code}/active")
+
+      url = "http://localhost:4000/api/v1/orders/#{policy.order_id}/insurance_approved"
+      json_data = { order: { status: ':insurance_approved', policy_id: policy.id.to_s,
+                           policy_code: policy.code.to_s } }
+      fake_response = double('faraday_response', status: 200)
+
+      allow(Faraday).to receive(:post).with(url, body: json_data).and_return(fake_response)
+
+                                  
+
+
+    end
+  end
+
 end
