@@ -3,6 +3,9 @@ pt-BR:
   equipment_not_created: Não foi possível registrar o seu dispositivo.
   equipment_updated: Seu dispositivo foi atualizado com sucesso!
   equipment_not_updated: Não foi possível editar o seu dispositivo.
+  unable_to_edit_equipment_that_is_linked_to_order: Não é possível editar um equipamento que está vinculado a um pedido.
+  edit_equipment: Editar Dispositivo
+  equipment_registration: Cadastro de Dispositivo
   activerecord:
     models:
       equipment:

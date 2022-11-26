@@ -1,10 +1,10 @@
 <% if @equipment.errors.any? %>
-    <p> Verifique os erros abaixo: </p>
-    <ul>
+  <h5> <%= t(:please_check_errors, count: @equipment.errors.count) %>: </h5>
+  <ul>
     <% @equipment.errors.full_messages.each do |msg| %>
-        <li class="alert alert-danger" role="alert"><%= msg %> </li>
+      <li class="alert alert-danger" role="alert"><%= msg %> </li>
     <% end %>
-    </ul>
+  </ul>
 <%end%>
 
 <div class="container">
