@@ -4,9 +4,8 @@ development:
   payment_fraud_api: http://localhost:5000/api/v1
 
 test:
-  insurance_api: http://localhost:3000/api/v1
-  payment_fraud_api: http://localhost:5000/api/v1
-
+  insurance_api: http://apiseguros/api/v1
+  payment_fraud_api: http://apipagamentos/api/v1
 
 production:
   insurance_api: https://63781a5e5c477765122c38f4.mockapi.io/api/v1
