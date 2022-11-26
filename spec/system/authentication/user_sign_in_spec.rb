@@ -2,6 +2,11 @@ require 'rails_helper'
 
 describe 'Usuário se autentica' do
   it 'com sucesso a partir da tela inicial' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     Client.create!(name: 'Thalis', email: 'thalis@gmail.com', password: '12345678', cpf: '02938477569',
                    address: 'Rua das Rosas, 350', city: 'Salvador', state: 'BA', birth_date: '09-02-1998')
 
@@ -45,6 +50,10 @@ describe 'Usuário se autentica' do
   end
 
   it 'e faz logout' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
     client = Client.create!(name: 'Thalis', email: 'thalis@gmail.com', password: '12345678', cpf: '02938477569',
                             address: 'Rua das Rosas, 350', city: 'Salvador', state: 'BA', birth_date: '09-02-1998')
 

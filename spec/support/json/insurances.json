@@ -1,41 +1,61 @@
 [
-  
-  {
-    "id": 1,
-    "name": "Super Econômico",
-    "max_period": 18,
-    "min_period": 6,
-    "insurance_company_id": 1,
-    "insurance_name": "Seguradora 1",
-    "price": 100.00,
-    "product_category_id": 1,
-    "product_category": "Telefone",
-    "product_model": "IPhone 11"
-  },
-
-  {
-    "id": 2,
-    "name": "Premium",
-    "max_period": 24,
-    "min_period": 6,
-    "insurance_company_id": 2,
-    "insurance_name": "Seguradora 2",
-    "price": 400.00,
-    "product_category_id": 1,
-    "product_category": "Telefone",
-    "product_model": "IPhone 11"
-  },
-
   {
     "id": 3,
-    "name": "Super Econômico",
-    "max_period": 18,
-    "min_period": 6,
-    "insurance_company_id": 1,
-    "insurance_name": "Seguradora 1",
-    "price": 100.00,
+    "name": "Super Premium",
+    "max_period": 24,
+    "min_period": 12,
+    "insurance_company_id": 4,
+    "price": "1.5",
     "product_category_id": 1,
-    "product_category": "Computador",
-    "product_model": "MacBook"
+    "coverages": [
+      {
+        "code": "H9N",
+        "name": "Molhar",
+        "description": "Assistência por danificação devido a molhar o aparelho."
+      }
+    ],
+    "services": [],
+    "price_per_month": "75.0",
+    "insurance_company_name": "Anjo Seguradora"
+  },
+  {
+    "id": 4,
+    "name": "Super Econômico",
+    "max_period": 24,
+    "min_period": 6,
+    "insurance_company_id": 4,
+    "price": "8.5",
+    "product_category_id": 1,
+    "coverages": [
+      {
+        "code": "H9N",
+        "name": "Molhar",
+        "description": "Assistência por danificação devido a molhar o aparelho."
+      },
+      {
+        "code": "I6E",
+        "name": "Quebra de tela",
+        "description": "Assistência por danificação da tela do aparelho."
+      },
+      {
+        "code": "HFP",
+        "name": "Furto",
+        "description": "Reembolso de valor em caso de roubo do aparelho."
+      }
+    ],
+    "services": [
+      {
+        "code": "IYT",
+        "name": "Assinatura TV",
+        "description": "Concede 10% de desconto em assinatura com mais canais disponíveis no mercado."
+      },
+      {
+        "code": "YTS",
+        "name": "Desconto clubes seguros",
+        "description": "Concede 10% de desconto em aquisição de seguro veicular."
+      }
+    ],
+    "price_per_month": "70.0",
+    "insurance_company_name": "Anjo Seguradora"
   }
 ]

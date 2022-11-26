@@ -1,12 +1,39 @@
 {
-  "id": 1,
+  "id": 4,
   "name": "Super Econômico",
-  "max_period": 18,
+  "max_period": 24,
   "min_period": 6,
-  "insurance_company_id": 1,
-  "insurance_name": "Seguradora 1",
-  "price": 100.00,
+  "insurance_company_id": 4,
   "product_category_id": 1,
-  "product_category": "Telefone",
-  "product_model": "iPhone 11"
+  "coverages": [
+    {
+      "code": "H9N",
+      "name": "Molhar",
+      "description": "Assistência por danificação devido a molhar o aparelho."
+    },
+    {
+      "code": "I6E",
+      "name": "Quebra de tela",
+      "description": "Assistência por danificação da tela do aparelho."
+    },
+    {
+      "code": "HFP",
+      "name": "Furto",
+      "description": "Reembolso de valor em caso de roubo do aparelho."
+    }
+  ],
+  "services": [
+    {
+      "code": "IYT",
+      "name": "Assinatura TV",
+      "description": "Concede 10% de desconto em assinatura com mais canais disponíveis no mercado."
+    },
+    {
+      "code": "YTS",
+      "name": "Desconto clubes seguros",
+      "description": "Concede 10% de desconto em aquisição de seguro veicular."
+    }
+  ],
+  "price_per_month": "100.0",
+  "insurance_company_name": "Anjo Seguradora"
 }

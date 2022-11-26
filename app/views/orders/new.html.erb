@@ -34,7 +34,7 @@
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
           <b><%= t :product_model %>:</b>
-          <%= @insurance.product_model %>
+          <%= @product['product_model'] %>
         </li>
       </div>
     </div>
@@ -43,12 +43,13 @@
       <div class="col-lg-6 col-12">
         <li class="list-group-item">
           <b><%= Order.human_attribute_name(:price) %>:</b>
-          <%= "#{number_to_currency(@insurance.price, unit: "R$", separator: ".", delimiter: "", format: "%u %n")}" %>
+          <%= "#{number_to_currency(@insurance.price_per_month)}" %>
         </li>
       </div>
     </div>
   </div>
-  <%= form_with model: @order, url: "/insurances/#{@insurance.id}/orders", method: :post do |f| %>
+
+  <%= form_with model: [:product, :insurance, @order], method: :post do |f| %>
     <div class="row"> 
       <div class="col-lg-6 col-12 mb-2">
         <li class="list-group-item">

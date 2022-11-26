@@ -30,12 +30,16 @@ equipment3.photos.attach(io: Rails.root.join('spec/support/photo_2.jpg').open, f
 equipment3.save!
 
 Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
-              insurance_company_id: 1, insurance_name: 'Seguradora 45', price: 10.00,
-              product_category_id: 1, product_category: 'Celular', product_model: 'iphone 11')
+              insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
+              product_category_id: 1, product_model: 'iphone 11',
+              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+              por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
 Insurance.new(id: 46, name: 'Master', max_period: 24, min_period: 6,
-              insurance_company_id: 1, insurance_name: 'Seguradora 46', price: 10.00,
-              product_category_id: 1, product_category: 'Notebook', product_model: 'macbook')
+              insurance_company_id: 1, insurance_name: 'Seguradora 46', price_per_month: 10.00,
+              product_category_id: 1, product_model: 'macbook',
+              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+              por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
 Order.create(client: client1, equipment:, contract_period: 10, insurance_company_id: 45,
              price: 10.00, final_price: 100, insurance_name: 'Seguradora 45',

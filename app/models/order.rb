@@ -42,7 +42,6 @@ class Order < ApplicationRecord
 
   def assign_product_variables(insurance)
     self.product_category_id = insurance.product_category_id
-    self.product_category = insurance.product_category
     self.product_model = insurance.product_model
   end
 
@@ -57,7 +56,7 @@ class Order < ApplicationRecord
   end
 
   def assign_package_variables(insurance)
-    self.price = insurance.price
+    self.price = insurance.price_per_month
     self.package_name = insurance.name
   end
 
