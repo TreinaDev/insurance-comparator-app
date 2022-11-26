@@ -10,7 +10,7 @@ pt-BR:
     attributes:
       payment:
         status: 'Status'
-        invoice_token: 'Número da Nota Fiscal'
+        invoice_token: 'Número de Transação'
         parcels: 'Parcelas'
         payment_method: 'Meio de Pagamento'
         payment_methot_id: 'Meio de Pagamento'
