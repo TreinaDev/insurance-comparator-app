@@ -20,7 +20,7 @@ class PaymentOption
   def self.all(insurance_company_id)
     payment_options = []
     response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance_company_id}/payment_options")
-    if response.success?
+    if response.success? && !response.body.empty?
       data = JSON.parse(response.body)
       data.each do |d|
         payment_options << PaymentOption.new(name: d['name'], payment_type: d['payment_type'], max_parcels: d['max_parcels'],
