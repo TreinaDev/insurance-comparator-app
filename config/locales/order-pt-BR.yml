@@ -29,7 +29,7 @@ pt-BR:
         equipment_id: 'Dispositivo'
         payment_method: 'Meio de Pagamento'
         price: "Valor do Seguro a/m"
-        final_price: "Valor Final"
+        final_price: "Valor"
         payment_option_id: 'Meio de Pagamento'
         product_category: 'Categoria do Produto'
         contract_period: "Período de contratação"

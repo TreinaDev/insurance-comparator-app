@@ -74,7 +74,7 @@ describe 'Usuário efetua pagamento' do
     expect(page).to have_content 'Desconto à vista: 1%'
     expect(page).to have_content 'Nome da Seguradora: Seguradora 67'
     expect(page).to have_content 'Período de contratação: 9 meses'
-    expect(page).to have_content 'Valor do Seguro: R$ 18,00'
+    expect(page).to have_content 'Valor: R$ 18,00'
     expect(page).to have_link 'iPhone 11', href: equipment_path(equipment)
     expect(page).to have_select 'Meio de Pagamento', text: 'Cartão de Crédito - Laranja'
     expect(page).to have_select 'Meio de Pagamento', text: 'Boleto - Roxinho'
@@ -110,14 +110,14 @@ describe 'Usuário efetua pagamento' do
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, package_id: insurance.id,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id, voucher_code: 'ABC123')
 
     url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: true, body: json_dt)
     params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
                           package_id: order.package_id, insurance_company_id: order.insurance_company_id,
-                          voucher: '', parcels: 1,
+                          voucher: order.voucher_code, parcels: 1,
                           final_price: order.final_price } }
     allow(Faraday).to receive(:post).with(url, params.to_json,
                                           'Content-Type' => 'application/json').and_return(fake_response)
@@ -247,14 +247,14 @@ describe 'Usuário efetua pagamento' do
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, package_id: insurance.id,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id, voucher_code: 'ABC123')
 
     url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: false, body: json_dt)
     params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
                           package_id: order.package_id, insurance_company_id: order.insurance_company_id,
-                          voucher: '', parcels: 1,
+                          voucher: order.voucher_code, parcels: 1,
                           final_price: order.final_price } }
     allow(Faraday).to receive(:post).with(url, params.to_json,
                                           'Content-Type' => 'application/json').and_return(fake_response)
