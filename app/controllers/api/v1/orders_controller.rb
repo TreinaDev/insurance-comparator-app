@@ -1,5 +1,5 @@
 class Api::V1::OrdersController < Api::V1::ApiController
-  before_action :set_order, only: %i[show insurance_approved insurance_disapproved]
+  before_action :fetch_order_and_payment
   before_action :order_params, only: %i[insurance_approved insurance_disapproved]
 
   def show
@@ -32,19 +32,42 @@ class Api::V1::OrdersController < Api::V1::ApiController
     end
   end
 
-  private
-
   def create_json(order)
     order.as_json(include: { equipment: { except: %i[created_at updated_at client_id id] },
                              client: { except: %i[created_at updated_at id] } },
                   except: %i[created_at updated_at equipment_id client_id])
   end
 
-  def set_order
-    @order = Order.find(params[:id])
+  def payment_approved
+    if invoice_token?
+      @order.charge_approved!
+      @payment.invoice_token = params['transaction_registration_number']
+      @payment.approved!
+      return render status: :ok, json: { message: 'success' }
+    end
+    @payment.errors.add(:invoice_token, 'não pode ficar em branco')
+    render status: :precondition_failed, json: { message: 'failure',
+                                                 error: @payment.errors.first.full_message }
   end
+
+  def payment_refused
+    @order.charge_refused!
+    @payment.refused!
+    render status: :ok, json: { message: 'success' }
+  end
+
+  private
 
   def order_params
     params.require(:order).permit(:policy_code, :policy_id, :status)
+  end
+
+  def fetch_order_and_payment
+    @order = Order.find params[:id]
+    @payment = @order.payment
+  end
+
+  def invoice_token?
+    params['transaction_registration_number'].present?
   end
 end
