@@ -12,7 +12,7 @@ class Api::V1::PaymentsController < Api::V1::ApiController
   def create_json(payment)
     payment.as_json(except: %i[created_at updated_at client_id],
                     include: { client: { only: :cpf },
-                               order: { only: %i[insurance_company_id total_price insurance_id] } })
+                               order: { only: %i[insurance_company_id final_price insurance_id] } })
   end
 
   def set_payment

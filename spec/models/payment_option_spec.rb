@@ -48,13 +48,13 @@ describe PaymentOption do
 
       result = PaymentOption.find(id)
 
-      expect(result.payment_method_id).to eq 2
       expect(result.name).to eq 'Roxinho'
       expect(result.payment_type).to eq 'Boleto'
       expect(result.tax_maximum).to eq 5
       expect(result.tax_percentage).to eq 1
       expect(result.max_parcels).to eq 1
       expect(result.single_parcel_discount).to eq 1
+      expect(result.payment_method_id).to eq 2
     end
   end
 

@@ -176,7 +176,7 @@ RSpec.describe Payment, type: :model do
       params = { invoice: { payment_method_id: payment.payment_method_id, order_id: order.id,
                             registration_number: client.cpf,
                             package_id: order.package_id, insurance_company_id: order.insurance_company_id,
-                            voucher: '', parcels: payment.parcels,
+                            voucher: order.voucher_code, parcels: payment.parcels,
                             total_price: order.final_price } }
       allow(Faraday).to receive(:post).with(url, params.to_json,
                                             'Content-Type' => 'application/json').and_return(fake_response)
@@ -220,7 +220,7 @@ RSpec.describe Payment, type: :model do
       params = { invoice: { payment_method_id: payment.payment_method_id, order_id: order.id,
                             registration_number: client.cpf,
                             package_id: order.package_id, insurance_company_id: order.insurance_company_id,
-                            voucher: '', parcels: payment.parcels,
+                            voucher: order.voucher_code, parcels: payment.parcels,
                             total_price: order.final_price } }
       allow(Faraday).to receive(:post).with(url, params.to_json,
                                             'Content-Type' => 'application/json').and_return(fake_response)
