@@ -43,10 +43,12 @@ Insurance.new(id: 46, name: 'Master', max_period: 24, min_period: 6,
 
 Order.create(client: client1, equipment:, contract_period: 10, insurance_company_id: 45,
              price: 10.00, final_price: 100, insurance_name: 'Seguradora 45',
+             insurance_description: insurance.to_json,
              package_name: 'Premium', product_category_id: 1, product_category: 'iPhone 11',
              status: :pending)
 
 Order.create(client: client2, equipment: equipment2, contract_period: 10, insurance_company_id: 46,
              price: 10.00, final_price: 5000, insurance_name: 'Seguradora 46',
+             insurance_description: insurance.to_json,
              package_name: 'Premium', product_category_id: 1, product_category: 'Macbook',
              status: :insurance_company_approval)

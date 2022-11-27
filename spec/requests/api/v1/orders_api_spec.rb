@@ -71,7 +71,7 @@ describe 'Order API' do
                             product_model: 'iPhone 11', status: 0,
                             package_id: insurance.id)
 
-      order_params = { order: { status: :insurance_approved, policy_id: 1, policy_code: 'ABC1234567' } }
+      order_params = { body: { order: { status: ':insurance_approved', policy_id: 1, policy_code: 'ABC1234567' } } }
 
       post "/api/v1/orders/#{order.id}/insurance_approved", params: order_params
 
@@ -106,7 +106,7 @@ describe 'Order API' do
                             product_model: 'iPhone 11', status: 0,
                             package_id: insurance.id)
 
-      order_params = { order: { status: :insurance_disapproved, policy_id: 1, policy_code: 'ABC1234567' } }
+      order_params = { body: { order: { status: ':insurance_disapproved', policy_id: 1, policy_code: 'ABC1234567' } } }
 
       post "/api/v1/orders/#{order.id}/insurance_disapproved", params: order_params
 
