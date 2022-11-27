@@ -2,6 +2,7 @@ pt-BR:
   payment_created: Seu pagamento foi salvo com sucesso!
   payment_not_created: Não foi possível salvar o seu pagamento.
   system_fail: Falha no sistema.
+  no_payment_option_available: Nenhuma forma de pagamento disponível.
   activerecord:
     models:
       payment:

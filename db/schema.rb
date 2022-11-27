@@ -67,7 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_27_023256) do
     t.integer "client_id", null: false
     t.decimal "equipment_price"
     t.integer "product_category_id"
-    t.string "product_category"
     t.index ["client_id"], name: "index_equipment_on_client_id"
   end
 

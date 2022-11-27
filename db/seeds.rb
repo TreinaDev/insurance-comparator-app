@@ -29,10 +29,10 @@ equipment3.photos.attach(io: Rails.root.join('spec/support/photo_1.png').open, f
 equipment3.photos.attach(io: Rails.root.join('spec/support/photo_2.jpg').open, filename: 'foto_verso.jpg')
 equipment3.save!
 
-insurance1 = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
-                           insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
-                           product_category_id: 1, product_model: 'iphone 11',
-                           coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
+                          insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
+                          product_category_id: 1, product_model: 'iphone 11',
+                          coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
 insurance2 = Insurance.new(id: 46, name: 'Master', max_period: 24, min_period: 6,
@@ -43,7 +43,7 @@ insurance2 = Insurance.new(id: 46, name: 'Master', max_period: 24, min_period: 6
 
 Order.create(client: client1, equipment:, contract_period: 10, insurance_company_id: 45,
              price: 10.00, final_price: 100, insurance_name: 'Seguradora 45',
-             insurance_description: insurance1.to_json,
+             insurance_description: insurance.to_json,
              package_name: 'Premium', product_category_id: 1, product_category: 'iPhone 11',
              status: :pending)
 

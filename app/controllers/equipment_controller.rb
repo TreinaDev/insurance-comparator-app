@@ -21,7 +21,6 @@ class EquipmentController < ApplicationController
   def create
     @equipment = Equipment.new(equipment_params)
     @equipment.client = current_client
-    @product_categories = Product.all_categories
     if @equipment.save
       redirect_to @equipment, notice: t(:equipment_created)
     else
