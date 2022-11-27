@@ -44,9 +44,10 @@ class Api::V1::OrdersController < Api::V1::ApiController
 
   def payment_approved
     if invoice_token?
-      @order.charge_approved!
-      @payment.invoice_token = params['transaction_registration_number']
+      @order.active!
+      @payment.invoice_token = params['token']
       @payment.approved!
+      response = Faraday.post("#{Rails.configuration.external_apis['insurance_api']}/policies/#{@order.policy_code}/active")
       return render status: :ok, json: { message: 'success' }
     end
     @payment.errors.add(:invoice_token, 'não pode ficar em branco')
@@ -74,6 +75,6 @@ class Api::V1::OrdersController < Api::V1::ApiController
   end
 
   def invoice_token?
-    params['transaction_registration_number'].present?
+    params['token'].present?
   end
 end

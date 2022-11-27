@@ -37,7 +37,7 @@ describe 'Orders API' do
         json_data = JSON.parse(response.body)
         expect(json_data['message']).to eq 'success'
         expect(payment.reload.status).to eq 'approved'
-        expect(order.reload.status).to eq 'charge_approved'
+        expect(order.reload.status).to eq 'active'
       end
 
       it 'e a aplicação recebe um ID Inválido' do

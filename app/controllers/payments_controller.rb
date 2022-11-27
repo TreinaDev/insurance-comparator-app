@@ -35,6 +35,6 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(payment_params)
     @payment.client = current_client
     @payment.order = @order
-    @payment.payment_description = PaymentOption.find(@payment.payment_method_id).formatted_payment_type_and_name
+    @payment.payment_description = PaymentOption.find(@order.insurance_company_id, @payment.payment_method_id).formatted_payment_type_and_name
   end
 end
