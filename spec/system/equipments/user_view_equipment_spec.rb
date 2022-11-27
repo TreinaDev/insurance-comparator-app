@@ -19,7 +19,8 @@ describe 'Usuário vê dispositivos' do
     Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: '01/11/2022',
                       equipment_price: 10_199, invoice: fixture_file_upload('spec/support/invoice.png'),
                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                               fixture_file_upload('spec/support/photo_2.jpg')])
+                               fixture_file_upload('spec/support/photo_2.jpg')],
+                      product_category_id: 1)
 
     login_as(user)
     visit root_path
@@ -45,7 +46,8 @@ describe 'Usuário vê dispositivos' do
     Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: '01/11/2022',
                       equipment_price: 10_199, invoice: fixture_file_upload('spec/support/invoice.png'),
                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                               fixture_file_upload('spec/support/photo_2.jpg')])
+                               fixture_file_upload('spec/support/photo_2.jpg')],
+                      product_category_id: 1)
 
     login_as(second_user)
     visit root_path

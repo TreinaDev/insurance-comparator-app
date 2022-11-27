@@ -50,7 +50,6 @@ describe 'Usuário cadastra dispositivo' do
 
     expect(page).to have_content 'Seu dispositivo foi cadastrado com sucesso!'
     expect(page).to have_content 'IPHONE 14 - PROMAX'
-    expect(page).to have_content 'Categoria: Telefone'
     expect(page).to have_content 'Valor: R$ 10.199,00'
     expect(page).to have_content 'Marca: Apple'
     expect(page).to have_content 'Data da compra: 01/11/2022'

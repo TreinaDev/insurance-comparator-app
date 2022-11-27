@@ -11,8 +11,8 @@
   <%= form_with(model:@equipment) do |f| %>
     <div class="row mt-4 mb-4"> 
       <div class="bg-light p-3 col-lg-3 col-6">
-        <%= f.label :product_category, class: 'form-label' %>
-        <%= f.select :product_category, @product_categories.collect { |pc| [pc['name'], {id:pc['id'], name:pc['name']}]}, class: 'form-control' %>
+        <%= f.label :product_category_id, class: 'form-label' %>
+        <%= f.select :product_category_id, @product_categories.collect { |pc| [pc['name'], pc['id']]}, class: 'form-control' %>
       </div>
     </div>
     <div class="row"> 
