@@ -8,7 +8,7 @@ RSpec.describe Equipment, type: :model do
       equipment = Equipment.new(name: '', brand: 'Apple', purchase_date: '01/11/2022', client:,
                                 invoice: fixture_file_upload('spec/support/invoice.png'),
                                 photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                         fixture_file_upload('spec/support/photo_2.jpg')])
+                                         fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
 
       result = equipment.valid?
 
@@ -22,7 +22,7 @@ RSpec.describe Equipment, type: :model do
       equipment = Equipment.new(name: 'Iphone 14 - ProMax', brand: '', purchase_date: '01/11/2022', client:,
                                 invoice: fixture_file_upload('spec/support/invoice.png'),
                                 photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                         fixture_file_upload('spec/support/photo_2.jpg')])
+                                         fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
 
       result = equipment.valid?
 
@@ -36,12 +36,26 @@ RSpec.describe Equipment, type: :model do
       equipment = Equipment.new(name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: '', client:,
                                 invoice: fixture_file_upload('spec/support/invoice.png'),
                                 photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                         fixture_file_upload('spec/support/photo_2.jpg')])
+                                         fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
 
       result = equipment.valid?
 
       expect(result).to eq false
       expect(equipment.errors[:purchase_date]).to include 'não pode ficar em branco'
+    end
+
+    it 'deve ter categoria de produto' do
+      client = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
+                              state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
+      equipment = Equipment.new(name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: '01/11/2022', client:,
+                                invoice: fixture_file_upload('spec/support/invoice.png'),
+                                photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                         fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: '')
+
+      result = equipment.valid?
+
+      expect(result).to eq false
+      expect(equipment.errors[:product_category_id]).to include 'não pode ficar em branco'
     end
 
     it 'deve ter um valor' do

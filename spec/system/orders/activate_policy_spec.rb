@@ -9,7 +9,7 @@ describe 'posta ativação de apólice para seguradora' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
     insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
                               insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
                               product_model: 'iphone 11', product_model_id: 1,

@@ -11,7 +11,7 @@ describe 'Orders API' do
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
@@ -56,7 +56,7 @@ describe 'Orders API' do
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
@@ -93,7 +93,7 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
@@ -127,7 +127,7 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
@@ -166,7 +166,7 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
@@ -207,7 +207,7 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)

@@ -10,7 +10,7 @@
 },
 
 {
-  "id": 1,
+  "id": 2,
   "product_model": "Xiaomi Mi 10",
   "launch_year": "2018",
   "brand": "Xiaomi",
@@ -19,5 +19,4 @@
   "product_category_id": 1,
   "image_url": "http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--677e89aa27092ea9bbb3e13b6a048138d50182fa/galaxy-s20-produto.jpg"
 }
-
 ]

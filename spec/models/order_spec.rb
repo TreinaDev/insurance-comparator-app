@@ -10,7 +10,7 @@ RSpec.describe Order, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                     insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                     product_model: 'iPhone 11', product_model_id: 1,
@@ -46,7 +46,7 @@ RSpec.describe Order, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
 
       Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                     insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
@@ -86,7 +86,7 @@ RSpec.describe Order, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       order = Order.create!(client:, equipment:, contract_period: 10, insurance_company_id: 45,
                             price: 10.00, final_price: 100, insurance_name: 'Seguradora 45',
                             package_name: 'Premium', product_category_id: 2, product_category: 'iPhone 11',
@@ -115,7 +115,7 @@ RSpec.describe Order, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       order = Order.new(client:, equipment:, contract_period: 10, insurance_company_id: 45,
                         price: 10.00, final_price: 100, insurance_name: 'Seguradora 45',
                         package_name: 'Premium', product_category_id: 2, product_category: 'iPhone 11',
@@ -148,7 +148,7 @@ RSpec.describe Order, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                          tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                          payment_method_id: 1)
