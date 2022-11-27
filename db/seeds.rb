@@ -42,7 +42,7 @@ insurance_2 = Insurance.new(id: 46, name: 'Master', max_period: 24, min_period: 
                             por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
 Order.create(client: client1, equipment:, contract_period: 10, insurance_company_id: insurance_1.insurance_company_id,
-             price: insurance_1.price_per_month, final_price: 100, insurance_name: insurance_1.name,
+             price: insurance_1.price_per_month, final_price: 100, insurance_name: insurance_1.insurance_name,
              insurance_description: insurance_1.to_json, package_id: insurance_1.id,
              package_name: 'Premium', product_category_id: insurance_1.product_category_id, product_category: insurance_1.product_model,
              status: :insurance_approved)
