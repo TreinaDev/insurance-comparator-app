@@ -40,3 +40,14 @@ Metrics/BlockLength:
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+
+#método initialize com muitas variáveis
+Metrics/MethodLength:
+  Exclude:
+    - 'app/models/policy.rb'
+Metrics/ParameterLists:
+  Exclude:
+    - 'app/models/policy.rb'
+Metrics/AbcSize:
+  Exclude:
+    - 'app/models/policy.rb'

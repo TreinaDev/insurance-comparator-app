@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "code": "NIUGBWSTJ5",
+  "expiration_date": "2023-11-21",
+  "status": "active",
+  "client_name": "Maria Alves",
+  "client_registration_number": "99950033340",
+  "client_email": "mariaalves@email.com",
+  "equipment_id": 1,
+  "purchase_date": "2022-11-21",
+  "policy_period": 12,
+  "package_id": 1,
+  "order_id": 1,
+  "insurance_company_id": 1,
+  "file_url": "http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--40f2a98aa80b9f5149f640024de69308fec25efa/sample-policy-a.pdf"
+}
