@@ -16,12 +16,13 @@ Rails.application.routes.draw do
   end
   resources :equipment, only: [:index, :new, :create, :show, :edit, :update]
 
-  namespace :api do
-    namespace :v1 do
-      resources :payments, only: [:show], param: :order_id do
-        post 'approved', on: :member
-        post 'refused', on: :member
+  namespace :api do 
+    namespace :v1 do 
+      resources :orders, only: [:show] do 
+        post 'payment_approved', on: :member 
+        post 'payment_refused', on: :member 
       end
+      resources :payments, only: [:show], param: :order_id
       resources :orders, only: [:show, :update] do
         post 'insurance_approved', on: :member
         post 'insurance_disapproved', on: :member

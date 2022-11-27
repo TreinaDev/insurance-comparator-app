@@ -4,11 +4,12 @@ class Api::V1::ApiController < ActionController::API
 
   private
 
-  def return500
-    render status: :internal_server_error, json: {}
+  def return404
+    render status: :not_found, json: { error: 'Invalid ID' }
   end
 
-  def return404
-    render status: :not_found, json: {}
+  def return500
+    render status: :internal_server_error,
+           json: { error: 'Internal server error' }
   end
 end

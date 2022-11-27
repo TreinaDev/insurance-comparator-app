@@ -1,7 +1,7 @@
 <h1 class="fs-2">Emissão de Pagamento </h1>
 
 <% if @payment.errors.any? %>
-  <p> Por favor verifique os erros abaixo: </p>
+<h5> <%= t(:please_check_errors, count: @payment.errors.count) %>: </h5>
   <ul>
     <% @payment.errors.full_messages.each do |msg| %>
       <li class="alert alert-danger" role="alert"><%= msg %> </li>

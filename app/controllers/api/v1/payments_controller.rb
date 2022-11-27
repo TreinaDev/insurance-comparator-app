@@ -1,38 +1,10 @@
 class Api::V1::PaymentsController < Api::V1::ApiController
-  before_action :set_payment, only: %i[show approved refused]
+  before_action :set_payment, only: %i[show]
 
   def show
     return render status: :ok, json: create_json(@payment) if @payment.present?
 
     raise ActiveRecord::RecordNotFound
-  end
-
-  def approved
-    payment_params = params.require(:payment).permit(:status, :invoice_token)
-
-    if payment_params[:status] == 'approved'
-      if @payment.update(payment_params)
-        render status: :ok, json: create_json(@payment)
-      else
-        render status: :precondition_failed, json: { errors: @payment.errors.full_messages }
-      end
-    else
-      render status: :not_acceptable, json: {}
-    end
-  end
-
-  def refused
-    payment_params = params.require(:payment).permit(:status)
-
-    if payment_params[:status] == 'refused'
-      if @payment.update(payment_params)
-        render status: :ok, json: create_json(@payment)
-      else
-        render status: :precondition_failed, json: { errors: @payment.errors.full_messages }
-      end
-    else
-      render status: :not_acceptable, json: {}
-    end
   end
 
   private
