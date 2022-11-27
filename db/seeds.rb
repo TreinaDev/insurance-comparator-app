@@ -29,16 +29,16 @@ equipment3.photos.attach(io: Rails.root.join('spec/support/photo_1.png').open, f
 equipment3.photos.attach(io: Rails.root.join('spec/support/photo_2.jpg').open, filename: 'foto_verso.jpg')
 equipment3.save!
 
-Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
-              insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
-              product_category_id: 1, product_model: 'iphone 11',
-              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
+                          insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
+                          product_category_id: 1, product_model: 'iphone 11',
+                          coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
-Insurance.new(id: 46, name: 'Master', max_period: 24, min_period: 6,
-              insurance_company_id: 1, insurance_name: 'Seguradora 46', price_per_month: 10.00,
-              product_category_id: 1, product_model: 'macbook',
-              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+insurance2 = Insurance.new(id: 46, name: 'Master', max_period: 24, min_period: 6,
+                           insurance_company_id: 1, insurance_name: 'Seguradora 46', price_per_month: 10.00,
+                           product_category_id: 1, product_model: 'macbook',
+                           coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
 Order.create(client: client1, equipment:, contract_period: 10, insurance_company_id: 45,
@@ -49,6 +49,6 @@ Order.create(client: client1, equipment:, contract_period: 10, insurance_company
 
 Order.create(client: client2, equipment: equipment2, contract_period: 10, insurance_company_id: 46,
              price: 10.00, final_price: 5000, insurance_name: 'Seguradora 46',
-             insurance_description: insurance.to_json,
+             insurance_description: insurance2.to_json,
              package_name: 'Premium', product_category_id: 1, product_category: 'Macbook',
              status: :insurance_company_approval)

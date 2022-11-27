@@ -164,7 +164,8 @@ describe 'Usuário efetua pagamento' do
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
 
     login_as(client)
     visit order_path(order.id)
