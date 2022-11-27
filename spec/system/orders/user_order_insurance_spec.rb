@@ -165,9 +165,10 @@ describe 'Cliente compra pacote de seguro' do
 
     expect(page).to have_content 'Seu pedido está em análise pela seguradora'
     expect(page).to have_content 'Nome da Seguradora: Seguradora 45'
+    expect(page).to have_content 'Dispositivo: iphone 11'
     expect(page).to have_content 'Período de contratação: 7 meses'
     expect(page).to have_content 'Valor do Seguro a/m: R$ 100,00'
-    expect(page).to have_content 'Valor final sem desconto: R$ 700,00'
+    expect(page).to have_content 'Valor: R$ 700,00'
     expect(page).to have_content 'Tipo de Pacote: Premium'
     expect(page).to have_content 'Quebra de tela'
     expect(page).to have_content 'Assistência por danificação da tela do aparelho.'

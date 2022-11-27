@@ -48,6 +48,35 @@ class OrdersController < ApplicationController
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
+  def voucher
+    @order = Order.find(params[:id])
+    @voucher = params[:voucher].upcase
+    v_params = { product_id: @order.product_model_id, price: @order.final_price }.to_query
+    response = Faraday.get("#{Rails.configuration.external_apis['payment_fraud_api']}/promos/#{@voucher}/?#{v_params}")
+    if response.success?
+      data = JSON.parse(response.body)
+      case data['status']
+      when 'Cupom expirado.'
+        redirect_to new_order_payment_path(@order), alert: t(:expired_coupon)
+
+      when 'Cupom inválido.'
+        redirect_to new_order_payment_path(@order), alert: t(:invalid_coupon)
+
+      when 'Cupom válido.'
+        @order.voucher_code = @voucher
+        @order.voucher_price = data['discount'].to_f
+        @order.save!
+        redirect_to new_order_payment_path(@order), notice: t(:valid_coupon)
+      end
+    else
+      redirect_to new_order_payment_path(@order), alert: t(:invalid_coupon)
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+
   private
 
   def assign_order_variables

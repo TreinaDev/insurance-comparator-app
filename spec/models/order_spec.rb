@@ -139,7 +139,7 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe '#total_price' do
+  describe '#final_price' do
     it 'falso quando preço diferente do esperado' do
       client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                               address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
