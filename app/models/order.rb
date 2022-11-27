@@ -10,9 +10,6 @@ class Order < ApplicationRecord
   validates :contract_period, comparison: { greater_than: 0 }, allow_blank: false
   enum status: { pending: 0, insurance_company_approval: 2, insurance_approved: 3, cpf_disapproved: 6,
                  insurance_disapproved: 4, charge_pending: 9, charge_approved: 12, charge_refused: 14 }
-  # validates     :max_period, :min_period, :insurance_company_id, :insurance_name,
-  #               :price_per_month, :product_category_id, :product_model, :product_model_id,
-  #               :coberturas, :services
 
   def validate_cpf(client_cpf)
     response = Faraday.get("#{Rails.configuration
