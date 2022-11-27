@@ -54,6 +54,7 @@
 
 <hr/>
 <br>
+<p><em>Possui algum Cupom de Desconto?</em></p>
 <div class="container">
   <%= form_with url: voucher_order_path(@order), method: :post do |form| %>
     <div class="row">
@@ -64,13 +65,11 @@
       </div>
     </div>
   <% end %>
-</div>
-
 <% if @order.voucher_code.present? %>
-  <p> Cupom Inserido: </p>
-  <%= @order.voucher_code %>
+  <p><small><em>Cupom Inserido: <%= @order.voucher_code %></em></small></p>
 <% end %>
 <hr/>
+</div>
 
 <div class="container">
   <%= form_with model: [@order, @payment], method: :post do |f| %>
