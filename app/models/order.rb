@@ -48,11 +48,21 @@ class Order < ApplicationRecord
     assign_package_variables(insurance)
   end
 
+  def approve_charge
+    activate_policy
+    charge_approved!
+  end
+
   def insurance_coverages
     JSON.parse(insurance_description)
   end
 
   private
+
+  def activate_policy
+    external_url = Rails.configuration.external_apis['insurance_api']
+    Faraday.post("#{external_url}/policies/#{policy_code}/active")
+  end
 
   def assign_product_variables(insurance)
     self.product_category_id = insurance.product_category_id

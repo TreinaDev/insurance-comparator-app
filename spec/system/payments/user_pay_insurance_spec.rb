@@ -141,6 +141,41 @@ describe 'Usuário efetua pagamento' do
     expect(page).not_to have_button 'Pagar'
   end
 
+  it 'e não há meios de pagamento disponíveis' do
+    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                            birth_date: '29/10/1997')
+    equipment = Equipment.create!(client:, name: 'iPhone 11', brand: 'Apple', equipment_price: 1199,
+                                  purchase_date: '01/11/2022',
+                                  invoice: fixture_file_upload('spec/support/invoice.png'),
+                                  photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                           fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                              insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                              product_model: 'iPhone 11',
+                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
+    external_api = Rails.configuration.external_apis['payment_options_api']
+    api_url = "#{external_api}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
+    json_data = []
+    fake_response = double('faraday_response', success?: true, body: json_data)
+    puts json_data
+    allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                          client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                          product_model: insurance.product_model, price: insurance.price_per_month,
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
+
+    login_as(client)
+    visit order_path(order.id)
+    click_on 'Pagar'
+
+    expect(page).to have_content 'Nenhuma forma de pagamento disponível.'
+    expect(page).not_to have_content 'Meio de pagamento'
+    expect(page).not_to have_link 'Salvar'
+  end
+
   it 'com dados inválidos' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
