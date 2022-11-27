@@ -1,0 +1,27 @@
+
+
+<% if @order.charge_approved? %>
+  <h1 class="display-6"><%= t '.title' %></h1>
+  <dl class="row">
+    <dt class="col-sm-3"><%= t '.client_name' %>:</dt>
+    <dd class="col-sm-9"><%= @policy.client_name %></dd>
+    <dt class="col-sm-3"><%= t '.client_registration_number' %>:</dt>
+    <dd class="col-sm-9"><%= @policy.client_registration_number %></dd>
+    <dt class="col-sm-3"><%= t '.code' %>:</dt>
+    <dd class="col-sm-9"><%= @policy.code %></dd>
+    <dt class="col-sm-3"><%= t '.status' %>:</dt>
+    <dd class="col-sm-9"><%= I18n.translate(@policy.status) %></dd>
+    <dt class="col-sm-3"><%= t '.purchase_date' %>:</dt>
+    <dd class="col-sm-9"><%= @policy.purchase_date %></dd>
+    <dt class="col-sm-3"><%= t '.policy_period' %>:</dt>
+    <dd class="col-sm-9"><%= @policy.policy_period %> <%= t '.months' %></dd>
+    <dt class="col-sm-3"><%= t '.expiration_date' %>:</dt>
+    <dd class="col-sm-9"><%= @policy.expiration_date %></dd>
+    <dt class="col-sm-3"><%= t '.insurance_company_id' %>:</dt>
+    <dd class="col-sm-9"><%= @order.insurance_name %></dd>
+    <dt class="col-sm-3"><%= t '.package_id' %>:</dt>
+    <dd class="col-sm-9"><%= @order.package_name %></dd>
+    <dt class="col-sm-3"><%= t '.equipment_id' %>:</dt>
+    <dd class="col-sm-9"><%= @order.equipment.name %></dd>
+  </dl>
+<% end %>

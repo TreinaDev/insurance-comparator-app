@@ -23,19 +23,19 @@ class Policy
   end
 
   def self.find(order_id)
-    policy = ''
-    response = Faraday.get("http://localhost:3000/api/v1/policies/order/#{order_id}")
+    response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/policies/order/#{order_id}")
     if response.status == 200
       data = JSON.parse(response.body)
-      policy = Policy.new(id: data['id'], code: data['code'], status: data['status'],
-                          client_name: data['client_name'],
-                          client_registration_number: data['client_registration_number'],
-                          client_email: data['client_email'], equipment_id: data['equipment_id'],
-                          purchase_date: data['purchase_date'], policy_period: data['policy_period'],
-                          expiration_date: data['expiration_date'], package_id: data['package_id'],
-                          order_id: data['order_id'], insurance_company_id: data['insurance_company_id'],
-                          file_url: data['file_url'])
+      Policy.new(id: data['id'], code: data['code'], status: data['status'],
+                 client_name: data['client_name'],
+                 client_registration_number: data['client_registration_number'],
+                 client_email: data['client_email'], equipment_id: data['equipment_id'],
+                 purchase_date: data['purchase_date'], policy_period: data['policy_period'],
+                 expiration_date: data['expiration_date'], package_id: data['package_id'],
+                 order_id: data['order_id'], insurance_company_id: data['insurance_company_id'],
+                 file_url: data['file_url'])
+    else
+      redirect_to orders_path, notice: (t '.fail')
     end
-    policy
   end
 end
