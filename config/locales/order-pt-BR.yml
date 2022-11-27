@@ -4,6 +4,11 @@ pt-BR:
   contract_period: "Período de contratação"
   your_order_is_being_processed: 'Seu pedido está em análise pela seguradora'
   your_order_was_not_registered: 'Não foi possível cadastrar o pedido'
+  valid_coupon: 'Cupom inserido com sucesso'
+  invalid_coupon: 'Cupom inválido'
+  expired_coupon: 'Cupom expirado'
+  fail_connection_api: 'Falha de conexão, seu pedido será processado em breve'
+  order_saved_but_not_sent: 'Seu pedido será processado em breve'
   pay: 'Pagar'
   contract_package: 'Contratar Pacote'
   month:
@@ -27,14 +32,14 @@ pt-BR:
         product_model: "Modelo do Produto"
         equipment: "Dispositivo"
         equipment_id: 'Dispositivo'
-        total_price: "Valor do Seguro"
         payment_method: 'Meio de Pagamento'
         price: "Valor do Seguro a/m"
-        final_price: "Valor final sem desconto"
+        final_price: "Valor"
         payment_option_id: 'Meio de Pagamento'
         product_category: 'Categoria do Produto'
         contract_period: "Período de contratação"
         code: 'Código do pedido'
+        insurance_description: 'Cobertura'
       order/status: 
         insurance_company_approval: "Aguardando Aprovação da Seguradora"
         pending: "Pendente"
