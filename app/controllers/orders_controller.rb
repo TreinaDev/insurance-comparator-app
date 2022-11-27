@@ -25,7 +25,9 @@ class OrdersController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def create
+    set_product_id
     set_insurance
+    set_product_id
     assign_order_variables
     if @order.validate_cpf(@order.client.cpf) && @order.valid?
       @order.save
@@ -52,6 +54,7 @@ class OrdersController < ApplicationController
     @order.client = current_client
     @order.assign_insurance_to_order(@insurance)
     @order.validate_cpf(@order.client.cpf)
+    @order.product_model_id = @product_id
   end
 
   def set_order
@@ -67,13 +70,10 @@ class OrdersController < ApplicationController
   end
 
   def set_product_id
+    set_insurance
     @product_id = params[:product_id]
     response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/products/#{@product_id}")
     @product = JSON.parse(response.body)
-  end
-
-  def throw_error
-    flash.now[:alert] = t(:your_order_was_not_registered)
-    render :new
+    @insurance.product_model = @product['product_model']
   end
 end

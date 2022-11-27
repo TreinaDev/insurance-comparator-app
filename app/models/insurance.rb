@@ -38,6 +38,7 @@ class Insurance
                                 product_category_id: d['product_category_id'].to_i,
                                 product_model_id: d['product_model_id'].to_i,
                                 coberturas: d['coverages'], services: d['services'])
+
     end
     insurance
   end
