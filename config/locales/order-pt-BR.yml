@@ -4,6 +4,8 @@ pt-BR:
   contract_period: "Período de contratação"
   your_order_is_being_processed: 'Seu pedido está em análise pela seguradora'
   your_order_was_not_registered: 'Não foi possível cadastrar o pedido'
+  fail_connection_api: 'Falha de conexão, seu pedido será processado em breve'
+  order_saved_but_not_sent: 'Seu pedido será processado em breve'
   pay: 'Pagar'
   contract_package: 'Contratar Pacote'
   month:
@@ -35,6 +37,7 @@ pt-BR:
         product_category: 'Categoria do Produto'
         contract_period: "Período de contratação"
         code: 'Código do pedido'
+        insurance_description: 'Cobertura'
       order/status: 
         insurance_company_approval: "Aguardando Aprovação da Seguradora"
         pending: "Pendente"
