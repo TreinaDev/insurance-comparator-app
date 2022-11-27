@@ -27,7 +27,8 @@ describe 'Cliente insere um cupom de desconto' do
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_category_id, product_model_id: 5,
                           price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
 
     voucher = 'ABC123'
     voucher_params = { product_id: order.product_model_id, price: order.final_price }.to_query
@@ -73,7 +74,8 @@ describe 'Cliente insere um cupom de desconto' do
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_category_id, product_model_id: 5,
                           price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
 
     voucher = 'ABC123'
     voucher_params = { product_id: order.product_model_id, price: order.final_price }.to_query
@@ -119,7 +121,8 @@ describe 'Cliente insere um cupom de desconto' do
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_category_id, product_model_id: 5,
                           price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
 
     voucher = 'ABC123'
     voucher_params = { product_id: order.product_model_id, price: order.final_price }.to_query
