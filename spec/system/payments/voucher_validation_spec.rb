@@ -13,8 +13,8 @@ describe 'Cliente insere um cupom de desconto' do
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 67', price_per_month: 2, product_category_id: 1,
                               product_model: 'iPhone 11',
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
-        por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
+                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência por
+                                danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
     # rubocop:disable Layout/LineLength
     api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
@@ -25,7 +25,8 @@ describe 'Cliente insere um cupom de desconto' do
 
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
-                          product_model: insurance.product_category_id, product_model_id: 5, price: insurance.price_per_month,
+                          product_model: insurance.product_category_id, product_model_id: 5,
+                          price: insurance.price_per_month,
                           insurance_company_id: insurance.insurance_company_id)
 
     voucher = 'ABC123'
@@ -58,8 +59,8 @@ describe 'Cliente insere um cupom de desconto' do
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 67', price_per_month: 2, product_category_id: 1,
                               product_model: 'iPhone 11',
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
-por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
+                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência por
+                                danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
     # rubocop:disable Layout/LineLength
     api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
@@ -70,7 +71,8 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
-                          product_model: insurance.product_category_id, product_model_id: 5, price: insurance.price_per_month,
+                          product_model: insurance.product_category_id, product_model_id: 5,
+                          price: insurance.price_per_month,
                           insurance_company_id: insurance.insurance_company_id)
 
     voucher = 'ABC123'
@@ -88,6 +90,7 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
     expect(current_path).to eq new_order_payment_path(order)
     expect(page).to have_content 'Cupom inválido'
+    expect(page).not_to have_content 'Cupom inserido com sucesso'
   end
 
   it 'e o cupom está expirado' do
@@ -102,8 +105,8 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 67', price_per_month: 2, product_category_id: 1,
                               product_model: 'iPhone 11',
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
-por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
+                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência por
+                                danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
     # rubocop:disable Layout/LineLength
     api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
@@ -114,7 +117,8 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
-                          product_model: insurance.product_category_id, product_model_id: 5, price: insurance.price_per_month,
+                          product_model: insurance.product_category_id, product_model_id: 5,
+                          price: insurance.price_per_month,
                           insurance_company_id: insurance.insurance_company_id)
 
     voucher = 'ABC123'
@@ -132,5 +136,6 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
 
     expect(current_path).to eq new_order_payment_path(order)
     expect(page).to have_content 'Cupom expirado'
+    expect(page).not_to have_content 'Cupom inserido com sucesso'
   end
 end

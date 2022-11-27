@@ -138,7 +138,7 @@ describe 'Cliente compra pacote de seguro' do
     expect(page).to have_content 'Tipo de Pacote: Premium'
     expect(page).to have_content 'Status: Aguardando Aprovação da Seguradora'
   end
-  
+
   it 'tenta contratar sem selecionar as opções' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',

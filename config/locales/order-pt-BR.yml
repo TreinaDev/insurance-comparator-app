@@ -4,6 +4,9 @@ pt-BR:
   contract_period: "Período de contratação"
   your_order_is_being_processed: 'Seu pedido está em análise pela seguradora'
   your_order_was_not_registered: 'Não foi possível cadastrar o pedido'
+  valid_coupon: 'Cupom inserido com sucesso'
+  invalid_coupon: 'Cupom inválido'
+  expired_coupon: 'Cupom expirado'
   pay: 'Pagar'
   contract_package: 'Contratar Pacote'
   month:

@@ -32,28 +32,34 @@ class OrdersController < ApplicationController
     render :new
   end
 
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def voucher
     @order = Order.find(params[:id])
     @voucher = params[:voucher].upcase
-    voucher_params = { product_id: @order.product_model_id, price: @order.final_price }.to_query
-    response = Faraday.get("#{Rails.configuration.external_apis['payment_fraud_api']}/promos/#{@voucher}/?#{voucher_params}")
-    return unless response.success?
+    v_params = { product_id: @order.product_model_id, price: @order.final_price }.to_query
+    response = Faraday.get("#{Rails.configuration.external_apis['payment_fraud_api']}/promos/#{@voucher}/?#{v_params}")
+    if response.success?
+      data = JSON.parse(response.body)
+      case data['status']
+      when 'Cupom expirado.'
+        redirect_to new_order_payment_path(@order), alert: t(:expired_coupon)
 
-    data = JSON.parse(response.body)
-    case data['status']
-    when 'Cupom expirado.'
-      redirect_to new_order_payment_path(@order), alert: 'Cupom expirado'
+      when 'Cupom inválido.'
+        redirect_to new_order_payment_path(@order), alert: t(:invalid_coupon)
 
-    when 'Cupom inválido.'
-      redirect_to new_order_payment_path(@order), alert: 'Cupom inválido'
-
-    when 'Cupom válido.'
-      @order.voucher_code = @voucher
-      @order.voucher_price = data['discount'].to_f
-      @order.save!
-      redirect_to new_order_payment_path(@order), notice: 'Cupom inserido com sucesso'
+      when 'Cupom válido.'
+        @order.voucher_code = @voucher
+        @order.voucher_price = data['discount'].to_f
+        @order.save!
+        redirect_to new_order_payment_path(@order), notice: t(:valid_coupon)
+      end
+    else
+      redirect_to new_order_payment_path(@order), alert: t(:invalid_coupon)
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   private
 

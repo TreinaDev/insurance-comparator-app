@@ -20,17 +20,17 @@ class PaymentsController < ApplicationController
       render :new
     end
   end
-  
+
   private
-  
+
   def set_order
     @order = Order.find(params[:order_id])
   end
-  
+
   def payment_params
     params.require(:payment).permit(:parcels, :payment_method_id, :order_id)
   end
-  
+
   def set_payment_params
     @payment = Payment.new(payment_params)
     @payment.client = current_client

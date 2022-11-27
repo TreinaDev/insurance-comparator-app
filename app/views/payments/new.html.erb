@@ -1,19 +1,17 @@
 <h1 class="fs-2">Emissão de Pagamento </h1>
-
 <% if @payment.errors.any? %>
-<h5> <%= t(:please_check_errors, count: @payment.errors.count) %>: </h5>
+  <h5> <%= t(:please_check_errors, count: @payment.errors.count) %>: </h5>
   <ul>
     <% @payment.errors.full_messages.each do |msg| %>
       <li class="alert alert-danger" role="alert"><%= msg %> </li>
     <% end %>
   </ul>
 <%end%>
-
 <div class="container">
   <% @payment_options.each do |payment_option| %>
     <p class="mt-3"><b><%= payment_option.formatted_payment_type_and_name %></b></p>
     <ul class="list-group">
-      <div class="row"> 
+      <div class="row">
         <div class="col-lg-6 col-12">
           <li class="list-group-item">
             <b><%= t :tax_percentage %>:</b>
@@ -21,7 +19,7 @@
           </li>
         </div>
       </div>
-      <div class="row"> 
+      <div class="row">
         <div class="col-lg-6 col-12">
           <li class="list-group-item">
             <b><%= t :tax_maximum %>:</b>
@@ -29,7 +27,7 @@
           </li>
         </div>
       </div>
-      <div class="row"> 
+      <div class="row">
         <div class="col-lg-6 col-12">
           <li class="list-group-item">
             <b><%= t :max_parcels %>:</b>
@@ -37,7 +35,7 @@
           </li>
         </div>
       </div>
-      <div class="row"> 
+      <div class="row">
         <div class="col-lg-6 col-12">
           <li class="list-group-item">
             <b><%= t :single_parcel_discount %>:</b>
@@ -46,33 +44,41 @@
         </div>
       </div>
     </ul>
-  <% end %> 
+  <% end %>
 </div>
 <br>
-
 <p><b><%= Order.human_attribute_name(:insurance_name)%>:</b> <%=@order.insurance_name%></p>
 <p><b><%= Order.human_attribute_name(:contract_period) %>:</b> <%=@order.contract_period%> <%=(t :month, count: @order.contract_period)%></p>
 <p><b><%=Order.human_attribute_name(:final_price)%>:</b> <%=number_to_currency(@order.final_price - (@order.voucher_price.nil? ? 0 : @order.voucher_price)) %></p>
 <p><b><%=Order.human_attribute_name(:equipment)%>:</b> <%= link_to @order.equipment.name, equipment_path(@order.equipment) %></p>
 
-<%= form_with url: voucher_order_path(@order), method: :post do |form| %> 
-  <%= form.label :voucher, "Insira seu Cupom" %> 
-  <%= form.text_field :voucher %> 
-  <%=form.submit "Validar" %> 
-<% end %> 
+<hr/>
+<br>
+<div class="container">
+  <%= form_with url: voucher_order_path(@order), method: :post do |form| %>
+    <div class="row">
+      <div class="mb-3 col-lg-3 col-6">
+        <strong><%= form.label :voucher, "Insira seu Cupom", class: 'form-label' %></strong>
+        <%= form.text_field :voucher, class: 'form-control'%>
+      <%=form.submit "Validar", class: 'btn btn-dark mt-3 mb-4' %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<% @order.voucher_code if @order.voucher_code.present? %>
+<% if @order.voucher_code.present? %>
   <p> Cupom Inserido: </p>
-<%= @order.voucher_code %>
+  <%= @order.voucher_code %>
+<% end %>
+<hr/>
 
 <div class="container">
   <%= form_with model: [@order, @payment], method: :post do |f| %>
-    <div class="row"> 
+    <div class="row">
       <div class="mb-3 col-lg-3 col-6">
         <%= f.label :parcels, class: 'form-label' %><br />
         <%= f.number_field :parcels, autofocus: true, class: 'form-control' %>
       </div>
-
       <div class="mb-3 col-lg-3 col-6">
         <%= f.label :payment_method_id, 'Meio de Pagamento', class: 'form-label' %> <br>
         <%= f.collection_select :payment_method_id, @payment_options, :payment_method_id, :formatted_payment_type_and_name, {}, class: 'form-control' %>
