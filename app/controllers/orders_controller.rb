@@ -72,6 +72,7 @@ class OrdersController < ApplicationController
       end
     else
       redirect_to new_order_payment_path(@order), alert: t(:invalid_coupon)
+      @order.update(voucher_code: nil)
     end
   end
   # rubocop:enable Metrics/AbcSize
