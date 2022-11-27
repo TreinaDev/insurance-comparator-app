@@ -41,7 +41,7 @@ Visualize a app no browser:
 ```sh
 rails bin/dev
 ```
-e acesse http://localhost:3000/
+e acesse http://localhost:4000/
 <br>
 
 Execute os testes:

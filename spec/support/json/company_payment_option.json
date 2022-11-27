@@ -5,5 +5,5 @@
   "tax_maximum":5,
   "max_parcels":1,
   "single_parcel_discount":1,
-  "payment_method_id": 2
+  "payment_option_id": 2
 }

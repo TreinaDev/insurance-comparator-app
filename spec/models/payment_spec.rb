@@ -177,7 +177,7 @@ RSpec.describe Payment, type: :model do
                             registration_number: client.cpf,
                             package_id: order.package_id, insurance_company_id: order.insurance_company_id,
                             voucher: '', parcels: payment.parcels,
-                            final_price: order.final_price } }
+                            total_price: order.final_price } }
       allow(Faraday).to receive(:post).with(url, params.to_json,
                                             'Content-Type' => 'application/json').and_return(fake_response)
 
@@ -221,7 +221,7 @@ RSpec.describe Payment, type: :model do
                             registration_number: client.cpf,
                             package_id: order.package_id, insurance_company_id: order.insurance_company_id,
                             voucher: '', parcels: payment.parcels,
-                            final_price: order.final_price } }
+                            total_price: order.final_price } }
       allow(Faraday).to receive(:post).with(url, params.to_json,
                                             'Content-Type' => 'application/json').and_return(fake_response)
 

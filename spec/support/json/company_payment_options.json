@@ -1,6 +1,6 @@
 [
   {
-  "payment_method_id": 1,
+  "payment_option_id": 1,
   "name":"Laranja",
   "payment_type":"Cartão de Crédito", 
   "tax_percentage":5,
@@ -9,7 +9,7 @@
   "single_parcel_discount":1
   },
   {
-  "payment_method_id": 2,
+  "payment_option_id": 2,
   "name":"Roxinho",
   "payment_type":"Boleto", 
   "tax_percentage":1,

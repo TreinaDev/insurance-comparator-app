@@ -93,7 +93,7 @@ describe 'Usuário efetua pagamento' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+    insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
                               coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
@@ -110,7 +110,7 @@ describe 'Usuário efetua pagamento' do
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
     allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, package_id: insurance.id,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
                           insurance_company_id: insurance.insurance_company_id,
@@ -122,7 +122,7 @@ describe 'Usuário efetua pagamento' do
     params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
                           package_id: order.package_id, insurance_company_id: order.insurance_company_id,
                           voucher: '', parcels: 1,
-                          final_price: order.final_price } }
+                          total_price: order.final_price } }
     allow(Faraday).to receive(:post).with(url, params.to_json,
                                           'Content-Type' => 'application/json').and_return(fake_response)
 
@@ -233,7 +233,7 @@ describe 'Usuário efetua pagamento' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+    insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
                               coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
@@ -253,7 +253,7 @@ describe 'Usuário efetua pagamento' do
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_company_id: insurance.insurance_company_id, package_id: insurance.id,
                           insurance_description: insurance.to_json)
 
     url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
@@ -262,7 +262,7 @@ describe 'Usuário efetua pagamento' do
     params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
                           package_id: order.package_id, insurance_company_id: order.insurance_company_id,
                           voucher: '', parcels: 1,
-                          final_price: order.final_price } }
+                          total_price: order.final_price } }
     allow(Faraday).to receive(:post).with(url, params.to_json,
                                           'Content-Type' => 'application/json').and_return(fake_response)
 
