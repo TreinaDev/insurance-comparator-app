@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_client!
   before_action :set_order, only: [:show]
-  before_action :set_insurance, only: %i[new create]
+  before_action :set_insurance, only: %i[new]
   before_action :set_product_id, only: %i[new create]
 
   def index
@@ -22,15 +22,30 @@ class OrdersController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def create
+    set_product_id
+    set_insurance
+    set_product_id
     assign_order_variables
-    if @order.save && @order.insurance_company_approval?
+    if @order.validate_cpf(@order.client.cpf) && @order.valid?
+      @order.save
+      unless @order.post_policy
+        flash.now[:alert] = t(:fail_connection_api)
+        return redirect_to order_path(@order.id)
+      end
       redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
+    else
+      flash.now[:alert] = t(:your_order_was_not_registered)
+      render :new
     end
-  rescue ActiveRecord::RecordInvalid
-    flash.now[:alert] = t(:your_order_was_not_registered)
-    render :new
+  rescue Errno::ECONNREFUSED
+    flash.now[:alert] = t(:fail_connection_api)
+    redirect_to root_path
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   private
 
@@ -39,6 +54,7 @@ class OrdersController < ApplicationController
     @order.client = current_client
     @order.assign_insurance_to_order(@insurance)
     @order.validate_cpf(@order.client.cpf)
+    @order.product_model_id = @product_id
   end
 
   def set_order
@@ -54,8 +70,10 @@ class OrdersController < ApplicationController
   end
 
   def set_product_id
+    set_insurance
     @product_id = params[:product_id]
     response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/products/#{@product_id}")
     @product = JSON.parse(response.body)
+    @insurance.product_model = @product['product_model']
   end
 end
