@@ -52,7 +52,7 @@ class Order < ApplicationRecord
     activate_policy
     charge_approved!
   end
-  
+
   def insurance_coverages
     JSON.parse(insurance_description)
   end
