@@ -40,7 +40,7 @@ describe 'Usuário cadastra dispositivo' do
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
     fill_in 'Nome', with: 'IPHONE 14 - PROMAX'
-    select 'Telefone', from: 'Categoria de Produto'
+    select 'Telefone', from: 'Categoria'
     fill_in 'Valor', with: '10199'
     fill_in 'Marca', with: 'Apple'
     fill_in 'Data da compra', with: '01/11/2022'
@@ -50,6 +50,7 @@ describe 'Usuário cadastra dispositivo' do
 
     expect(page).to have_content 'Seu dispositivo foi cadastrado com sucesso!'
     expect(page).to have_content 'IPHONE 14 - PROMAX'
+    expect(page).to have_content 'Categoria: Telefone'
     expect(page).to have_content 'Valor: R$ 10.199,00'
     expect(page).to have_content 'Marca: Apple'
     expect(page).to have_content 'Data da compra: 01/11/2022'

@@ -47,7 +47,8 @@ class EquipmentController < ApplicationController
   end
 
   def equipment_params
-    params.require(:equipment).permit(:client, :name, :brand, :equipment_price, :purchase_date, :invoice, photos: [])
+    params.require(:equipment).permit(:client, :name, :product_category_id, :product_category, :brand,
+                                      :equipment_price, :purchase_date, :invoice, photos: [])
   end
 
   def cannot_belong_to_an_order
