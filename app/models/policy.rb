@@ -39,6 +39,9 @@ class Policy
 
   def self.cancel(policy_code, order_id)
     @order = Order.find(order_id)
+    @order.status = :cancelled
+    @order.save!
+
     response = Faraday.post("#{Rails.configuration.external_apis['insurance_api']}/policies/#{policy_code}/canceled")
     return unless response.status == 200
 
