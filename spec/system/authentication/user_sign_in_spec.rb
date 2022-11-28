@@ -14,9 +14,9 @@ describe 'Usuário se autentica' do
     within 'nav' do
       click_link 'Entrar'
     end
-      fill_in 'E-mail', with: 'thalis@gmail.com'
-      fill_in 'Senha', with: '12345678'
-      click_button 'Entrar'
+    fill_in 'E-mail', with: 'thalis@gmail.com'
+    fill_in 'Senha', with: '12345678'
+    click_button 'Entrar'
 
     within 'nav' do
       expect(page).to have_content 'Thalis | thalis@gmail.com'
@@ -34,9 +34,9 @@ describe 'Usuário se autentica' do
                    birth_date: '29/10/1997')
 
     visit new_client_session_path
-      fill_in 'E-mail', with: 'ana'
-      fill_in 'Senha', with: '1234'
-      click_button 'Entrar'
+    fill_in 'E-mail', with: 'ana'
+    fill_in 'Senha', with: '1234'
+    click_button 'Entrar'
 
     expect(page).to have_content 'E-mail ou senha inválidos.'
     within 'nav' do
