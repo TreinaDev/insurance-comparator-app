@@ -12,8 +12,8 @@
     <p class="card-text"><%="#{Order.human_attribute_name(:price)}: #{number_to_currency(@order.price, unit: "R$", separator: ",", delimiter: "", format: "%u %n")}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:final_price)}: #{number_to_currency(@order.final_price, unit: "R$", separator: ",", delimiter: "", format: "%u %n")}"%></p>
     
-    <% if !@order.insurance_coverages['coberturas'].nil?%>
-      <% @order.insurance_coverages['coberturas'].each do |c| %>
+    <% if !@order.insurance_coverages['coverages'].nil?%>
+      <% @order.insurance_coverages['coverages'].each do |c| %>
         <p class="card-text"> <%= Order.human_attribute_name(:insurance_description) %>: <%= Order.human_attribute_name(c['name'])%> - <%= c['description'] %></p>
       <% end %>
     <% end %>

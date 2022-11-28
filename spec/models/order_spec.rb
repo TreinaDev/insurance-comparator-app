@@ -14,7 +14,7 @@ RSpec.describe Order, type: :model do
       Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                     insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                     product_model: 'iPhone 11', product_model_id: 1,
-                    coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                    coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                     por danificação da tela do aparelho.' }], services: [])
 
       PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
@@ -51,7 +51,7 @@ RSpec.describe Order, type: :model do
       Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                     insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                     product_model: 'iPhone 11', product_model_id: 1,
-                    coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                    coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                     por danificação da tela do aparelho.' }], services: [])
 
       PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
@@ -120,7 +120,7 @@ RSpec.describe Order, type: :model do
                         price: 10.00, final_price: 100, insurance_name: 'Seguradora 45',
                         package_name: 'Premium', product_category_id: 2, product_category: 'iPhone 11',
                         status: :pending, package_id: 2,
-                        insurance_description: '{"coberturas": [{"code": "76R", "name": "Quebra de tela",
+                        insurance_description: '{"coverages": [{"code": "76R", "name": "Quebra de tela",
                         "description": "Assistência por danificação da tela do aparelho."}], "services": []}')
 
       fake_response = double('faraday_response', success?: false, status: 500)
@@ -156,7 +156,7 @@ RSpec.describe Order, type: :model do
       Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                     insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                     product_model: 'iPhone 11', product_model_id: 1,
-                    coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                    coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                     por danificação da tela do aparelho.' }], services: [])
 
       order = Order.new(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',

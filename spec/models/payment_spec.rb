@@ -14,7 +14,7 @@ RSpec.describe Payment, type: :model do
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                             client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
@@ -42,7 +42,7 @@ RSpec.describe Payment, type: :model do
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                             client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
@@ -70,7 +70,7 @@ RSpec.describe Payment, type: :model do
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                             client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
@@ -95,7 +95,7 @@ RSpec.describe Payment, type: :model do
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                             client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
@@ -123,7 +123,7 @@ RSpec.describe Payment, type: :model do
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                             client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
@@ -154,7 +154,7 @@ RSpec.describe Payment, type: :model do
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 1', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -198,7 +198,7 @@ RSpec.describe Payment, type: :model do
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 1', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read

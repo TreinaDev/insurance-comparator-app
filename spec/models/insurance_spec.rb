@@ -7,7 +7,7 @@ describe Insurance do
                                 insurance_company_id: 1, insurance_name: 'Seguradora 1',
                                 price_per_month: 100.00, product_category_id: 1, product_model: 'Samsung Galaxy S20',
                                 product_model_id: 20,
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
       allow(Insurance).to receive(:find).with(20, 10).and_return(insurance)
 
