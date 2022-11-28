@@ -19,12 +19,17 @@ describe 'Cliente cancela apólice' do
                           contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
                           package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
                           voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
-                          product_model: 'iPhone 11', status: :charge_approved,
+                          product_model: 'iPhone 11', status: :charge_approved, policy_code: 'NIUGBWSTJ5',
                           package_id: insurance.id, insurance_description: insurance.to_json)
     order_id = order.id
     other_json_data = Rails.root.join('spec/support/json/policy.json').read
     fake_response = double('faraday_response', status: 200, body: other_json_data)
     allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/policies/order/#{order_id}").and_return(fake_response)
+
+    fake_response2 = double('faraday_response', status: 200, body: '{"message":"success"}')
+    allow(Faraday).to receive(:post)
+      .with("#{Rails.configuration.external_apis['insurance_api']}/policies/#{order.policy_code}/canceled")
+      .and_return(fake_response2)
 
     login_as(client)
     visit order_policies_path(order_id)
