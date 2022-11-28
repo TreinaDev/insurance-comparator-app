@@ -9,11 +9,12 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')],
+                                  product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
     api_url = Rails.configuration.external_apis['payment_options_api'].to_s
     json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -41,11 +42,12 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')],
+                                  product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 67', price_per_month: 2, product_category_id: 1,
                               product_model: 'iPhone 11',
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
     # rubocop:disable Layout/LineLength
     api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
@@ -92,11 +94,11 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
-                              insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                              insurance_name: 'Seguradora 67', price_per_month: 2, product_category_id: 1,
                               product_model: 'iPhone 11',
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
     payment_options = []
     payment_options << PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
@@ -149,11 +151,12 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')],
+                                  product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
     # rubocop:disable Layout/LineLength
     api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
@@ -190,11 +193,12 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')],
+                                  product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
     # rubocop:disable Layout/LineLength
     api_url = "#{Rails.configuration.external_apis['payment_options_api']}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
@@ -232,11 +236,11 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
-    insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
     payment_options = []
     payment_options << PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
@@ -272,7 +276,6 @@ describe 'Usuário efetua pagamento' do
     select 'Cartão de Crédito - Laranja', from: 'Meio de Pagamento'
     fill_in 'Parcelas', with: '1'
     click_on 'Salvar'
-
     expect(page).to have_content 'Falha no sistema.'
   end
 end

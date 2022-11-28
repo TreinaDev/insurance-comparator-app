@@ -4,7 +4,7 @@ class Equipment < ApplicationRecord
   belongs_to :client
   has_many :orders, through: :client
 
-  validates :name, :brand, :purchase_date, :invoice, :photos, :equipment_price, presence: true
+  validates :name, :brand, :purchase_date, :invoice, :photos, :equipment_price, :product_category_id, presence: true
   validate :photos_length
   validate :purchase_date_is_past
   validates :equipment_price, comparison: { greater_than: 0 }, allow_blank: true

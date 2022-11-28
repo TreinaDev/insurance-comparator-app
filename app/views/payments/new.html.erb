@@ -7,45 +7,49 @@
     <% end %>
   </ul>
 <%end%>
-<div class="container">
-  <% @payment_options.each do |payment_option| %>
-    <p class="mt-3"><b><%= payment_option.formatted_payment_type_and_name %></b></p>
-    <ul class="list-group">
-      <div class="row">
-        <div class="col-lg-6 col-12">
-          <li class="list-group-item">
-            <b><%= t :tax_percentage %>:</b>
-            <%= payment_option.tax_percentage %>%
-          </li>
+<% if @payment_options.any? %>
+  <div class="container">
+    <% @payment_options.each do |payment_option| %>
+      <p class="mt-3"><b><%= payment_option.formatted_payment_type_and_name %></b></p>
+      <ul class="list-group">
+        <div class="row">
+          <div class="col-lg-6 col-12">
+            <li class="list-group-item">
+              <b><%= t :tax_percentage %>:</b>
+              <%= payment_option.tax_percentage %>%
+            </li>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6 col-12">
-          <li class="list-group-item">
-            <b><%= t :tax_maximum %>:</b>
-            <%= number_to_currency(payment_option.tax_maximum) %>
-          </li>
+        <div class="row">
+          <div class="col-lg-6 col-12">
+            <li class="list-group-item">
+              <b><%= t :tax_maximum %>:</b>
+              <%= number_to_currency(payment_option.tax_maximum) %>
+            </li>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6 col-12">
-          <li class="list-group-item">
-            <b><%= t :max_parcels %>:</b>
-            <%= payment_option.max_parcels %>x
-          </li>
+        <div class="row">
+          <div class="col-lg-6 col-12">
+            <li class="list-group-item">
+              <b><%= t :max_parcels %>:</b>
+              <%= payment_option.max_parcels %>x
+            </li>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6 col-12">
-          <li class="list-group-item">
-            <b><%= t :single_parcel_discount %>:</b>
-            <%= payment_option.single_parcel_discount %>%
-          </li>
+        <div class="row">
+          <div class="col-lg-6 col-12">
+            <li class="list-group-item">
+              <b><%= t :single_parcel_discount %>:</b>
+              <%= payment_option.single_parcel_discount %>%
+            </li>
+          </div>
         </div>
-      </div>
-    </ul>
-  <% end %>
-</div>
+      </ul>
+    <% end %>
+  </div>
+<% else %>
+  <li class="alert alert-danger" role="alert"><%= t :no_payment_option_available %> </li>
+<% end %>
 <br>
 <p><b><%= Order.human_attribute_name(:insurance_name)%>:</b> <%=@order.insurance_name%></p>
 <p><b><%= Order.human_attribute_name(:contract_period) %>:</b> <%=@order.contract_period%> <%=(t :month, count: @order.contract_period)%></p>
@@ -54,6 +58,7 @@
 
 <hr/>
 <br>
+<p><em>Possui algum Cupom de Desconto?</em></p>
 <div class="container">
   <%= form_with url: voucher_order_path(@order), method: :post do |form| %>
     <div class="row">
@@ -64,13 +69,11 @@
       </div>
     </div>
   <% end %>
-</div>
-
 <% if @order.voucher_code.present? %>
-  <p> Cupom Inserido: </p>
-  <%= @order.voucher_code %>
+  <p><small><em>Cupom Inserido: <%= @order.voucher_code %></em></small></p>
 <% end %>
 <hr/>
+</div>
 
 <div class="container">
   <%= form_with model: [@order, @payment], method: :post do |f| %>
@@ -87,3 +90,5 @@
     <%= f.submit t(:save), class: 'btn btn-dark mt-3 mb-4' %>
   <% end %>
 </div>
+
+ 

@@ -40,6 +40,7 @@ describe 'Usuário cadastra dispositivo' do
     click_on 'Meus Dispositivos'
     click_on 'Cadastrar Novo'
     fill_in 'Nome', with: 'IPHONE 14 - PROMAX'
+    select 'Telefone', from: 'Categoria'
     fill_in 'Valor', with: '10199'
     fill_in 'Marca', with: 'Apple'
     fill_in 'Data da compra', with: '01/11/2022'
@@ -88,6 +89,11 @@ describe 'Usuário cadastra dispositivo' do
   end
 
   it 'com valor menor ou igual a 0' do
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
 

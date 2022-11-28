@@ -7,7 +7,7 @@ describe 'Cliente edita um dispositivo' do
     equipment = Equipment.create!(client:, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'), equipment_price: 10_199,
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
     patch(equipment_path(equipment), params: { equipment: { equipment_price: 15_199 } })
     expect(response).to redirect_to new_client_session_path
   end
@@ -18,11 +18,11 @@ describe 'Cliente edita um dispositivo' do
     equipment = Equipment.create!(client:, name: 'Iphone 14 - ProMax', brand: 'Apple', purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'), equipment_price: 10_199,
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'Telefone', product_model_id: 20,
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' }], services: [])
     Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                   client:, insurance_name: insurance.insurance_name, package_name: insurance.name,

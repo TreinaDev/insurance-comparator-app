@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_action :set_product_id, only: %i[new create]
 
   def index
-    @orders = Order.all
+    @orders = current_client.orders
   end
 
   def show
@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @equipment = current_client.equipment
+    @equipment = Equipment.where(product_category_id: @insurance.product_category_id, client: current_client)
     @order = Order.new
     if @insurance.nil?
       redirect_to root_path, alert: t(:unable_to_load_package_information)
@@ -37,6 +37,7 @@ class OrdersController < ApplicationController
       end
       redirect_to order_path(@order.id), notice: t(:your_order_is_being_processed)
     else
+      @equipment = Equipment.where(product_category_id: @insurance.product_category_id, client: current_client)
       flash.now[:alert] = t(:your_order_was_not_registered)
       render :new
     end
@@ -44,11 +45,7 @@ class OrdersController < ApplicationController
     flash.now[:alert] = t(:fail_connection_api)
     redirect_to root_path
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def voucher
     @order = Order.find(params[:id])
     @voucher = params[:voucher].upcase
@@ -71,6 +68,7 @@ class OrdersController < ApplicationController
       end
     else
       redirect_to new_order_payment_path(@order), alert: t(:invalid_coupon)
+      @order.update(voucher_code: nil)
     end
   end
   # rubocop:enable Metrics/AbcSize

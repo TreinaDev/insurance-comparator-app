@@ -11,19 +11,20 @@ describe 'Orders API' do
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                                   insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
                                   product_category_id: 1, product_model: 'iphone 11',
-                                  coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                  coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
           por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
                               max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
                               insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
-                              product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending, policy_code: 'ABC12345')
+                              product_category: 'Celular', product_model: 'iphone 11',
+                              status: :charge_pending, policy_code: 'ABC12345')
         allow(PaymentOption).to receive(:find).with(1, 1).and_return(payment_method)
         payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
         fake_response = double('faraday_response')
@@ -60,14 +61,14 @@ describe 'Orders API' do
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                                   insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
                                   product_category_id: 1, product_model: 'iphone 11',
-                                  coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                  coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
                               max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
@@ -97,14 +98,14 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                                   insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
                                   product_category_id: 1, product_model: 'iphone 11',
-                                  coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                  coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
                               max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
@@ -131,14 +132,14 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                                   insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
                                   product_category_id: 1, product_model: 'iphone 11',
-                                  coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                  coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
                               max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
@@ -170,14 +171,14 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                                   insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
                                   product_category_id: 1, product_model: 'iphone 11',
-                                  coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                  coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
                               max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
@@ -211,14 +212,14 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                       purchase_date: '01/11/2022',
                                       invoice: fixture_file_upload('spec/support/invoice.png'),
                                       photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                               fixture_file_upload('spec/support/photo_2.jpg')])
+                                               fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
         payment_method = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                            tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                            payment_method_id: 1)
         insurance = Insurance.new(id: 45, name: 'Premium', max_period: 24, min_period: 6,
                                   insurance_company_id: 1, insurance_name: 'Seguradora 45', price_per_month: 10.00,
                                   product_category_id: 1, product_model: 'iphone 11',
-                                  coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                  coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
                               max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,

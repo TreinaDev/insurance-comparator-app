@@ -42,18 +42,18 @@ class Api::V1::OrdersController < Api::V1::ApiController
     o
   end
 
+  # rubocop:disable Metrics/AbcSize
   def payment_approved
     if invoice_token?
       @order.charge_approved!
-      @payment.invoice_token = params['token']
-      @payment.approved!
-      response = Faraday.post("#{Rails.configuration.external_apis['insurance_api']}/policies/#{@order.policy_code}/active")
+      @payment.update!(invoice_token: params['token'], status: 'approved')
+      Faraday.post("#{Rails.configuration.external_apis['insurance_api']}/policies/#{@order.policy_code}/active")
       return render status: :ok, json: { message: 'success' }
     end
     @payment.errors.add(:invoice_token, 'não pode ficar em branco')
-    render status: :precondition_failed, json: { message: 'failure',
-                                                 error: @payment.errors.first.full_message }
+    render status: :precondition_failed, json: { message: 'failure', error: @payment.errors.first.full_message }
   end
+  # rubocop:enable Metrics/AbcSize
 
   def payment_refused
     @order.charge_refused!
