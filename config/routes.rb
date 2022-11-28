@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:show, :index] do
     resources :payments, only: [:new, :create]
-    resources :policies, only: [:index, :cancel] do
+    resources :policies, only: [:index] do
       post 'cancel_policy', on: :member
     end
     post 'voucher', on: :member
