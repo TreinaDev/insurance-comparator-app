@@ -24,36 +24,32 @@ class Policy
 
   def self.find(order_id)
     response = Faraday.get("#{Rails.configuration.external_apis['insurance_api']}/policies/order/#{order_id}")
-    if response.status == 200
-      data = JSON.parse(response.body)
-      Policy.new(id: data['id'], code: data['code'], status: data['status'],
-                 client_name: data['client_name'],
-                 client_registration_number: data['client_registration_number'],
-                 client_email: data['client_email'], equipment_id: data['equipment_id'],
-                 purchase_date: data['purchase_date'], policy_period: data['policy_period'],
-                 expiration_date: data['expiration_date'], package_id: data['package_id'],
-                 order_id: data['order_id'], insurance_company_id: data['insurance_company_id'],
-                 file_url: data['file_url'])
-    else
-      redirect_to orders_path, notice: (t '.fail_no_policy')
-    end
+    return unless response.status == 200
+
+    data = JSON.parse(response.body)
+    Policy.new(id: data['id'], code: data['code'], status: data['status'],
+               client_name: data['client_name'],
+               client_registration_number: data['client_registration_number'],
+               client_email: data['client_email'], equipment_id: data['equipment_id'],
+               purchase_date: data['purchase_date'], policy_period: data['policy_period'],
+               expiration_date: data['expiration_date'], package_id: data['package_id'],
+               order_id: data['order_id'], insurance_company_id: data['insurance_company_id'],
+               file_url: data['file_url'])
   end
 
   def self.cancel(policy_code, order_id)
     @order = Order.find(order_id)
     response = Faraday.post("#{Rails.configuration.external_apis['insurance_api']}/policies/#{policy_code}/canceled")
-    if response.status == 200
-      data = JSON.parse(response.body)
-      Policy.new(id: data['id'], code: data['code'], status: data['status'],
-                 client_name: data['client_name'],
-                 client_registration_number: data['client_registration_number'],
-                 client_email: data['client_email'], equipment_id: data['equipment_id'],
-                 purchase_date: data['purchase_date'], policy_period: data['policy_period'],
-                 expiration_date: data['expiration_date'], package_id: data['package_id'],
-                 order_id: data['order_id'], insurance_company_id: data['insurance_company_id'],
-                 file_url: data['file_url'])
-    else
-      redirect_to orders_path, notice: (t '.fail_policy_canceled')
-    end
+    return unless response.status == 200
+
+    data = JSON.parse(response.body)
+    Policy.new(id: data['id'], code: data['code'], status: data['status'],
+               client_name: data['client_name'],
+               client_registration_number: data['client_registration_number'],
+               client_email: data['client_email'], equipment_id: data['equipment_id'],
+               purchase_date: data['purchase_date'], policy_period: data['policy_period'],
+               expiration_date: data['expiration_date'], package_id: data['package_id'],
+               order_id: data['order_id'], insurance_company_id: data['insurance_company_id'],
+               file_url: data['file_url'])
   end
 end
