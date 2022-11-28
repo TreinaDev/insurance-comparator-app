@@ -6,7 +6,7 @@ describe 'Cliente vê apólice' do
                             cpf: '21234567890', address: 'Rua Dr Nogueira Martins, 680',
                             city: 'São Paulo', state: 'SP', birth_date: '29/10/1997')
     equipment = Equipment.create!(client:, name: 'iphone 11', brand: 'Apple', equipment_price: 1000,
-                                  purchase_date: '01/11/2022',
+                                  purchase_date: '01/11/2022', product_category_id: 1,
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])

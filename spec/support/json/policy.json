@@ -1,6 +1,5 @@
 {
   "id": 1,
-<<<<<<< HEAD
   "code": "NIUGBWSTJ5",
   "expiration_date": "2023-11-21",
   "status": "active",
@@ -14,18 +13,4 @@
   "order_id": 1,
   "insurance_company_id": 1,
   "file_url": "http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--40f2a98aa80b9f5149f640024de69308fec25efa/sample-policy-a.pdf"
-=======
-  "code": "D0H5IPUVGK",
-  "expiration_date": null,
-  "status": "pending",
-  "client_name": "Ana Lima",
-  "client_registration_number": "21234567890",
-  "client_email": "ana@gmail.com",
-  "equipment_id": 1,
-  "purchase_date": null,
-  "policy_period": 10,
-  "order_id": 1,
-  "insurance_company_id": 45,
-  "package_id": 2
->>>>>>> main
 }
