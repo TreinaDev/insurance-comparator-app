@@ -119,7 +119,7 @@ describe 'Usuário cadastra dispositivo' do
     visit(root_path)
     click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
-    click_on 'Comparador de seguros'
+    click_on 'CompaSeg'
 
     expect(current_path).to eq root_path
   end

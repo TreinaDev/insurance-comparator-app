@@ -17,7 +17,7 @@ describe 'Visitante procura seguros para o seu produto' do
                                    .and_return(fake_response)
 
     visit root_path
-    fill_in 'Produto', with: 'Samsung Galaxy S20'
+    fill_in 'query', with: 'Samsung Galaxy S20'
     click_on 'Buscar'
     click_on 'Samsung Galaxy S20'
 
@@ -61,13 +61,13 @@ describe 'Visitante procura seguros para o seu produto' do
                                    .and_return(fake_response3)
 
     visit root_path
-    fill_in 'Produto', with: 'iphone'
+    fill_in 'query', with: 'iphone'
     click_on 'Buscar'
     click_on 'iPhone 12'
-    click_on 'Super Econômico'
+    click_on 'Mais sobre Super Econômico'
 
     expect(page).to have_content 'Nome da Seguradora: Anjo Seguradora'
-    expect(page).to have_content 'Tipo de Pacote: Super Econômico'
+    expect(page).to have_content 'Detalhes do Pacote: Super Econômico'
     expect(page).to have_content 'Produto: iPhone 12'
     expect(page).to have_content 'Valor da Contratação: R$ 1.200,00' # incluir mais expects
   end
@@ -87,7 +87,7 @@ describe 'Visitante procura seguros para o seu produto' do
     allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/products/5/packages")
                                    .and_return(fake_response1)
     visit root_path
-    fill_in 'Produto', with: 'iPhone 11'
+    fill_in 'query', with: 'iPhone 11'
     click_on 'Buscar'
     click_on 'iPhone 11'
 

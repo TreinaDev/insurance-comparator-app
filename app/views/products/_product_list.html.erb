@@ -1,13 +1,17 @@
+<br>
 <% if @products.empty? %>
   <p>Nenhum produto encontrado</p>
 <% end %>
-<% @products.each do |product| %>
-  <div>
-    <dl>
-      <dd> <%= t(:product)%>: <%= link_to product.product_model, product_insurances_path(product.id) %></dd>
-      <dt> <%= t(:brand)%>:</dt>
-      <dd> <%= product.brand %></dd>
-      <%= image_tag product.image_url, class:"img" %>
-    </dl>
-  </div>
-<% end %>
+<div class="row">
+  <% @products.each do |product| %>
+    <div class="col-sm-6" style="width: 22rem; height: 25rem;">
+      <div class="card text-center" style="width: 20rem;">
+        <%= image_tag product.image_url, class:"card-img-top" %>
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to product.product_model, product_insurances_path(product.id) %></h5>
+          <p class="card-text"><small class="text-muted"><%= t(:brand)%>: <%= product.brand %></small></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
