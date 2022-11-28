@@ -25,7 +25,7 @@
     <tr>
       <th scope="row"><%="#{t :coverages}"%>:</th>
       <td>
-        <% @insurance.coberturas.each do |c| %>
+        <% @insurance.coverages.each do |c| %>
           <%= c['name'] %> (<%= c['description'] %>) <br>
         <% end %>
       </td>

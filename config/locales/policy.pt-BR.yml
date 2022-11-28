@@ -1,0 +1,22 @@
+pt-BR:
+  active: 'Ativa'
+  canceled: 'Cancelada'
+  models:
+    policy:
+      one: 'Apólice'
+      other: 'Apólices'
+  attributes:
+    code: 'Código da Apólice'
+    status: 'Status'
+    client_name: 'Nome do Cliente'
+    client_registration_number: 'CPF do Cliente'
+    equipment_id: 'Dispositivo'
+    purchase_date: 'Data de Contratação'
+    policy_periodo: 'Período Contratado'
+    expiration_date: 'Data de Vencimento'
+    package_id: 'Pacote'
+    insurance_company_id: 'Seguradora'
+    file_url: 'Apólice (pdf)'
+    fail_no_policy: 'Não foi possível carregar a Apólice'
+    fail_policy_canceled: 'Não foi possível cancelar a apólice'
+    policy_canceled: 'Apólice cancelada com sucesso'

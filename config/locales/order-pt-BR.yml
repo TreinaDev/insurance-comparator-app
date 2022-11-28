@@ -24,7 +24,7 @@ pt-BR:
         insurance_approved: "Pedido Aprovado"
         cpf_disapproved: "CPF Recusado"
         charge_pending: "Pagamento em Processamento"
-        charge_approved: "Pagamento Aprovado"
+        active: "Pagamento Aprovado"
       order:
         price: "Preço do Seguro"
         insurance_name: "Nome da Seguradora"
@@ -47,4 +47,5 @@ pt-BR:
         cpf_approved: "CPF Aprovado"
         cpf_disapproved: "CPF Recusado"
         charge_pending: "Pagamento em Processamento"
-        charge_approved: "Pagamento Aprovado"
+        charge_approved: "Apólice Ativa"
+        charge_disapproved: "Pagamento Recusado"

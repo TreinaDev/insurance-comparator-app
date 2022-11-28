@@ -1,0 +1,19 @@
+pt-BR:
+  policies:
+    index:
+      title: 'Dados da Apólice'
+      back: 'Voltar'
+      months: 'meses'
+      code: 'Código da Apólice'
+      status: 'Status'
+      client_name: 'Nome do Cliente'
+      client_registration_number: 'CPF do Cliente'
+      equipment_id: 'Dispositivo'
+      purchase_date: 'Data de Contratação'
+      policy_period: 'Período Contratado'
+      expiration_date: 'Data de Vencimento'
+      package_id: 'Pacote'
+      insurance_company_id: 'Seguradora'
+      file_url: 'Apólice (pdf)'
+      active: 'Ativa'
+      

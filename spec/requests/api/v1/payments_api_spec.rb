@@ -15,7 +15,7 @@ describe 'Payment API' do
                                 insurance_company_id: 45, insurance_name: 'Seguradora 45',
                                 price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11', product_model_id: 1,
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
       api_url = Rails.configuration.external_apis['payment_options_api'].to_s
       json_data = Rails.root.join('spec/support/json/company_payment_options.json').read
@@ -23,12 +23,13 @@ describe 'Payment API' do
       allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
       order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                             client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
-                            product_model: insurance.product_model, price: insurance.price_per_month)
+                            product_model: insurance.product_model, price: insurance.price_per_month,
+                            insurance_company_id: 45)
 
       payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                          max_parcels: 1, single_parcel_discount: 1,
                                          payment_method_id: 2)
-      allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
+      allow(PaymentOption).to receive(:find).with(45, 1).and_return(payment_option)
       Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
 
       get "/api/v1/payments/#{order.id}"

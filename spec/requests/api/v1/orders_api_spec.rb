@@ -15,7 +15,7 @@ describe 'Order API' do
       insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
                                 product_model: 'iphone 11', product_model_id: 1,
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
 
       allow(SecureRandom).to receive(:alphanumeric).and_return('ABCD-0123456789')
@@ -61,7 +61,7 @@ describe 'Order API' do
       insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
                                 product_model: 'iphone 11', product_model_id: 1,
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
 
       order = Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,
@@ -96,7 +96,7 @@ describe 'Order API' do
       insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
                                 product_model: 'iphone 11', product_model_id: 1,
-                                coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                                coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                                 por danificação da tela do aparelho.' }], services: [])
 
       order = Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,

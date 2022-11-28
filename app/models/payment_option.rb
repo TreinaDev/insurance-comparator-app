@@ -25,7 +25,7 @@ class PaymentOption
       data.each do |d|
         payment_options << PaymentOption.new(name: d['name'], payment_type: d['payment_type'], max_parcels: d['max_parcels'],
                                              tax_percentage: d['tax_percentage'], tax_maximum: d['tax_maximum'],
-                                             single_parcel_discount: d['single_parcel_discount'], payment_method_id: d['payment_method_id'])
+                                             single_parcel_discount: d['single_parcel_discount'], payment_method_id: d['payment_option_id'])
       end
     end; payment_options
   end
