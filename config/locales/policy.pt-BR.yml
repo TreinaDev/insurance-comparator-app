@@ -1,5 +1,6 @@
 pt-BR:
   active: 'Ativa'
+  canceled: 'Cancelada'
   models:
     policy:
       one: 'Apólice'
@@ -16,4 +17,6 @@ pt-BR:
     package_id: 'Pacote'
     insurance_company_id: 'Seguradora'
     file_url: 'Apólice (pdf)'
-    fail: 'Não foi possível carregar a Apólice'
+    fail_no_policy: 'Não foi possível carregar a Apólice'
+    fail_policy_canceled: 'Não foi possível cancelar a apólice'
+    policy_canceled: 'Apólice cancelada com sucesso'
