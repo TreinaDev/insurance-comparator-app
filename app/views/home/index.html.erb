@@ -1,5 +1,10 @@
-<h1 class="mt-4 fs-2"> Boas vindas ao Comparador de Seguros </h1>
-<p class="text-secondary"> Informe abaixo o nome do seu produto para encontrar os Pacotes de Seguro compatíveis </p>
+
+
+
+<div class="text-bg-light p-3"><h1 class="text-center">Boas-Vindas ao Comparador de Seguros</h1></div>
+
+
+<!-- <p class="text-secondary"> Informe abaixo o nome do seu produto para encontrar os Pacotes de Seguro compatíveis </p>
 <hr/>
 
 <h3>Digite o modelo do seu equipamento</h3>
@@ -18,7 +23,9 @@
 </div>
 <% end %>
 <br>
+-->
 <br>
+
 
 <h3>Ou selecione uma das opções abaixo</h3>
 
@@ -30,7 +37,7 @@
 
 <% @product_categories.each do |pc| %>
   <div button type="button" class="btn btn-outline-primary">
-    <i class="bi bi-phone">
+    <i class="bi bi-shield-check">
       <br><%= link_to pc['name'], product_path(pc['id']), :class => "btn" %>
     </i>
   </div>

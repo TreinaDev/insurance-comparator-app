@@ -2,30 +2,32 @@
    <p>Não há pacotes disponíveis para este produto.</p>
 <% else %>
    <h1 class="display-6"> Selecione seu Pacote</h1>
-   
+   <hr/>
+
+<div class="row">
    <% @packages.each do |pack| %>
-      <div class="card" style="width: 30rem;">
-      <div class="card-header">
-         <%= link_to pack['name'], product_insurance_path(product_id: @product_id, id: pack['id'].to_i) %> 
-      </div>
-         <p class="card-text"> Nome da Seguradora: <%= pack['insurance_company_name']%> </p>
-         <p class="card-text"> Contratação por 12 meses: <%= number_to_currency(pack['price_per_month'].to_d * 12) %> </p>
-         <p class="card-text"> Período Mínimo de Contratação: <%= pack['min_period'] %> meses </p>
-         <p class="card-text"> Período Máximo de Contratação: <%= pack['max_period'] %> meses </p>
-
-      <strong>Coberturas: </strong>
-      <% pack['coverages'].each do |c| %>
-         <p class="card-text"><%= c['name'] %> </p>
-         <p class="card-text"><%= c['description'] %> </p>
-      <% end %>
-
-      <strong>Serviços: </strong>
-      <% pack['services'].each do |service| %>
-         <p class="card-text"><%= service['name'] %> </p>
-         <p class="card-text"><%= service['description'] %> </p>
-      <% end %>
-   </div>
-   <br>
-   <br>
+      <div class="col-sm-6">
+         <div class="card">
+            <div class="card-body">
+               <h5 class="card-title"><%= pack['name'] %></h5><hr/>
+                  <p class="card-text"> Nome da Seguradora: <%= pack['insurance_company_name']%></p>
+                  <p class="card-text"> Contratação por 12 meses: <%= number_to_currency(pack['price_per_month'].to_d * 12) %></p>
+                  <p class="card-text"> Período Mínimo de Contratação: <%= pack['min_period'] %> meses</p>
+                  <p class="card-text"> Período Máximo de Contratação: <%= pack['max_period'] %> meses</p>
+                  <p class="card-text"><em>Coberturas: </em></p>
+                  <% pack['coverages'].each do |c| %>
+                     <p class="card-text"><%= c['name'] %></p>
+                  <% end %>
+                  <p class="card-text"><em>Serviços: </em></p>
+                  <% pack['services'].each do |service| %>
+                     <p class="card-text"><%= service['name'] %></p>
+                     <p class="card-text"><%= service['description'] %></p>
+                  <% end %>
+                  <%= link_to "Mais informações", product_insurance_path(product_id: @product_id, id: pack['id'].to_i), class: 'btn btn-warning' %>
+               </div>
+          </div>
+         </div>
    <% end %>
+</div>
+   <br>
 <% end %>

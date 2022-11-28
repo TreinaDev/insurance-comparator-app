@@ -1,4 +1,5 @@
 <h1 class="fs-2">Aquisição do Seguro <%= @insurance.name %></h1>
+<hr/>
 
 <% if @order.errors.any? %>
   <h5> <%= t(:please_check_errors, count: @order.errors.count) %>: </h5>

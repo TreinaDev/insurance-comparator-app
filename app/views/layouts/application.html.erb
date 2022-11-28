@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
   </head>
 
     <header>
@@ -17,6 +18,19 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+
+        <%= form_with(url: search_path, method: :get) do |f|%>
+          <div class="row g-3 align-items-center mt-4">
+            <div class="col-auto">
+              <%= f.text_field :query, class: 'form-control', placeholder: "Digite sua busca..." %>
+          </div>
+            <div class="col-auto">
+            <%= f.submit 'Buscar', class: 'btn btn-outline-warning' %> </button>
+              </div>
+            </div>
+          </div>
+          <% end %>
+          
         <div class="me-2 d-flex justify-content-end">
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav w-100">

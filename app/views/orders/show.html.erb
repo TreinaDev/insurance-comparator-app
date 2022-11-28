@@ -1,10 +1,7 @@
-<h1 class="display-6">Informações do Pedido</h1>
+<h1 class="display-6">Informações do Pedido <%= "#{@order.code}" %></h1>
 <hr/>
-<div class="card" style="width: 20rem;">
-  <div class="card-body">
-    <div class="card-header">
-      <%= "#{Order.human_attribute_name(:order)}: #{@order.code}" %>
-    </div>
+<div class="card" style="width: 20rem;"></div>
+  <div class="card-body"></div>
     <p class="card-text"><%="#{Order.human_attribute_name(:insurance_name)}: #{@order.insurance_name}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:package_name)}: #{@order.package_name}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:contract_period)}: #{@order.contract_period} #{t :month, count: @order.contract_period}"%></p>
