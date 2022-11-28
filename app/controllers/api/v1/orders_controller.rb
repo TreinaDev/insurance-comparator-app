@@ -44,7 +44,7 @@ class Api::V1::OrdersController < Api::V1::ApiController
 
   def payment_approved
     if invoice_token?
-      @order.active!
+      @order.charge_approved!
       @payment.invoice_token = params['token']
       @payment.approved!
       response = Faraday.post("#{Rails.configuration.external_apis['insurance_api']}/policies/#{@order.policy_code}/active")
@@ -64,7 +64,6 @@ class Api::V1::OrdersController < Api::V1::ApiController
   private
 
   def order_params
-    # params.require(:order).permit(:policy_code, :policy_id, :status)
     { policy_code: params['body']['order']['policy_code'], policy_id: params['body']['order']['policy_id'],
       status: params['body']['order']['status'] }
   end

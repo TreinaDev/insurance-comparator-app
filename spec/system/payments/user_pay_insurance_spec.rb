@@ -109,7 +109,7 @@ describe 'Usuário efetua pagamento' do
     payment_option = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
-    allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
+    allow(PaymentOption).to receive(:find).with(insurance.insurance_company_id, 1).and_return(payment_option)
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, package_id: insurance.id,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
@@ -164,7 +164,7 @@ describe 'Usuário efetua pagamento' do
     payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                        max_parcels: 1, single_parcel_discount: 1,
                                        payment_method_id: 2)
-    allow(PaymentOption).to receive(:find).with(2).and_return(payment_option)
+    allow(PaymentOption).to receive(:find).with(insurance.insurance_company_id, 2).and_return(payment_option)
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
@@ -211,7 +211,7 @@ describe 'Usuário efetua pagamento' do
     payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                        max_parcels: 1, single_parcel_discount: 1,
                                        payment_method_id: 2)
-    allow(PaymentOption).to receive(:find).with(2).and_return(payment_option)
+    allow(PaymentOption).to receive(:find).with(insurance.insurance_company_id, 2).and_return(payment_option)
 
     login_as(client)
     visit order_path(order.id)
@@ -249,7 +249,7 @@ describe 'Usuário efetua pagamento' do
     payment_option = PaymentOption.new(name: 'Laranja', payment_type: 'Cartão de Crédito', tax_percentage: 5,
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
-    allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
+    allow(PaymentOption).to receive(:find).with(insurance.insurance_company_id, 1).and_return(payment_option)
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,

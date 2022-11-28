@@ -21,14 +21,18 @@ describe 'Orders API' do
                                   coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
           por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
                               insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
-                              product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
-        allow(PaymentOption).to receive(:find).with(1).and_return(payment_method)
+                              product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending, policy_code: 'ABC12345')
+        allow(PaymentOption).to receive(:find).with(1, 1).and_return(payment_method)
         payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
+        fake_response = double('faraday_response')
+        allow(Faraday).to receive(:post)
+          .with("#{Rails.configuration.external_apis['insurance_api']}/policies/#{order.policy_code}/active")
+          .and_return(fake_response)
 
         params = {
-          transaction_registration_number: 'ACSVDLGF934JHDS9'
+          token: 'ACSVDLGF934JHDS9'
         }
 
         post "/api/v1/orders/#{order.id}/payment_approved", params: params
@@ -37,7 +41,7 @@ describe 'Orders API' do
         json_data = JSON.parse(response.body)
         expect(json_data['message']).to eq 'success'
         expect(payment.reload.status).to eq 'approved'
-        expect(order.reload.status).to eq 'active'
+        expect(order.reload.status).to eq 'charge_approved'
       end
 
       it 'e a aplicação recebe um ID Inválido' do
@@ -66,11 +70,11 @@ describe 'Orders API' do
                                   coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
                               insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
                               product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
 
-        allow(PaymentOption).to receive(:find).with(1).and_return(payment_method)
+        allow(PaymentOption).to receive(:find).with(1, 1).and_return(payment_method)
         Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
 
         params = {
@@ -103,10 +107,10 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                   coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
                               insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
                               product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
-        allow(PaymentOption).to receive(:find).with(1).and_return(payment_method)
+        allow(PaymentOption).to receive(:find).with(1, 1).and_return(payment_method)
         payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
 
         post "/api/v1/orders/#{order.id}/payment_approved"
@@ -137,10 +141,10 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                   coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
                               insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
                               product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
-        allow(PaymentOption).to receive(:find).with(1).and_return(payment_method)
+        allow(PaymentOption).to receive(:find).with(1, 1).and_return(payment_method)
         payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
         params = {
           transaction_registration_number: ''
@@ -176,10 +180,10 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                   coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
                               insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
                               product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
-        allow(PaymentOption).to receive(:find).with(1).and_return(payment_method)
+        allow(PaymentOption).to receive(:find).with(1, 1).and_return(payment_method)
         payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
 
         post "/api/v1/orders/#{order.id}/payment_refused"
@@ -217,11 +221,11 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
                                   coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
 por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         order = Order.create!(client:, equipment:, payment_method:, contract_period: 10, package_name: 'Premium',
-                              max_period: 24, min_period: 6, insurance_company_id: insurance.id,
+                              max_period: 24, min_period: 6, insurance_company_id: insurance.insurance_company_id,
                               insurance_name: 'Seguradora 45', price: 10.00, product_category_id: 1,
                               product_category: 'Celular', product_model: 'iphone 11', status: :charge_pending)
 
-        allow(PaymentOption).to receive(:find).with(1).and_return(payment_method)
+        allow(PaymentOption).to receive(:find).with(1, 1).and_return(payment_method)
         Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
         allow(Order).to receive(:find).with(order.id.to_s).and_raise(ActiveRecord::ActiveRecordError)
 
