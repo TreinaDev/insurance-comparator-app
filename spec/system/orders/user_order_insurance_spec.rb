@@ -5,7 +5,7 @@ describe 'Cliente compra pacote de seguro' do
     insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11', product_model_id: 20,
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' }], services: [])
 
     allow(Insurance).to receive(:find).with('20', '45').and_return(insurance)
@@ -126,10 +126,10 @@ describe 'Cliente compra pacote de seguro' do
     insurance = Insurance.new(id: 45, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11', product_model_id: 1,
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' },
-                                           { code: '18Z', name: 'Furto',
-                                             description: 'Cobertura total do valor do aparelho.' }], services: [])
+                                          { code: '18Z', name: 'Furto',
+                                            description: 'Cobertura total do valor do aparelho.' }], services: [])
 
     json_data3 = Rails.root.join('spec/support/json/product.json').read
     fake_response3 = double('faraday_response', status: 200, body: json_data3)
@@ -194,7 +194,7 @@ describe 'Cliente compra pacote de seguro' do
     insurance = Insurance.new(id: 2, name: 'Premium', max_period: 18, min_period: 6, insurance_company_id: 1,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11', product_model_id: 1,
-                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
                               por danificação da tela do aparelho.' }], services: [])
 
     allow(Insurance).to receive(:find).with('1', '2').and_return(insurance)

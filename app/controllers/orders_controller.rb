@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_action :set_product_id, only: %i[new create]
 
   def index
-    @orders = Order.all
+    @orders = current_client.orders
   end
 
   def show

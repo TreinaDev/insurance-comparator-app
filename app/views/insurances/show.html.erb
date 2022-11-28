@@ -8,8 +8,8 @@
   <li class="list-group-item"><%="#{t :product_model}: #{@product['product_model']}"%></li>
   <li class="list-group-item"><%="#{t :price}: #{number_to_currency((@insurance.price_per_month).to_i * 12 )}"%> </li>
   
-  <li class="list-group-item"> Coberturas: </li>
-  <% @insurance.coberturas.each do |c| %>
+  <li class="list-group-item"> coverages: </li>
+  <% @insurance.coverages.each do |c| %>
     <li class="list-group-item"><%= c['name'] %> </li>
     <li class="list-group-item"><%= c['description'] %> </li>
   <% end %>
