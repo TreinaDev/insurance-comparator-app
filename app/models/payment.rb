@@ -10,7 +10,7 @@ class Payment < ApplicationRecord
   validate :parcels_is_less_than_or_equal_to_max_parcels
 
   def parcels_is_less_than_or_equal_to_max_parcels
-    payment_option = PaymentOption.find(payment_method_id)
+    payment_option = PaymentOption.find(order.insurance_company_id, payment_method_id)
     return unless parcels.present? && payment_option.present? && parcels > payment_option.max_parcels
 
     errors.add(:parcels, ' não pode ser maior que o máximo permitido pelo meio de pagamento')
@@ -29,6 +29,6 @@ class Payment < ApplicationRecord
   def invoice_attributes
     { payment_method_id:, order_id: order.id, registration_number: client.cpf,
       package_id: order.package_id, insurance_company_id: order.insurance_company_id,
-      voucher: order.voucher_code, parcels:, final_price: order.final_price }
+      voucher: order.voucher_code, parcels:, total_price: order.final_price }
   end
 end

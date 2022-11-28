@@ -45,11 +45,7 @@ class OrdersController < ApplicationController
     flash.now[:alert] = t(:fail_connection_api)
     redirect_to root_path
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def voucher
     @order = Order.find(params[:id])
     @voucher = params[:voucher].upcase
