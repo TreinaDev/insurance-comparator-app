@@ -1,44 +1,20 @@
-
-
-
-<div class="text-bg-light p-3"><h1 class="text-center">Boas-Vindas ao Comparador de Seguros</h1></div>
-
-
-<!-- <p class="text-secondary"> Informe abaixo o nome do seu produto para encontrar os Pacotes de Seguro compatíveis </p>
-<hr/>
-
-<h3>Digite o modelo do seu equipamento</h3>
-<%= form_with(url: search_path, method: :get) do |f|%>
-  
-<div class="row g-3 align-items-center mt-4">
-  <div class="col-auto">
-    <%= f.label :query, 'Produto', class: 'col-form-label' %>
-  </div>
-  <div class="col-auto">
-    <%= f.text_field :query, class: 'form-control' %>
-  </div>
-  <div class="col-auto">
-    <%= f.submit 'Buscar', class: 'btn btn-dark' %>
-  </div>
+<div class="text-bg-light p-3">
+  <h1 class="text-center">Boas-Vindas ao Comparador de Seguros</h1>
+  <img src="logo.png" class="img-fluid" alt="rss feed">
 </div>
-<% end %>
 <br>
--->
+<h3>Encontre seu produto através das categorias </h3>
 <br>
-
-
-<h3>Ou selecione uma das opções abaixo</h3>
-
 <% if @product_categories.empty? %>
   <div class="alert alert-secondary" role="alert">
     Não foi possível carregar as categorias.
   </div>
 <% end %>
-
 <% @product_categories.each do |pc| %>
-  <div button type="button" class="btn btn-outline-primary">
+  <div button type="button" class="btn btn-warning">
     <i class="bi bi-shield-check">
-      <br><%= link_to pc['name'], product_path(pc['id']), :class => "btn" %>
+      <br>
+      <%= link_to pc['name'], product_path(pc['id']), :class => "btn" %>
     </i>
   </div>
 <% end %>

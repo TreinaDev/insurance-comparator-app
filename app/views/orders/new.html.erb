@@ -1,6 +1,5 @@
-<h1 class="fs-2">Aquisição do Seguro <%= @insurance.name %></h1>
+<h1 class="display-6">Aquisição do Seguro <%= @insurance.name %></h1>
 <hr/>
-
 <% if @order.errors.any? %>
   <h5> <%= t(:please_check_errors, count: @order.errors.count) %>: </h5>
   <ul>
@@ -9,67 +8,43 @@
     <% end %>
   </ul>
 <%end%>
+<table class="table">
+  <tbody>
+    <tr>
+      <th scope="row"><%="#{t :insurance_name}"%></th>
+      <td><%= "#{@insurance.insurance_name}" %> </td>
+    </tr>
+    <tr>
+      <th scope="row"><%="#{t :name}"%></th>
+      <td><%= "#{@insurance.name}" %> </td>
+    </tr>
+    <tr>
+      <th scope="row"><%="#{t :product_model}"%></th>
+      <td><%= "#{@product['product_model']}" %> </td>
+    </tr>
+    <tr>
+      <th scope="row"><%="#{Order.human_attribute_name(:price)}"%></th>
+      <td><%= "#{number_to_currency(@insurance.price_per_month)}" %> </td>
+    </tr>
+  </tbody>
+</table>
 
-<div class="container">
-  <ul class="list-group">
-
-    <div class="row"> 
-      <div class="col-lg-6 col-12">
-        <li class="list-group-item">
-          <b><%= t :insurance_name %>:</b>
-          <%= @insurance.insurance_name %>
-        </li>
+    <%= form_with model: [:product, :insurance, @order], method: :post do |f| %>
+      <div class="row">
+        <div class="col-lg-6 col-12 mb-2">
+          <li class="list-group-item">
+            <%= f.label :equipment_id, class: 'form-label mt-4' %>
+            <%= f.select :equipment_id, @equipment.collect { |e| [ e.name, e.id ] },:include_blank => t(:select_device), class: 'form-control' %>
+          </li>
+        </div>
       </div>
-    </div>
-
-    <div class="row"> 
-      <div class="col-lg-6 col-12">
-        <li class="list-group-item">
-          <b><%= t :name %>:</b>
-          <%= @insurance.name %>
-        </li>
+      <div class="row">
+        <div class="col-lg-6 col-12 mb-2">
+          <li class="list-group-item">
+            <%= f.label :contract_period, t(:contract_period), class: 'form-label' %>
+            <%= f.select :contract_period,(@insurance.min_period..@insurance.max_period), :include_blank => t(:select_period), class: 'form-control' %>
+          </li>
+        </div>
       </div>
-    </div>
-
-    <div class="row"> 
-      <div class="col-lg-6 col-12">
-        <li class="list-group-item">
-          <b><%= t :product_model %>:</b>
-          <%= @product['product_model'] %>
-        </li>
-      </div>
-    </div>
-
-    <div class="row"> 
-      <div class="col-lg-6 col-12">
-        <li class="list-group-item">
-          <b><%= Order.human_attribute_name(:price) %>:</b>
-          <%= "#{number_to_currency(@insurance.price_per_month)}" %>
-        </li>
-      </div>
-    </div>
-  </div>
-
-  <%= form_with model: [:product, :insurance, @order], method: :post do |f| %>
-    <div class="row"> 
-      <div class="col-lg-6 col-12 mb-2">
-        <li class="list-group-item">
-          <%= f.label :equipment_id, class: 'form-label mt-4' %>
-          <%= f.select :equipment_id, @equipment.collect { |e| [ e.name, e.id ] },:include_blank => t(:select_device), class: 'form-control' %>
-        </li>
-      </div>
-    </div>
-
-    <div class="row"> 
-      <div class="col-lg-6 col-12 mb-2">
-        <li class="list-group-item">
-          <%= f.label :contract_period, t(:contract_period), class: 'form-label' %>
-          <%= f.select :contract_period,(@insurance.min_period..@insurance.max_period), :include_blank => t(:select_period), class: 'form-control' %>
-        </li>
-      </div>
-    </div>
-
-    <%= f.submit t(:contract_package), class: 'btn btn-dark mt-3 mb-4' %>
-
-  <% end %>
-</div>
+      <%= f.submit t(:contract_package), class: 'btn btn-warning' %>
+    <% end %>

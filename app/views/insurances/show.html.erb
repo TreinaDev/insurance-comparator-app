@@ -1,6 +1,5 @@
 <h1 class="display-6"> Detalhes do Pacote: <b><%="#{@insurance.name}"%></b></h1>
 <hr/>
-
 <table class="table">
   <tbody>
     <tr>
@@ -24,7 +23,7 @@
       <td><%= "#{number_to_currency((@insurance.price_per_month).to_i * 12 )}" %> </td>
     </tr>
     <tr>
-    <th scope="row"><%="#{t :coverages}"%></th>
+      <th scope="row"><%="#{t :coverages}"%></th>
       <td>
         <% @insurance.coberturas.each do |c| %>
           <%= c['name'] %> (<%= c['description'] %>) <br>
@@ -32,12 +31,11 @@
       </td>
     </tr>
     <th scope="row"><%="#{t :services}"%></th>
-      <td>
-        <% @insurance.services.each do |service| %>
-          <%= service['name'] %> (<%= service['description'] %>) <br>
-        <% end %>
-      </td>
+    <td>
+      <% @insurance.services.each do |service| %>
+        <%= service['name'] %> (<%= service['description'] %>) <br>
+      <% end %>
+    </td>
   </tbody>
 </table>
-
-<%= link_to t(:to_hire), new_product_insurance_order_path(@product_id, @id), class: 'btn btn-dark mt-3' %>
+<%= link_to t(:to_hire), new_product_insurance_order_path(@product_id, @id), class: 'btn btn-warning' %>
