@@ -20,7 +20,7 @@ describe 'Cliente cancela apólice' do
                           package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
                           voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
                           product_model: 'iPhone 11', status: :charge_approved,
-                          package_id: insurance.id)
+                          package_id: insurance.id, insurance_description: insurance.to_json)
     order_id = order.id
     other_json_data = Rails.root.join('spec/support/json/policy.json').read
     fake_response = double('faraday_response', status: 200, body: other_json_data)
@@ -30,7 +30,7 @@ describe 'Cliente cancela apólice' do
     visit order_policies_path(order_id)
     click_on 'Cancelar Apólice'
 
-    expect(page).to have_content "Apólice cancelada com sucesso."
-    expect(order.status).to eq 'Apólice Cancelada'
+    expect(page).to have_content 'Apólice cancelada com sucesso.'
+    expect(page).to have_content 'Status: Apólice Cancelada'
   end
 end
