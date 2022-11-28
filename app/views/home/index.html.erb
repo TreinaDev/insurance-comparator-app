@@ -1,20 +1,22 @@
-<div class="text-bg-light p-3">
-  <h1 class="text-center">Boas-Vindas ao Comparador de Seguros</h1>
-  <img src="logo.png" class="img-fluid" alt="rss feed">
-</div>
-<br>
-<h3>Encontre seu produto através das categorias </h3>
-<br>
-<% if @product_categories.empty? %>
-  <div class="alert alert-secondary" role="alert">
-    Não foi possível carregar as categorias.
+
+<section class= "text-center">
+  <div class="text-bg-light p-3">
+    <h1>Boas-Vindas ao Comparador de Seguros</h1>
   </div>
-<% end %>
-<% @product_categories.each do |pc| %>
-  <div button type="button" class="btn btn-warning">
-    <i class="bi bi-shield-check">
-      <br>
-      <%= link_to pc['name'], product_path(pc['id']), :class => "btn" %>
-    </i>
-  </div>
-<% end %>
+  <br>
+  <h3>Encontre seu produto através das categorias </h3>
+  <br>
+  <% if @product_categories.empty? %>
+    <div class="alert alert-secondary" role="alert">
+      Não foi possível carregar as categorias.
+    </div>
+  <% end %>
+  <% @product_categories.each do |pc| %>
+    <div button type="button" class="btn btn-warning">
+      <i class="bi bi-shield-check">
+        <br>
+        <%= link_to pc['name'], product_path(pc['id']), :class => "btn" %>
+      </i>
+    </div>
+  <% end %>
+</section>
