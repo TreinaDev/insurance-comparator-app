@@ -30,14 +30,12 @@ class PaymentOption
     end; payment_options
   end
 
-  def self.find(id)
-    response = Faraday.get("#{Rails.configuration.external_apis['payment_options_api']}/payment_options/#{id}")
-    return unless response.success?
-
-    d = JSON.parse(response.body)
-    PaymentOption.new(name: d['name'], payment_type: d['payment_type'], max_parcels: d['max_parcels'],
-                      tax_percentage: d['tax_percentage'], tax_maximum: d['tax_maximum'],
-                      single_parcel_discount: d['single_parcel_discount'], payment_method_id: d['payment_method_id'])
+  def self.find(insurance_company_id, id)
+    payment_options = PaymentOption.all(insurance_company_id)
+    payment_option = payment_options.select do |p_o|
+      p_o.payment_method_id == id
+    end
+    payment_option[0]
   end
 
   def formatted_payment_type_and_name

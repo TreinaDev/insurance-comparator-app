@@ -14,20 +14,20 @@
     <table class="table">
       <tbody>
         <tr>
-          <th scope="row"><%="#{t :tax_percentage}"%></th>
-          <td><%= "#{payment_option.tax_percentage}" %> </td>
+          <th scope="row"><%="#{t :tax_percentage}"%>:</th>
+          <td><%= "#{payment_option.tax_percentage}" %>%</td>
         </tr>
         <tr>
-          <th scope="row"><%="#{t :tax_maximum}"%></th>
+          <th scope="row"><%="#{t :tax_maximum}"%>:</th>
           <td><%= "#{number_to_currency(payment_option.tax_maximum)}" %> </td>
         </tr>
         <tr>
-          <th scope="row"><%="#{t :max_parcels}"%></th>
-          <td><%= "#{payment_option.max_parcels}" %> </td>
+          <th scope="row"><%="#{t :max_parcels}"%>:</th>
+          <td><%= "#{payment_option.max_parcels}" %>x</td>
         </tr>
         <tr>
-          <th scope="row"><%="#{t :single_parcel_discount}"%></th>
-          <td><%= "#{payment_option.single_parcel_discount}" %> </td>
+          <th scope="row"><%="#{t :single_parcel_discount}"%>:</th>
+          <td><%= "#{payment_option.single_parcel_discount}" %>%</td>
         </tr>
       <% end %>
     </div>
@@ -43,7 +43,7 @@
   </tr>
   <tr>
     <th scope="row"><%="#{Order.human_attribute_name(:contract_period)}:"%></th>
-    <td><%= "#{@order.contract_period}" "#{t :month, count: @order.contract_period}" %> </td>
+    <td><%= "#{@order.contract_period}" " #{t :month, count: @order.contract_period}" %> </td>
   </tr>
   <tr>
     <th scope="row"><%="#{Order.human_attribute_name(:final_price)}:"%></th>

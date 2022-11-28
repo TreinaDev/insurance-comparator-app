@@ -3,34 +3,34 @@
 <table class="table">
   <tbody>
     <tr>
-      <th scope="row"><%="#{t :insurance_name}"%></th>
+      <th scope="row"><%="#{t :insurance_name}"%>:</th>
       <td><%= "#{@insurance.insurance_name}" %> </td>
     </tr>
     <tr>
-      <th scope="row"><%="#{t :max_period}"%></th>
+      <th scope="row"><%="#{t :max_period}"%>:</th>
       <td><%= "#{@insurance.max_period}" %> </td>
     </tr>
     <tr>
-      <th scope="row"><%="#{t :min_period}"%></th>
+      <th scope="row"><%="#{t :min_period}"%>:</th>
       <td><%= "#{@insurance.min_period}" %> </td>
     </tr>
     <tr>
-      <th scope="row"><%="#{t :product_model}"%></th>
+      <th scope="row"><%="#{t :product_model}"%>:</th>
       <td><%= "#{@product['product_model']}" %> </td>
     </tr>
     <tr>
-      <th scope="row"><%="#{t :price}"%></th>
+      <th scope="row"><%="#{t :price}"%>:</th>
       <td><%= "#{number_to_currency((@insurance.price_per_month).to_i * 12 )}" %> </td>
     </tr>
     <tr>
-      <th scope="row"><%="#{t :coverages}"%></th>
+      <th scope="row"><%="#{t :coverages}"%>:</th>
       <td>
         <% @insurance.coberturas.each do |c| %>
           <%= c['name'] %> (<%= c['description'] %>) <br>
         <% end %>
       </td>
     </tr>
-    <th scope="row"><%="#{t :services}"%></th>
+    <th scope="row"><%="#{t :services}"%>:</th>
     <td>
       <% @insurance.services.each do |service| %>
         <%= service['name'] %> (<%= service['description'] %>) <br>

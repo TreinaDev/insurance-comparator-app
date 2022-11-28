@@ -10,9 +10,9 @@ describe 'Visitante realiza uma busca por produto' do
     visit root_path
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Boas vindas ao Comparador de Seguros'
-    expect(page).to have_content 'Informe abaixo o nome do seu produto para encontrar os Pacotes de Seguro compatíveis'
-    expect(page).to have_field 'Produto'
+    expect(page).to have_content 'Boas-Vindas ao Comparador de Seguros'
+    expect(page).to have_content 'Encontre seu produto através das categorias'
+    expect(page).to have_field 'query'
     expect(page).to have_button 'Buscar'
   end
 
@@ -29,7 +29,7 @@ describe 'Visitante realiza uma busca por produto' do
     allow(Product).to receive(:search).with('Samsung Galaxy S20').and_return(products)
 
     visit root_path
-    fill_in 'Produto', with: 'Samsung Galaxy S20'
+    fill_in 'query', with: 'Samsung Galaxy S20'
     click_on 'Buscar'
 
     expect(current_path).to eq search_path
@@ -51,7 +51,7 @@ describe 'Visitante realiza uma busca por produto' do
     ).and_return(fake_response2)
 
     visit root_path
-    fill_in 'Produto', with: 'iphone'
+    fill_in 'query', with: 'iphone'
     click_on 'Buscar'
 
     expect(page).to have_content 'Nenhum produto encontrado'

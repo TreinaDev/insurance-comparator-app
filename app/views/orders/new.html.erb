@@ -11,19 +11,19 @@
 <table class="table">
   <tbody>
     <tr>
-      <th scope="row"><%="#{t :insurance_name}"%></th>
+      <th scope="row"><%="#{t :insurance_name}"%>:</th>
       <td><%= "#{@insurance.insurance_name}" %> </td>
     </tr>
     <tr>
-      <th scope="row"><%="#{t :name}"%></th>
+      <th scope="row"><%="#{t :name}"%>:</th>
       <td><%= "#{@insurance.name}" %> </td>
     </tr>
     <tr>
-      <th scope="row"><%="#{t :product_model}"%></th>
+      <th scope="row"><%="#{t :product_model}"%>:</th>
       <td><%= "#{@product['product_model']}" %> </td>
     </tr>
     <tr>
-      <th scope="row"><%="#{Order.human_attribute_name(:price)}"%></th>
+      <th scope="row"><%="#{Order.human_attribute_name(:price)}"%>:</th>
       <td><%= "#{number_to_currency(@insurance.price_per_month)}" %> </td>
     </tr>
   </tbody>

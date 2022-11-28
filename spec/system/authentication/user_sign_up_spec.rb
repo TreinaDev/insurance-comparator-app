@@ -11,7 +11,6 @@ describe 'Usuário cria uma conta' do
       click_link 'Entrar'
     end
     click_link 'Cadastre-se'
-    within 'form' do
       fill_in 'Nome completo', with: 'Thalis'
       fill_in 'CPF', with: '87956683816'
       fill_in 'Endereço', with: 'Rua Brasil, 67'
@@ -22,7 +21,6 @@ describe 'Usuário cria uma conta' do
       fill_in 'Senha', with: '12345678'
       fill_in 'Confirme sua senha', with: '12345678'
       click_button 'Cadastre-se'
-    end
 
     expect(page).to have_content 'Cadastro realizado com sucesso.'
     within 'nav' do
@@ -34,7 +32,6 @@ describe 'Usuário cria uma conta' do
 
   it 'e deixa campos obrigatórios em branco' do
     visit new_client_registration_path
-    within 'form' do
       fill_in 'Nome completo', with: ''
       fill_in 'CPF', with: ''
       fill_in 'Endereço', with: ''
@@ -45,7 +42,6 @@ describe 'Usuário cria uma conta' do
       fill_in 'Senha', with: ''
       fill_in 'Confirme sua senha', with: ''
       click_button 'Cadastre-se'
-    end
 
     expect(page).to have_content 'Não foi possível realizar o cadastro. Por favor, verifique os erros abaixo:'
     expect(page).to have_content 'Nome completo não pode ficar em branco'
@@ -65,14 +61,12 @@ describe 'Usuário cria uma conta' do
 
   it 'com dados inválidos' do
     visit new_client_registration_path
-    within 'form' do
       fill_in 'CPF', with: '879566838112'
       fill_in 'Estado', with: 'S'
       fill_in 'E-mail', with: 'thalis.'
       fill_in 'Senha', with: '123'
       fill_in 'Confirme sua senha', with: '123'
       click_button 'Cadastre-se'
-    end
 
     expect(page).to have_content 'Estado não possui o tamanho esperado (2 caracteres)'
     expect(page).to have_content 'CPF não possui o tamanho esperado (11 caracteres)'
@@ -90,11 +84,9 @@ describe 'Usuário cria uma conta' do
                    birth_date: '29/10/1997')
 
     visit new_client_registration_path
-    within 'form' do
-      fill_in 'CPF', with: '21234567890'
-      fill_in 'E-mail', with: 'ana@gmail.com'
-      click_button 'Cadastre-se'
-    end
+    fill_in 'CPF', with: '21234567890'
+    fill_in 'E-mail', with: 'ana@gmail.com'
+    click_button 'Cadastre-se'
 
     expect(page).to have_content 'E-mail já está em uso'
     expect(page).to have_content 'CPF já está em uso'

@@ -23,7 +23,7 @@
               <p class="card-text"><%= service['name'] %></p>
               <p class="card-text"><%= service['description'] %></p>
             <% end %>
-            <%= link_to "Mais informações", product_insurance_path(product_id: @product_id, id: pack['id'].to_i), class: 'btn btn-warning' %>
+            <%= link_to "Mais sobre #{pack['name']}", product_insurance_path(product_id: @product_id, id: pack['id'].to_i), class: 'btn btn-warning' %>
           </div>
         </div>
       </div>
