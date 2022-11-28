@@ -9,7 +9,7 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
@@ -22,7 +22,9 @@ describe 'Usuário efetua pagamento' do
 
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
-                          product_model: insurance.product_model, price: insurance.price_per_month)
+                          product_model: insurance.product_model, price: insurance.price_per_month,
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
 
     login_as(client)
     visit order_path(order.id)
@@ -39,7 +41,7 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 67', price_per_month: 2, product_category_id: 1,
                               product_model: 'iPhone 11',
@@ -55,7 +57,8 @@ describe 'Usuário efetua pagamento' do
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
 
     login_as(client)
     visit order_path(order.id)
@@ -74,7 +77,7 @@ describe 'Usuário efetua pagamento' do
     expect(page).to have_content 'Desconto à vista: 1%'
     expect(page).to have_content 'Nome da Seguradora: Seguradora 67'
     expect(page).to have_content 'Período de contratação: 9 meses'
-    expect(page).to have_content 'Valor do Seguro: R$ 18,00'
+    expect(page).to have_content 'Valor: R$ 18,00'
     expect(page).to have_link 'iPhone 11', href: equipment_path(equipment)
     expect(page).to have_select 'Meio de Pagamento', text: 'Cartão de Crédito - Laranja'
     expect(page).to have_select 'Meio de Pagamento', text: 'Boleto - Roxinho'
@@ -89,7 +92,7 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
@@ -107,17 +110,18 @@ describe 'Usuário efetua pagamento' do
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
     allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, package_id: insurance.id,
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id, voucher_code: 'ABC123',
+                          insurance_description: insurance.to_json)
 
     url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: true, body: json_dt)
     params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
                           package_id: order.package_id, insurance_company_id: order.insurance_company_id,
-                          voucher: '', parcels: 1,
+                          voucher: order.voucher_code, parcels: 1,
                           final_price: order.final_price } }
     allow(Faraday).to receive(:post).with(url, params.to_json,
                                           'Content-Type' => 'application/json').and_return(fake_response)
@@ -137,6 +141,41 @@ describe 'Usuário efetua pagamento' do
     expect(page).not_to have_button 'Pagar'
   end
 
+  it 'e não há meios de pagamento disponíveis' do
+    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
+                            address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
+                            birth_date: '29/10/1997')
+    equipment = Equipment.create!(client:, name: 'iPhone 11', brand: 'Apple', equipment_price: 1199,
+                                  purchase_date: '01/11/2022',
+                                  invoice: fixture_file_upload('spec/support/invoice.png'),
+                                  photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
+    insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
+                              insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
+                              product_model: 'iPhone 11',
+                              coberturas: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
+    external_api = Rails.configuration.external_apis['payment_options_api']
+    api_url = "#{external_api}/insurance_companies/#{insurance.insurance_company_id}/payment_options"
+    json_data = []
+    fake_response = double('faraday_response', success?: true, body: json_data)
+    puts json_data
+    allow(Faraday).to receive(:get).with(api_url).and_return(fake_response)
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
+                          client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
+                          product_model: insurance.product_model, price: insurance.price_per_month,
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
+
+    login_as(client)
+    visit order_path(order.id)
+    click_on 'Pagar'
+
+    expect(page).to have_content 'Nenhuma forma de pagamento disponível.'
+    expect(page).not_to have_content 'Meio de pagamento'
+    expect(page).not_to have_link 'Salvar'
+  end
+
   it 'com dados inválidos' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678', cpf: '21234567890',
                             address: 'Rua Dr Nogueira Martins, 680', city: 'São Paulo', state: 'SP',
@@ -145,7 +184,7 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
@@ -164,7 +203,8 @@ describe 'Usuário efetua pagamento' do
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
 
     login_as(client)
     visit order_path(order.id)
@@ -185,7 +225,7 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
@@ -200,7 +240,8 @@ describe 'Usuário efetua pagamento' do
     order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id,
+                          insurance_description: insurance.to_json)
 
     payment_option = PaymentOption.new(name: 'Roxinho', payment_type: 'Boleto', tax_percentage: 1, tax_maximum: 5,
                                        max_parcels: 1, single_parcel_discount: 1,
@@ -226,7 +267,7 @@ describe 'Usuário efetua pagamento' do
                                   purchase_date: '01/11/2022',
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
     insurance = Insurance.new(id: 67, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                               insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                               product_model: 'iPhone 11',
@@ -244,17 +285,18 @@ describe 'Usuário efetua pagamento' do
                                        tax_maximum: 100, max_parcels: 12, single_parcel_discount: 1,
                                        payment_method_id: 1)
     allow(PaymentOption).to receive(:find).with(1).and_return(payment_option)
-    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:, package_id: insurance.id,
+    order = Order.create!(status: :insurance_approved, contract_period: 9, equipment:,
                           client:, insurance_name: insurance.insurance_name, package_name: insurance.name,
                           product_model: insurance.product_model, price: insurance.price_per_month,
-                          insurance_company_id: insurance.insurance_company_id)
+                          insurance_company_id: insurance.insurance_company_id, voucher_code: 'ABC123',
+                          insurance_description: insurance.to_json)
 
     url = "#{Rails.configuration.external_apis['payment_options_api']}/invoices"
     json_dt = Rails.root.join('spec/support/json/invoice.json').read
     fake_response = double('faraday_response', success?: false, body: json_dt)
     params = { invoice: { payment_method_id: 1, order_id: order.id, registration_number: client.cpf,
                           package_id: order.package_id, insurance_company_id: order.insurance_company_id,
-                          voucher: '', parcels: 1,
+                          voucher: order.voucher_code, parcels: 1,
                           final_price: order.final_price } }
     allow(Faraday).to receive(:post).with(url, params.to_json,
                                           'Content-Type' => 'application/json').and_return(fake_response)

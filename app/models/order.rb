@@ -1,3 +1,5 @@
+require 'json'
+
 class Order < ApplicationRecord
   belongs_to :equipment
   belongs_to :client
@@ -17,9 +19,18 @@ class Order < ApplicationRecord
     data = JSON.parse(response.body)
     if data['blocked'] == 'true'
       cpf_disapproved!
-    else
-      insurance_company_approval!
+      return false
     end
+    true
+  end
+
+  def post_policy
+    response = Faraday.post("#{Rails.configuration
+      .external_apis['insurance_api']}/policies/", set_params)
+    return false unless response.success?
+
+    insurance_company_approval!
+    true
   end
 
   def calculate_price
@@ -37,11 +48,26 @@ class Order < ApplicationRecord
     assign_package_variables(insurance)
   end
 
+  def approve_charge
+    activate_policy
+    charge_approved!
+  end
+
+  def insurance_coverages
+    JSON.parse(insurance_description)
+  end
+
   private
+
+  def activate_policy
+    external_url = Rails.configuration.external_apis['insurance_api']
+    Faraday.post("#{external_url}/policies/#{policy_code}/active")
+  end
 
   def assign_product_variables(insurance)
     self.product_category_id = insurance.product_category_id
     self.product_model = insurance.product_model
+    self.product_model_id = insurance.product_model_id
   end
 
   def assign_insurance_variables(insurance)
@@ -57,9 +83,17 @@ class Order < ApplicationRecord
   def assign_package_variables(insurance)
     self.price = insurance.price_per_month
     self.package_name = insurance.name
+    self.package_id = insurance.id
+    self.insurance_description = insurance.to_json
   end
 
   def generate_code
     self.code = SecureRandom.alphanumeric(15).upcase
+  end
+
+  def set_params
+    { policy: { client_name: client.name, client_registration_number: client.cpf,
+                client_email: client.email, policy_period: contract_period, order_id: id,
+                package_id:, insurance_company_id:, equipment_id: } }
   end
 end

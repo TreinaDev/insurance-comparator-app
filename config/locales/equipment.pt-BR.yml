@@ -21,3 +21,5 @@ pt-BR:
         client: 'Cliente'
         client_id: 'Cliente'
         equipment_price: 'Valor'
+        product_category: 'Categoria'
+        product_category_id: 'Categoria'

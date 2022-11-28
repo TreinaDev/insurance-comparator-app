@@ -10,7 +10,7 @@ describe 'Order API' do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
 
       insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
@@ -31,7 +31,7 @@ describe 'Order API' do
       expect(response.status).to eq 200
       expect(response.content_type).to include('application/json')
       json_response = JSON.parse(response.body)
-      expect(json_response.length).to eq 23
+      expect(json_response.length).to eq 24
       expect(json_response['code']).to eq 'ABCD-0123456789'
       expect(json_response['package_name']).to eq 'Premium'
       expect(json_response.keys).not_to include('created_at')
@@ -56,7 +56,7 @@ describe 'Order API' do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
 
       insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
@@ -71,7 +71,7 @@ describe 'Order API' do
                             product_model: 'iPhone 11', status: 0,
                             package_id: insurance.id)
 
-      order_params = { order: { status: :insurance_approved, policy_id: 1, policy_code: 'ABC1234567' } }
+      order_params = { body: { order: { status: ':insurance_approved', policy_id: 1, policy_code: 'ABC1234567' } } }
 
       post "/api/v1/orders/#{order.id}/insurance_approved", params: order_params
 
@@ -91,7 +91,7 @@ describe 'Order API' do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
 
       insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
@@ -106,7 +106,7 @@ describe 'Order API' do
                             product_model: 'iPhone 11', status: 0,
                             package_id: insurance.id)
 
-      order_params = { order: { status: :insurance_disapproved, policy_id: 1, policy_code: 'ABC1234567' } }
+      order_params = { body: { order: { status: ':insurance_disapproved', policy_id: 1, policy_code: 'ABC1234567' } } }
 
       post "/api/v1/orders/#{order.id}/insurance_disapproved", params: order_params
 

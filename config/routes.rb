@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :products, only: [:show] do 
     resources :insurances, only: [:index, :show, :new, :create] do 
-      resources :orders, only: [:new, :create, :update]
+      resources :orders, only: [:new, :create]
     end 
   end
 
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :policies, only: [:index, :cancel] do
       post 'cancel_policy', on: :member
     end
+    post 'voucher', on: :member
   end
 
   resources :equipment, only: [:index, :new, :create, :show, :edit, :update]

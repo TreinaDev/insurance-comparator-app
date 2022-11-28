@@ -7,7 +7,7 @@ describe 'Usuário vê detalhes de dispositivo' do
     equipment = Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple', equipment_price: 10_199,
                                   purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
 
     visit equipment_path(equipment.id)
 
@@ -22,7 +22,8 @@ describe 'Usuário vê detalhes de dispositivo' do
 
     user = Client.create!(name: 'Usuário 1', cpf: '60536252050', address: 'Rua Primavera, 424', city: 'Bauru',
                           state: 'SP', birth_date: '12/05/1998', email: 'usuario@email.com', password: 'password')
-    equipment = Equipment.create!(client: user, name: 'Iphone 14 - ProMax', brand: 'Apple', equipment_price: 10_199,
+    equipment = Equipment.create!(client: user, name: 'iPhone 14 - ProMax', brand: 'Apple', product_category_id: 1,
+                                  equipment_price: 10_199,
                                   purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
@@ -31,7 +32,7 @@ describe 'Usuário vê detalhes de dispositivo' do
     visit root_path
     click_on 'Usuário 1 | usuario@email.com'
     click_on 'Meus Dispositivos'
-    click_on 'Iphone 14 - ProMax'
+    click_on 'iPhone 14 - ProMax'
 
     expect(page).to have_content 'IPHONE 14 - PROMAX'
     expect(page).to have_content 'Marca:'
@@ -48,7 +49,8 @@ describe 'Usuário vê detalhes de dispositivo' do
     equipment = Equipment.create!(client: user, name: 'Samsung J7', brand: 'Samsung', equipment_price: 10_199,
                                   purchase_date: '01/11/2022', invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                           fixture_file_upload('spec/support/photo_2.jpg')])
+                                           fixture_file_upload('spec/support/photo_2.jpg')],
+                                  product_category_id: 1)
 
     login_as(user)
     visit equipment_index_path

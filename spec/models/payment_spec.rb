@@ -10,7 +10,7 @@ RSpec.describe Payment, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
@@ -38,7 +38,7 @@ RSpec.describe Payment, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
@@ -66,7 +66,7 @@ RSpec.describe Payment, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
@@ -91,7 +91,7 @@ RSpec.describe Payment, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
@@ -119,7 +119,7 @@ RSpec.describe Payment, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 45,
                                 insurance_name: 'Seguradora 45', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
@@ -150,7 +150,7 @@ RSpec.describe Payment, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 1', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
@@ -176,7 +176,7 @@ RSpec.describe Payment, type: :model do
       params = { invoice: { payment_method_id: payment.payment_method_id, order_id: order.id,
                             registration_number: client.cpf,
                             package_id: order.package_id, insurance_company_id: order.insurance_company_id,
-                            voucher: '', parcels: payment.parcels,
+                            voucher: order.voucher_code, parcels: payment.parcels,
                             final_price: order.final_price } }
       allow(Faraday).to receive(:post).with(url, params.to_json,
                                             'Content-Type' => 'application/json').and_return(fake_response)
@@ -194,7 +194,7 @@ RSpec.describe Payment, type: :model do
                                     purchase_date: '01/11/2022',
                                     invoice: fixture_file_upload('spec/support/invoice.png'),
                                     photos: [fixture_file_upload('spec/support/photo_1.png'),
-                                             fixture_file_upload('spec/support/photo_2.jpg')])
+                                             fixture_file_upload('spec/support/photo_2.jpg')], product_category_id: 1)
       insurance = Insurance.new(id: 1, name: 'Super Econômico', max_period: 18, min_period: 6, insurance_company_id: 1,
                                 insurance_name: 'Seguradora 1', price_per_month: 100.00, product_category_id: 1,
                                 product_model: 'iPhone 11',
@@ -220,7 +220,7 @@ RSpec.describe Payment, type: :model do
       params = { invoice: { payment_method_id: payment.payment_method_id, order_id: order.id,
                             registration_number: client.cpf,
                             package_id: order.package_id, insurance_company_id: order.insurance_company_id,
-                            voucher: '', parcels: payment.parcels,
+                            voucher: order.voucher_code, parcels: payment.parcels,
                             final_price: order.final_price } }
       allow(Faraday).to receive(:post).with(url, params.to_json,
                                             'Content-Type' => 'application/json').and_return(fake_response)

@@ -9,8 +9,9 @@ class Api::V1::OrdersController < Api::V1::ApiController
   end
 
   def insurance_approved
-    if order_params[:status] == 'insurance_approved'
-      if @order.update(order_params)
+    if order_params[:status] == ':insurance_approved'
+      if @order.update(policy_code: order_params[:policy_code], policy_id: order_params[:policy_id],
+                       status: 'insurance_approved')
         render status: :ok, json: create_json(@order)
       else
         render status: :precondition_failed, json: { errors: @order.errors.full_messages }
@@ -21,8 +22,9 @@ class Api::V1::OrdersController < Api::V1::ApiController
   end
 
   def insurance_disapproved
-    if order_params[:status] == 'insurance_disapproved'
-      if @order.update(order_params)
+    if order_params[:status] == ':insurance_disapproved'
+      if @order.update(policy_code: order_params[:policy_code], policy_id: order_params[:policy_id],
+                       status: 'insurance_disapproved')
         render status: :ok, json: create_json(@order)
       else
         render status: :precondition_failed, json: { errors: @order.errors.full_messages }
@@ -33,9 +35,11 @@ class Api::V1::OrdersController < Api::V1::ApiController
   end
 
   def create_json(order)
-    order.as_json(include: { equipment: { except: %i[created_at updated_at client_id id] },
-                             client: { except: %i[created_at updated_at id] } },
-                  except: %i[created_at updated_at equipment_id client_id])
+    o = order.as_json(include: { equipment: { except: %i[created_at updated_at client_id id] },
+                                 client: { except: %i[created_at updated_at id] } },
+                      except: %i[created_at updated_at equipment_id client_id])
+    o['equipment']['pictures'] = order.equipment.photos.map { |p| url_for(p) }
+    o
   end
 
   def payment_approved
@@ -59,7 +63,9 @@ class Api::V1::OrdersController < Api::V1::ApiController
   private
 
   def order_params
-    params.require(:order).permit(:policy_code, :policy_id, :status)
+    # params.require(:order).permit(:policy_code, :policy_id, :status)
+    { policy_code: params['body']['order']['policy_code'], policy_id: params['body']['order']['policy_id'],
+      status: params['body']['order']['status'] }
   end
 
   def fetch_order_and_payment
