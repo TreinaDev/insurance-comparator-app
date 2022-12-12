@@ -9,7 +9,7 @@
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
-
+<body>
     <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-default mb-4">
       <div class="container-fluid">
@@ -46,6 +46,7 @@
       </div>
     </nav>
     </header>
+    
     <main class="container">
       <div>
         <% if !notice.nil? %>
@@ -55,7 +56,10 @@
           <p class="alert alert-warning mt-4"><%= alert %></p>
         <% end %>
       </div>
+      <div class="container">
+  <!-- Content here -->
       <%= yield %>
+</div>
     </main>
   </body>
 </html>
