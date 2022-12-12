@@ -12,13 +12,14 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:show, :index] do
     resources :payments, only: [:new, :create]
-    resources :policies, only: [:index] do
+    resources :policies, only: [:show] do
       post 'cancel_policy', on: :member
     end
     post 'voucher', on: :member
   end
 
   resources :equipment, only: [:index, :new, :create, :show, :edit, :update]
+  resources :policies, only: [:index]
 
   namespace :api do 
     namespace :v1 do 
