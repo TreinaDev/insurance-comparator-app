@@ -1,6 +1,7 @@
 pt-BR:
   active: 'Ativa'
   canceled: 'Cancelada'
+  order_cancelled_with_success: "Apólice cancelada com sucesso."
   models:
     policy:
       one: 'Apólice'

@@ -16,5 +16,6 @@ class PoliciesController < ApplicationController
     policy_code = params[:id]
     @order = Order.find(params[:order_id])
     Policy.cancel(policy_code, order_id)
+    redirect_to order_path(@order), notice: t(:order_cancelled_with_success)
   end
 end
