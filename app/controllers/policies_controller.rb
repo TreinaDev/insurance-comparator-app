@@ -1,10 +1,10 @@
 class PoliciesController < ApplicationController
   before_action :authenticate_client!
-  
+
   def index
-    @orders = Order.where(client_id: current_client.id).where(status: "charge_approved")
+    @orders = Order.where(client_id: current_client.id).where(status: 'charge_approved')
   end
-  
+
   def show
     order_id = params[:order_id]
     @order = Order.find(order_id)

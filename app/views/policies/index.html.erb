@@ -6,7 +6,7 @@
       <div class="col-sm-6" style="width: 22rem;">
         <div class="card" style="width: 20rem;">
           <div class="card-header">
-            <%= link_to order.equipment.name, order_policy_path(order.id) %>
+            <%= link_to order.equipment.name, order_policy_path(order.id, order.policy_id) %>
             <p class="card-text"><%="#{Order.human_attribute_name(:insurance_name)}: #{order.insurance_name}"%></p>
             <p class="card-text"><%="#{Order.human_attribute_name(:package_name)}: #{order.package_name}"%></p>
           </div>
@@ -17,4 +17,3 @@
 <% else %>
   <h1 class="display-6">Nenhuma apólice encontrada.</h1>
 <% end %>
-order_policy_path(order.id)
