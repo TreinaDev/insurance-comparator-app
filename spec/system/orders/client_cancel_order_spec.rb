@@ -20,7 +20,8 @@ describe 'Cliente cancela apólice' do
                           package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
                           voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
                           product_model: 'iPhone 11', status: :charge_approved, policy_code: 'NIUGBWSTJ5',
-                          package_id: insurance.id, insurance_description: insurance.to_json)
+                          package_id: insurance.id, insurance_description: insurance.to_json,
+                          policy_id: 5)
     order_id = order.id
     other_json_data = Rails.root.join('spec/support/json/policy.json').read
     fake_response = double('faraday_response', status: 200, body: other_json_data)
@@ -32,7 +33,7 @@ describe 'Cliente cancela apólice' do
       .and_return(fake_response2)
 
     login_as(client)
-    visit order_policies_path(order_id)
+    visit order_policy_path(order_id, order.policy_id)
     click_on 'Cancelar Apólice'
 
     expect(page).to have_content 'Apólice cancelada com sucesso.'
