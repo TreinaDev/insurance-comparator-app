@@ -1,7 +1,8 @@
-<h1 class="display-6">Informações do Pedido <%= "#{@order.code}" %></h1>
+<h2 class="display-6">Informações do Pedido</h2>
 <hr/>
-<div class="card" style="width: 30rem;">
+<div class="d-flex justify-content-between">
   <div class="card-body">
+    <h5 class="card-title mb-2"><%=Order.model_name.human %>: <%= @order.code %></h5>
     <p class="card-text"><%="#{Order.human_attribute_name(:insurance_name)}: #{@order.insurance_name}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:package_name)}: #{@order.package_name}"%></p>
     <p class="card-text"><%="#{Order.human_attribute_name(:contract_period)}: #{@order.contract_period} #{t :month, count: @order.contract_period}"%></p>
@@ -19,10 +20,13 @@
       <p class="card-text"><%=Payment.human_attribute_name(:parcels)%>: <%=@order.payment.parcels%>x</p>
     <% end %>
     <p class="card-text"> <%= Order.human_attribute_name(:status) %>: <%= Order.human_attribute_name("status.#{@order.status}")%></p>
+  </div>
+    <div style="width: 20rem;">
     <% @order.equipment.photos.each do |photo| %>
       <%= image_tag photo, class:"card-img-top" %>
       <% break %>
     <% end %>
+    </div>
     <% if @order.insurance_approved? %>
       <%= link_to t(:pay), new_order_payment_path(@order), class: 'btn btn-warning'%>
     <% end %>
