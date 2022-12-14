@@ -54,6 +54,8 @@ describe 'Cliente vê apólice' do
     expect(page).to have_content 'Nome da Seguradora: Seguradora 45'
     expect(page).to have_content 'Tipo de Pacote: Premium'
     expect(page).to have_content 'Tipo de Pacote: Básico'
+    expect(page).to have_content 'Status: Apólice Ativa'
+    expect(page).to have_content 'Status: Apólice Cancelada'
   end
   it 'e não há apolices disponíveis' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678',

@@ -9,6 +9,7 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item"><%="#{Order.human_attribute_name(:insurance_name)}: #{order.insurance_name}"%></li>
       <li class="list-group-item"><%="#{Order.human_attribute_name(:package_name)}: #{order.package_name}"%></li>
+      <li class="list-group-item"><%="#{Order.human_attribute_name(:status)}: #{I18n.t(order.status)}"%></li>
     </ul>
   </div>
   <% end %>
