@@ -36,7 +36,7 @@ describe 'Orders API' do
           token: 'ACSVDLGF934JHDS9'
         }
 
-        post "/api/v1/orders/#{order.id}/payment_approved", params: params
+        post("/api/v1/orders/#{order.id}/payment_approved", params:)
 
         expect(response).to have_http_status 200
         json_data = JSON.parse(response.body)
@@ -83,7 +83,7 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         }
         allow(Order).to receive(:find).with(order.id.to_s).and_raise(ActiveRecord::ActiveRecordError)
 
-        post "/api/v1/orders/#{order.id}/payment_approved", params: params
+        post("/api/v1/orders/#{order.id}/payment_approved", params:)
 
         expect(response).to have_http_status 500
         json_data = JSON.parse(response.body)
@@ -151,7 +151,7 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
           token: ''
         }
 
-        post "/api/v1/orders/#{order.id}/payment_approved", params: params
+        post("/api/v1/orders/#{order.id}/payment_approved", params:)
 
         expect(response).to have_http_status 412
         json_data = JSON.parse(response.body)
