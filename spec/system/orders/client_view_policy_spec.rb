@@ -30,13 +30,13 @@ describe 'Cliente vê apólice' do
                   package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
                   voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
                   product_model: 'iPhone 11', status: :charge_approved, policy_id: 1,
-                  package_id: insurance.id)
+                  policy_code: 4, package_id: insurance.id)
     Order.create!(client:, equipment: equipment_b, min_period: 1, max_period: 24, price: 200.00,
                   contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
                   package_name: 'Básico', product_category: 'Celular', product_category_id: 1,
                   voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
-                  product_model: 'iPhone 14', status: :charge_approved, policy_id: 1,
-                  package_id: insurance_b.id)
+                  product_model: 'iPhone 14', status: :cancelled, policy_id: 2,
+                  policy_code: 7, package_id: insurance_b.id)
 
     login_as(client)
     visit root_path
@@ -48,6 +48,34 @@ describe 'Cliente vê apólice' do
     expect(page).to have_content 'Nome da Seguradora: Seguradora 45'
     expect(page).to have_content 'Tipo de Pacote: Premium'
     expect(page).to have_content 'Tipo de Pacote: Básico'
+  end
+  it 'e não há apolices disponíveis' do
+    client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678',
+                            cpf: '21234567890', address: 'Rua Dr Nogueira Martins, 680',
+                            city: 'São Paulo', state: 'SP', birth_date: '29/10/1997')
+    equipment = Equipment.create!(client:, name: 'iPhone 11', brand: 'Apple', equipment_price: 1000,
+                                  purchase_date: '01/11/2022', product_category_id: 1,
+                                  invoice: fixture_file_upload('spec/support/invoice.png'),
+                                  photos: [fixture_file_upload('spec/support/photo_1.png'),
+                                           fixture_file_upload('spec/support/photo_2.jpg')])
+    insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
+                              insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
+                              product_model: 'iphone 11', product_model_id: 1,
+                              coverages: [{ code: '76R', name: 'Quebra de tela', description: 'Assistência
+                              por danificação da tela do aparelho.' }], services: [])
+    Order.create!(client:, equipment:, min_period: 1, max_period: 24, price: 200.00,
+                  contract_period: 10, insurance_company_id: 45, insurance_name: 'Seguradora 45',
+                  package_name: 'Premium', product_category: 'Celular', product_category_id: 1,
+                  voucher_price: 10.00, voucher_code: 'DESCONTO10', final_price: 1990.00,
+                  product_model: 'iPhone 11', status: :insurance_company_approval, policy_id: 1,
+                  policy_code: 4, package_id: insurance.id)
+
+    login_as(client)
+    visit root_path
+    click_on 'Ana Lima | ana@gmail.com'
+    click_on 'Minhas Apólices'
+
+    expect(page).to have_content 'Nenhuma apólice encontrada.'
   end
   it 'referente a pedido finalizado' do
     client = Client.create!(name: 'Ana Lima', email: 'ana@gmail.com', password: '12345678',

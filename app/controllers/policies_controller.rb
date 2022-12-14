@@ -2,7 +2,9 @@ class PoliciesController < ApplicationController
   before_action :authenticate_client!
 
   def index
-    @orders = Order.where(client_id: current_client.id).where(status: 'charge_approved')
+    @orders = Order.where(client_id: current_client.id)
+                   .where(status: %w[charge_approved cancelled])
+                   .where.not(policy_code: nil)
   end
 
   def show

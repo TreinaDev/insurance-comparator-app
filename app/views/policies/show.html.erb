@@ -1,4 +1,4 @@
-<% if @order.charge_approved? %>
+<% if @order.charge_approved? or @order.cancelled? %>
   <h1 class="display-6"><%= t '.title' %></h1>
   <div>
     <dl class="row">
