@@ -36,7 +36,7 @@ describe 'Orders API' do
           token: 'ACSVDLGF934JHDS9'
         }
 
-        post "/api/v1/orders/#{order.id}/payment_approved", params: params
+        post("/api/v1/orders/#{order.id}/payment_approved", params:)
 
         expect(response).to have_http_status 200
         json_data = JSON.parse(response.body)
@@ -79,11 +79,11 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
 
         params = {
-          transaction_registration_number: 'ACSVDLGF934JHDS9'
+          token: 'ACSVDLGF934JHDS9'
         }
         allow(Order).to receive(:find).with(order.id.to_s).and_raise(ActiveRecord::ActiveRecordError)
 
-        post "/api/v1/orders/#{order.id}/payment_approved", params: params
+        post("/api/v1/orders/#{order.id}/payment_approved", params:)
 
         expect(response).to have_http_status 500
         json_data = JSON.parse(response.body)
@@ -148,10 +148,10 @@ por danificação da tela do aparelho.' }], services: [], product_model_id: 20)
         allow(PaymentOption).to receive(:find).with(1, 1).and_return(payment_method)
         payment = Payment.create!(order:, client:, payment_method_id: 1, parcels: 1)
         params = {
-          transaction_registration_number: ''
+          token: ''
         }
 
-        post "/api/v1/orders/#{order.id}/payment_approved", params: params
+        post("/api/v1/orders/#{order.id}/payment_approved", params:)
 
         expect(response).to have_http_status 412
         json_data = JSON.parse(response.body)

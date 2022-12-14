@@ -11,6 +11,8 @@ pt-BR:
   order_saved_but_not_sent: 'Seu pedido será processado em breve'
   pay: 'Pagar'
   contract_package: 'Contratar Pacote'
+  charge_approved: "Apólice Ativa"
+  cancelled: 'Apólice Cancelada'
   month:
     one: 'mês'
     other: 'meses'
@@ -48,4 +50,5 @@ pt-BR:
         cpf_disapproved: "CPF Recusado"
         charge_pending: "Pagamento em Processamento"
         charge_approved: "Apólice Ativa"
+        cancelled: 'Apólice Cancelada'
         charge_disapproved: "Pagamento Recusado"

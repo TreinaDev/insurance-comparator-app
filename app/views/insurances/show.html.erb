@@ -1,26 +1,41 @@
-<h1 class="display-6"> Detalhes do Pacote </h1>
-
-<ul class="list-group list-group-flush">
-  <li class="list-group-item"><%="#{t :name}: #{@insurance.name}"%></li>
-  <li class="list-group-item"><%="#{t :insurance_name}: #{@insurance.insurance_name}"%></li>
-  <li class="list-group-item"><%="#{t :max_period}: #{@insurance.max_period}"%> meses </li>
-  <li class="list-group-item"><%="#{t :min_period}: #{@insurance.min_period}"%> meses </li>
-  <li class="list-group-item"><%="#{t :product_model}: #{@product['product_model']}"%></li>
-  <li class="list-group-item"><%="#{t :price}: #{number_to_currency((@insurance.price_per_month).to_i * 12 )}"%> </li>
-  
-  <li class="list-group-item"> coverages: </li>
-  <% @insurance.coverages.each do |c| %>
-    <li class="list-group-item"><%= c['name'] %> </li>
-    <li class="list-group-item"><%= c['description'] %> </li>
-  <% end %>
-  
-  <li class="list-group-item"> Serviços: </li>
-  <% @insurance.services.each do |service| %>
-    
-      <li class="list-group-item"><%= service['name'] %> </li>
-      <li class="list-group-item"><%= service['description'] %> </li>
-  <% end %>
-
-</ul>
-
-<%= link_to t(:to_hire), new_product_insurance_order_path(@product_id, @id), class: 'btn btn-dark mt-3' %>
+<h1 class="display-6"> Detalhes do Pacote: <b><%="#{@insurance.name}"%></b></h1>
+<hr/>
+<table class="table">
+  <tbody>
+    <tr>
+      <th scope="row"><%="#{t :insurance_name}"%>:</th>
+      <td><%= "#{@insurance.insurance_name}" %> </td>
+    </tr>
+    <tr>
+      <th scope="row"><%="#{t :max_period}"%>:</th>
+      <td><%= "#{@insurance.max_period}" %> </td>
+    </tr>
+    <tr>
+      <th scope="row"><%="#{t :min_period}"%>:</th>
+      <td><%= "#{@insurance.min_period}" %> </td>
+    </tr>
+    <tr>
+      <th scope="row"><%="#{t :product_model}"%>:</th>
+      <td><%= "#{@product['product_model']}" %> </td>
+    </tr>
+    <tr>
+      <th scope="row"><%="#{t :price}"%>:</th>
+      <td><%= "#{number_to_currency((@insurance.price_per_month).to_i * 12 )}" %> </td>
+    </tr>
+    <tr>
+      <th scope="row"><%="#{t :coverages}"%>:</th>
+      <td>
+        <% @insurance.coverages.each do |c| %>
+          <%= c['name'] %> (<%= c['description'] %>) <br>
+        <% end %>
+      </td>
+    </tr>
+    <th scope="row"><%="#{t :services}"%>:</th>
+    <td>
+      <% @insurance.services.each do |service| %>
+        <%= service['name'] %> (<%= service['description'] %>) <br>
+      <% end %>
+    </td>
+  </tbody>
+</table>
+<%= link_to t(:to_hire), new_product_insurance_order_path(@product_id, @id), class: 'btn btn-warning' %>

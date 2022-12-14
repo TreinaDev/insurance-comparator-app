@@ -1,35 +1,18 @@
-<% if @order.charge_approved? %>
-  <h1 class="display-6"><%= t '.title' %></h1>
-  <div>
-    <dl class="row">
-      <dt class="col-sm-3"><%= t '.client_name' %>:</dt>
-      <dd class="col-sm-9"><%= @policy.client_name %></dd>
-      <dt class="col-sm-3"><%= t '.client_registration_number' %>:</dt>
-      <dd class="col-sm-9"><%= @policy.client_registration_number %></dd>
-      <dt class="col-sm-3"><%= t '.code' %>:</dt>
-      <dd class="col-sm-9"><%= @policy.code %></dd>
-      <dt class="col-sm-3"><%= t '.status' %>:</dt>
-      <dd class="col-sm-9"><%= I18n.translate(@policy.status) %></dd>
-      <dt class="col-sm-3"><%= t '.purchase_date' %>:</dt>
-      <dd class="col-sm-9"><%= @policy.purchase_date %></dd>
-      <dt class="col-sm-3"><%= t '.policy_period' %>:</dt>
-      <dd class="col-sm-9"><%= @policy.policy_period %> <%= t '.months' %></dd>
-      <dt class="col-sm-3"><%= t '.expiration_date' %>:</dt>
-      <dd class="col-sm-9"><%= @policy.expiration_date %></dd>
-      <dt class="col-sm-3"><%= t '.insurance_company_id' %>:</dt>
-      <dd class="col-sm-9"><%= @order.insurance_name %></dd>
-      <dt class="col-sm-3"><%= t '.package_id' %>:</dt>
-      <dd class="col-sm-9"><%= @order.package_name %></dd>
-      <dt class="col-sm-3"><%= t '.equipment_id' %>:</dt>
-      <dd class="col-sm-9"><%= @order.equipment.name %></dd>
-    </dl>
+<% if @orders.any? %>
+ <h1 class="display-6">Minhas Apólices</h1>
+  <hr/>
+  <% @orders.each do |order| %>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= link_to order.equipment.name, order_policy_path(:order_id => order.id, :id => order.policy_id) %></h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%="#{Order.human_attribute_name(:insurance_name)}: #{order.insurance_name}"%></li>
+      <li class="list-group-item"><%="#{Order.human_attribute_name(:package_name)}: #{order.package_name}"%></li>
+      <li class="list-group-item"><%="#{Order.human_attribute_name(:status)}: #{I18n.t(order.status)}"%></li>
+    </ul>
   </div>
-    <p><strong>Apólice:</strong>
-    <%= link_to url_for(@policy.file_url), class: 'card-link' do %>
-      <i class="bi bi-file-pdf"></i> Download
-    <% end %>
-  </div>
-  <div>
-    <%= button_to 'Cancelar Apólice', cancel_policy_order_policy_path(@policy.order_id, @policy.code), class: 'btn btn-dark mt-3'%>
-  </div>
+  <% end %>
+<% else %>
+  <h1 class="display-6">Nenhuma apólice encontrada.</h1>
 <% end %>
