@@ -20,10 +20,13 @@
       <p class="card-text"><%=Payment.human_attribute_name(:parcels)%>: <%=@order.payment.parcels%>x</p>
     <% end %>
     <p class="card-text"> <%= Order.human_attribute_name(:status) %>: <%= Order.human_attribute_name("status.#{@order.status}")%></p>
+  </div>
+    <div style="width: 20rem;">
     <% @order.equipment.photos.each do |photo| %>
       <%= image_tag photo, class:"card-img-top" %>
       <% break %>
     <% end %>
+    </div>
     <% if @order.insurance_approved? %>
       <%= link_to t(:pay), new_order_payment_path(@order), class: 'btn btn-warning'%>
     <% end %>
