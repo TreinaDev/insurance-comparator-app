@@ -10,6 +10,12 @@ describe 'Cliente vê apólice' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
+
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
+
     insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
                               insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
                               product_model: 'iphone 11', product_model_id: 1,
@@ -58,6 +64,10 @@ describe 'Cliente vê apólice' do
                                   invoice: fixture_file_upload('spec/support/invoice.png'),
                                   photos: [fixture_file_upload('spec/support/photo_1.png'),
                                            fixture_file_upload('spec/support/photo_2.jpg')])
+    json_data = Rails.root.join('spec/support/json/product_categories.json').read
+    fake_response1 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['insurance_api']}/product_categories")
+                                   .and_return(fake_response1)
     insurance = Insurance.new(id: 13, name: 'Premium', max_period: 24, min_period: 6, insurance_company_id: 1,
                               insurance_name: 'Seguradora 45', price_per_month: 175.00, product_category_id: 1,
                               product_model: 'iphone 11', product_model_id: 1,
